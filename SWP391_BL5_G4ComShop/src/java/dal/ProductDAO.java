@@ -21,35 +21,35 @@ import java.util.logging.Logger;
 public class ProductDAO extends DBContext {
 
     public List<Product> getAllProduct(String query) {
-        if(query == null || query.equals("")){
-            query = "SELECT [id], [name] FROM [G4COMShop].[dbo].[Product]";
+        if (query == null || query.equals("")) {
+            query = "SELECT [id], [name], [description], [status], [originprice],"
+                    + " [saleprice], [image], [categoryid], [capacity], [size], [color], [quantity] "
+                    + "FROM [G4COMShop].[dbo].[Product]";
         }
         List<Product> products = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Product p = new Product();
-                p.setId(rs.getInt("id")) ;
+                p.setId(rs.getInt("id"));
                 p.setName(rs.getString("name"));
-//                String description;
-//                String status;
-//                double originPrice;
-//                double salePrice;
-//                String image;
-//                int categoryId;
-//                double capacity;
-//                double size;
-//                String color;
-//                int cpuId;
-//                int cardId;
-//                int ramId;
-//                int typeId;
-//                int quantity;
+                p.setDescription(rs.getString("description"));
+                p.setStatus(rs.getInt("status"));
+                p.setOriginPrice(rs.getDouble("originprice"));
+                p.setSalePrice(rs.getDouble("saleprice"));
+                p.setImage(rs.getString("image"));
+                p.setImage(rs.getString("image"));
+                p.setCategoryId(rs.getInt("categoryid"));
+                p.setCapacity(rs.getDouble("capacity"));
+                p.setSize(rs.getDouble("size"));
+                p.setColor(rs.getString("color"));
+                p.setQuantity(rs.getInt("quantity"));
+
                 products.add(p);
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return products;
     }
 

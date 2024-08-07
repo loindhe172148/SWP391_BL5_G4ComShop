@@ -12,7 +12,7 @@ public class Product {
     int id;
     String name;
     String description;
-    String status;
+    int status;
     double originPrice;
     double salePrice;
     String image;
@@ -29,7 +29,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String description, String status, double originPrice, double salePrice, String image, int categoryId, double capacity, double size, String color, int cpuId, int cardId, int ramId, int typeId, int quantity) {
+    public Product(int id, String name, String description, int status, double originPrice, double salePrice, String image, int categoryId, double capacity, double size, String color, int cpuId, int cardId, int ramId, int typeId, int quantity) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -175,4 +175,6 @@ public class Product {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    
 }
