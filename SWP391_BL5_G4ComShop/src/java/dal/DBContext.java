@@ -27,12 +27,17 @@ public class DBContext {
         //where StudentDBContext is located in dal package, 
         try {
             String user = "sa";
-            String pass = "1234";
+            String pass = "123456";
             String url = "jdbc:sqlserver://localhost:1433;databaseName=G4COMShop;encrypt=true;TrustServerCertificate=True";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
+            System.out.println("thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println("that bai");
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public static void main(String[] args) {
+        new DBContext();
     }
 }
