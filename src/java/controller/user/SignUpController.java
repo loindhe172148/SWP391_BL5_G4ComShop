@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.user;
 
 import dal.AccountDBContext;
@@ -17,10 +13,6 @@ import java.util.ArrayList;
 import entity.Account;
 import entity.User;
 
-/**
- *
- * @author Admin
- */
 public class SignUpController extends HttpServlet {
 
     /**
@@ -79,9 +71,10 @@ public class SignUpController extends HttpServlet {
         String status = (String) request.getSession().getAttribute("status");
         AccountDBContext adc = new AccountDBContext();
         UserDBContext udc = new UserDBContext();
-        MentorDBContext mdc = new MentorDBContext();
+        
         try {
             if (status == null) {
+                // Collecting form data
                 String fullname = request.getParameter("name");
                 String email = request.getParameter("email");
                 String username = request.getParameter("username");
@@ -91,12 +84,16 @@ public class SignUpController extends HttpServlet {
                 String dob = request.getParameter("dob");
                 String gender = request.getParameter("gender");
                 String role = request.getParameter("role");
-                Account a = adc.checkAccountExist(username, email);
-                if (a != null) {
-                    request.setAttribute("err", "Username or email are existed. Please try again!");
+
+                // Check if account already exists
+                Account existingAccount = adc.checkAccountExist(username, email);
+                if (existingAccount != null) {
+                    request.setAttribute("err", "Username or email already exists. Please try again!");
                     request.getRequestDispatcher("WEB-INF/view/user/signup.jsp").forward(request, response);
                     return;
                 }
+
+                // Store form data in session
                 session.setAttribute("name", fullname);
                 session.setAttribute("username", username);
                 session.setAttribute("pass", password);
@@ -105,64 +102,55 @@ public class SignUpController extends HttpServlet {
                 session.setAttribute("dob", dob);
                 session.setAttribute("gender", gender);
                 session.setAttribute("role", role);
-                request.getSession().setAttribute("email", email);
+                session.setAttribute("email", email);
+
+                // Redirect to verification page
                 response.sendRedirect("verify");
             } else {
+                // Retrieve data from session
                 String name = (String) session.getAttribute("name");
                 String username = (String) session.getAttribute("username");
                 String password = (String) session.getAttribute("pass");
                 String phone = (String) session.getAttribute("phone");
-                String addess = (String) session.getAttribute("address");
+                String address = (String) session.getAttribute("address");
                 String dob = (String) session.getAttribute("dob");
                 String gender = (String) session.getAttribute("gender");
                 String email = (String) session.getAttribute("email");
                 String role = (String) session.getAttribute("role");
+
+                // Create and save new account
                 Account newAcc = new Account();
                 ArrayList<Account> accounts = adc.listAll();
                 int accountSize = accounts.size() + 1;
                 newAcc.setId(accountSize);
                 newAcc.setUsername(username);
-                newAcc.setEmail(email);
                 newAcc.setPassword(password);
-                newAcc.setStatus(true);
-                if (role.equals("Mentee")) {
-                    ArrayList<User> mentees = udc.listAll();
-                    User newMen = new User();
-                    int userSize = mentees.size() + 1;
-                    newMen.setId(userSize);
-                    newMen.setName(name);
-                    newMen.setGender("Male".equals(gender));
-                    newMen.setPhone(phone);
-                    newMen.setAddress(addess);
-                    newMen.setDateOfBirth(java.sql.Date.valueOf(dob));
-                    newMen.setAccount(newAcc);
-                    newAcc.setRole(role);
-                    adc.insert(newAcc);
-                    udc.insert(newMen);
-                }else{
-                    newAcc.setRole(role);
-                    ArrayList<Mentor> mentors = mdc.listAll();
-                    int mentorSize = mentors.size() + 1;
-                    Mentor newMentor = new Mentor();
-                    newMentor.setId(mentorSize);
-                    newMentor.setName(name);
-                    newMentor.setGender("Male".equals(gender));
-                    newMentor.setPhone(phone);
-                    newMentor.setAddress(addess);
-                    newMentor.setDateOfBirth(java.sql.Date.valueOf(dob));
-                    newMentor.setStatus(false);
-                    newMentor.setAccount(newAcc);
-                    adc.insert(newAcc);
-                    mdc.insertDefault(newMentor);
-                }
+                newAcc.setRole(role);
+
+                // Create and save new user
+                User newUser = new User();
+                ArrayList<User> users = udc.listAll();
+                int userSize = users.size() + 1;
+                newUser.setId(userSize);
+                newUser.setName(name);
+                newUser.setGender("Male".equals(gender));
+                newUser.setPhone(phone);
+                newUser.setAddress(address);
+                newUser.setBod(java.sql.Date.valueOf(dob));
+                newUser.setAccount(newAcc);
+
+                // Insert into database
+                adc.insert(newAcc);
+                udc.insert(newUser);
+
+                // Clean up session and redirect to login page
                 session.removeAttribute("status");
-                request.setAttribute("success", "Sign up sucessfully! You can login to our system");
+                request.setAttribute("success", "Sign up successfully! You can log in to our system.");
                 request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
             }
         } catch (ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occured. Please try again later!");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later!");
         }
-
     }
 
     /**
@@ -172,7 +160,6 @@ public class SignUpController extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Sign up controller for handling user registrations.";
+    }
 }
