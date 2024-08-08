@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author xuant
  */
 public class ConnectDB {
-    protected Connection connection;
+    protected Connection conn;
     public ConnectDB()
     {
         //@Students: You are allowed to edit user, pass, url variables to fit 
@@ -29,7 +29,7 @@ public class ConnectDB {
             String pass = "123456";
             String url = "jdbc:sqlserver://localhost:1433;databaseName=G4COMShop;encrypt=true;TrustServerCertificate=True";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(url, user, pass);
+            conn = DriverManager.getConnection(url, user, pass);
             System.out.println("thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("that bai");

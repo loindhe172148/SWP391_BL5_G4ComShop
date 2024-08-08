@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author xuant
  */
-public class ProductDAO extends DBContext {
+public class ProductDAO extends ConnectDB {
 
     public List<Product> getAllProduct(String query) {
         if (query == null || query.equals("")) {
@@ -27,7 +26,7 @@ public class ProductDAO extends DBContext {
                     + "FROM [G4COMShop].[dbo].[Product]";
         }
         List<Product> products = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Product p = new Product();
                 p.setId(rs.getInt("id"));
