@@ -12,7 +12,7 @@ public class Account {
     private int id;
     private String username;
     private String password;
-    private int role;
+    private String role;
 
     public int getId() {
         return id;
@@ -38,12 +38,11 @@ public class Account {
         this.password = password;
     }
 
-    public int getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         this.role = role;
     }
-    
 }
