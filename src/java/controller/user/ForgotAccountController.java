@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import entity.Account;
+import java.io.IOException;
 import util.EmailService;
-import util.Util;
 
 @WebServlet(name = "ForgotAccountController", urlPatterns = {"/forgot"})
 public class ForgotAccountController extends HttpServlet {
@@ -18,7 +18,7 @@ public class ForgotAccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the forgot password view
-        request.getRequestDispatcher("WEB-INF/view/forgotpassword.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/view/user/forgotpassword.jsp").forward(request, response);
     }
 
     @Override
@@ -27,37 +27,37 @@ public class ForgotAccountController extends HttpServlet {
         AccountDBContext adc = new AccountDBContext();
         EmailService emailService = new EmailService();
         
-        try {
-            String username = request.getParameter("username");
-            String email = request.getParameter("email");
-            HttpSession session = request.getSession();
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
 
+        try {
             // Retrieve account by username and email
             Account account = adc.getAccountByUsernameAndEmail(username, email);
 
             if (account == null) {
                 // If account is not found, set an error message and forward to the forgot password view
                 request.setAttribute("err", "Unable to find your account! Please try again.");
-                request.getRequestDispatcher("WEB-INF/view/forgotpassword.jsp").forward(request, response);
+                request.getRequestDispatcher("WEB-INF/view/user/forgotpassword.jsp").forward(request, response);
                 return;
             }
 
             // Generate a new default password
             String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
-            String newDefaultPass = Util.generatePassword(str, 8);
+            String newDefaultPass = EmailService.generatePassword(str, 8);
             String emailText = "Your default password is: " + newDefaultPass + ". Please use this password to log in and change it immediately.";
 
             // Send email with the default password
             emailService.sendEmail(email, "Your Default Password", emailText);
 
             // Set the default password and other session attributes
+            HttpSession session = request.getSession();
             session.setAttribute("defaultPass", newDefaultPass);
             session.setMaxInactiveInterval(60); // 1 minute session timeout
             session.setAttribute("email", email);
             session.setAttribute("username", username);
 
             // Forward to the default password view
-            request.getRequestDispatcher("WEB-INF/view/defaultpass.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
 
         } catch (Exception e) {
             // Log the error and send a server error response

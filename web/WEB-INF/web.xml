@@ -4,5 +4,103 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
 	 version="6.0">
+<!-- LoginController -->
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>controller.user.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
 
+    <!-- LogoutController -->
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.user.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- ProfileController -->
+    <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>controller.user.ProfileController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+
+    <!-- ResetPasswordController -->
+    <servlet>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <servlet-class>controller.user.ResetPasswordController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordController</servlet-name>
+        <url-pattern>/resetpassword</url-pattern>
+    </servlet-mapping>
+
+    <!-- SignUpController -->
+    <servlet>
+        <servlet-name>SignUpController</servlet-name>
+        <servlet-class>controller.user.SignUpController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpController</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+
+    <!-- VerifyAccount -->
+    <servlet>
+        <servlet-name>VerifyAccount</servlet-name>
+        <servlet-class>controller.user.VerifyAccount</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VerifyAccount</servlet-name>
+        <url-pattern>/verify</url-pattern>
+    </servlet-mapping>
+
+    <!-- DefaultController -->
+    <servlet>
+        <servlet-name>DefaultController</servlet-name>
+        <servlet-class>controller.user.DefaultController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DefaultController</servlet-name>
+        <url-pattern>/default</url-pattern>
+    </servlet-mapping>
+
+    <!-- ForgotPasswordController -->
+    <servlet>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <servlet-class>controller.user.ForgotPasswordController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordController</servlet-name>
+        <url-pattern>/forgotpassword</url-pattern>
+    </servlet-mapping>
+
+    <!-- ChangePasswordController -->
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>controller.user.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
+    </servlet-mapping>
+
+    <!-- HomeController -->
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>controller.user.HomeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
 </web-app>

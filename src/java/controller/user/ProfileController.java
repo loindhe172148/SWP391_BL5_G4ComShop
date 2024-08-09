@@ -24,6 +24,7 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Forward to the profile page view
         request.getRequestDispatcher("WEB-INF/view/user/profile.jsp").forward(request, response);
     }
 
@@ -34,10 +35,12 @@ public class ProfileController extends HttpServlet {
             AccountDBContext adc = new AccountDBContext();
             UserDBContext udc = new UserDBContext();
             
+            // Retrieve the file part for the avatar
             Part filePart = request.getPart("avatar");
             Account account = (Account) request.getSession().getAttribute("account");
             User user = (User) request.getSession().getAttribute("user");
             
+            // Retrieve updated information from the form
             String username = request.getParameter("username");
             String fullname = request.getParameter("name");
             String gender = request.getParameter("gender");
@@ -62,6 +65,7 @@ public class ProfileController extends HttpServlet {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 String fileType = filePart.getContentType();
                 
+                // Validate file type
                 if ("image/jpeg".equals(fileType) || "image/png".equals(fileType)) {
                     String uploadDir = getServletContext().getRealPath("/resources/uploads");
                     File uploadDirFile = new File(uploadDir);
@@ -72,10 +76,12 @@ public class ProfileController extends HttpServlet {
                     Files.copy(filePart.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
                     updateUser.setAva(fileName);
                 } else {
+                    // Set initial image if file type is not valid
                     String initialImage = request.getParameter("image-initiate");
                     updateUser.setAva(initialImage);
                 }
             } else {
+                // No new file uploaded, retain initial image
                 String initialImage = request.getParameter("image-initiate");
                 updateUser.setAva(initialImage);
             }
@@ -88,7 +94,7 @@ public class ProfileController extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/view/user/profile.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later!");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later.");
         }
     }
 

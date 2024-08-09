@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.user;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +16,7 @@ public class DefaultPassController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the default password view
-        request.getRequestDispatcher("WEB-INF/view/defaultpass.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
     }
 
     @Override
@@ -33,13 +28,20 @@ public class DefaultPassController extends HttpServlet {
         String verifyPass = request.getParameter("de-pass");
 
         // Check if the entered password matches the default password
-        if (defaultPassword == null || !verifyPass.equals(defaultPassword)) {
+        if (defaultPassword == null) {
+            // If no default password is set, set an error message and forward to the view
+            request.setAttribute("err", "Default password is not set. Please contact support.");
+            request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
+            return;
+        }
+
+        if (verifyPass == null || !verifyPass.equals(defaultPassword)) {
             // If the password is incorrect, set an error message and forward to the view
             request.setAttribute("err", "Default password isn't correct. Please try again!");
-            request.getRequestDispatcher("WEB-INF/view/defaultpass.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
         } else {
             // If the password is correct, forward to the reset password view
-            request.getRequestDispatcher("WEB-INF/view/resetpass.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/view/user/resetpass.jsp").forward(request, response);
         }
     }
 

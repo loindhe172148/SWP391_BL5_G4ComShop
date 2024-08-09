@@ -2,77 +2,38 @@ package controller.user;
 
 import dal.AccountDBContext;
 import dal.UserDBContext;
-import java.io.IOException;
-import java.io.PrintWriter;
+import entity.Account;
+import entity.User;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import entity.Account;
-import entity.User;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+@WebServlet(name = "SignUpController", urlPatterns = {"/signup"})
 public class SignUpController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SignUpController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SignUpController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        // Forward to the signup page
         request.getRequestDispatcher("WEB-INF/view/user/signup.jsp").forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String status = (String) request.getSession().getAttribute("status");
         AccountDBContext adc = new AccountDBContext();
         UserDBContext udc = new UserDBContext();
         
         try {
+            String status = (String) session.getAttribute("status");
+
             if (status == null) {
                 // Collecting form data
                 String fullname = request.getParameter("name");
@@ -120,27 +81,19 @@ public class SignUpController extends HttpServlet {
 
                 // Create and save new account
                 Account newAcc = new Account();
-                ArrayList<Account> accounts = adc.listAll();
-                int accountSize = accounts.size() + 1;
-                newAcc.setId(accountSize);
                 newAcc.setUsername(username);
                 newAcc.setPassword(password);
                 newAcc.setRole(role);
+                adc.insert(newAcc);
 
                 // Create and save new user
                 User newUser = new User();
-                ArrayList<User> users = udc.listAll();
-                int userSize = users.size() + 1;
-                newUser.setId(userSize);
                 newUser.setName(name);
                 newUser.setGender("Male".equals(gender));
                 newUser.setPhone(phone);
                 newUser.setAddress(address);
                 newUser.setBod(java.sql.Date.valueOf(dob));
                 newUser.setAccount(newAcc);
-
-                // Insert into database
-                adc.insert(newAcc);
                 udc.insert(newUser);
 
                 // Clean up session and redirect to login page
@@ -148,18 +101,14 @@ public class SignUpController extends HttpServlet {
                 request.setAttribute("success", "Sign up successfully! You can log in to our system.");
                 request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
             }
-        } catch (ServletException | IOException e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later!");
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request. Please try again later.");
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Sign up controller for handling user registrations.";
+        return "Handles user sign up requests.";
     }
 }
