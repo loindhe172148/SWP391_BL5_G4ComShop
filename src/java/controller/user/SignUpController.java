@@ -29,7 +29,7 @@ public class SignUpController extends HttpServlet {
         // Forward to the signup page
         request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
     }
-private final EmailService emailService = new EmailService();
+    private final EmailService emailService = new EmailService();
     private Map<String, String> verificationCodes = new HashMap<>();
 
     /**
@@ -45,14 +45,18 @@ private final EmailService emailService = new EmailService();
             getServletContext().setAttribute("verificationCodes", verificationCodes);
         }
     }
+
     private String generateVerificationCode() {
         Random random = new Random();
         int code = random.nextInt(999999);
         return String.format("%06d", code);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String code = generateVerificationCode();
+
         HttpSession session = request.getSession();
         AccountDBContext adc = new AccountDBContext();
         UserDBContext udc = new UserDBContext();
@@ -71,11 +75,11 @@ private final EmailService emailService = new EmailService();
                 String dob = request.getParameter("dob");
                 String gender = request.getParameter("gender");
                 String role = request.getParameter("role");
-
+                verificationCodes.put(email, code);
                 // Validate form data
-                if (fullname == null || email == null || username == null || password == null || 
-                    phone == null || address == null || dob == null || gender == null || role == null ||
-                    fullname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                if (fullname == null || email == null || username == null || password == null
+                        || phone == null || address == null || dob == null || gender == null || role == null
+                        || fullname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
                     request.setAttribute("err", "All fields are required.");
                     request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
                     return;
@@ -88,7 +92,12 @@ private final EmailService emailService = new EmailService();
                     request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
                     return;
                 }
-
+                emailService.sendEmail(email, "Account Verification",
+                        """
+                            Dear user,
+                        Thank you for registering. Here is your verify code:
+                                    
+                                    """ + code + "\n");
                 // Hash the password before storing
                 String hashedPassword = hashPassword(password);
 
