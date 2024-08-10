@@ -12,8 +12,8 @@ public class EmailService {
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
 
     // Đọc từ biến môi trường hoặc tệp cấu hình
-    private final String username = System.getenv("EMAIL_USERNAME");
-    private final String password = System.getenv("EMAIL_PASSWORD");
+    private final String username = System.getenv("hieudnmhe171083@fpt.edu.vn");
+    private final String password = System.getenv("fmax pfao tlms zlet");
     private final String host = "smtp.gmail.com";
     private final int port = 587;
 

@@ -14,8 +14,13 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import util.EmailService;
 
 @WebServlet(name = "SignUpController", urlPatterns = {"/signup"})
+
 public class SignUpController extends HttpServlet {
 
     @Override
@@ -24,7 +29,27 @@ public class SignUpController extends HttpServlet {
         // Forward to the signup page
         request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
     }
+private final EmailService emailService = new EmailService();
+    private Map<String, String> verificationCodes = new HashMap<>();
 
+    /**
+     *
+     * @throws ServletException
+     */
+    @Override
+    public void init() throws ServletException {
+        // Initialize the verification codes map
+        verificationCodes = (HashMap<String, String>) getServletContext().getAttribute("verificationCodes");
+        if (verificationCodes == null) {
+            verificationCodes = new HashMap<>();
+            getServletContext().setAttribute("verificationCodes", verificationCodes);
+        }
+    }
+    private String generateVerificationCode() {
+        Random random = new Random();
+        int code = random.nextInt(999999);
+        return String.format("%06d", code);
+    }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

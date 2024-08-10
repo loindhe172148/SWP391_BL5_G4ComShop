@@ -14,7 +14,6 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Handles password reset requests.
  */
-@WebServlet(name = "ResetPasswordController", urlPatterns = {"/reset-password"})
 public class ResetPasswordController extends HttpServlet {
 
     @Override
