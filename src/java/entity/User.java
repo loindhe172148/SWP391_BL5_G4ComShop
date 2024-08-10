@@ -1,27 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entity;
 
 import java.util.Date;
 
-/**
- *
- * @author HP
- */
 public class User {
     private int id;
-    private String gmail;
-    private Date bod;
+    private String email;
+    private Date dob; // Chỉnh sửa từ bod thành dob
     private String address;
-    private boolean gender;
+    private Boolean gender; // Sử dụng Boolean thay vì boolean nếu cần xử lý giá trị null
     private String phone;
-    private boolean status;
+    private Boolean status; // Sử dụng Boolean thay vì boolean nếu cần xử lý giá trị null
     private Account account;
     private String ava;
     private String name;
 
+    // Getters và Setters
     public String getName() {
         return name;
     }
@@ -54,20 +47,20 @@ public class User {
         this.id = id;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email; // Chỉnh sửa từ gmail thành email
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Date getBod() {
-        return bod;
+    public Date getDob() {
+        return dob; // Chỉnh sửa từ bod thành dob
     }
 
-    public void setBod(Date bod) {
-        this.bod = bod;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public String getAddress() {
@@ -78,11 +71,11 @@ public class User {
         this.address = address;
     }
 
-    public boolean isGender() {
+    public Boolean isGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
@@ -94,12 +87,53 @@ public class User {
         this.phone = phone;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
-    
+}
+
+package entity;
+
+public class Account {
+    private int id;
+    private String username;
+    private String password;
+    private String role;
+
+    // Getters và Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 }

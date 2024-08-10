@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Handles password reset requests.
@@ -25,17 +27,20 @@ public class ResetPasswordController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        AccountDBContext adc = new AccountDBContext();
+        
         try {
-            AccountDBContext adc = new AccountDBContext();
-            
             // Retrieve the username and new password from the request
             String username = (String) request.getSession().getAttribute("username");
             String password = request.getParameter("pass");
             
             // Check if username and password are provided
             if (username != null && password != null && !password.trim().isEmpty()) {
+                // Hash the new password before updating
+                String hashedPassword = hashPassword(password);
+
                 // Update the password in the database
-                adc.updatePasswordByUsername(password, username);
+                adc.updatePasswordByUsername(hashedPassword, username);
 
                 // Invalidate the session to log out the user
                 request.getSession().invalidate();
@@ -54,6 +59,16 @@ public class ResetPasswordController extends HttpServlet {
             e.printStackTrace(); // Log the exception
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while resetting the password. Please try again later.");
         }
+    }
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashedBytes = md.digest(password.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashedBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 
     @Override

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
 import java.util.List;
 import entity.Account;
 import java.sql.PreparedStatement;

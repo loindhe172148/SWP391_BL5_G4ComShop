@@ -7,8 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author Admin
+ * Servlet for verifying default password and redirecting accordingly.
+ * 
+ * @version 1.0
  */
 public class DefaultPassController extends HttpServlet {
 
@@ -27,16 +28,15 @@ public class DefaultPassController extends HttpServlet {
         // Retrieve the password entered by the user
         String verifyPass = request.getParameter("de-pass");
 
-        // Check if the entered password matches the default password
+        // Check if the default password is not set
         if (defaultPassword == null) {
-            // If no default password is set, set an error message and forward to the view
             request.setAttribute("err", "Default password is not set. Please contact support.");
             request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
             return;
         }
 
+        // Check if the entered password matches the default password
         if (verifyPass == null || !verifyPass.equals(defaultPassword)) {
-            // If the password is incorrect, set an error message and forward to the view
             request.setAttribute("err", "Default password isn't correct. Please try again!");
             request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
         } else {

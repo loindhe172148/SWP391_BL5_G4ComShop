@@ -11,6 +11,11 @@ import entity.Account;
 import java.io.IOException;
 import util.EmailService;
 
+/**
+ * Servlet for handling forgot password requests and sending a default password to the user.
+ * 
+ * @version 1.0
+ */
 @WebServlet(name = "ForgotAccountController", urlPatterns = {"/forgot"})
 public class ForgotAccountController extends HttpServlet {
 
@@ -42,8 +47,7 @@ public class ForgotAccountController extends HttpServlet {
             }
 
             // Generate a new default password
-            String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
-            String newDefaultPass = EmailService.generatePassword(str, 8);
+            String newDefaultPass = generateRandomPassword();
             String emailText = "Your default password is: " + newDefaultPass + ". Please use this password to log in and change it immediately.";
 
             // Send email with the default password
@@ -69,5 +73,15 @@ public class ForgotAccountController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Handles forgot password requests and sends a default password to the user.";
+    }
+    
+    /**
+     * Generates a random password using specified characters.
+     * 
+     * @return a randomly generated password
+     */
+    private String generateRandomPassword() {
+        String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*";
+        return EmailService.generatePassword(str, 8);
     }
 }

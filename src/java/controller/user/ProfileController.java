@@ -56,7 +56,7 @@ public class ProfileController extends HttpServlet {
             User updateUser = new User();
             updateUser.setName(fullname);
             updateUser.setGender("Male".equals(gender));
-            updateUser.setBod(java.sql.Date.valueOf(dob));
+            updateUser.setDob(java.sql.Date.valueOf(dob));
             updateUser.setAddress(address);
             updateUser.setAccount(account);
 

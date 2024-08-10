@@ -11,12 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-/**
- *
- * @author HP
- */
 import java.sql.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class UserDBContext extends DBContext<User> {
@@ -31,8 +27,8 @@ public class UserDBContext extends DBContext<User> {
             while (rs.next()) {
                 User m = new User();
                 m.setId(rs.getInt("id"));
-                m.setGmail(rs.getString("gmail"));
-                m.setBod(rs.getDate("dob"));
+                m.setEmail(rs.getString("gmail"));
+                m.setDob(rs.getDate("dob"));
                 m.setAddress(rs.getString("address"));
                 m.setGender(rs.getBoolean("gender"));
                 m.setPhone(rs.getString("phone"));
@@ -60,11 +56,11 @@ public class UserDBContext extends DBContext<User> {
             ps.setInt(2, entity.getAccount().getId());
             ps.setString(3, entity.getAva());
             ps.setString(4, entity.getName());
-            ps.setString(5, entity.getGmail());
+            ps.setString(5, entity.getEmail());
             ps.setString(6, entity.getAddress());
             ps.setBoolean(7, entity.isGender());
             ps.setString(8, entity.getPhone());
-            ps.setDate(9, new java.sql.Date(entity.getBod().getTime()));
+            ps.setDate(9, new java.sql.Date(entity.getDob().getTime()));
             ps.setBoolean(10, entity.isStatus());
             ps.executeUpdate();
             connection.commit();
@@ -96,11 +92,11 @@ public class UserDBContext extends DBContext<User> {
             ps.setInt(1, entity.getAccount().getId());
             ps.setString(2, entity.getAva());
             ps.setString(3, entity.getName());
-            ps.setString(4, entity.getGmail());
+            ps.setString(4, entity.getEmail());
             ps.setString(5, entity.getAddress());
             ps.setBoolean(6, entity.isGender());
             ps.setString(7, entity.getPhone());
-            ps.setDate(8, new java.sql.Date(entity.getBod().getTime()));
+            ps.setDate(8, new java.sql.Date(entity.getDob().getTime()));
             ps.setBoolean(9, entity.isStatus());
             ps.setInt(10, id);
             ps.executeUpdate();
@@ -138,8 +134,8 @@ public class UserDBContext extends DBContext<User> {
                 account.setRole(rs.getString("role"));
                 User user = new User();
                 user.setId(rs.getInt("id"));
-                user.setGmail(rs.getString("gmail"));
-                user.setBod(rs.getDate("dob"));
+                user.setEmail(rs.getString("gmail"));
+                user.setDob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 user.setGender(rs.getBoolean("gender"));
                 user.setPhone(rs.getString("phone"));

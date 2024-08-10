@@ -10,9 +10,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.util.ArrayList;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 
 @WebServlet(name = "SignUpController", urlPatterns = {"/signup"})
 public class SignUpController extends HttpServlet {
@@ -30,7 +31,7 @@ public class SignUpController extends HttpServlet {
         HttpSession session = request.getSession();
         AccountDBContext adc = new AccountDBContext();
         UserDBContext udc = new UserDBContext();
-        
+
         try {
             String status = (String) session.getAttribute("status");
 
@@ -46,6 +47,15 @@ public class SignUpController extends HttpServlet {
                 String gender = request.getParameter("gender");
                 String role = request.getParameter("role");
 
+                // Validate form data
+                if (fullname == null || email == null || username == null || password == null || 
+                    phone == null || address == null || dob == null || gender == null || role == null ||
+                    fullname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                    request.setAttribute("err", "All fields are required.");
+                    request.getRequestDispatcher("WEB-INF/view/user/signup.jsp").forward(request, response);
+                    return;
+                }
+
                 // Check if account already exists
                 Account existingAccount = adc.checkAccountExist(username, email);
                 if (existingAccount != null) {
@@ -54,10 +64,13 @@ public class SignUpController extends HttpServlet {
                     return;
                 }
 
+                // Hash the password before storing
+                String hashedPassword = hashPassword(password);
+
                 // Store form data in session
                 session.setAttribute("name", fullname);
                 session.setAttribute("username", username);
-                session.setAttribute("pass", password);
+                session.setAttribute("pass", hashedPassword);
                 session.setAttribute("phone", phone);
                 session.setAttribute("address", address);
                 session.setAttribute("dob", dob);
@@ -82,7 +95,7 @@ public class SignUpController extends HttpServlet {
                 // Create and save new account
                 Account newAcc = new Account();
                 newAcc.setUsername(username);
-                newAcc.setPassword(password);
+                newAcc.setPassword(password); // Already hashed
                 newAcc.setRole(role);
                 adc.insert(newAcc);
 
@@ -92,7 +105,7 @@ public class SignUpController extends HttpServlet {
                 newUser.setGender("Male".equals(gender));
                 newUser.setPhone(phone);
                 newUser.setAddress(address);
-                newUser.setBod(java.sql.Date.valueOf(dob));
+                newUser.setDob(Date.valueOf(dob));
                 newUser.setAccount(newAcc);
                 udc.insert(newUser);
 
@@ -105,6 +118,16 @@ public class SignUpController extends HttpServlet {
             e.printStackTrace(); // Log the exception
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request. Please try again later.");
         }
+    }
+
+    private String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hashedBytes = md.digest(password.getBytes());
+        StringBuilder sb = new StringBuilder();
+        for (byte b : hashedBytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 
     @Override

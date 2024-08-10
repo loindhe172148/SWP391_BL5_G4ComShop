@@ -24,12 +24,13 @@ public class VerifyAccount extends HttpServlet {
         }
 
         // Generate a random passcode
-        String str = "0123456789";
-        String passcode = EmailService.generatePassword(str, 6);
+        String passcode = EmailService.generatePassword("0123456789", 6);
         
         // Send the passcode to the user's email
         EmailService emailService = new EmailService();
-        emailService.sendEmail(email, "Your passcode confirmation is: " + passcode, "Your passcode confirmation is: " + passcode);
+        String subject = "Your Passcode Confirmation";
+        String body = "Your passcode confirmation is: " + passcode;
+        emailService.sendEmail(email, subject, body);
         
         // Store passcode in session for validation later
         request.getSession().setAttribute("passcode", passcode);
@@ -42,29 +43,33 @@ public class VerifyAccount extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String passcode = (String) request.getSession().getAttribute("passcode");
-            String passconfirm = request.getParameter("passconfirm");
+            String sessionPasscode = (String) request.getSession().getAttribute("passcode");
+            String enteredPasscode = request.getParameter("passconfirm");
             
-            if (passcode == null) {
+            // Validate the passcode
+            if (sessionPasscode == null) {
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Passcode is missing. Please try again.");
                 return;
             }
             
-            if (!passconfirm.equals(passcode)) {
-                request.setAttribute("err", "Passcode doesn't match!");
+            if (enteredPasscode == null || !enteredPasscode.equals(sessionPasscode)) {
+                request.setAttribute("err", "Passcode does not match. Please try again.");
                 request.getRequestDispatcher("WEB-INF/view/user/verify.jsp").forward(request, response);
-            } else {
-                request.getSession().setAttribute("status", "confirm");
-                response.sendRedirect("register"); // Redirect to register page
+                return;
             }
+            
+            // Passcode is correct, update status and redirect to registration page
+            request.getSession().setAttribute("status", "confirm");
+            response.sendRedirect("register"); // Redirect to register page
+            
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later!");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later.");
         }
     }
 
     @Override
     public String getServletInfo() {
-        return "Servlet for verifying user accounts via email passcode.";
+        return "Handles user account verification via email passcode.";
     }
 }
