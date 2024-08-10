@@ -23,7 +23,7 @@ public class ForgotAccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the forgot password view
-        request.getRequestDispatcher("WEB-INF/view/user/forgotpassword.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/forgotpassword.jsp").forward(request, response);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ForgotAccountController extends HttpServlet {
             if (account == null) {
                 // If account is not found, set an error message and forward to the forgot password view
                 request.setAttribute("err", "Unable to find your account! Please try again.");
-                request.getRequestDispatcher("WEB-INF/view/user/forgotpassword.jsp").forward(request, response);
+                request.getRequestDispatcher("./view/user/forgotpassword.jsp").forward(request, response);
                 return;
             }
 
@@ -61,7 +61,7 @@ public class ForgotAccountController extends HttpServlet {
             session.setAttribute("username", username);
 
             // Forward to the default password view
-            request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/defaultpass.jsp").forward(request, response);
 
         } catch (Exception e) {
             // Log the error and send a server error response

@@ -25,7 +25,7 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the profile page view
-        request.getRequestDispatcher("WEB-INF/view/user/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/profile.jsp").forward(request, response);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ProfileController extends HttpServlet {
             request.getSession().setAttribute("user", updateUser);
             
             // Forward to Profile Page
-            request.getRequestDispatcher("WEB-INF/view/user/profile.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/profile.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later.");

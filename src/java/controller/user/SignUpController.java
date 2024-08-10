@@ -22,7 +22,7 @@ public class SignUpController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the signup page
-        request.getRequestDispatcher("WEB-INF/view/user/signup.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class SignUpController extends HttpServlet {
                     phone == null || address == null || dob == null || gender == null || role == null ||
                     fullname.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty()) {
                     request.setAttribute("err", "All fields are required.");
-                    request.getRequestDispatcher("WEB-INF/view/user/signup.jsp").forward(request, response);
+                    request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
                     return;
                 }
 
@@ -60,7 +60,7 @@ public class SignUpController extends HttpServlet {
                 Account existingAccount = adc.checkAccountExist(username, email);
                 if (existingAccount != null) {
                     request.setAttribute("err", "Username or email already exists. Please try again!");
-                    request.getRequestDispatcher("WEB-INF/view/user/signup.jsp").forward(request, response);
+                    request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
                     return;
                 }
 
@@ -112,7 +112,7 @@ public class SignUpController extends HttpServlet {
                 // Clean up session and redirect to login page
                 session.removeAttribute("status");
                 request.setAttribute("success", "Sign up successfully! You can log in to our system.");
-                request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+                request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception

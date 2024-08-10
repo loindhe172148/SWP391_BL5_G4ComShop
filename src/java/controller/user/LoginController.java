@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
         // Set attributes for the login form
         request.setAttribute("username", username);
         request.setAttribute("rememberMe", rememberMe);
-        request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
         // Basic input validation
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Username and password are required.");
-            request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
             return;
         }
 
@@ -63,7 +63,7 @@ public class LoginController extends HttpServlet {
         if (account == null) {
             // Invalid credentials
             request.setAttribute("error", "Invalid username or password. Please try again.");
-            request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
         } else {
             // Valid credentials
             // Set cookies if "Remember Me" is checked

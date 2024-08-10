@@ -20,7 +20,7 @@ public class ChangePasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/view/user/changepassword.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/changepassword.jsp").forward(request, response);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ChangePasswordController extends HttpServlet {
         if (username == null || oldPassword == null || newPassword == null ||
             username.isEmpty() || oldPassword.isEmpty() || newPassword.isEmpty()) {
             request.setAttribute("err", "All fields are required.");
-            request.getRequestDispatcher("WEB-INF/view/user/changepassword.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/changepassword.jsp").forward(request, response);
             return;
         }
 
@@ -53,7 +53,7 @@ public class ChangePasswordController extends HttpServlet {
             request.setAttribute("err", "An error occurred while changing the password.");
         }
 
-        request.getRequestDispatcher("WEB-INF/view/user/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/profile.jsp").forward(request, response);
     }
 
     @Override

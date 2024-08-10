@@ -36,7 +36,7 @@ public class VerifyAccount extends HttpServlet {
         request.getSession().setAttribute("passcode", passcode);
         
         // Forward to verification page
-        request.getRequestDispatcher("WEB-INF/view/user/verify.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class VerifyAccount extends HttpServlet {
             
             if (enteredPasscode == null || !enteredPasscode.equals(sessionPasscode)) {
                 request.setAttribute("err", "Passcode does not match. Please try again.");
-                request.getRequestDispatcher("WEB-INF/view/user/verify.jsp").forward(request, response);
+                request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
                 return;
             }
             
