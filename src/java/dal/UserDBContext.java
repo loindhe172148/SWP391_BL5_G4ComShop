@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class UserDBContext extends DBContext<User> {
 
     @Override
-    public ArrayList<User> listAll() {
+      public ArrayList<User> listAll() {
         ArrayList<User> users = new ArrayList<>();
         try {
             String sql = "SELECT * FROM [User]";
@@ -32,16 +32,17 @@ public class UserDBContext extends DBContext<User> {
                 User m = new User();
                 m.setId(rs.getInt("id"));
                 m.setGmail(rs.getString("gmail"));
-                m.setBod(rs.getDate("dob"));
+                m.setdob(rs.getDate("dob"));
                 m.setAddress(rs.getString("address"));
-                m.setGender(rs.getBoolean("gender"));
+                m.setGender(rs.getInt("gender") == 1); // Assuming gender 1 = Male, 0 = Female
                 m.setPhone(rs.getString("phone"));
-                m.setStatus(rs.getBoolean("status"));
-                m.setAva(rs.getString("ava"));
-                m.setName(rs.getString("name"));
+                m.setStatus(rs.getString("status").equalsIgnoreCase("active"));
+                // m.setAva(rs.getString("ava")); // Uncomment if the 'ava' column exists
+                // m.setName(rs.getString("name")); // Uncomment if the 'name' column exists
+                
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
-                m.setAccount(account);
+                m.setAccount(account);                  
                 users.add(m);
             }
         } catch (SQLException e) {
@@ -49,7 +50,6 @@ public class UserDBContext extends DBContext<User> {
         }
         return users;
     }
-
     @Override
     public void insert(User entity) {
         try {
@@ -64,7 +64,7 @@ public class UserDBContext extends DBContext<User> {
             ps.setString(6, entity.getAddress());
             ps.setBoolean(7, entity.isGender());
             ps.setString(8, entity.getPhone());
-            ps.setDate(9, new java.sql.Date(entity.getBod().getTime()));
+            ps.setDate(9, new java.sql.Date(entity.getDob().getTime()));
             ps.setBoolean(10, entity.isStatus());
             ps.executeUpdate();
             connection.commit();
@@ -100,7 +100,7 @@ public class UserDBContext extends DBContext<User> {
             ps.setString(5, entity.getAddress());
             ps.setBoolean(6, entity.isGender());
             ps.setString(7, entity.getPhone());
-            ps.setDate(8, new java.sql.Date(entity.getBod().getTime()));
+            ps.setDate(8, new java.sql.Date(entity.getDob().getTime()));
             ps.setBoolean(9, entity.isStatus());
             ps.setInt(10, id);
             ps.executeUpdate();
@@ -139,7 +139,7 @@ public class UserDBContext extends DBContext<User> {
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setGmail(rs.getString("gmail"));
-                user.setBod(rs.getDate("dob"));
+                user.setdob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 user.setGender(rs.getBoolean("gender"));
                 user.setPhone(rs.getString("phone"));
@@ -155,4 +155,3 @@ public class UserDBContext extends DBContext<User> {
         return null;
     }
 }
-

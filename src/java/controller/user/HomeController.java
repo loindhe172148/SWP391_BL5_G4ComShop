@@ -22,7 +22,7 @@ public class HomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the home view
-        request.getRequestDispatcher("WEB-INF/view/home.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/home.jsp").forward(request, response);
     }
 
     /**

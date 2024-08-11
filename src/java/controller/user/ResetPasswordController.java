@@ -19,7 +19,7 @@ public class ResetPasswordController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the password reset page
-        request.getRequestDispatcher("WEB-INF/view/resetpass.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/resetpass.jsp").forward(request, response);
     }
 
     @Override
@@ -44,11 +44,11 @@ public class ResetPasswordController extends HttpServlet {
                 request.setAttribute("reset_success", "Password reset successfully. You can now log in with your new password.");
                 
                 // Forward to the login page
-                request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+                request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
             } else {
                 // Handle the case where username or password is not provided
                 request.setAttribute("error", "Username or password is missing.");
-                request.getRequestDispatcher("WEB-INF/view/resetpass.jsp").forward(request, response);
+                request.getRequestDispatcher("./view/resetpass.jsp").forward(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception

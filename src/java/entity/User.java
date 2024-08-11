@@ -13,7 +13,7 @@ import java.util.Date;
 public class User {
     private int id;
     private String gmail;
-    private Date bod;
+    private Date dob;
     private String address;
     private boolean gender;
     private String phone;
@@ -62,13 +62,14 @@ public class User {
         this.gmail = gmail;
     }
 
-    public Date getBod() {
-        return bod;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setBod(Date bod) {
-        this.bod = bod;
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
+
 
     public String getAddress() {
         return address;
@@ -100,6 +101,10 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public void setdob(java.sql.Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

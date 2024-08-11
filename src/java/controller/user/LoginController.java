@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
         // Set attributes for the login form
         request.setAttribute("username", username);
         request.setAttribute("rememberMe", rememberMe);
-        request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
         if (account == null) {
             // Invalid credentials
             request.setAttribute("error", "Invalid username or password. Please try again.");
-            request.getRequestDispatcher("WEB-INF/view/user/login.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
         } else {
             // Valid credentials
             // Set cookies if "Remember Me" is checked
@@ -65,7 +65,6 @@ public class LoginController extends HttpServlet {
             int maxAge = (rememberMe != null && rememberMe.equals("on")) ? 3600 * 24 * 7 : 0; // 7 days or 0 for session only
             c_user.setMaxAge(maxAge);
             c_remember.setMaxAge(maxAge);
-
             response.addCookie(c_user);
             response.addCookie(c_remember);
 

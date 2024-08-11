@@ -16,7 +16,7 @@ public class DefaultPassController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to the default password view
-        request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
+        request.getRequestDispatcher("./view/user/defaultpass.jsp").forward(request, response);
     }
 
     @Override
@@ -31,17 +31,17 @@ public class DefaultPassController extends HttpServlet {
         if (defaultPassword == null) {
             // If no default password is set, set an error message and forward to the view
             request.setAttribute("err", "Default password is not set. Please contact support.");
-            request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/defaultpass.jsp").forward(request, response);
             return;
         }
 
         if (verifyPass == null || !verifyPass.equals(defaultPassword)) {
             // If the password is incorrect, set an error message and forward to the view
             request.setAttribute("err", "Default password isn't correct. Please try again!");
-            request.getRequestDispatcher("WEB-INF/view/user/defaultpass.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/defaultpass.jsp").forward(request, response);
         } else {
             // If the password is correct, forward to the reset password view
-            request.getRequestDispatcher("WEB-INF/view/user/resetpass.jsp").forward(request, response);
+            request.getRequestDispatcher("./view/user/resetpass.jsp").forward(request, response);
         }
     }
 
