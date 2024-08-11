@@ -155,5 +155,37 @@ public class UserDBContext extends DBContext<User> {
         }
         return null;
     }
+    public User getUserByID(int id) {
+        User user = null;
+        try {
+            String sql = "SELECT * FROM [User] WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setGmail(rs.getString("gmail"));
+                user.setBod(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setPhone(rs.getString("phone"));
+                user.setStatus(rs.getBoolean("status"));
+                user.setAva(rs.getString("ava"));
+
+                // Nếu bạn có bảng Account liên kết với User, bạn cũng có thể lấy và thiết lập Account tại đây
+                // Ví dụ:
+                // Account account = new Account();
+                // account.setId(rs.getInt("accid"));
+                // user.setAccount(account);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Đóng các tài nguyên như PreparedStatement, ResultSet nếu cần
+        }
+        return user;
+    }
 }
 

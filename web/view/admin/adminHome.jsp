@@ -118,6 +118,7 @@
                                         <th>Date of Birth</th>
                                         <th>Status</th>
                                         <th>Avatar</th>
+                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -140,6 +141,9 @@
                                             <% } else { %>
                                                 <span>No Avatar</span>
                                             <% } %>
+                                        </td>
+                                         <td>
+                                            <a href="viewUserDetail?userId=<%= user.getId() %>" class="btn btn-info btn-sm">View Details</a>
                                         </td>
                                     </tr>
                                     <% 
