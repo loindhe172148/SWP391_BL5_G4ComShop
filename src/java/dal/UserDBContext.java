@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class UserDBContext extends DBContext<User> {
 
     @Override
-    public ArrayList<User> listAll() {
+      public ArrayList<User> listAll() {
         ArrayList<User> users = new ArrayList<>();
         try {
             String sql = "SELECT * FROM [User]";
@@ -34,14 +34,16 @@ public class UserDBContext extends DBContext<User> {
                 m.setGmail(rs.getString("gmail"));
                 m.setBod(rs.getDate("dob"));
                 m.setAddress(rs.getString("address"));
-                m.setGender(rs.getBoolean("gender"));
+                m.setGender(rs.getInt("gender") == 1); // Assuming gender 1 = Male, 0 = Female
                 m.setPhone(rs.getString("phone"));
-                m.setStatus(rs.getBoolean("status"));
-                m.setAva(rs.getString("ava"));
-                m.setName(rs.getString("name"));
+                m.setStatus(rs.getString("status").equalsIgnoreCase("active"));
+                // m.setAva(rs.getString("ava")); // Uncomment if the 'ava' column exists
+                // m.setName(rs.getString("name")); // Uncomment if the 'name' column exists
+                
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
                 m.setAccount(account);
+                
                 users.add(m);
             }
         } catch (SQLException e) {
@@ -49,7 +51,6 @@ public class UserDBContext extends DBContext<User> {
         }
         return users;
     }
-
     @Override
     public void insert(User entity) {
         try {
