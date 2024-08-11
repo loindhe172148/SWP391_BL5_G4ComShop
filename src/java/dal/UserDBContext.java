@@ -6,22 +6,13 @@ package dal;
 
 import entity.Account;
 import entity.User;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author HP
- */
-import java.sql.*;
-import java.util.ArrayList;
-
 public class UserDBContext extends DBContext<User> {
 
-    @Override
       public ArrayList<User> listAll() {
         ArrayList<User> users = new ArrayList<>();
         try {
@@ -50,7 +41,7 @@ public class UserDBContext extends DBContext<User> {
         }
         return users;
     }
-    @Override
+      
     public void insert(User entity) {
         try {
             connection.setAutoCommit(false);
@@ -83,11 +74,6 @@ public class UserDBContext extends DBContext<User> {
         }
     }
 
-    @Override
-    public void update(User entity) {
-        // Implement the general update method if needed
-    }
-
     public void updateById(User entity, int id) {
         try {
             connection.setAutoCommit(false);
@@ -118,11 +104,6 @@ public class UserDBContext extends DBContext<User> {
                 e3.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public void delete(User entity) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public User getUserById(int id) {
