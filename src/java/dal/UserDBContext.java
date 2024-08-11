@@ -87,7 +87,7 @@ public class UserDBContext extends DBContext<User> {
     public void updateById(User entity, int id) {
         try {
             connection.setAutoCommit(false);
-            String sql = "UPDATE [User] SET accid = ?, ava = ?, name = ?, gmail = ?, address = ?, gender = ?, phone = ?, dob = ?, status = ? WHERE id = ?";
+            String sql = "UPDATE [User] SET  ava = ?, name = ?, gmail = ?, address = ?, gender = ?, phone = ?, dob = ?, status = ? WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, entity.getAccount().getId());
             ps.setString(2, entity.getAva());
@@ -123,15 +123,13 @@ public class UserDBContext extends DBContext<User> {
 
     public User getUserById(int id) {
         try {
-            String sql = "SELECT u.id, u.accid, u.ava, u.name, u.gmail, u.address, u.gender, u.phone, u.dob, u.status, a.username, a.role FROM [Account] a JOIN [User] u ON a.id = u.accid WHERE u.id = ?";
+            String sql = "SELECT u.id, u.ava, u.name, u.gmail, u.address, u.gender, u.phone, u.dob, u.status, a.username, a.role FROM [Account] a JOIN [User] u ON a.id = u.accid WHERE u.id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Account account = new Account();
-                account.setId(rs.getInt("accid"));
                 account.setUsername(rs.getString("username"));
-                account.setRole(rs.getString("role"));
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("gmail"));

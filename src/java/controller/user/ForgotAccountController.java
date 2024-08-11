@@ -37,7 +37,7 @@ public class ForgotAccountController extends HttpServlet {
 
         try {
             // Retrieve account by username and email
-            Account account = adc.getAccountByUsernameAndEmail(username, email);
+            Account account = adc.getAccountByUsername(username);
 
             if (account == null) {
                 // If account is not found, set an error message and forward to the forgot password view
@@ -51,7 +51,7 @@ public class ForgotAccountController extends HttpServlet {
             String emailText = "Your default password is: " + newDefaultPass + ". Please use this password to log in and change it immediately.";
 
             // Send email with the default password
-            emailService.sendEmail(email, "Your Default Password", emailText);
+            emailService.sendEmail(email, emailText);
 
             // Set the default password and other session attributes
             HttpSession session = request.getSession();

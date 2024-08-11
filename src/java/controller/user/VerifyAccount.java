@@ -15,61 +15,47 @@ public class VerifyAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Retrieve email from session
         String email = (String) request.getSession().getAttribute("email");
-        
-        if (email == null || email.isEmpty()) {
-            response.sendRedirect("signup"); // Redirect to signup if email is not set
-            return;
-        }
-
-        // Generate a random passcode
-        String passcode = EmailService.generatePassword("0123456789", 6);
-        
-        // Send the passcode to the user's email
-        EmailService emailService = new EmailService();
-        String subject = "Your Passcode Confirmation";
-        String body = "Your passcode confirmation is: " + passcode;
-        emailService.sendEmail(email, subject, body);
-        
-        // Store passcode in session for validation later
-        request.getSession().setAttribute("passcode", passcode);
-        
-        // Forward to verification page
-        request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
+        String str = "0123456789";
+        String pass = EmailService.generatePassword(str, 6);
+        EmailService.sendEmail(email, "Your passcode confirm is: " + pass);
+        request.getSession().setAttribute("passcode", pass);
+        request.getRequestDispatcher("./view/verify.jsp").forward(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String sessionPasscode = (String) request.getSession().getAttribute("passcode");
-            String enteredPasscode = request.getParameter("passconfirm");
-            
-            // Validate the passcode
-            if (sessionPasscode == null) {
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Passcode is missing. Please try again.");
-                return;
+            String passcode = (String) request.getSession().getAttribute("passcode");
+            String passconfirm = request.getParameter("passconfirm");
+            if (!passconfirm.equals(passcode)) {
+                request.setAttribute("err", "passcode doesn't match!");
+                request.getRequestDispatcher("./view/verify.jsp").forward(request, response);
+            } else {
+                request.getSession().setAttribute("status", "confirm");
+                request.getRequestDispatcher("register").forward(request, response);
             }
-            
-            if (enteredPasscode == null || !enteredPasscode.equals(sessionPasscode)) {
-                request.setAttribute("err", "Passcode does not match. Please try again.");
-                request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
-                return;
-            }
-            
-            // Passcode is correct, update status and redirect to registration page
-            request.getSession().setAttribute("status", "confirm");
-            response.sendRedirect("register"); // Redirect to register page
-            
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred. Please try again later.");
+        } catch (ServletException | IOException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occured. Please try again later!");
         }
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
-        return "Handles user account verification via email passcode.";
-    }
+        return "Short description";
+    }// </editor-fold>
 }

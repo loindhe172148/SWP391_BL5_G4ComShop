@@ -27,8 +27,6 @@ public class AccountDBContext extends DBContext<Account> {
                 Account a = new Account();
                 a.setId(rs.getInt("id"));
                 a.setUsername(rs.getString("username"));
-                a.setPassword(rs.getString("pass"));
-                a.setRole(rs.getString("role"));
                 accounts.add(a);
             }
         } catch (SQLException e) {
@@ -69,12 +67,9 @@ public class AccountDBContext extends DBContext<Account> {
     public void update(Account entity) {
         try {
             connection.setAutoCommit(false);
-            String sql = "UPDATE Account SET username = ?, pass = ?, role = ? WHERE id = ?";
+            String sql = "UPDATE Account SET username = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getUsername());
-            ps.setString(2, entity.getPassword());
-            ps.setString(3, entity.getRole());
-            ps.setInt(4, entity.getId());
             ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -95,12 +90,10 @@ public class AccountDBContext extends DBContext<Account> {
     public void updateById(Account entity, int id) {
         try {
             connection.setAutoCommit(false);
-            String sql = "UPDATE Account SET username = ?, pass = ?, role = ? WHERE id = ?";
+            String sql = "UPDATE Account SET username = ? WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, entity.getUsername());
-            ps.setString(2, entity.getPassword());
-            ps.setString(3, entity.getRole());
-            ps.setInt(4, id);
+            ps.setInt(2, id);
             ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
@@ -123,25 +116,18 @@ public class AccountDBContext extends DBContext<Account> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Account checkAccountExist(String username, String email) {
+    public boolean checkAccountExist(String username) {
         try {
-            String sql = "SELECT * FROM Account WHERE username = ? OR email = ?";
+            String sql = "SELECT * FROM Account WHERE username = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, username);
-            ps.setString(2, email);
+              ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Account a = new Account();
-                a.setId(rs.getInt("id"));
-                a.setUsername(rs.getString("username"));
-                a.setPassword(rs.getString("pass"));
-                a.setRole(rs.getString("role"));
-                return a;
+            if (rs.next()) {
+               return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     public Account getAccount(String username, String password) {
@@ -155,7 +141,6 @@ public class AccountDBContext extends DBContext<Account> {
                 Account a = new Account();
                 a.setId(rs.getInt("id"));
                 a.setUsername(rs.getString("username"));
-                a.setPassword(rs.getString("pass"));
                 a.setRole(rs.getString("role"));
                 return a;
             }
@@ -165,19 +150,17 @@ public class AccountDBContext extends DBContext<Account> {
         return null;
     }
 
-    public Account getAccountByUsernameAndEmail(String username, String email) {
+    public Account getAccountByUsername(String username) {
         try {
-            String sql = "SELECT * FROM Account WHERE username = ? AND email = ?";
+            String sql = "SELECT * FROM Account WHERE username = ? ";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
-            ps.setString(2, email);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Account account = new Account();
                 account.setId(rs.getInt("id"));
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("pass"));
-                account.setRole(rs.getString("role"));
                 return account;
             }
         } catch (Exception e) {
