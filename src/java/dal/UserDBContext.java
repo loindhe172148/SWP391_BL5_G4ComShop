@@ -42,8 +42,7 @@ public class UserDBContext extends DBContext<User> {
                 
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
-                m.setAccount(account);
-                
+                m.setAccount(account);                  
                 users.add(m);
             }
         } catch (SQLException e) {
