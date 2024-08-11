@@ -21,15 +21,14 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         // Retrieve cookies
         Cookie[] cookies = request.getCookies();
-        String username = "";
-        String rememberMe = null;
+        String username = "", rememberMe = null;
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("username".equals(cookie.getName())) {
+                if (cookie.getName().equals("username")) {
                     username = cookie.getValue();
                 }
-                if ("rememberMe".equals(cookie.getName())) {
+                if (cookie.getName().equals("rememberMe")) {
                     rememberMe = cookie.getValue();
                 }
             }
@@ -49,13 +48,6 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("rememberMe");
 
-        // Basic input validation
-        if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
-            request.setAttribute("error", "Username and password are required.");
-            request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
-            return;
-        }
-
         AccountDBContext accountDB = new AccountDBContext();
         // Verify user credentials
         Account account = accountDB.getAccount(username, password);
@@ -67,18 +59,12 @@ public class LoginController extends HttpServlet {
         } else {
             // Valid credentials
             // Set cookies if "Remember Me" is checked
-            int maxAge = (rememberMe != null && "on".equals(rememberMe)) ? 3600 * 24 * 7 : 0; // 7 days or session only
-            
             Cookie c_user = new Cookie("username", username);
             Cookie c_remember = new Cookie("rememberMe", rememberMe);
-            
-            c_user.setMaxAge(maxAge);
-            c_user.setHttpOnly(true); // Helps mitigate XSS attacks
-            c_user.setSecure(true);   // Ensure cookies are sent over HTTPS
 
+            int maxAge = (rememberMe != null && rememberMe.equals("on")) ? 3600 * 24 * 7 : 0; // 7 days or 0 for session only
+            c_user.setMaxAge(maxAge);
             c_remember.setMaxAge(maxAge);
-            c_remember.setHttpOnly(true); // Helps mitigate XSS attacks
-            c_remember.setSecure(true);   // Ensure cookies are sent over HTTPS
 
             response.addCookie(c_user);
             response.addCookie(c_remember);

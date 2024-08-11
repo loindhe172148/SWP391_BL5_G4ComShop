@@ -2,21 +2,17 @@ package controller.user;
 
 import dal.AccountDBContext;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import entity.Account;
-import jakarta.servlet.annotation.WebServlet;
 
 /**
- * Servlet implementation class ChangePasswordController
+ *
+ * @author Admin
  */
 public class ChangePasswordController extends HttpServlet {
-
-    private static final Logger LOGGER = Logger.getLogger(ChangePasswordController.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,7 +46,7 @@ public class ChangePasswordController extends HttpServlet {
                 request.setAttribute("success", "Password changed successfully!");
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "An error occurred while changing the password.", e);
+            e.printStackTrace();
             request.setAttribute("err", "An error occurred while changing the password.");
         }
 

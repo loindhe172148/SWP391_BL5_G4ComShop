@@ -8,48 +8,60 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author Admin
+ */
 public class EmailService {
 
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
 
-     public static void sendEmail(String to, String content) {
+    private final String username = "hieudnmhe171083@fpt.edu.vn";
+    private final String password = "fmax pfao tlms zlet";
+    private final String host = "smtp.gmail.com";
+    private final int port = 587;
+
+    /**
+     *
+     * @param to
+     * @param subject
+     * @param text
+     */
+    public void sendEmail(String to, String subject, String text) {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");  //smtp host
-        props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.starttls.required", "true");
-        final String user = System.getenv("hieudnmhe171083@fpt.edu.vn");
-        final String password = System.getenv("fmax pfao tlms zlet");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);
 
-        Authenticator auth = new Authenticator() {
+        Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+                return new PasswordAuthentication(username, password);
             }
-        };
-        Session session = Session.getInstance(props, auth);
-        MimeMessage msg = new MimeMessage(session);
+        });
+
         try {
-            msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            msg.setFrom(new InternetAddress(user));
-            msg.setRecipients(jakarta.mail.Message.RecipientType.TO, InternetAddress.parse(to, false));
-            msg.setSubject("Try to send email");
-            msg.setSentDate(new Date());
-            msg.setText(content, "UTF-8");
-            Transport.send(msg);
-            System.out.println("Email sent successfully!");
-        } catch (Exception e) {
-            e.printStackTrace();
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+            message.setSubject(subject);
+            message.setText(text);
+
+            Transport.send(message);
+            logger.log(Level.INFO, "Email sent successfully to {0}", to);
+        } catch (MessagingException e) {
+            logger.log(Level.SEVERE, "Failed to send email to " + to, e);
+            throw new RuntimeException("Failed to send email", e);
         }
     }
-
     public static String generatePassword(String str, int numOfChars) {
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
         for (int i = 0; i < numOfChars; i++) {
-            sb.append(str.charAt(rand.nextInt(str.length())));  // Chỉnh sửa từ str.length() - 1 thành str.length()
+            sb.append(str.charAt(rand.nextInt(str.length() - 1)));
         }
         return sb.toString();
     }
+       
 }

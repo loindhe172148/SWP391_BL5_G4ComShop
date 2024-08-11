@@ -1,20 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package entity;
 
 import java.util.Date;
 
+/**
+ *
+ * @author HP
+ */
 public class User {
     private int id;
-    private String email;
-    private Date dob; // Chỉnh sửa từ bod thành dob
+    private String gmail;
+    private Date dob;
     private String address;
-    private Boolean gender; // Sử dụng Boolean thay vì boolean nếu cần xử lý giá trị null
+    private boolean gender;
     private String phone;
-    private Boolean status; // Sử dụng Boolean thay vì boolean nếu cần xử lý giá trị null
+    private boolean status;
     private Account account;
     private String ava;
     private String name;
 
-    // Getters và Setters
     public String getName() {
         return name;
     }
@@ -47,21 +54,22 @@ public class User {
         this.id = id;
     }
 
-    public String getEmail() {
-        return email; // Chỉnh sửa từ gmail thành email
+    public String getGmail() {
+        return gmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
     }
 
     public Date getDob() {
-        return dob; // Chỉnh sửa từ bod thành dob
+        return dob;
     }
 
     public void setDob(Date dob) {
         this.dob = dob;
     }
+
 
     public String getAddress() {
         return address;
@@ -71,11 +79,11 @@ public class User {
         this.address = address;
     }
 
-    public Boolean isGender() {
+    public boolean isGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -87,12 +95,16 @@ public class User {
         this.phone = phone;
     }
 
-    public Boolean isStatus() {
+    public boolean isStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
-}
 
+    public void setdob(java.sql.Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+}
