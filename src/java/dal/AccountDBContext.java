@@ -116,18 +116,22 @@ public class AccountDBContext extends DBContext<Account> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public boolean checkAccountExist(String username) {
+
+    public Account checkAccountExist(String username) {
         try {
-            String sql = "SELECT * FROM Account WHERE username = ?";
+            String sql = "SELECT * FROM Account a WHERE a.username = ? ";
             PreparedStatement ps = connection.prepareStatement(sql);
-              ps.setString(1, username);
+            ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-               return true;
+            while (rs.next()) {
+                Account a = new Account();
+                a.setId(rs.getInt("accid"));
+                a.setUsername(rs.getString("username"));
+                return a;
             }
         } catch (SQLException e) {
         }
-        return false;
+        return null;
     }
 
     public Account getAccount(String username, String password) {

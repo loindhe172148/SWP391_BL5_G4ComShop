@@ -57,8 +57,8 @@ public class SignUpController extends HttpServlet {
             String role = request.getParameter("role");
             
             // Check if the account already exists
-            boolean existingAccount = adc.checkAccountExist(username);
-            if (existingAccount != false) {
+            Account existingAccount = adc.checkAccountExist(username);
+            if (existingAccount != null) {
                 request.setAttribute("err", "Username or email already exists. Please try again!");
                 request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
                 return;
