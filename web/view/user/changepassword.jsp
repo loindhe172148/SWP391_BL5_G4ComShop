@@ -4,18 +4,6 @@
     Author     : HP
 --%>
 
-<<<<<<< HEAD
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-=======
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -53,5 +41,4 @@
         <input type="submit" value="Change Password">
     </form>
 </body>
->>>>>>> d92e1a09e77352a74e3efffea7cd9d62b35e978c
 </html>
