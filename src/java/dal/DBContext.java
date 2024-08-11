@@ -3,7 +3,6 @@ package dal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,13 +26,4 @@ public abstract class DBContext<T> {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public abstract ArrayList<T> listAll();
-
-    public abstract void insert(T entity);
-
-    public abstract void update(T entity);
-
-    public abstract void delete(T entity);
-    
 }

@@ -3,8 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
-import com.sun.jdi.connect.spi.Connection;
-import java.util.List;
 import entity.Account;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
  */
 public class AccountDBContext extends DBContext<Account> {
 
-    @Override
     public ArrayList<Account> listAll() {
         ArrayList<Account> accounts = new ArrayList<>();
         try {
@@ -37,7 +34,6 @@ public class AccountDBContext extends DBContext<Account> {
         return accounts;
     }
 
-    @Override
     public void insert(Account entity) {
         try {
             connection.setAutoCommit(false);
@@ -65,7 +61,6 @@ public class AccountDBContext extends DBContext<Account> {
         }
     }
 
-    @Override
     public void update(Account entity) {
         try {
             connection.setAutoCommit(false);
@@ -118,7 +113,6 @@ public class AccountDBContext extends DBContext<Account> {
         }
     }
 
-    @Override
     public void delete(Account entity) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
