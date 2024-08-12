@@ -20,11 +20,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,133 +35,160 @@ import java.util.Map;
  *
  * @author xuant
  */
-@WebServlet(name = "AddProductController", urlPatterns = {"/admin/addnew"})
+@WebServlet(name = "AddProductController", urlPatterns = {"/view/marketing/addnew"})
+@MultipartConfig
 public class AddProduct extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String UPLOAD_DIRECTORY = "assets/images/products";
+    private static final String FOLDER_DIRECTORY = "web/view/marketing/assets/images/products";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getServletPath();
-
         try (PrintWriter out = response.getWriter()) {
-            // Initialize DAOs
-            ProductDAO productDAO = new ProductDAO();
+
             CPUDAO cpuDAO = new CPUDAO();
-            CardDAO cardDAO = new CardDAO();
-            CategoryDAO categoryDAO = new CategoryDAO();
-            TypeDAO typeDAO = new TypeDAO();
-            RAMDAO ramDAO = new RAMDAO();
-
-            // Fetch lists for dropdowns
-            List<CPU> cpuList = cpuDAO.getAllCPU();
-            List<Card> cardList = cardDAO.getAllCard();
-            List<Category> categoryList = categoryDAO.getAllCategory();
-            List<Type> typeList = typeDAO.getAllType();
-            List<RAM> ramList = ramDAO.getAllRAM();
-
-            // Set dropdown data in request attributes
+            List<CPU> cpuList;
+            cpuList = cpuDAO.getAllCPU();
             request.setAttribute("cpuList", cpuList);
+
+            CardDAO cardDAO = new CardDAO();
+            List<Card> cardList;
+            cardList = cardDAO.getAllCard();
             request.setAttribute("cardList", cardList);
+
+            CategoryDAO categoryDAO = new CategoryDAO();
+            List<Category> categoryList;
+            categoryList = categoryDAO.getAllCategory();
             request.setAttribute("categoryList", categoryList);
+
+            TypeDAO typeDAO = new TypeDAO();
+            List<Type> typeList;
+            typeList = typeDAO.getAllType();
             request.setAttribute("typeList", typeList);
+
+            RAMDAO ramDAO = new RAMDAO();
+            List<RAM> ramList;
+            ramList = ramDAO.getAllRAM();
             request.setAttribute("ramList", ramList);
 
-            // Collect form data
-            String name = request.getParameter("product-name");
-            String description = request.getParameter("product-description");
-            String status = request.getParameter("status");
-            String originPriceStr = request.getParameter("product-originprice");
-            String salePriceStr = request.getParameter("product-saleprice");
+            Map<String, String> errors = new HashMap<>();
+
+            // Validate required fields
+            String name = request.getParameter("product-name").trim();
+            String description = request.getParameter("product-description").trim();
+            String statusStr = request.getParameter("status");
+            String originPriceStr = request.getParameter("product-originprice").trim();
+            String salePriceStr = request.getParameter("product-saleprice").trim();
+            String capacityStr = request.getParameter("product-capacity").trim();
+            String sizeStr = request.getParameter("product-screensize").trim();
+            String color = request.getParameter("product-color").trim();
+            String quantityStr = request.getParameter("product-quantity").trim();
+            
+            // Handle optional fields
             String categoryIdStr = request.getParameter("product-category");
-            String capacityStr = request.getParameter("product-capacity");
-            String sizeStr = request.getParameter("product-screensize");
-            String color = request.getParameter("product-color");
             String cpuIdStr = request.getParameter("product-cpu");
             String cardIdStr = request.getParameter("product-card");
             String ramIdStr = request.getParameter("product-ram");
             String typeIdStr = request.getParameter("product-type");
-            String quantityStr = request.getParameter("product-quantity");
 
-            // Initialize error map
-            Map<String, String> errorMap = new HashMap<>();
-
-            // Validation
-            if (name == null || name.trim().isEmpty()) {
-                errorMap.put("productName", "Product name is required.");
+            if (name.isEmpty()) {
+                errors.put("productName", "Product name is required. and from 3-50 character");
             }
-            if (description == null || description.trim().isEmpty()) {
-                errorMap.put("productDescription", "Product description is required.");
+            if (name.length() < 3 || name.length() > 50) {
+                errors.put("productName", "Product name is from 3-50 characters");
             }
-            if (originPriceStr == null || originPriceStr.trim().isEmpty()) {
-                errorMap.put("originPrice", "Origin price is required.");
+            if (description.isEmpty()) {
+                errors.put("productDescription", "Product description is required.");
             }
-            if (salePriceStr == null || salePriceStr.trim().isEmpty()) {
-                errorMap.put("salePrice", "Sale price is required.");
+            if (description.length() < 3) {
+                errors.put("productName", "Product description must >3 characters");
             }
-            if (categoryIdStr == null || categoryIdStr.trim().isEmpty()) {
-                errorMap.put("category", "Category is required.");
+            if (originPriceStr.isEmpty()) {
+                errors.put("originPrice", "Origin price is required.");
             }
-            if (capacityStr == null || capacityStr.trim().isEmpty()) {
-                errorMap.put("capacity", "Capacity is required.");
+            if (salePriceStr.isEmpty()) {
+                errors.put("salePrice", "Sale price is required.");
             }
-            if (sizeStr == null || sizeStr.trim().isEmpty()) {
-                errorMap.put("screenSize", "Screen size is required.");
+            if (capacityStr.isEmpty()) {
+                errors.put("capacity", "Capacity is required.");
             }
-            if (color == null || color.trim().isEmpty()) {
-                errorMap.put("color", "Color is required.");
+            if (sizeStr.isEmpty()) {
+                errors.put("screenSize", "Screen size is required.");
             }
-            if (cpuIdStr == null || cpuIdStr.trim().isEmpty()) {
-                errorMap.put("cpu", "CPU is required.");
+            if (color.isEmpty()) {
+                errors.put("color", "Color is required.");
             }
-            if (cardIdStr == null || cardIdStr.trim().isEmpty()) {
-                errorMap.put("card", "Card is required.");
-            }
-            if (ramIdStr == null || ramIdStr.trim().isEmpty()) {
-                errorMap.put("ram", "RAM is required.");
-            }
-            if (typeIdStr == null || typeIdStr.trim().isEmpty()) {
-                errorMap.put("type", "Type is required.");
-            }
-            if (quantityStr == null || quantityStr.trim().isEmpty()) {
-                errorMap.put("quantity", "Quantity is required.");
+            if (quantityStr.isEmpty()) {
+                quantityStr = "0";
             }
 
-            // Check if there are errors
-            if (!errorMap.isEmpty()) {
-                request.setAttribute("error", errorMap);
+            if (!errors.isEmpty()) {
+                request.setAttribute("error", errors);
+
+                // Set lại dữ liệu người dùng đã nhập vào request
+                request.setAttribute("productName", name);
+                request.setAttribute("productDescription", description);
+                request.setAttribute("status", statusStr);
+                request.setAttribute("originPrice", originPriceStr);
+                request.setAttribute("salePrice", salePriceStr);
+                request.setAttribute("capacity", capacityStr);
+                request.setAttribute("screenSize", sizeStr);
+                request.setAttribute("color", color);
+                request.setAttribute("quantity", quantityStr);
+
+                // Các trường tùy chọn
+                request.setAttribute("categoryId", categoryIdStr);
+                request.setAttribute("cpuId", cpuIdStr);
+                request.setAttribute("cardId", cardIdStr);
+                request.setAttribute("ramId", ramIdStr);
+                request.setAttribute("typeId", typeIdStr);
                 request.getRequestDispatcher("add-product.jsp").forward(request, response);
                 return;
             }
 
-            // Parse numeric fields
+            // Parse numeric values
+            int status = Integer.parseInt(statusStr);
             double originPrice = Double.parseDouble(originPriceStr);
             double salePrice = Double.parseDouble(salePriceStr);
-            int categoryId = Integer.parseInt(categoryIdStr);
             double capacity = Double.parseDouble(capacityStr);
             double size = Double.parseDouble(sizeStr);
-            int cpuId = Integer.parseInt(cpuIdStr);
-            int cardId = Integer.parseInt(cardIdStr);
-            int ramId = Integer.parseInt(ramIdStr);
-            int typeId = Integer.parseInt(typeIdStr);
             int quantity = Integer.parseInt(quantityStr);
-            int pharseStatus = status.equals("show") ? 1 : 0;
 
-            // Create Product object and set fields
+         
+
+            Integer categoryId = (categoryIdStr != null && !categoryIdStr.isEmpty()) ? Integer.parseInt(categoryIdStr) : null;
+            Integer cpuId = (cpuIdStr != null && !cpuIdStr.isEmpty()) ? Integer.parseInt(cpuIdStr) : null;
+            Integer cardId = (cardIdStr != null && !cardIdStr.isEmpty()) ? Integer.parseInt(cardIdStr) : null;
+            Integer ramId = (ramIdStr != null && !ramIdStr.isEmpty()) ? Integer.parseInt(ramIdStr) : null;
+            Integer typeId = (typeIdStr != null && !typeIdStr.isEmpty()) ? Integer.parseInt(typeIdStr) : null;
+
+            // Handle image upload
+            Part filePart = request.getPart("product-image");
+            String fileName = null;
+
+            if (filePart != null && filePart.getSize() > 0) {
+                String applicationPath = getServletContext().getRealPath("");
+                String cleanedPath = applicationPath.replace(File.separator + "build" + File.separator + "web" + File.separator, "");
+                String uploadPath = cleanedPath + File.separator + FOLDER_DIRECTORY;
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+
+                fileName = filePart.getSubmittedFileName();
+                String filePath = uploadPath + File.separator + fileName;
+                filePart.write(filePath);
+            }
+
+            // Create Product object
             Product product = new Product();
             product.setName(name);
             product.setDescription(description);
-            product.setStatus(pharseStatus);
+            product.setStatus(status);
             product.setOriginPrice(originPrice);
             product.setSalePrice(salePrice);
+            product.setImage(fileName != null ? UPLOAD_DIRECTORY + "/" + fileName : null);
             product.setCategoryId(categoryId);
             product.setCapacity(capacity);
             product.setSize(size);
@@ -170,15 +199,14 @@ public class AddProduct extends HttpServlet {
             product.setTypeId(typeId);
             product.setQuantity(quantity);
 
-            // Add the product to the database
+            // Insert into database
+            ProductDAO productDAO = new ProductDAO();
             productDAO.addProduct(product);
 
-            // Success message
+            // Success message and redirection
             request.setAttribute("message", "Product added successfully!");
             request.getRequestDispatcher("add-product.jsp").forward(request, response);
 
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

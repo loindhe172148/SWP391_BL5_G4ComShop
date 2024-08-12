@@ -18,12 +18,7 @@ public class ConnectDB {
     protected Connection conn;
     public ConnectDB()
     {
-        //@Students: You are allowed to edit user, pass, url variables to fit 
-        //your system configuration
-        //You can also add more methods for Database Interaction tasks. 
-        //But we recommend you to do it in another class
-        // For example : StudentDBContext extends DBContext , 
-        //where StudentDBContext is located in dal package, 
+        
         try {
             String user = "sa";
             String pass = "123456";
