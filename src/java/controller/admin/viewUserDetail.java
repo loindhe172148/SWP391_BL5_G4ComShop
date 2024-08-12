@@ -49,7 +49,11 @@ public class viewUserDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String userId = request.getParameter("userId");
+        UserDBContext dao = new UserDBContext();
+        User user = dao.getUserByID(Integer.parseInt(userId));
+        request.setAttribute("user", user);
+        request.getRequestDispatcher("view/admin/viewUserDetail.jsp").forward(request, response);
     } 
 
     /** 

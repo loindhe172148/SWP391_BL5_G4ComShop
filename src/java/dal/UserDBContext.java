@@ -37,8 +37,7 @@ public class UserDBContext extends DBContext<User> {
                 m.setGender(rs.getInt("gender") == 1); // Assuming gender 1 = Male, 0 = Female
                 m.setPhone(rs.getString("phone"));
                 m.setStatus(rs.getString("status").equalsIgnoreCase("active"));
-                // m.setAva(rs.getString("ava")); // Uncomment if the 'ava' column exists
-                // m.setName(rs.getString("name")); // Uncomment if the 'name' column exists
+              
                 
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
@@ -165,20 +164,16 @@ public class UserDBContext extends DBContext<User> {
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("id"));
-                user.setName(rs.getString("name"));
+               
                 user.setGmail(rs.getString("gmail"));
                 user.setBod(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 user.setGender(rs.getBoolean("gender"));
                 user.setPhone(rs.getString("phone"));
                 user.setStatus(rs.getBoolean("status"));
-                user.setAva(rs.getString("ava"));
+               
 
-                // Nếu bạn có bảng Account liên kết với User, bạn cũng có thể lấy và thiết lập Account tại đây
-                // Ví dụ:
-                // Account account = new Account();
-                // account.setId(rs.getInt("accid"));
-                // user.setAccount(account);
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();

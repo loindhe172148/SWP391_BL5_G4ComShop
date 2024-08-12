@@ -16,8 +16,8 @@ public class main {
       public static void main(String[] args) throws ParseException {
            UserDBContext dao = new UserDBContext();
         ArrayList<User> userList = (ArrayList<User>) dao.listAll();
-        for(User u: userList) {
-            System.err.println(u);
-        }
+        User user = dao.getUserByID(7);
+          System.err.println(user);
+      
       }
 }

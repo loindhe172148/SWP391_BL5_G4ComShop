@@ -24,14 +24,7 @@
                 <p><strong>Phone:</strong> <%= user.getPhone() %></p>
                 <p><strong>Date of Birth:</strong> <%= user.getBod() %></p>
                 <p><strong>Status:</strong> <%= user.isStatus() ? "Active" : "Inactive" %></p>
-                <p>
-                    <strong>Avatar:</strong><br>
-                    <% if (user.getAva() != null && !user.getAva().isEmpty()) { %>
-                        <img src="<%= user.getAva() %>" alt="Avatar" width="100" height="100" class="img-thumbnail">
-                    <% } else { %>
-                        <span>No Avatar</span>
-                    <% } %>
-                </p>
+              
                 <% } else { %>
                 <p>User not found.</p>
                 <% } %>

@@ -117,7 +117,7 @@
                                         <th>Phone</th>
                                         <th>Date of Birth</th>
                                         <th>Status</th>
-                                        <th>Avatar</th>
+                                       
                                          <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -135,13 +135,7 @@
                                         <td><%= user.getPhone() %></td>
                                         <td><%= user.getBod() %></td>
                                         <td><%= user.isStatus() ? "Active" : "Inactive" %></td>
-                                        <td>
-                                            <% if (user.getAva() != null && !user.getAva().isEmpty()) { %>
-                                                <img src="<%= user.getAva() %>" alt="Avatar" width="50" height="50" class="user-avatar">
-                                            <% } else { %>
-                                                <span>No Avatar</span>
-                                            <% } %>
-                                        </td>
+                                       
                                          <td>
                                             <a href="viewUserDetail?userId=<%= user.getId() %>" class="btn btn-info btn-sm">View Details</a>
                                         </td>
