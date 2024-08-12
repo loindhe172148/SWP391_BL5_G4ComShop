@@ -273,12 +273,56 @@ public void insertAccessory(String name, String brandName, String status, String
 
         
         }
+public Accessory getAccessoryById(String id) {
+      Accessory accessory = null;
+        String query = "SELECT * FROM Accessory WHERE id = ?";
+
+        try {
+            conn = new DBContext().getConnection(); // Lấy kết nối từ DBContext
+            ps = conn.prepareStatement(query);
+            ps.setString(1, id); // Đặt giá trị cho tham số đầu tiên (id)
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                accessory = new Accessory(
+                        rs.getInt(1), // Assuming 'id' is an integer column
+                        rs.getString(2),
+                        rs.getFloat(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10), // This seems to be a typo; it should probably be "switch"
+                        rs.getString(11),
+                        rs.getFloat(12),
+                        rs.getFloat(13),
+                        rs.getInt(14),
+                        rs.getString(15),
+                        rs.getString(16),
+                        rs.getString(17)
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return accessory;
+    }
 
 
-                
-                
-            
-      
+
+               
       
 
     public static void main(String[] args) {
