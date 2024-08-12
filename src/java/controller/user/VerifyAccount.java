@@ -5,9 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import util.EmailService;
-
 import java.io.IOException;
+import util.EmailService;
 
 @WebServlet(name = "VerifyAccount", urlPatterns = {"/verify"})
 public class VerifyAccount extends HttpServlet {
@@ -55,7 +54,7 @@ public class VerifyAccount extends HttpServlet {
                 request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
             } else {
                 request.getSession().setAttribute("status", "confirm");
-                response.sendRedirect("register"); // Redirect to register page
+                response.sendRedirect("login"); // Redirect to register page
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception
