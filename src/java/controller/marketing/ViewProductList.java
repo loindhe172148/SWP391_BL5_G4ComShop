@@ -2,14 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.marketing;
 
+import controller.user.BaseRequiredAuthenticationController;
 import dal.CPUDAO;
 import dal.CardDAO;
 import dal.CategoryDAO;
 import dal.ProductDAO;
 import dal.RAMDAO;
 import dal.TypeDAO;
+import entity.Account;
 import entity.CPU;
 import entity.Card;
 import entity.Category;
@@ -30,7 +32,8 @@ import java.sql.SQLException;
  *
  * @author xuant
  */
-@WebServlet(name = "ViewProductList", urlPatterns = {"/admin/productlist", "/admin/changestatus"})
+@WebServlet(name = "ViewProductList", urlPatterns = {"/view/marketing/productlist", "/view/marketing/changestatus"})
+//public class ViewProductList extends BaseRequiredAuthenticationController {
 public class ViewProductList extends HttpServlet {
 
     /**
@@ -81,7 +84,7 @@ public class ViewProductList extends HttpServlet {
             request.setAttribute("ramList", ramList);
 
             switch (action) {
-                case "/admin/productlist":
+                case "/view/marketing/productlist":
                     List<Product> products = productDAO.getAllProduct(null, offset, pageSize);
                     request.setAttribute("products", products);
 
@@ -92,7 +95,7 @@ public class ViewProductList extends HttpServlet {
 
                     request.getRequestDispatcher("product-list.jsp").forward(request, response);
                     break;
-                case "/admin/changestatus":
+                case "/view/marketing/changestatus":
                     String idParam = request.getParameter("id");
                     String statusParam = request.getParameter("status");
 
@@ -101,7 +104,7 @@ public class ViewProductList extends HttpServlet {
                         int status = Integer.parseInt(statusParam);
                         productDAO.updateProductStatus(productId, status);
 
-                        response.sendRedirect(request.getContextPath() + "/admin/productlist");
+                        response.sendRedirect(request.getContextPath() + "/view/marketing/productlist");
                     }
                     break;
                 case "/admin/searchProduct":
@@ -151,5 +154,13 @@ public class ViewProductList extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+//    }
+//
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+//    }
 
 }

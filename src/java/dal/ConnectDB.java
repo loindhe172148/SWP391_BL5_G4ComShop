@@ -33,7 +33,7 @@ public class ConnectDB {
             System.out.println("thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("that bai");
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public static void main(String[] args) {
