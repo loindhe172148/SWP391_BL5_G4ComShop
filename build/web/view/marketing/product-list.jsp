@@ -790,7 +790,7 @@
                                             <div class="col-auto">
                                                 <div class="text-lg-end my-1 my-lg-0">
                                                     <button type="button" class="btn btn-success waves-effect waves-light me-1"><i class="mdi mdi-cog"></i></button>
-                                                    <a href="/SWP391_BL5_G4ComShop/admin/addproduct" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+                                                    <a href="/SWP391_BL5_G4ComShop/view/marketing/addproduct" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
                                                 </div>
                                             </div><!-- end col-->
                                         </div> <!-- end row -->
@@ -862,13 +862,13 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="/SWP391_BL5_G4ComShop/admin/changestatus?id=${product.id}&status=${product.status == 1 ? '0' : '1'}" class="btn btn-${product.status == 1 ? 'success' : 'danger'} btn-xs waves-effect waves-light">
+                                                <a href="/SWP391_BL5_G4ComShop/view/marketing/changestatus?id=${product.id}&status=${product.status == 1 ? '0' : '1'}" class="btn btn-${product.status == 1 ? 'success' : 'danger'} btn-xs waves-effect waves-light">
                                                     <i class="mdi mdi-pencil">${product.status == 1 ? 'Showing' : 'Hiding'}</i>
                                                 </a>
                                             </td>
 
                                             <td>
-                                                <a href="/SWP391_BL5_G4ComShop/admin/productdetail?id=${product.id}" class="btn btn-blue btn-xs waves-effect waves-light">
+                                                <a href="/SWP391_BL5_G4ComShop/view/marketing/productdetail?id=${product.id}" class="btn btn-blue btn-xs waves-effect waves-light">
                                                     <i class="mdi mdi-close">Details/Edit</i>
                                                 </a>
                                             </td>

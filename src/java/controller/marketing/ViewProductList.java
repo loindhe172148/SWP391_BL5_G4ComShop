@@ -32,7 +32,7 @@ import java.sql.SQLException;
  *
  * @author xuant
  */
-@WebServlet(name = "ViewProductList", urlPatterns = {"/admin/productlist", "/admin/changestatus"})
+@WebServlet(name = "ViewProductList", urlPatterns = {"/view/marketing/productlist", "/view/marketing/changestatus"})
 public class ViewProductList extends BaseRequiredAuthenticationController {
 
     /**
@@ -83,7 +83,7 @@ public class ViewProductList extends BaseRequiredAuthenticationController {
             request.setAttribute("ramList", ramList);
 
             switch (action) {
-                case "/admin/productlist":
+                case "/view/marketing/productlist":
                     List<Product> products = productDAO.getAllProduct(null, offset, pageSize);
                     request.setAttribute("products", products);
 
@@ -94,7 +94,7 @@ public class ViewProductList extends BaseRequiredAuthenticationController {
 
                     request.getRequestDispatcher("product-list.jsp").forward(request, response);
                     break;
-                case "/admin/changestatus":
+                case "/view/marketing/changestatus":
                     String idParam = request.getParameter("id");
                     String statusParam = request.getParameter("status");
 
@@ -103,7 +103,7 @@ public class ViewProductList extends BaseRequiredAuthenticationController {
                         int status = Integer.parseInt(statusParam);
                         productDAO.updateProductStatus(productId, status);
 
-                        response.sendRedirect(request.getContextPath() + "/admin/productlist");
+                        response.sendRedirect(request.getContextPath() + "/view/marketing/productlist");
                     }
                     break;
                 case "/admin/searchProduct":

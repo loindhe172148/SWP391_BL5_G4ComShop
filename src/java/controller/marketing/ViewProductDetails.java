@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author xuant
  */
-@WebServlet(name="ViewProductDetails", urlPatterns={"/admin/productdetail"})
+@WebServlet(name="ViewProductDetails", urlPatterns={"/view/marketing/productdetail"})
 public class ViewProductDetails extends HttpServlet {
    
     /** 
@@ -74,12 +74,12 @@ public class ViewProductDetails extends HttpServlet {
             request.setAttribute("ramList", ramList);
 
             switch (action) {
-                case "/admin/productdetail":
+                case "/view/marketing/productdetail":
                     Product p = productDAO.getProductById(Integer.parseInt(request.getParameter("id")) );
                     request.setAttribute("p", p);
                     request.getRequestDispatcher("product-details.jsp").forward(request, response);
                     break;
-                case "/admin/addproduct":
+                case "/view/marketing/addproduct":
 
                     request.getRequestDispatcher("add-product.jsp").forward(request, response);
                     break;

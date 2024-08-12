@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author xuant
  */
-@WebServlet(name = "redirect", urlPatterns = {"/redirect", "/admin/addproduct"})
+@WebServlet(name = "redirect", urlPatterns = {"/redirect", "/view/marketing/addproduct"})
 public class redirect extends HttpServlet {
 
     /**
@@ -84,7 +84,7 @@ public class redirect extends HttpServlet {
                     request.setAttribute("p", p);
                     request.getRequestDispatcher("product-details.jsp").forward(request, response);
                     break;
-                case "/admin/addproduct":
+                case "/view/marketing/addproduct":
                     request.getRequestDispatcher("add-product.jsp").forward(request, response);
                     break;
                 default:
