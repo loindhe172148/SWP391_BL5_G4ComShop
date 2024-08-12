@@ -99,12 +99,8 @@
             <option value="Male" ${gender == 'Male' ? 'selected' : ''}>Male</option>
             <option value="Female" ${gender == 'Female' ? 'selected' : ''}>Female</option>
         </select>
+        <input type="hidden" name="role" value="user"/>
 
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="User" ${role == 'User' ? 'selected' : ''}>User</option>
-            <option value="Admin" ${role == 'Admin' ? 'selected' : ''}>Admin</option>
-        </select>
 
         <input type="submit" value="Sign Up">
     </form>

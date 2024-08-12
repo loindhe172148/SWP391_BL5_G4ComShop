@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.user;
 
 import dal.AccountDBContext;
@@ -13,10 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- *
- * @author Admin
- */
 public abstract class BaseRequiredAuthenticationController extends HttpServlet {
 
     private Account getAuthentication(HttpServletRequest req) {
@@ -52,58 +44,40 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
         return account;
     }
 
-    /**
-     *
-     * @param req
-     * @param resp
-     * @param account
-     * @throws ServletException
-     * @throws IOException
-     */
+    private boolean isAuthorized(Account account, String servletPath) {
+        if (servletPath != null && servletPath.startsWith("/")) {
+            String[] pathParts = servletPath.split("/");
+            if (pathParts.length > 1) {
+                String firstPart = pathParts[1];
+                return firstPart.equalsIgnoreCase(account.getRole()); 
+            }
+        }
+        return false;
+    }
+
     protected abstract void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException;
 
-    /**
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = getAuthentication(req);
-        if (account != null) {
+        String servletPath = req.getServletPath();
+        if (account != null && isAuthorized(account, servletPath)) {
             doPost(req, resp, account);
         } else {
             resp.getWriter().println("access denied!");
         }
     }
 
-    /**
-     *
-     * @param req
-     * @param resp
-     * @param account
-     * @throws ServletException
-     * @throws IOException
-     */
     protected abstract void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException;
 
-    /**
-     *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = getAuthentication(req);
-        if (account != null) {
+        String servletPath = req.getServletPath();
+        if (account != null && isAuthorized(account, servletPath)) {
             doGet(req, resp, account);
         } else {
             resp.getWriter().println("access denied!");
         }
     }
-
 }

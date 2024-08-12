@@ -10,9 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet(name = "SignUpController", urlPatterns = {"/signup"})
 public class SignUpController extends HttpServlet {
@@ -54,30 +52,8 @@ public class SignUpController extends HttpServlet {
                     return;
                 }
 
-                // Store form data in session
-                session.setAttribute("name", fullname);
-                session.setAttribute("username", username);
-                session.setAttribute("pass", password);
-                session.setAttribute("phone", phone);
-                session.setAttribute("address", address);
-                session.setAttribute("dob", dob);
-                session.setAttribute("gender", gender);
-                session.setAttribute("role", role);
-                session.setAttribute("email", email);
-
                 // Redirect to verification page
                 response.sendRedirect("verify");
-            } else {
-                // Retrieve data from session
-                String name = (String) session.getAttribute("name");
-                String username = (String) session.getAttribute("username");
-                String password = (String) session.getAttribute("pass");
-                String phone = (String) session.getAttribute("phone");
-                String address = (String) session.getAttribute("address");
-                String dob = (String) session.getAttribute("dob");
-                String gender = (String) session.getAttribute("gender");
-                String email = (String) session.getAttribute("email");
-                String role = (String) session.getAttribute("role");
 
                 // Create and save new account
                 Account newAcc = new Account();
@@ -88,7 +64,7 @@ public class SignUpController extends HttpServlet {
 
                 // Create and save new user
                 User newUser = new User();
-                newUser.setName(name);
+                newUser.setName(fullname);
                 newUser.setGender("Male".equals(gender));
                 newUser.setPhone(phone);
                 newUser.setAddress(address);
