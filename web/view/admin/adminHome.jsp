@@ -110,7 +110,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Gender</th>
@@ -128,7 +128,7 @@
                                     %>
                                     <tr>
                                         <td><%= user.getId() %></td>
-                                        <td><%= user.getName() %></td>
+                                       
                                         <td><%= user.getGmail() %></td>
                                         <td><%= user.getAddress() %></td>
                                         <td><%= user.isGender() ? "Male" : "Female" %></td>
