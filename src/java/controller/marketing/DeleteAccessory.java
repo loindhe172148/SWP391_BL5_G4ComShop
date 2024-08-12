@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.marketing;
 
 import dal.DaoAccessory;
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class DeleteAccessory extends HttpServlet {
         String  Aid = request.getParameter("Aid");
          DaoAccessory daoAccessory = new DaoAccessory();
          daoAccessory.deleteAccessory(Aid);
-         response.sendRedirect("Accessory");
+         response.sendRedirect("marketing/accessory");
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

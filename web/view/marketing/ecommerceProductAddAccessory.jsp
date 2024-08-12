@@ -9,9 +9,9 @@
 <!DOCTYPE html>
 <html lang="en" data-topbar-color="dark">
 
-    
-<!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:02 GMT -->
-<head>
+
+    <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:02 GMT -->
+    <head>
         <meta charset="utf-8" />
         <title>Add & Edit Products | Ubold - Responsive Bootstrap 5 Admin Dashboard</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,17 +27,17 @@
         <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
         <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
-	    <!-- Theme Config Js -->
-	    <script src="assets/js/head.js"></script>
+        <!-- Theme Config Js -->
+        <script src="assets/js/head.js"></script>
 
-	    <!-- Bootstrap css -->
-	    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
+        <!-- Bootstrap css -->
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
-	    <!-- App css -->
-	    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <!-- App css -->
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
-	    <!-- Icons css -->
-	    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <!-- Icons css -->
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -85,7 +85,7 @@
                                     <i class="fe-settings me-1"></i>
                                     <span>Settings</span>
                                 </a>
-F
+                                F
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <i class="fe-lock me-1"></i>
@@ -106,7 +106,7 @@ F
                     <!--- Menu -->
                     <ul class="menu">
 
-                       
+
 
                         <li class="menu-title">Apps</li>
                         <li class="menu-item">
@@ -132,7 +132,7 @@ F
                                             <span class="menu-text">Products Accessory</span>
                                         </a>
                                     </li>
-                                   
+
                                     <li class="menu-item">
                                         <a href="ecommerce-product-edit-computer.html" class="menu-link">
                                             <span class="menu-text">Add Product Computer</span>
@@ -181,7 +181,7 @@ F
                                 </ul>
                             </div>
                         </li>
-                        
+
                     </ul>
                     <!--- End Menu -->
                     <div class="clearfix"></div>
@@ -750,243 +750,109 @@ F
                         <!-- end page title -->
 
 
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General Mouse</h5>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form action="Add" method="post">
+                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General Accessory</h5>
 
-                                       
+                    <div class="mb-3">
+                        <label for="product-name" class="form-label">Product Name <span class="text-danger">*</span></label>
+                        <input name="name" type="text" id="product-name" class="form-control" placeholder="">
+                    </div>
 
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Product Name  <span class="text-danger">*</span></label>
-                                        <input name ="name" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Product Bandname  <span class="text-danger">*</span></label>
-                                        <select class="form-select my-1 my-lg-0" id="status-select" onchange="location = this.value;">
-                                                           <c:forEach items="${listB}" var="o"> 
-                                                               <option value="${o.idBrandName}">${o.brandName}</option>
-                                                           </c:forEach>
-                                                       </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="mb-2">Status <span class="text-danger">*</span></label>
-                                        <br/>
-                                        <div class="d-flex flex-wrap">
-                                            <div class="form-check me-2">
-                                                <input  class="form-check-input" type="radio" name="status" value="option1" id="inlineRadio1" checked>
-                                                <label class="form-check-label" for="inlineRadio1">Online</label>
-                                            </div>
-                                            <div class="form-check me-2">
-                                                <input class="form-check-input" type="radio" name="status" value="option2" id="inlineRadio2">
-                                                <label class="form-check-label" for="inlineRadio2">Offline</label>
-                                            </div>
-                                            <div class="form-check me-2">
-                                                <input class="form-check-input" type="radio" name="status" value="option3" id="inlineRadio3">
-                                                <label class="form-check-label" for="inlineRadio3">Draft</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="mb-3">
+                        <label for="bandname-select" class="form-label">Product Brandname <span class="text-danger">*</span></label>
+                        <select name="bandname" class="form-select my-1 my-lg-0" id="bandname-select">
+                            <c:forEach items="${listB}" var="o">
+                                <option value="${o.idBrandName}">${o.brandName}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
 
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Product Description   <span class="text-danger">*</span></label>
-                                        <input name="description" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Capacity  <span class="text-danger">*</span></label>
-                                        <input name="capacity" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Color  <span class="text-danger">*</span></label>
-                                        <input name="color" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Connect  <span class="text-danger">*</span></label>
-                                            <input  name="dpi" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Compatible  <span class="text-danger">*</span></label>
-                                            <input  name="dpi" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                    <div class="mb-3">
-                                            <label for="product-Name" class="form-label">DPI  <span class="text-danger">*</span></label>
-                                            <input  name="dpi" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
+                    <div class="mb-3">
+                        <label for="product-status" class="form-label">Status <span class="text-danger">*</span></label>
+                        <input name="status" type="text" id="product-status" class="form-control" placeholder="">
+                    </div>
 
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Originprice <span class="text-danger">*</span></label>
-                                            <input type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Saleprice <span class="text-danger">*</span></label>
-                                            <input type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">quantity <span class="text-danger">*</span></label>
-                                            <input type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
+                    <div class="mb-3">
+                        <label for="product-description" class="form-label">Product Description <span class="text-danger">*</span></label>
+                        <input name="description" type="text" id="product-description" class="form-control" placeholder="">
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="product-capacity" class="form-label">Capacity <span class="text-danger">*</span></label>
+                        <input name="capacity" type="text" id="product-capacity" class="form-control" placeholder="">
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="product-color" class="form-label">Color <span class="text-danger">*</span></label>
+                        <input name="color" type="text" id="product-color" class="form-control" placeholder="">
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="product-connect" class="form-label">Connect <span class="text-danger">*</span></label>
+                        <input name="connect" type="text" id="product-connect" class="form-control" placeholder="">
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="product-compatible" class="form-label">Compatible <span class="text-danger">*</span></label>
+                        <input name="compatible" type="text" id="product-compatible" class="form-control" placeholder="">
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="product-dpi" class="form-label">DPI <span class="text-danger">*</span></label>
+                        <input name="dpi" type="text" id="product-dpi" class="form-control" placeholder="">
+                    </div>
 
-                                      
+                    <div class="mb-3">
+                        <label for="product-layout" class="form-label">Layout <span class="text-danger">*</span></label>
+                        <input name="layout" type="text" id="product-layout" class="form-control" placeholder="">
+                    </div>
 
-                                        
+                    <div class="mb-3">
+                        <label for="product-switch" class="form-label">Switch <span class="text-danger">*</span></label>
+                        <input name="switcha" type="text" id="product-switch" class="form-control" placeholder="">
+                    </div>
 
-                                        
+                    <div class="mb-3">
+                        <label for="product-feature" class="form-label">Feature <span class="text-danger">*</span></label>
+                        <input name="feature" type="text" id="product-feature" class="form-control" placeholder="">
+                    </div>
 
-                                        
+                    <div class="mb-3">
+                        <label for="product-originprice" class="form-label">Origin Price <span class="text-danger">*</span></label>
+                        <input name="originprice" type="text" id="product-originprice" class="form-control" placeholder="">
+                    </div>
 
-                                       
-                                    </div>
-                                </div> <!-- end card -->
-                            </div> <!-- end col -->
-                            <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label for="product-saleprice" class="form-label">Sale Price <span class="text-danger">*</span></label>
+                        <input name="saleprice" type="text" id="product-saleprice" class="form-control" placeholder="">
+                    </div>
 
-                                <div class="card">
-                                    <div class="card-body">
-                                       <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General Movie Table</h5>
+                    <div class="mb-3">
+                        <label for="product-quantity" class="form-label">Quantity <span class="text-danger">*</span></label>
+                        <input name="quantity" type="text" id="product-quantity" class="form-control" placeholder="">
+                    </div>
 
-                                   
+                    <div class="mb-3">
+                        <label for="product-img" class="form-label">Image <span class="text-danger">*</span></label>
+                        <input name="img" type="text" id="product-img" class="form-control" placeholder="">
+                    </div>
+                    
 
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Product Name  <span class="text-danger">*</span></label>
-                                        <input name ="name" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Product Bandname  <span class="text-danger">*</span></label>
-                                        <select class="form-select my-1 my-lg-0" id="status-select" onchange="location = this.value;">
-                                                           <c:forEach items="${listB}" var="o"> 
-                                                               <option>${o.brandName}</option>
-                                                           </c:forEach>
-                                                       </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="mb-2">Status <span class="text-danger">*</span></label>
-                                        <br/>
-                                        <div class="d-flex flex-wrap">
-                                            <div class="form-check me-2">
-                                                <input  class="form-check-input" type="radio" name="status" value="option1" id="inlineRadio1" checked>
-                                                <label class="form-check-label" for="inlineRadio1">Online</label>
-                                            </div>
-                                            <div class="form-check me-2">
-                                                <input class="form-check-input" type="radio" name="status" value="option2" id="inlineRadio2">
-                                                <label class="form-check-label" for="inlineRadio2">Offline</label>
-                                            </div>
-                                            <div class="form-check me-2">
-                                                <input class="form-check-input" type="radio" name="status" value="option3" id="inlineRadio3">
-                                                <label class="form-check-label" for="inlineRadio3">Draft</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="text-center mb-3">
+                       <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.history.back();">Cancel</button>
+                        <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Save</button>
+                    </div>
+                </form>
+            </div> <!-- end card-body -->
+        </div> <!-- end card -->
+    </div> <!-- end col -->
+</div>
+ <!-- end row -->
 
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Product Description   <span class="text-danger">*</span></label>
-                                        <input name="description" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Capacity  <span class="text-danger">*</span></label>
-                                        <input name="capacity" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="product-Name" class="form-label">Color  <span class="text-danger">*</span></label>
-                                        <input name="color" type="text" id="product-reference" class="form-control" placeholder="">
-                                    </div>
-                                       <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Connect <span class="text-danger">*</span></label>
-                                            <input name="connect" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                       <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Compatible <span class="text-danger">*</span></label>
-                                            <input name="compatible" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Layout <span class="text-danger">*</span></label>
-                                            <input name="layout" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Switch <span class="text-danger">*</span></label>
-                                            <input name="switcha"  type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Feature <span class="text-danger">*</span></label>
-                                            <input name="feature"  type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Originprice <span class="text-danger">*</span></label>
-                                            <input name="originprice"  type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Saleprice <span class="text-danger">*</span></label>
-                                            <input name="saleprice" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Quantity <span class="text-danger">*</span></label>
-                                            <input name="quantity" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-                                          <div class="mb-3">
-                                            <label for="product-Name" class="form-label">Image <span class="text-danger">*</span></label>
-                                            <input name="img" type="text" id="product-reference" class="form-control" placeholder="">
-                                        </div>
-
-
-
-                                        <!-- Preview -->
-                                        <div class="dropzone-previews mt-3" id="file-previews"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                            
-                     
-                            
-                            
-                            <div class="col-lg-6">
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Product Movie Table Images</h5>
-
-                                        <form action="https://coderthemes.com/" method="post" class="dropzone" id="myAwesomeDropzone" data-plugin="dropzone" data-previews-container="#file-previews"
-                                            data-upload-preview-template="#uploadPreviewTemplate">
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple />
-                                            </div>
-
-                                            <div class="dz-message needsclick">
-                                                <i class="h1 text-muted dripicons-cloud-upload"></i>
-                                                <h3>Drop files here or click to upload.</h3>
-                                                <span class="text-muted font-13">(This is just a demo dropzone. Selected files are
-                                                    <strong>not</strong> actually uploaded.)</span>
-                                            </div>
-                                        </form>
-
-                                        <!-- Preview -->
-                                        <div class="dropzone-previews mt-3" id="file-previews"></div>
-                                    </div>
-                                </div> <!-- end col-->
-
-                                
-
-                            </div> <!-- end col-->
-                        </div>
-                        <!-- end row -->
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="text-center mb-3">
-                                    <button type="button" class="btn w-sm btn-light waves-effect">Cancel</button>
-                                    <button type="button" class="btn w-sm btn-success waves-effect waves-light">Save</button>
-                                    <button type="button" class="btn w-sm btn-danger waves-effect waves-light">Delete</button>
-                                </div>
-                            </div> <!-- end col -->
-                        </div>
-                        <!-- end row -->
 
 
                         <!-- file preview template -->
@@ -1532,6 +1398,6 @@ F
 
     </body>
 
-<!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:06 GMT -->
+    <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:06 GMT -->
 </html>
 

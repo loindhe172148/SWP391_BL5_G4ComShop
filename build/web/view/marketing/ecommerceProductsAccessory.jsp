@@ -22,7 +22,7 @@
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
 	    <!-- Theme Config Js -->
-	    <script src="assets/js/head.js"></script>
+	    <script  src="assets/js/head.js"></script>
 
 	    <!-- Bootstrap css -->
 	    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
@@ -775,9 +775,7 @@
                                             </div>
                                             <div class="col-auto">
                                                 <div class="text-lg-end my-1 my-lg-0">
-                                                    <button type="button" class="btn btn-success waves-effect waves-light me-1">
-                                                        <i class="mdi mdi-cog"></i>
-                                                    </button>
+                                                    
                                                     <a href="maketing" class="btn btn-danger waves-effect waves-light">
                                                         <i class="mdi mdi-plus-circle me-1"></i> Add New
                                                     </a>
@@ -824,7 +822,7 @@
                     <td>${o.status}</td>
 <td>
     <div class="text-center mb-3">
-        <button type="button" class="btn w-sm btn-success waves-effect waves-light">Save</button>
+        <button  href="showing"  type="button" class="btn w-sm btn-success waves-effect waves-light">Edit</button>
         
         <!-- Delete Button with JavaScript -->
         <button type="button" class="btn w-sm btn-danger waves-effect waves-light"

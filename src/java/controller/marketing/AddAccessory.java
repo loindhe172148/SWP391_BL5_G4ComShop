@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.marketing;
 
 import dal.DaoAccessory;
 import java.io.IOException;
@@ -26,31 +26,33 @@ public class AddAccessory extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        String aname = request.getParameter("name");
-        String abandname = request.getParameter("bandname");
-        String astatus = request.getParameter("status");
-        String adescription = request.getParameter("description");
-        String acapacity = request.getParameter("capacity");
-        String aconnect = request.getParameter("connect");
-        String acompatible = request.getParameter("compatible");
-        String acolor = request.getParameter("color");
-        String adpi = request.getParameter("dpi");
-        String alayout = request.getParameter("layout");
-        String aswitch = request.getParameter("switcha");
-        String afeature = request.getParameter("feature");
-        String aoriginprice = request.getParameter("originprice");
-        String asaleprice = request.getParameter("saleprice");
-        String aquantity = request.getParameter("quantity");
-        String aimg = request.getParameter("img");
-        DaoAccessory daoAccessory = new DaoAccessory();
-        daoAccessory.insertAccessory(aname, abandname, astatus, adescription, acapacity, aconnect, acompatible, acolor, adpi, alayout, aswitch, afeature, aoriginprice, asaleprice, aquantity, aimg);
-        response.sendRedirect("Accessory");
+    response.setContentType("text/html;charset=UTF-8");
+    
+    String aname = request.getParameter("name");
+    String abandname = request.getParameter("bandname"); // Đảm bảo trùng với tên "name" trong form
+    String astatus = request.getParameter("status");
+    String adescription = request.getParameter("description");
+    String acapacity = request.getParameter("capacity");
+    String aconnect = request.getParameter("connect");
+    String acompatible = request.getParameter("compatible");
+    String acolor = request.getParameter("color");
+    String adpi = request.getParameter("dpi");
+    String alayout = request.getParameter("layout");
+    String aswitch = request.getParameter("switcha"); // Đảm bảo trùng với tên "name" trong form
+    String afeature = request.getParameter("feature");
+    String aoriginprice = request.getParameter("originprice");
+    String asaleprice = request.getParameter("saleprice");
+    String aquantity = request.getParameter("quantity");
+    String aimg = request.getParameter("img");
 
-    } 
+    DaoAccessory daoAccessory = new DaoAccessory();
+    daoAccessory.insertAccessory(aname, abandname, astatus, adescription, acapacity, aconnect, acompatible, acolor, adpi, alayout, aswitch, afeature, aoriginprice, asaleprice, aquantity, aimg);
+    
+    response.sendRedirect("marketing/accessory");
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.marketing;
 
 import dal.DaoAccessory;
 import entity.Accessory;
@@ -40,7 +40,7 @@ public class AccessoryManagement extends HttpServlet {
         request.setAttribute("listA", list);
         request.setAttribute("listB", listB);
 
-        request.getRequestDispatcher("ecommerceProductsAccessory.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/marketing/ecommerceProductsAccessory.jsp").forward(request, response);
     }
 
 

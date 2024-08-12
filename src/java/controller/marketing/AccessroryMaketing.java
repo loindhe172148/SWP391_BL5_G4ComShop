@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.marketing;
 
 import dal.DaoAccessory;
 import entity.Brandname;
@@ -34,7 +34,7 @@ public class AccessroryMaketing extends HttpServlet {
         DaoAccessory daoAccessory = new DaoAccessory();
         List<Brandname> listB = daoAccessory.getBrandnameAccessory();
         request.setAttribute("listB", listB);
-        request.getRequestDispatcher("ecommerceProductAddAccessory.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/marketing/ecommerceProductAddAccessory.jsp").forward(request, response);
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

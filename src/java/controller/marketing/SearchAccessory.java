@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.marketing;
 
 import dal.DaoAccessory;
 import entity.Accessory;
@@ -38,7 +38,7 @@ public class SearchAccessory extends HttpServlet {
         DaoAccessory daoAccessory = new DaoAccessory();
         List<Accessory> list = daoAccessory.getSearchAccessory(txtSearch);
         request.setAttribute("listA", list);
-        request.getRequestDispatcher("ecommerceProductsAccessory.jsp").forward(request, response);
+        request.getRequestDispatcher("view/makerting/ecommerceProductsAccessory.jsp").forward(request, response);
 
     }
 

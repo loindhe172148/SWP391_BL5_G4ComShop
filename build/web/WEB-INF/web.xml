@@ -2,43 +2,59 @@
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <servlet>
         <servlet-name>AccessoryManagement</servlet-name>
-        <servlet-class>controller.AccessoryManagement</servlet-class>
+        <servlet-class>controller.marketing.AccessoryManagement</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>FillterAccessory</servlet-name>
-        <servlet-class>controller.FillterAccessory</servlet-class>
+        <servlet-class>controller.marketing.FillterAccessory</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteAccessory</servlet-name>
-        <servlet-class>controller.DeleteAccessory</servlet-class>
+        <servlet-class>controller.marketing.DeleteAccessory</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddAccessory</servlet-name>
-        <servlet-class>controller.AddAccessory</servlet-class>
+        <servlet-class>controller.marketing.AddAccessory</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccessroryMaketing</servlet-name>
-        <servlet-class>controller.AccessroryMaketing</servlet-class>
+        <servlet-class>controller.marketing.AccessroryMaketing</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccessoryShowing</servlet-name>
+        <servlet-class>controller.marketing.AccessoryShowing</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAccessory</servlet-name>
+        <servlet-class>controller.marketing.UpdateAccessory</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
-        <url-pattern>/Accessory</url-pattern>
+        <url-pattern>/marketing/accessory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
-        <url-pattern>/Bandname</url-pattern>
+        <url-pattern>/marketing/bandname</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteAccessory</servlet-name>
-        <url-pattern>/Delete</url-pattern>
+        <url-pattern>/marketing/delete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddAccessory</servlet-name>
-        <url-pattern>/Add</url-pattern>
+        <url-pattern>/marketing/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccessroryMaketing</servlet-name>
-        <url-pattern>/maketing</url-pattern>
+        <url-pattern>/marketing/maketing</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryShowing</servlet-name>
+        <url-pattern>/marketing/showing</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccessory</servlet-name>
+        <url-pattern>/marketing/updateAccessory</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>
