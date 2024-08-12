@@ -18,12 +18,7 @@ public class ConnectDB {
     protected Connection conn;
     public ConnectDB()
     {
-        //@Students: You are allowed to edit user, pass, url variables to fit 
-        //your system configuration
-        //You can also add more methods for Database Interaction tasks. 
-        //But we recommend you to do it in another class
-        // For example : StudentDBContext extends DBContext , 
-        //where StudentDBContext is located in dal package, 
+        
         try {
             String user = "sa";
             String pass = "123456";
@@ -33,7 +28,7 @@ public class ConnectDB {
             System.out.println("thanh cong");
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("that bai");
-            Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     public static void main(String[] args) {

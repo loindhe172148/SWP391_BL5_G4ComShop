@@ -740,8 +740,8 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="productlist">Product List</a></li>
                                             <li class="breadcrumb-item active">Product Details</li>
                                         </ol>
                                     </div>
@@ -879,7 +879,6 @@
                                                 <input type="text" id="product-quantity" name="product-quantity" class="form-control" placeholder="${p.quantity}" readonly>
                                             </div>
                                         </div>
-
                                     </div> <!-- end card -->
                                 </div> <!-- end col -->
 

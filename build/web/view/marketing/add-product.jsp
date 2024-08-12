@@ -16,7 +16,9 @@
     <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:02 GMT -->
     <head>
         <meta charset="utf-8" />
-        <title>Product details</title>
+
+        <title>Add Product </title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -739,9 +741,10 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
-                                            <li class="breadcrumb-item active">Add / Edit Product</li>
+                                            <li class="breadcrumb-item"><a href="#;">Home</a></li>
+
+                                            <li class="breadcrumb-item"><a href="productlist">Product List</a></li>
+                                            <li class="breadcrumb-item active">Add Product</li>
                                         </ol>
                                     </div>
                                     <h4 class="page-title">Add / Edit Product Computer</h4>
@@ -750,174 +753,199 @@
                         </div>
                         <!-- end page title -->
 
-                        <!--                        add form -->
-                        <form action="addnew" method="post" id="product-form">
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
+                        <!--formmmmmmmm -->
+                        <form action="addnew" method="post" id="product-form" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="text-uppercase bg-soft-blue p-2 mt-0 mb-3">General-required field</h5>
 
-                    <!-- Product ID (Readonly as it is auto-incremented) -->
-                    <div class="mb-3">
-                        <label for="product-id" class="form-label">Product ID:</label>
-                        <input type="text" id="product-id" name="product-id" class="form-control" placeholder="Auto-increment code" readonly>
-                    </div>
+                                            <!-- Product ID -->
+                                            <div class="mb-3">
+                                                <label for="product-id" class="form-label">Product ID:</label>
+                                                <input type="text" id="product-id" name="product-id" class="form-control" placeholder="Auto-increment code" readonly>
+                                            </div>
 
-                    <!-- Product Name -->
-                    <div class="mb-3">
-                        <label for="product-name" class="form-label">Product Name: <span class="text-danger">*</span></label>
-                        <input type="text" id="product-name" name="product-name" class="form-control" placeholder="">
-                        <span id="product-name-error" class="text-danger"><c:out value="${error.productName}" /></span>
-                    </div>
+                                            <!-- Product Name -->
+                                            <div class="mb-3">
+                                                <label for="product-name" class="form-label">Product Name: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-name" name="product-name" class="form-control" placeholder="">
+                                                <span id="product-name-error" class="text-danger"><c:out value="${error.productName}" /></span>
+                                            </div>
 
-                    <!-- Product Description -->
-                    <div class="mb-3">
-                        <label for="product-description" class="form-label">Product Description: <span class="text-danger">*</span></label>
-                        <textarea id="product-description" name="product-description" class="form-control" placeholder="Enter description here"></textarea>
-                        <span id="product-description-error" class="text-danger"><c:out value="${error.productDescription}" /></span>
-                    </div>
+                                            <!-- Product Description -->
+                                            <div class="mb-3">
+                                                <label for="product-description" class="form-label">Product Description: <span class="text-danger">*</span></label>
+                                                <textarea id="product-description" name="product-description" class="form-control" placeholder="Enter description here"></textarea>
+                                                <span id="product-description-error" class="text-danger"><c:out value="${error.productDescription}" /></span>
+                                            </div>
 
-                    <!-- Status -->
-                    <div class="mb-3">
-                        <label class="mb-2">Status: <span class="text-danger">*</span></label>
-                        <div class="d-flex flex-wrap">
-                            <div class="form-check me-2">
-                                <input class="form-check-input" type="radio" name="status" value="show" id="status-show" checked>
-                                <label class="form-check-label" for="status-show">Show</label>
+
+                                            <!-- Status -->
+                                            <div class="mb-3">
+                                                <label class="mb-2">Status: <span class="text-danger">*</span></label>
+                                                <div class="d-flex flex-wrap">
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="radio" name="status" value="1" id="status-show" checked>
+                                                        <label class="form-check-label" for="status-show">Show</label>
+                                                    </div>
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="radio" name="status" value="0" id="status-hide">
+                                                        <label class="form-check-label" for="status-hide">Hide</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Origin Price -->
+                                            <div class="mb-3">
+                                                <label for="product-originprice" class="form-label">Origin Price: <span class="text-danger">*</span></label>
+                                                <input type="number" id="product-originprice" name="product-originprice" class="form-control" placeholder="0 VND" step="0.01" min="0">
+                                                <span id="product-originprice-error" class="text-danger"><c:out value="${error.originPrice}" /></span>
+                                            </div>
+
+                                            <!-- Sale Price -->
+                                            <div class="mb-3">
+                                                <label for="product-saleprice" class="form-label">Sale Price: <span class="text-danger">*</span></label>
+                                                <input type="number" id="product-saleprice" name="product-saleprice" class="form-control" placeholder="0 VND" step="0.01" min="0">
+                                                <span id="product-saleprice-error" class="text-danger"><c:out value="${error.salePrice}" /></span>
+                                            </div>
+
+
+
+                                            <!-- Capacity -->
+                                            <div class="mb-3">
+                                                <label for="product-capacity" class="form-label">Capacity (GB): <span class="text-danger">*</span></label>
+                                                <input type="number" id="product-capacity" name="product-capacity" class="form-control" placeholder="GB" step="1" min="0">
+                                                <span id="product-capacity-error" class="text-danger"><c:out value="${error.capacity}" /></span>
+                                            </div>
+
+                                            <!-- Screen Size -->
+                                            <div class="mb-3">
+                                                <label for="product-screensize" class="form-label">Screen Size (inches): <span class="text-danger">*</span></label>
+                                                <input type="number" id="product-screensize" name="product-screensize" class="form-control" placeholder="inches" step="0.1" min="0">
+                                                <span id="product-screensize-error" class="text-danger"><c:out value="${error.screenSize}" /></span>
+                                            </div>
+
+                                            <!-- Color -->
+                                            <div class="mb-3">
+                                                <label for="product-color" class="form-label">Color: <span class="text-danger">*</span></label>
+                                                <select id="product-color" name="product-color" class="form-control">
+                                                    <option value="" disabled selected>Select Color</option>
+                                                    <option value="Black">Black</option>
+                                                    <option value="White">White</option>
+                                                    <option value="Silver">Silver</option>
+                                                    <option value="Gray">Gray</option>
+                                                    <option value="Blue">Blue</option>
+                                                    <option value="Red">Red</option>
+                                                </select>
+                                                <span id="product-color-error" class="text-danger"><c:out value="${error.color}" /></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right side: Image Upload -->
+                                <div class="col-lg-6">
+
+                                    <div class="card">
+
+                                        <div class="card-body">
+                                            <h5 class="text-uppercase bg-soft-blue p-2 mt-0 mb-3">Non-required field</h5>
+                                            <!-- Category -->
+                                            <div class="mb-3">
+                                                <label for="product-category" class="form-label">Category: <span class="text-danger"></span></label>
+                                                <select id="product-category" name="product-category" class="form-control">
+                                                    <option value="" disabled selected>Select Category</option>
+                                                    <c:forEach var="cate" items="${categoryList}">
+                                                        <option value="${cate.id}">${cate.id}. ${cate.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <span id="product-category-error" class="text-danger"><c:out value="${error.category}" /></span>
+                                            </div>
+                                            <!-- CPU -->
+                                            <div class="mb-3">
+                                                <label for="product-cpu" class="form-label">CPU: <span class="text-danger"></span></label>
+                                                <select id="product-cpu" name="product-cpu" class="form-control">
+                                                    <option value="" disabled selected>Select CPU</option>
+                                                    <c:forEach var="cpu" items="${cpuList}">
+                                                        <option value="${cpu.id}">${cpu.id}. ${cpu.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <span id="product-cpu-error" class="text-danger"><c:out value="${error.cpu}" /></span>
+                                            </div>
+
+                                            <!-- Card -->
+                                            <div class="mb-3">
+                                                <label for="product-card" class="form-label">Card: <span class="text-danger"></span></label>
+                                                <select id="product-card" name="product-card" class="form-control">
+                                                    <option value="" disabled selected>Select Card</option>
+                                                    <c:forEach var="card" items="${cardList}">
+                                                        <option value="${card.id}">${card.id}. ${card.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <span id="product-card-error" class="text-danger"><c:out value="${error.card}" /></span>
+                                            </div>
+
+                                            <!-- RAM -->
+                                            <div class="mb-3">
+                                                <label for="product-ram" class="form-label">RAM: <span class="text-danger"></span></label>
+                                                <select id="product-ram" name="product-ram" class="form-control">
+                                                    <option value="" disabled selected>Select RAM</option>
+                                                    <c:forEach var="ram" items="${ramList}">
+                                                        <option value="${ram.id}">${ram.id}. ${ram.type}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <span id="product-ram-error" class="text-danger"><c:out value="${error.ram}" /></span>
+                                            </div>
+
+                                            <!-- Type -->
+                                            <div class="mb-3">
+                                                <label for="product-type" class="form-label">Type: <span class="text-danger"></span></label>
+                                                <select id="product-type" name="product-type" class="form-control">
+                                                    <option value="" disabled selected>Select Type</option>
+                                                    <c:forEach var="type" items="${typeList}">
+                                                        <option value="${type.id}">${type.id}. ${type.typeName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                                <span id="product-type-error" class="text-danger"><c:out value="${error.type}" /></span>
+                                            </div>
+
+                                            <!-- Quantity -->
+                                            <div class="mb-3">
+                                                <label for="product-quantity" class="form-label">Quantity: <span class="text-danger"></span></label>
+                                                <input type="number" id="product-quantity" name="product-quantity" class="form-control" placeholder="Enter quantity" step="1" min="0">
+                                                <span id="product-quantity-error" class="text-danger"><c:out value="${error.quantity}" /></span>
+                                            </div>
+
+                                            <h5 class="text-uppercase mt-0 mb-3 bg-soft-blue p-2">Product Image</h5>
+                                            <div class="mb-3">
+                                                <label for="product-image" class="form-label">Image: <span class="text-danger"></span></label>
+                                                <input type="file" id="product-image" name="product-image" class="form-control" accept="image/*">
+                                                <span id="product-image-error" class="text-danger"><c:out value="${error.image}" /></span>
+                                            </div>
+
+                                            <!-- Preview container -->
+                                            <div id="file-previews" class="d-flex flex-wrap mt-3"></div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="form-check me-2">
-                                <input class="form-check-input" type="radio" name="status" value="hide" id="status-hide">
-                                <label class="form-check-label" for="status-hide">Hide</label>
+                            <!-- Submit and Cancel Buttons -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-center mb-3">
+                                        <p style="color: green;"><c:out value="${message}" /></p>
+                                    </div>
+                                    <div class="text-center mb-3">
+                                        <button type="reset" class="btn w-sm btn-light waves-effect">Cancel</button>
+                                        <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Add Product</button>
+                                    </div>
+                                </div> <!-- end col -->
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- Origin Price -->
-                    <div class="mb-3">
-                        <label for="product-originprice" class="form-label">Origin Price: <span class="text-danger">*</span></label>
-                        <input type="number" id="product-originprice" name="product-originprice" class="form-control" placeholder="0 VND" step="1" min="0">
-                        <span id="product-originprice-error" class="text-danger"><c:out value="${error.originPrice}" /></span>
-                    </div>
-
-                    <!-- Sale Price -->
-                    <div class="mb-3">
-                        <label for="product-saleprice" class="form-label">Sale Price: <span class="text-danger">*</span></label>
-                        <input type="number" id="product-saleprice" name="product-saleprice" class="form-control" placeholder="0 VND" step="1" min="0">
-                        <span id="product-saleprice-error" class="text-danger"><c:out value="${error.salePrice}" /></span>
-                    </div>
-
-                    <!-- Category -->
-                    <div class="mb-3">
-                        <label for="product-category" class="form-label">Category: <span class="text-danger">*</span></label>
-                        <select id="product-category" name="product-category" class="form-control">
-                            <option value="" disabled selected>Select Category</option>
-                            <c:forEach var="cate" items="${categoryList}">
-                                <option value="${cate.id}">${cate.id}. ${cate.name}</option>
-                            </c:forEach>
-                        </select>
-                        <span id="product-category-error" class="text-danger"><c:out value="${error.category}" /></span>
-                    </div>
-
-                    <!-- Capacity -->
-                    <div class="mb-3">
-                        <label for="product-capacity" class="form-label">Capacity: <span class="text-danger">*</span></label>
-                        <input type="number" id="product-capacity" name="product-capacity" class="form-control" placeholder="GB" step="1" min="0">
-                        <span id="product-capacity-error" class="text-danger"><c:out value="${error.capacity}" /></span>
-                    </div>
-
-                    <!-- Screen Size -->
-                    <div class="mb-3">
-                        <label for="product-screensize" class="form-label">Screen Size: <span class="text-danger">*</span></label>
-                        <input type="number" id="product-screensize" name="product-screensize" class="form-control" placeholder="inches" step="0.1" min="0">
-                        <span id="product-screensize-error" class="text-danger"><c:out value="${error.screenSize}" /></span>
-                    </div>
-
-                    <!-- Color -->
-                    <div class="mb-3">
-                        <label for="product-color" class="form-label">Color: <span class="text-danger">*</span></label>
-                        <select id="product-color" name="product-color" class="form-control">
-                            <option value="" disabled selected>Select Color</option>
-                            <option value="Black">Black</option>
-                            <option value="White">White</option>
-                            <option value="Silver">Silver</option>
-                            <option value="Gray">Gray</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Red">Red</option>
-                        </select>
-                        <span id="product-color-error" class="text-danger"><c:out value="${error.color}" /></span>
-                    </div>
-
-                    <!-- CPU -->
-                    <div class="mb-3">
-                        <label for="product-cpu" class="form-label">CPU: <span class="text-danger">*</span></label>
-                        <select id="product-cpu" name="product-cpu" class="form-control">
-                            <option value="" disabled selected>Select CPU</option>
-                            <c:forEach var="cpu" items="${cpuList}">
-                                <option value="${cpu.id}">${cpu.id}. ${cpu.name}</option>
-                            </c:forEach>
-                        </select>
-                        <span id="product-cpu-error" class="text-danger"><c:out value="${error.cpu}" /></span>
-                    </div>
-
-                    <!-- Card -->
-                    <div class="mb-3">
-                        <label for="product-card" class="form-label">Card: <span class="text-danger">*</span></label>
-                        <select id="product-card" name="product-card" class="form-control">
-                            <option value="" disabled selected>Select Card</option>
-                            <c:forEach var="card" items="${cardList}">
-                                <option value="${card.id}">${card.id}. ${card.name}</option>
-                            </c:forEach>
-                        </select>
-                        <span id="product-card-error" class="text-danger"><c:out value="${error.card}" /></span>
-                    </div>
-
-                    <!-- RAM -->
-                    <div class="mb-3">
-                        <label for="product-ram" class="form-label">RAM: <span class="text-danger">*</span></label>
-                        <select id="product-ram" name="product-ram" class="form-control">
-                            <option value="" disabled selected>Select RAM</option>
-                            <c:forEach var="ram" items="${ramList}">
-                                <option value="${ram.id}">${ram.id}. ${ram.type}</option>
-                            </c:forEach>
-                        </select>
-                        <span id="product-ram-error" class="text-danger"><c:out value="${error.ram}" /></span>
-                    </div>
-
-                    <!-- Type -->
-                    <div class="mb-3">
-                        <label for="product-type" class="form-label">Type: <span class="text-danger">*</span></label>
-                        <select id="product-type" name="product-type" class="form-control">
-                            <option value="" disabled selected>Select Type</option>
-                            <c:forEach var="type" items="${typeList}">
-                                <option value="${type.id}">${type.id}. ${type.typeName}</option>
-                            </c:forEach>
-                        </select>
-                        <span id="product-type-error" class="text-danger"><c:out value="${error.type}" /></span>
-                    </div>
-
-                    <!-- Quantity -->
-                    <div class="mb-3">
-                        <label for="product-quantity" class="form-label">Quantity: <span class="text-danger">*</span></label>
-                        <input type="number" id="product-quantity" name="product-quantity" class="form-control" placeholder="0" step="1" min="0">
-                        <span id="product-quantity-error" class="text-danger"><c:out value="${error.quantity}" /></span>
-                    </div>
-                </div>
-            </div> <!-- end card -->
-        </div> <!-- end col -->
-
-        <!-- Success Message -->
-        <p style="color: green;"><c:out value="${message}" /></p>
-    </div>
-    <!-- end row -->
-
-    <!-- Buttons -->
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="reset" class="btn btn-secondary">Reset</button>
-</form>
-
-
-
+                        </form>
 
                         <!-- file preview template -->
                         <div class="d-none" id="uploadPreviewTemplate">
@@ -1441,36 +1469,40 @@
 
         <!--hien thi anh-->
         <script>
-            document.getElementById('file-input').addEventListener('change', function (event) {
+            document.getElementById('product-image').addEventListener('change', function (event) {
                 var fileInput = event.target;
                 var fileList = fileInput.files;
                 var previewContainer = document.getElementById('file-previews');
-                var message = document.getElementById('message');
 
                 // Clear previous previews
                 previewContainer.innerHTML = '';
 
                 if (fileList.length === 0) {
-                    message.style.display = 'block'; // Show message if no files selected
+                    // If no files are selected, you can optionally handle this case
                     return;
                 }
 
-                message.style.display = 'none'; // Hide message if files are selected
-
                 Array.from(fileList).forEach(function (file) {
-                    var reader = new FileReader();
+                    if (file.type.startsWith('image/')) {
+                        var reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        var img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.style.width = '150px'; // Adjust the size as needed
-                        img.style.marginRight = '10px'; // Adjust spacing as needed
-                        previewContainer.appendChild(img);
-                    };
+                        reader.onload = function (e) {
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.width = '150px'; // Adjust the size as needed
+                            img.style.marginRight = '10px'; // Adjust spacing as needed
+                            img.style.marginBottom = '10px'; // Adjust spacing as needed
+                            previewContainer.appendChild(img);
+                        };
 
-                    reader.readAsDataURL(file);
+                        reader.readAsDataURL(file);
+                    } else {
+                        // Handle non-image files if needed
+                        alert('Please upload a valid image file.');
+                    }
                 });
             });
+
         </script>
 
 

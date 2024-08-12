@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.marketing;
 
 import controller.user.BaseRequiredAuthenticationController;
 import dal.CPUDAO;
@@ -33,7 +33,8 @@ import java.sql.SQLException;
  * @author xuant
  */
 @WebServlet(name = "ViewProductList", urlPatterns = {"/view/marketing/productlist", "/view/marketing/changestatus"})
-public class ViewProductList extends BaseRequiredAuthenticationController {
+//public class ViewProductList extends BaseRequiredAuthenticationController {
+public class ViewProductList extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -154,12 +155,12 @@ public class ViewProductList extends BaseRequiredAuthenticationController {
         return "Short description";
     }// </editor-fold>
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+//    }
+//
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+//    }
 
 }
