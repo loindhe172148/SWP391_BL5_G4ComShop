@@ -84,7 +84,7 @@ public class AddProduct extends HttpServlet {
             String sizeStr = request.getParameter("product-screensize").trim();
             String color = request.getParameter("product-color").trim();
             String quantityStr = request.getParameter("product-quantity").trim();
-            
+
             // Handle optional fields
             String categoryIdStr = request.getParameter("product-category");
             String cpuIdStr = request.getParameter("product-cpu");
@@ -155,7 +155,6 @@ public class AddProduct extends HttpServlet {
             double size = Double.parseDouble(sizeStr);
             int quantity = Integer.parseInt(quantityStr);
 
-         
 
             Integer categoryId = (categoryIdStr != null && !categoryIdStr.isEmpty()) ? Integer.parseInt(categoryIdStr) : null;
             Integer cpuId = (cpuIdStr != null && !cpuIdStr.isEmpty()) ? Integer.parseInt(cpuIdStr) : null;

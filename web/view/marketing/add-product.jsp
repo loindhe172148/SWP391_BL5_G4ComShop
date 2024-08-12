@@ -16,7 +16,9 @@
     <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:02 GMT -->
     <head>
         <meta charset="utf-8" />
-        <title>Add Product</title>
+
+        <title>Add Product </title>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -739,7 +741,8 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="#;">Home</a></li>
+
                                             <li class="breadcrumb-item"><a href="productlist">Product List</a></li>
                                             <li class="breadcrumb-item active">Add Product</li>
                                         </ol>
@@ -750,8 +753,7 @@
                         </div>
                         <!-- end page title -->
 
-
-                        <!--formmmmmmm-->
+                        <!--formmmmmmmm -->
                         <form action="addnew" method="post" id="product-form" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -778,6 +780,7 @@
                                                 <textarea id="product-description" name="product-description" class="form-control" placeholder="Enter description here"></textarea>
                                                 <span id="product-description-error" class="text-danger"><c:out value="${error.productDescription}" /></span>
                                             </div>
+
 
                                             <!-- Status -->
                                             <div class="mb-3">
@@ -943,11 +946,6 @@
                                 </div> <!-- end col -->
                             </div>
                         </form>
-
-
-
-
-
 
                         <!-- file preview template -->
                         <div class="d-none" id="uploadPreviewTemplate">
