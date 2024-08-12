@@ -879,7 +879,6 @@
                                                 <input type="text" id="product-quantity" name="product-quantity" class="form-control" placeholder="${p.quantity}" readonly>
                                             </div>
                                         </div>
-
                                     </div> <!-- end card -->
                                 </div> <!-- end col -->
 
