@@ -113,10 +113,10 @@ public class AddProduct extends HttpServlet {
             if (capacityStr.isEmpty()) {
                 errors.put("capacity", "Capacity is required.");
             }
-            if (sizeStr.isEmpty()) {
-                errors.put("screenSize", "Screen size is required.");
+            if (sizeStr.isEmpty() || sizeStr.equals("0")) {
+                errors.put("screenSize", "Screen size is required and must be > 0");
             }
-            if (color.isEmpty()) {
+            if (color.isEmpty() || color.equals("non")) {
                 errors.put("color", "Color is required.");
             }
             if (quantityStr.isEmpty()) {
@@ -126,23 +126,23 @@ public class AddProduct extends HttpServlet {
             if (!errors.isEmpty()) {
                 request.setAttribute("error", errors);
 
-                // Set lại dữ liệu người dùng đã nhập vào request
-                request.setAttribute("productName", name);
-                request.setAttribute("productDescription", description);
-                request.setAttribute("status", statusStr);
-                request.setAttribute("originPrice", originPriceStr);
-                request.setAttribute("salePrice", salePriceStr);
-                request.setAttribute("capacity", capacityStr);
-                request.setAttribute("screenSize", sizeStr);
-                request.setAttribute("color", color);
-                request.setAttribute("quantity", quantityStr);
-
-                // Các trường tùy chọn
-                request.setAttribute("categoryId", categoryIdStr);
-                request.setAttribute("cpuId", cpuIdStr);
-                request.setAttribute("cardId", cardIdStr);
-                request.setAttribute("ramId", ramIdStr);
-                request.setAttribute("typeId", typeIdStr);
+//                // Set lại dữ liệu người dùng đã nhập vào request
+//                request.setAttribute("productName", name);
+//                request.setAttribute("productDescription", description);
+//                request.setAttribute("status", statusStr);
+//                request.setAttribute("originPrice", originPriceStr);
+//                request.setAttribute("salePrice", salePriceStr);
+//                request.setAttribute("capacity", capacityStr);
+//                request.setAttribute("screenSize", sizeStr);
+//                request.setAttribute("color", color);
+//                request.setAttribute("quantity", quantityStr);
+//
+//                // Các trường tùy chọn
+//                request.setAttribute("categoryId", categoryIdStr);
+//                request.setAttribute("cpuId", cpuIdStr);
+//                request.setAttribute("cardId", cardIdStr);
+//                request.setAttribute("ramId", ramIdStr);
+//                request.setAttribute("typeId", typeIdStr);
                 request.getRequestDispatcher("add-product.jsp").forward(request, response);
                 return;
             }
