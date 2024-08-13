@@ -6,5 +6,14 @@
             <file>file:/D:/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop/src/java/controller/marketing/AccessoryManagement.java</file>
             <file>file:/D:/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop/web/view/marketing/ecommerceProductsAccessory.jsp</file>
         </group>
+        <group>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/controller/marketing/AddProduct.java</file>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/dal/ProductDAO.java</file>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/controller/marketing/ViewProductList.java</file>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/web/view/marketing/product-list.jsp</file>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/dal/ConnectDB.java</file>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/web/view/marketing/add-product.jsp</file>
+            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/nbproject/build-impl.xml</file>
+        </group>
     </open-files>
 </project-private>
