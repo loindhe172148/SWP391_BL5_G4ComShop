@@ -19,19 +19,19 @@
         <meta content="Coderthemes" name="author" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/view/marketing/assets/images/favicon.ico">
 
 	    <!-- Theme Config Js -->
-	    <script  src="assets/js/head.js"></script>
+	    <script  src="${pageContext.request.contextPath}/view/marketing/assets/js/head.js"></script>
 
 	    <!-- Bootstrap css -->
-	    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
+	    <link href="${pageContext.request.contextPath}/view/marketing/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
 	    <!-- App css -->
-	    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
+	    <link href="${pageContext.request.contextPath}/view/marketing/assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
 	    <!-- Icons css -->
-	    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+	    <link href="${pageContext.request.contextPath}/view/marketing/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -47,14 +47,14 @@
                 <div class="logo-box">
                     <!-- Brand Logo Light -->
                     <a href="index.html" class="logo-light">
-                        <img src="assets/images/logo-light.png" alt="logo" class="logo-lg">
-                        <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-light.png" alt="logo" class="logo-lg">
+                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                     </a>
 
                     <!-- Brand Logo Dark -->
                     <a href="index.html" class="logo-dark">
-                        <img src="assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
-                        <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
+                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                     </a>
                 </div>
 
@@ -207,14 +207,14 @@
                             <div class="logo-box">
                                 <!-- Brand Logo Light -->
                                 <a href="index.html" class="logo-light">
-                                    <img src="assets/images/logo-light.png" alt="logo" class="logo-lg">
-                                    <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-light.png" alt="logo" class="logo-lg">
+                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                                 </a>
 
                                 <!-- Brand Logo Dark -->
                                 <a href="index.html" class="logo-dark">
-                                    <img src="assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
-                                    <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
+                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                                 </a>
                             </div>
 
@@ -462,19 +462,19 @@
                                         <div class="row g-0">
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="assets/images/brands/slack.png" alt="slack">
+                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/slack.png" alt="slack">
                                                     <span>Slack</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="assets/images/brands/github.png" alt="Github">
+                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/github.png" alt="Github">
                                                     <span>GitHub</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="assets/images/brands/dribbble.png" alt="dribbble">
+                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/dribbble.png" alt="dribbble">
                                                     <span>Dribbble</span>
                                                 </a>
                                             </div>
@@ -483,19 +483,19 @@
                                         <div class="row g-0">
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
+                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/bitbucket.png" alt="bitbucket">
                                                     <span>Bitbucket</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="assets/images/brands/dropbox.png" alt="dropbox">
+                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/dropbox.png" alt="dropbox">
                                                     <span>Dropbox</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="assets/images/brands/g-suite.png" alt="G Suite">
+                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/g-suite.png" alt="G Suite">
                                                     <span>G Suite</span>
                                                 </a>
                                             </div>
@@ -603,7 +603,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0">
                                                         <div class="notify-icon">
-                                                            <img src="assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" />
+                                                            <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 text-truncate ms-2">
@@ -641,7 +641,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0">
                                                         <div class="notify-icon">
-                                                            <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" />
+                                                            <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 text-truncate ms-2">
@@ -675,7 +675,7 @@
                             <!-- User Dropdown -->
                             <li class="dropdown">
                                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
+                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                                     <span class="ms-1 d-none d-md-inline-block">
                                         Geneva <i class="mdi mdi-chevron-down"></i>
                                     </span>
@@ -965,7 +965,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-10.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-10.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -980,7 +980,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-1.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-1.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -995,7 +995,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-9.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-9.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status busy"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1014,7 +1014,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-2.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1029,7 +1029,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-4.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-4.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1044,7 +1044,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-5.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1059,7 +1059,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1074,7 +1074,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-7.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-7.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status busy"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1089,7 +1089,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-8.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-8.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1363,10 +1363,10 @@
         </div>
 
         <!-- Vendor js -->
-        <script src="assets/js/vendor.min.js"></script>
+        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/vendor.min.js"></script>
 
         <!-- App js -->
-        <script src="assets/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/app.min.js"></script>
 
     </body>
 

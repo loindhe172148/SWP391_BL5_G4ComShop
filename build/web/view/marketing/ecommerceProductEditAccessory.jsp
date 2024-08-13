@@ -19,10 +19,10 @@
         <meta content="Coderthemes" name="author" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/view/marketing/assets/images/favicon.ico">
 
         <!-- Plugins css-->
-        <link href="../assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="${pageContext.request.contextPath}/view/marketing/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
         <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
         <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
