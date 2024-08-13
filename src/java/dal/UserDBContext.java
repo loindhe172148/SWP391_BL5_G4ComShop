@@ -135,4 +135,30 @@ public class UserDBContext extends DBContext<User> {
         }
         return null;
     }
+    public User getUserByID(int id) {
+        User user = null;
+        try {
+            String sql = "SELECT * FROM [User] WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getInt("id"));
+               
+                user.setGmail(rs.getString("gmail"));
+                user.setdob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setGender(rs.getBoolean("gender"));
+                user.setPhone(rs.getString("phone"));
+                user.setStatus(rs.getBoolean("status"));
+               
+
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return user;
+    }
 }

@@ -103,8 +103,11 @@ public class User {
         this.status = status;
     }
 
-    public void setdob(java.sql.Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+   public void setdob(Date dob) {
+    if (dob == null) {
+        throw new IllegalArgumentException("Date of birth cannot be null");
     }
+    this.dob = dob;
+}
     
 }
