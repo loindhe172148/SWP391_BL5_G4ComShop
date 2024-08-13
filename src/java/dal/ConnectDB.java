@@ -20,7 +20,7 @@ public class ConnectDB {
     {
         
         try {
-            String user = "sa";
+            String user = "linh";
             String pass = "123456";
             String url = "jdbc:sqlserver://localhost:1433;databaseName=G4COMShop;encrypt=true;TrustServerCertificate=True";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
