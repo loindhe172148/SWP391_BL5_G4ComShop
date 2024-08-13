@@ -177,9 +177,7 @@ public class UserDBContext extends DBContext<User> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            // Đóng các tài nguyên như PreparedStatement, ResultSet nếu cần
-        }
+        } 
         return user;
     }
 }
