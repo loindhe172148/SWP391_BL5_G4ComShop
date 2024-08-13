@@ -110,14 +110,15 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+                                        
                                         <th>Email</th>
                                         <th>Address</th>
                                         <th>Gender</th>
                                         <th>Phone</th>
                                         <th>Date of Birth</th>
                                         <th>Status</th>
-                                        <th>Avatar</th>
+                                       
+                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -127,19 +128,16 @@
                                     %>
                                     <tr>
                                         <td><%= user.getId() %></td>
-                                        <td><%= user.getName() %></td>
+                                       
                                         <td><%= user.getGmail() %></td>
                                         <td><%= user.getAddress() %></td>
                                         <td><%= user.isGender() ? "Male" : "Female" %></td>
                                         <td><%= user.getPhone() %></td>
-                                        <td><%= user.getBod() %></td>
+                                        <td><%= user.getDob() %></td>
                                         <td><%= user.isStatus() ? "Active" : "Inactive" %></td>
-                                        <td>
-                                            <% if (user.getAva() != null && !user.getAva().isEmpty()) { %>
-                                                <img src="<%= user.getAva() %>" alt="Avatar" width="50" height="50" class="user-avatar">
-                                            <% } else { %>
-                                                <span>No Avatar</span>
-                                            <% } %>
+                                       
+                                         <td>
+                                            <a href="viewUserDetail?userId=<%= user.getId() %>" class="btn btn-info btn-sm">View Details</a>
                                         </td>
                                     </tr>
                                     <% 
