@@ -831,7 +831,7 @@
                                             <div class="mb-3">
                                                 <label for="product-color" class="form-label">Color: <span class="text-danger">*</span></label>
                                                 <select id="product-color" name="product-color" class="form-control">
-                                                    <option value="" disabled selected>Select Color</option>
+                                                    <option value="non" >not selected</option>
                                                     <option value="Black">Black</option>
                                                     <option value="White">White</option>
                                                     <option value="Silver">Silver</option>
@@ -856,7 +856,8 @@
                                             <div class="mb-3">
                                                 <label for="product-category" class="form-label">Category: <span class="text-danger"></span></label>
                                                 <select id="product-category" name="product-category" class="form-control">
-                                                    <option value="" disabled selected>Select Category</option>
+                                                    <option value="undefined">Undefined</option>
+                                                    
                                                     <c:forEach var="cate" items="${categoryList}">
                                                         <option value="${cate.id}">${cate.id}. ${cate.name}</option>
                                                     </c:forEach>
@@ -867,7 +868,7 @@
                                             <div class="mb-3">
                                                 <label for="product-cpu" class="form-label">CPU: <span class="text-danger"></span></label>
                                                 <select id="product-cpu" name="product-cpu" class="form-control">
-                                                    <option value="" disabled selected>Select CPU</option>
+                                                    <option value="undefined">Undefined</option>
                                                     <c:forEach var="cpu" items="${cpuList}">
                                                         <option value="${cpu.id}">${cpu.id}. ${cpu.name}</option>
                                                     </c:forEach>
@@ -879,7 +880,7 @@
                                             <div class="mb-3">
                                                 <label for="product-card" class="form-label">Card: <span class="text-danger"></span></label>
                                                 <select id="product-card" name="product-card" class="form-control">
-                                                    <option value="" disabled selected>Select Card</option>
+                                                    <option value="undefined">Undefined</option>
                                                     <c:forEach var="card" items="${cardList}">
                                                         <option value="${card.id}">${card.id}. ${card.name}</option>
                                                     </c:forEach>
@@ -891,7 +892,7 @@
                                             <div class="mb-3">
                                                 <label for="product-ram" class="form-label">RAM: <span class="text-danger"></span></label>
                                                 <select id="product-ram" name="product-ram" class="form-control">
-                                                    <option value="" disabled selected>Select RAM</option>
+                                                    <option value="undefined">Undefined</option>
                                                     <c:forEach var="ram" items="${ramList}">
                                                         <option value="${ram.id}">${ram.id}. ${ram.type}</option>
                                                     </c:forEach>
@@ -903,7 +904,7 @@
                                             <div class="mb-3">
                                                 <label for="product-type" class="form-label">Type: <span class="text-danger"></span></label>
                                                 <select id="product-type" name="product-type" class="form-control">
-                                                    <option value="" disabled selected>Select Type</option>
+                                                    <option value="undefined">Undefined</option>
                                                     <c:forEach var="type" items="${typeList}">
                                                         <option value="${type.id}">${type.id}. ${type.typeName}</option>
                                                     </c:forEach>
