@@ -49,7 +49,7 @@ public class ViewProductList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getServletPath();
-        int pageSize = 5; // Number of rows per page
+        int pageSize = 5; 
         int currentPage = 1;
         if (request.getParameter("page") != null) {
             try {

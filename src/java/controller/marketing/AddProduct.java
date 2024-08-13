@@ -126,7 +126,6 @@ public class AddProduct extends HttpServlet {
             if (!errors.isEmpty()) {
                 request.setAttribute("error", errors);
 
-//                // Set lại dữ liệu người dùng đã nhập vào request
 //                request.setAttribute("productName", name);
 //                request.setAttribute("productDescription", description);
 //                request.setAttribute("status", statusStr);
@@ -137,7 +136,6 @@ public class AddProduct extends HttpServlet {
 //                request.setAttribute("color", color);
 //                request.setAttribute("quantity", quantityStr);
 //
-//                // Các trường tùy chọn
 //                request.setAttribute("categoryId", categoryIdStr);
 //                request.setAttribute("cpuId", cpuIdStr);
 //                request.setAttribute("cardId", cardIdStr);
