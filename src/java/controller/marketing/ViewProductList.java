@@ -32,7 +32,7 @@ import java.sql.SQLException;
  *
  * @author xuant
  */
-@WebServlet(name = "ViewProductList", urlPatterns = {"/view/marketing/productlist", "/view/marketing/changestatus"})
+@WebServlet(name = "ViewProductList", urlPatterns = {"/marketing/productlist", "/marketing/changestatus"})
 //public class ViewProductList extends BaseRequiredAuthenticationController {
 public class ViewProductList extends HttpServlet {
 
