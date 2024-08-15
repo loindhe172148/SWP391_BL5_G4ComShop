@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TypeDAO extends ConnectDB {
+public class TypeDAO extends DBContext<Type> {
 
     public List<Type> getAllType() {
         List<Type> typeList = new ArrayList<>();
         String sql = "SELECT * FROM Type";
 
-        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) { // Thực thi truy vấn
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) { // Thực thi truy vấn
             while (rs.next()) {
                 Type type = new Type();
                 type.setId(rs.getInt("id"));
