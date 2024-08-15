@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RAMDAO extends ConnectDB {
+public class RAMDAO extends DBContext<RAM> {
 
     public List<RAM> getAllRAM() {
         List<RAM> ramList = new ArrayList<>();
         String sql = "SELECT * FROM RAM";
 
-        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) { // Thực thi truy vấn
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) { // Thực thi truy vấn
             while (rs.next()) {
                 RAM ram = new RAM();
                 ram.setId(rs.getInt("id"));

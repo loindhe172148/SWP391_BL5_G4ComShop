@@ -6,7 +6,6 @@ import dal.UserDBContext;
 import entity.Account;
 import entity.User;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,10 +21,6 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10, // 10MB
-        maxRequestSize = 1024 * 1024 * 15)// 15MB
 public class VerifyAccount extends HttpServlet {
     private Map<String, String> verificationCodes;
 

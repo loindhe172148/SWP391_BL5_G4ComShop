@@ -79,11 +79,10 @@ public class AccountDBContext extends DBContext<Account> {
         }
     }
 
-    public Account checkAccountExist(String username, String password) {
+    public Account checkAccountExist(String username) {
     String sql = "SELECT * FROM Account WHERE username = ? AND pass = ?";
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
         ps.setString(1, username);
-        ps.setString(2, password);
         
         try (ResultSet rs = ps.executeQuery()) {
             if (rs.next()) {

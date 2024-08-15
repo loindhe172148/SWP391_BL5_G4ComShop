@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author xuant
  */
-public class ProductDAO extends ConnectDB {
+public class ProductDAO extends DBContext<Product> {
 
     public List<Product> getAllProduct(String query, int offset, int limit) {
     if (query == null || query.equals("")) {
@@ -26,7 +26,7 @@ public class ProductDAO extends ConnectDB {
         query += " ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
     }
     List<Product> products = new ArrayList<>();
-    try (PreparedStatement ps = conn.prepareStatement(query)) {
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
         ps.setInt(1, offset);
         ps.setInt(2, limit);
         try (ResultSet rs = ps.executeQuery()) {
@@ -61,7 +61,7 @@ public class ProductDAO extends ConnectDB {
     public Product getProductById(int id) {
         String query = "SELECT * FROM [G4COMShop].[dbo].[Product] WHERE [id] = ?";
         Product p = new Product();
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -95,7 +95,7 @@ public class ProductDAO extends ConnectDB {
                 + "[categoryid], [capacity], [size], [color], [cpuId], [cardId], [ramId], [typeId], [quantity]) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, p.getName());
             ps.setString(2, p.getDescription());
             ps.setInt(3, p.getStatus());
@@ -125,7 +125,7 @@ public class ProductDAO extends ConnectDB {
                 + "[cpuId] = ?, [cardId] = ?, [ramId] = ?, [typeId] = ?, [quantity] = ? "
                 + "WHERE [id] = ?";
 
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, p.getName());
             ps.setString(2, p.getDescription());
             ps.setInt(3, p.getStatus());
@@ -153,7 +153,7 @@ public class ProductDAO extends ConnectDB {
         String query = "DELETE FROM [G4COMShop].[dbo].[Product] WHERE [id] = ?";
         boolean isDeleted = false;
 
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, productId); // Set the ID parameter in the query
 
             int rowsAffected = ps.executeUpdate(); // Execute the update
@@ -169,7 +169,7 @@ public class ProductDAO extends ConnectDB {
     }
     public void updateProductStatus(int productId, int status) {
     String query = "UPDATE [G4COMShop].[dbo].[Product] SET status = ? WHERE id = ?";
-    try (PreparedStatement ps = conn.prepareStatement(query)) {
+    try (PreparedStatement ps = connection.prepareStatement(query)) {
         ps.setInt(1, status);
         ps.setInt(2, productId);
         ps.executeUpdate();
@@ -181,7 +181,7 @@ public class ProductDAO extends ConnectDB {
     public int getTotalProductCount() {
     int count = 0;
     String query = "SELECT COUNT(*) FROM [G4COMShop].[dbo].[Product]";
-    try (PreparedStatement ps = conn.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+    try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
             count = rs.getInt(1);
         }

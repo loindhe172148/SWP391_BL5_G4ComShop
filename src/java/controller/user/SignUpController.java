@@ -1,18 +1,18 @@
 package controller.user;
 
 import dal.AccountDBContext;
-import dal.UserDBContext;
 import entity.Account;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import util.EmailService;
 
 @WebServlet(name = "SignUpController", urlPatterns = {"/signup"})
@@ -37,62 +37,84 @@ public class SignUpController extends HttpServlet {
             getServletContext().setAttribute("verificationCodes", verificationCodes);
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
         AccountDBContext adc = new AccountDBContext();
-        AccountDBContext adc1 = new AccountDBContext();
-        UserDBContext udc = new UserDBContext();
 
         try {
-            String status = (String) session.getAttribute("status");
+            String fullname = request.getParameter("name");
+            String email = request.getParameter("email");
+            String username = request.getParameter("username");
+            String password = request.getParameter("pass");
+            String confirmpassword = request.getParameter("confirmpassword");
+            String phone = request.getParameter("phone");
+            String address = request.getParameter("add");
+            String dob = request.getParameter("dob");
+            int gender = Integer.parseInt(request.getParameter("gender"));
+            String role = request.getParameter("role");
+            String code = generateVerificationCode();
+            verificationCodes.put(email, code);
 
-            if (status == null) {
-                // Collecting form data
-                String fullname = request.getParameter("name");
-                String email = request.getParameter("email");
-                String username = request.getParameter("username");
-                String password = request.getParameter("pass");
-                String phone = request.getParameter("phone");
-                String address = request.getParameter("add");
-                String dob = request.getParameter("dob");
-                String gender = request.getParameter("gender");
-                String role = request.getParameter("role");
-                String code = generateVerificationCode();
-                verificationCodes.put(email, code);
+            if (password == null || password.length() <= 8) {
+                request.setAttribute("err", "Password is required and must be more than 8 characters.");
+            }
 
-                // Check if account already exists
-                Account existingAccount = adc.checkAccountExist(username, role);
-                if (existingAccount != null) {
-                    request.setAttribute("err", "Username or email already exists. Please try again!");
-                    request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
-                    return;
+            if (!password.equals(confirmpassword)) {
+                request.setAttribute("err", "Passwords do not match.");
+            }
+
+            if (phone == null || phone.length() != 10 || !phone.matches("\\d+")) {
+                request.setAttribute("err", "Phone number must be 10 digits long.");
+            }
+
+            if (address != null && address.length() > 50) {
+                request.setAttribute("err", "Address cannot exceed 50 characters.");
+            }
+
+            Account existingAccount = adc.checkAccountExist(username);
+            if (existingAccount!= null) {
+                if(username.length()<=3){
+                request.setAttribute("err", "Username must be more than 3 characters.");
                 }
+                request.setAttribute("err", "Username already exists.");
+                request.getRequestDispatcher("./view/user/signup.jsp").forward(request, response);
+                return;
+            }
 
-
-                emailService.sendEmail(email, "Account Verification",
+            emailService.sendEmail(email,
+                    "Account Verification",
                     """
                             Dear user,
                         Thank you for registering. Here is your verify code:
                                     
                                     """ + code + "\n");
-                
-                // Clean up session and redirect to login page
-                request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
-                
-                request.setAttribute("fullname", fullname);
-                request.setAttribute("email", email);
-                request.setAttribute("username", username);
-                request.setAttribute("password", password);
-                request.setAttribute("phone", phone);
-                request.setAttribute("address", address);
-                request.setAttribute("dob", dob);
-                request.setAttribute("gender", gender);
-                request.setAttribute("role", role);
-                request.setAttribute("code", code);
-            }
+
+            // Clean up session and redirect to login page
+            request.setAttribute(
+                    "fullname", fullname);
+            request.setAttribute(
+                    "email", email);
+            request.setAttribute(
+                    "username", username);
+            request.setAttribute(
+                    "password", password);
+            request.setAttribute(
+                    "phone", phone);
+            request.setAttribute(
+                    "address", address);
+            request.setAttribute(
+                    "dob", dob);
+            request.setAttribute(
+                    "gender", gender);
+            request.setAttribute(
+                    "role", role);
+            request.setAttribute(
+                    "code", code);
+            request.getRequestDispatcher(
+                    "./view/user/verify.jsp").forward(request, response);
+
         } catch (Exception e) { // Log the exception
             // Log the exception
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while processing your request. Please try again later.");
@@ -103,10 +125,17 @@ public class SignUpController extends HttpServlet {
     public String getServletInfo() {
         return "Handles user sign up requests.";
     }
-    
+
     private String generateVerificationCode() {
         Random random = new Random();
         int code = random.nextInt(999999);
         return String.format("%06d", code);
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

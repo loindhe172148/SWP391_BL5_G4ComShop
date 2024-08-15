@@ -32,7 +32,7 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
 
                 if (username != null && password != null) {
                     AccountDBContext db = new AccountDBContext();
-                    return db.checkAccountExist(username, password);
+                    return db.getAccount(username, password);
                 } else {
                     return null;
                 }

@@ -17,13 +17,13 @@ import java.util.logging.Logger;
  *
  * @author xuant
  */
-public class CPUDAO extends ConnectDB {
+public class CPUDAO extends DBContext<CPU> {
 
     public List<CPU> getAllCPU() {
         List<CPU> cpus = new ArrayList<>();
         String sql = "SELECT * FROM CPU";
 
-        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 CPU cpu = new CPU();
                 cpu.setId(rs.getInt("id"));

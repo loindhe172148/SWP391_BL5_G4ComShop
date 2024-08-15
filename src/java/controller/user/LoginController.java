@@ -65,7 +65,7 @@ public class LoginController extends HttpServlet {
             if (null != role) {
                 switch (role) {
                     case "user" ->
-                        request.getRequestDispatcher("mentorlogedinhomepage.jsp?id=" + account.getId()).forward(request, response);
+                        request.getRequestDispatcher("/home?id=" + account.getId()).forward(request, response);
                     case "marketing" ->
                         request.getRequestDispatcher("menteelogedinhomepage.jsp?id=" + account.getId()).forward(request, response);
                     case "admin" ->
