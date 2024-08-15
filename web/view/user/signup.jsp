@@ -96,8 +96,8 @@
 
         <label for="gender">Gender:</label>
         <select id="gender" name="gender" required>
-            <option value="Male" ${gender == 'Male' ? 'selected' : ''}>Male</option>
-            <option value="Female" ${gender == 'Female' ? 'selected' : ''}>Female</option>
+            <option value="Male" ${gender == '1' ? 'selected' : ''}>Male</option>
+            <option value="Female" ${gender == '0' ? 'selected' : ''}>Female</option>
         </select>
         <input type="hidden" name="role" value="user"/>
 

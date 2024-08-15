@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,7 +42,7 @@ public class ProfileController extends HttpServlet {
             // Retrieve updated information from the form
             String username = request.getParameter("username");
             String fullname = request.getParameter("name");
-            String gender = request.getParameter("gender");
+            int gender = Integer.parseInt(request.getParameter("gender"));
             String dob = request.getParameter("dob");
             String address = request.getParameter("add");
 
@@ -55,7 +54,7 @@ public class ProfileController extends HttpServlet {
             // Prepare User for Update
             User updateUser = new User();
             updateUser.setName(fullname);
-            updateUser.setGender("Male".equals(gender));
+            updateUser.setGender(gender);
             updateUser.setdob(java.sql.Date.valueOf(dob));
             updateUser.setAddress(address);
             updateUser.setAccount(account);

@@ -10,7 +10,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
@@ -57,12 +57,28 @@ public class LoginController extends HttpServlet {
             request.setAttribute("error", "Invalid username or password. Please try again.");
             request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
         } else {
-            // Valid credentials
-            // Set cookies if "Remember Me" is checked
+            String role = account.getRole();
+            HttpSession session = request.getSession();
+            session.setAttribute("account", account);
+            session.setAttribute("userRole", role);
+
+            if (null != role) {
+                switch (role) {
+                    case "user" ->
+                        request.getRequestDispatcher("mentorlogedinhomepage.jsp?id=" + account.getId()).forward(request, response);
+                    case "marketing" ->
+                        request.getRequestDispatcher("menteelogedinhomepage.jsp?id=" + account.getId()).forward(request, response);
+                    case "admin" ->
+                        request.getRequestDispatcher("adminlogedinhomepage.jsp?id=" + account.getId()).forward(request, response);
+                    case "sale" ->
+                        request.getRequestDispatcher("adminlogedinhomepage.jsp?id=" + account.getId()).forward(request, response);
+                }
+            }
+
             Cookie c_user = new Cookie("username", username);
             Cookie c_remember = new Cookie("rememberMe", rememberMe);
 
-            int maxAge = (rememberMe != null && rememberMe.equals("on")) ? 3600 * 24 * 7 : 0; // 7 days or 0 for session only
+            int maxAge = (rememberMe != null && rememberMe.equals("on")) ? 3600 * 24 * 7 : 0;
             c_user.setMaxAge(maxAge);
             c_remember.setMaxAge(maxAge);
             response.addCookie(c_user);
@@ -73,8 +89,6 @@ public class LoginController extends HttpServlet {
             User user = userDB.getUserById(account.getId());
             request.getSession().setAttribute("user", user);
             request.getSession().setAttribute("account", account);
-
-            response.sendRedirect("home");
         }
     }
 }

@@ -15,9 +15,9 @@ public class User {
     private String gmail;
     private Date dob;
     private String address;
-    private boolean gender;
+    private int gender;
     private String phone;
-    private boolean status;
+    private String status;
     private Account account;
     private String ava;
     private String name;
@@ -79,11 +79,11 @@ public class User {
         this.address = address;
     }
 
-    public boolean isGender() {
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
@@ -95,11 +95,11 @@ public class User {
         this.phone = phone;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

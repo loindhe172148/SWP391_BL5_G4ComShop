@@ -25,11 +25,9 @@ public class UserDBContext extends DBContext<User> {
                 m.setGmail(rs.getString("gmail"));
                 m.setdob(rs.getDate("dob"));
                 m.setAddress(rs.getString("address"));
-                m.setGender(rs.getInt("gender") == 1); // Assuming gender 1 = Male, 0 = Female
+                m.setGender(rs.getInt("gender")); 
                 m.setPhone(rs.getString("phone"));
-                m.setStatus(rs.getString("status").equalsIgnoreCase("active"));
-                // m.setAva(rs.getString("ava")); // Uncomment if the 'ava' column exists
-                // m.setName(rs.getString("name")); // Uncomment if the 'name' column exists
+                m.setStatus(rs.getString("status"));
                 
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
@@ -44,65 +42,38 @@ public class UserDBContext extends DBContext<User> {
       
     public void insert(User entity) {
         try {
-            connection.setAutoCommit(false);
-            String sql = "INSERT INTO [User](id, accid, ava, name, gmail, address, gender, phone, dob, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, entity.getId());
-            ps.setInt(2, entity.getAccount().getId());
-            ps.setString(3, entity.getAva());
-            ps.setString(4, entity.getName());
-            ps.setString(5, entity.getGmail());
-            ps.setString(6, entity.getAddress());
-            ps.setBoolean(7, entity.isGender());
-            ps.setString(8, entity.getPhone());
-            ps.setDate(9, new java.sql.Date(entity.getDob().getTime()));
-            ps.setBoolean(10, entity.isStatus());
-            ps.executeUpdate();
-            connection.commit();
-        } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException e3) {
-                e3.printStackTrace();
-            }
-        }
-    }
-
-    public void updateById(User entity, int id) {
-        try {
-            connection.setAutoCommit(false);
-            String sql = "UPDATE [User] SET accid = ?, ava = ?, name = ?, gmail = ?, address = ?, gender = ?, phone = ?, dob = ?, status = ? WHERE id = ?";
+            String sql = "INSERT INTO [User]( accid, ava, name, mail, address, gender, phone, dob, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, entity.getAccount().getId());
             ps.setString(2, entity.getAva());
             ps.setString(3, entity.getName());
             ps.setString(4, entity.getGmail());
             ps.setString(5, entity.getAddress());
-            ps.setBoolean(6, entity.isGender());
+            ps.setInt(6, entity.getGender());
             ps.setString(7, entity.getPhone());
             ps.setDate(8, new java.sql.Date(entity.getDob().getTime()));
-            ps.setBoolean(9, entity.isStatus());
-            ps.setInt(10, id);
+            ps.setString(9, entity.getStatus());
+            ps.executeUpdate();
+        } catch (SQLException e) {          
+        }
+    }
+
+    public void updateById(User entity, int id) {
+        try {
+            String sql = "UPDATE [User] SET ava = ?, name = ?, gmail = ?, address = ?, gender = ?, phone = ?, dob = ?, status = ? WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, entity.getAva());
+            ps.setString(2, entity.getName());
+            ps.setString(3, entity.getGmail());
+            ps.setString(4, entity.getAddress());
+            ps.setInt(5, entity.getGender());
+            ps.setString(6, entity.getPhone());
+            ps.setDate(7, new java.sql.Date(entity.getDob().getTime()));
+            ps.setString(8, entity.getStatus());
+            ps.setInt(9, id);
             ps.executeUpdate();
             connection.commit();
         } catch (SQLException e) {
-            try {
-                connection.rollback();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        } finally {
-            try {
-                connection.setAutoCommit(true);
-            } catch (SQLException e3) {
-                e3.printStackTrace();
-            }
         }
     }
 
@@ -122,9 +93,9 @@ public class UserDBContext extends DBContext<User> {
                 user.setGmail(rs.getString("gmail"));
                 user.setdob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setPhone(rs.getString("phone"));
-                user.setStatus(rs.getBoolean("status"));
+                user.setStatus(rs.getString("status"));
                 user.setAva(rs.getString("ava"));
                 user.setName(rs.getString("name"));
                 user.setAccount(account);
@@ -149,9 +120,9 @@ public class UserDBContext extends DBContext<User> {
                 user.setGmail(rs.getString("gmail"));
                 user.setdob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
-                user.setGender(rs.getBoolean("gender"));
+                user.setGender(rs.getInt("gender"));
                 user.setPhone(rs.getString("phone"));
-                user.setStatus(rs.getBoolean("status"));
+                user.setStatus(rs.getString("status"));
                
 
                 
