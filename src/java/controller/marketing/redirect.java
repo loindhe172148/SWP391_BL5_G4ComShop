@@ -29,7 +29,9 @@ import java.util.List;
  *
  * @author xuant
  */
-@WebServlet(name = "redirect", urlPatterns = {"/redirect", "/marketing/addproduct"})
+@WebServlet(name = "redirect", urlPatterns = {"/redirect",
+    "/marketing/blankpage", "/marketing/datatable", "/marketing/form",
+    "/marketing/dashboard", "/marketing/addproduct", "/marketing/productdetails"})
 public class redirect extends HttpServlet {
 
     /**
@@ -52,7 +54,7 @@ public class redirect extends HttpServlet {
             CategoryDAO categoryDAO = new CategoryDAO();
             TypeDAO typeDAO = new TypeDAO();
             RAMDAO ramDAO = new RAMDAO();
-            
+
             List<CPU> cpuList;
             cpuList = cpuDAO.getAllCPU();
             request.setAttribute("cpuList", cpuList);
@@ -74,19 +76,31 @@ public class redirect extends HttpServlet {
             request.setAttribute("ramList", ramList);
 
             switch (action) {
-                case "/admin/productlist":
-                    List<Product> products = productDAO.getAllProduct(null, 3, 5);
-                    request.setAttribute("products", products);
-                    request.getRequestDispatcher("product-list.jsp").forward(request, response);
+                // template    
+                case "/marketing/blankpage":
+                    request.getRequestDispatcher("/view/marketing/BlankPage.jsp").forward(request, response);
                     break;
-                case "/admin/productdetail":
-                    Product p = productDAO.getProductById(Integer.parseInt(request.getParameter("id")) );
-                    request.setAttribute("p", p);
-                    request.getRequestDispatcher("product-details.jsp").forward(request, response);
+                case "/marketing/datatable":
+                    request.getRequestDispatcher("/view/marketing/data-table.jsp").forward(request, response);
+                    break;
+                case "/marketing/form":
+                    request.getRequestDispatcher("/view/marketing/form-page.jsp").forward(request, response);
+                    break;
+
+                // tam test   
+                case "/marketing/dashboard":
+                    request.getRequestDispatcher("/view/marketing/dashboard.jsp").forward(request, response);
+                    break;
+                case "/marketing/productlist":
+                    request.getRequestDispatcher("/view/marketing/ProductList.jsp").forward(request, response);
+                    break;
+                case "/marketing/productdetails":
+                    request.getRequestDispatcher("/view/marketing/ProductDetails.jsp").forward(request, response);
                     break;
                 case "/marketing/addproduct":
-                    request.getRequestDispatcher("add-product.jsp").forward(request, response);
+                    request.getRequestDispatcher("/view/marketing/AddProduct.jsp").forward(request, response);
                     break;
+
                 default:
                     break;
             }

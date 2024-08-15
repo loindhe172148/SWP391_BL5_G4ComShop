@@ -4,48 +4,46 @@
  */
 package entity;
 
+import java.util.Date;
+
 /**
  *
  * @author xuant
  */
 public class Product {
-    int id;
-    String name;
-    String description;
-    int status;
-    double originPrice;
-    double salePrice;
-    String image;
-    int categoryId; 
-    double capacity;
-    double size;
-    String color;
-    int cpuId;
-    int cardId;
-    int ramId;
-    int typeId;
-    int quantity;
+    private int id;
+    private String name;
+    private String title;
+    private String description;
+    private String image;
+    private int quantity;
+    private float originPrice;
+    private float salePrice;
+    private int categoryId;
+    private int brandId;
+    private float screenSize;
+    private Date createDate;
+    private Date updateDate;
+    private String status;
 
     public Product() {
     }
 
-    public Product(int id, String name, String description, int status, double originPrice, double salePrice, String image, int categoryId, double capacity, double size, String color, int cpuId, int cardId, int ramId, int typeId, int quantity) {
+    public Product(int id, String name, String title, String description, String image, int quantity, float originPrice, float salePrice, int categoryId, int brandId, float screenSize, Date createDate, Date updateDate, String status) {
         this.id = id;
         this.name = name;
+        this.title = title;
         this.description = description;
-        this.status = status;
+        this.image = image;
+        this.quantity = quantity;
         this.originPrice = originPrice;
         this.salePrice = salePrice;
-        this.image = image;
         this.categoryId = categoryId;
-        this.capacity = capacity;
-        this.size = size;
-        this.color = color;
-        this.cpuId = cpuId;
-        this.cardId = cardId;
-        this.ramId = ramId;
-        this.typeId = typeId;
-        this.quantity = quantity;
+        this.brandId = brandId;
+        this.screenSize = screenSize;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.status = status;
     }
 
     public int getId() {
@@ -64,36 +62,20 @@ public class Product {
         this.name = name;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public double getOriginPrice() {
-        return originPrice;
-    }
-
-    public void setOriginPrice(double originPrice) {
-        this.originPrice = originPrice;
-    }
-
-    public double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
     }
 
     public String getImage() {
@@ -104,6 +86,30 @@ public class Product {
         this.image = image;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public float getOriginPrice() {
+        return originPrice;
+    }
+
+    public void setOriginPrice(float originPrice) {
+        this.originPrice = originPrice;
+    }
+
+    public float getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(float salePrice) {
+        this.salePrice = salePrice;
+    }
+
     public int getCategoryId() {
         return categoryId;
     }
@@ -112,69 +118,47 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public double getCapacity() {
-        return capacity;
+    public int getBrandId() {
+        return brandId;
     }
 
-    public void setCapacity(double capacity) {
-        this.capacity = capacity;
+    public void setBrandId(int brandId) {
+        this.brandId = brandId;
     }
 
-    public double getSize() {
-        return size;
+    public float getScreenSize() {
+        return screenSize;
     }
 
-    public void setSize(double size) {
-        this.size = size;
+    public void setScreenSize(float screenSize) {
+        this.screenSize = screenSize;
     }
 
-    public String getColor() {
-        return color;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public int getCpuId() {
-        return cpuId;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setCpuId(int cpuId) {
-        this.cpuId = cpuId;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
-    public int getCardId() {
-        return cardId;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public int getRamId() {
-        return ramId;
-    }
-
-    public void setRamId(int ramId) {
-        this.ramId = ramId;
-    }
-
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    
 
     
 }
