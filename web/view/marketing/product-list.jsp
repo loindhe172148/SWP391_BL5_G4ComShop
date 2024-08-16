@@ -1,31 +1,28 @@
 <%-- 
-    Document   : ecommerce-product-edit-accessory
-    Created on : Aug 8, 2024, 12:03:07 PM
-    Author     : LENOVO
+    Document   : product-list
+    Created on : Aug 10, 2024, 5:24:06 PM
+    Author     : xuant
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@page import="entity.Product"%>
 <!DOCTYPE html>
 <html lang="en" data-topbar-color="dark">
 
 
-    <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:02 GMT -->
+    <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-products.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:21:50 GMT -->
+    <!-- Mirrored from coderthemes.com/ubold/admin/ecommerce-products-edit-computer.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:21:50 GMT -->
     <head>
         <meta charset="utf-8" />
-        <title>Add & Edit Products | Ubold - Responsive Bootstrap 5 Admin Dashboard</title>
+        <title>Product List</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="${pageContext.request.contextPath}/view/marketing/assets/images/favicon.ico">
-
-        <!-- Plugins css-->
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- Theme Config Js -->
         <script src="assets/js/head.js"></script>
@@ -38,6 +35,10 @@
 
         <!-- Icons css -->
         <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+
     </head>
 
     <body>
@@ -85,7 +86,7 @@
                                     <i class="fe-settings me-1"></i>
                                     <span>Settings</span>
                                 </a>
-                                F
+
                                 <!-- item-->
                                 <a href="javascript:void(0);" class="dropdown-item notify-item">
                                     <i class="fe-lock me-1"></i>
@@ -105,8 +106,6 @@
 
                     <!--- Menu -->
                     <ul class="menu">
-
-
 
                         <li class="menu-title">Apps</li>
                         <li class="menu-item">
@@ -181,6 +180,9 @@
                                 </ul>
                             </div>
                         </li>
+
+
+
 
                     </ul>
                     <!--- End Menu -->
@@ -738,665 +740,675 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
-                                            <li class="breadcrumb-item active">Add / Edit Product</li>
+                                            <li class="breadcrumb-item"><a href="#;">Home</a></li>
+                                            <li class="breadcrumb-item active">Product List</li>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">Add / Edit Product Accesrory</h4>
+                                    <h4 class="page-title">Product Lists</h4>
                                 </div>
                             </div>
                         </div>
                         <!-- end page title -->
 
-
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <form action="UpdateAccessory" method="post">
-        <input type="hidden" name="id" value="${accessory.id}"/> <!-- Include ID as hidden field -->
-
-        <div class="mb-3">
-            <label for="product-name" class="form-label">Product Name <span class="text-danger">*</span></label>
-            <input name="name" type="text" id="product-name" class="form-control" value="${accessory.name}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="bandname-select" class="form-label">Product Brandname <span class="text-danger">*</span></label>
-            <select name="brandname" class="form-select" id="bandname-select" required>
-                <c:forEach items="${listB}" var="o">
-                    <option value="${o.idBrandName}" ${o.idBrandName == accessory.brandname ? 'selected' : ''}>${o.brandName}</option>
-                </c:forEach>
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-status" class="form-label">Status <span class="text-danger">*</span></label>
-            <input name="status" type="text" id="product-status" class="form-control" value="${accessory.status}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-description" class="form-label">Product Description <span class="text-danger">*</span></label>
-            <input name="description" type="text" id="product-description" class="form-control" value="${accessory.description}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-capacity" class="form-label">Capacity <span class="text-danger">*</span></label>
-            <input name="capacity" type="text" id="product-capacity" class="form-control" value="${accessory.capacity}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-color" class="form-label">Color <span class="text-danger">*</span></label>
-            <input name="color" type="text" id="product-color" class="form-control" value="${accessory.color}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-connect" class="form-label">Connect <span class="text-danger">*</span></label>
-            <input name="connect" type="text" id="product-connect" class="form-control" value="${accessory.connect}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-compatible" class="form-label">Compatible <span class="text-danger">*</span></label>
-            <input name="compatible" type="text" id="product-compatible" class="form-control" value="${accessory.compatible}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-dpi" class="form-label">DPI <span class="text-danger">*</span></label>
-            <input name="dpi" type="text" id="product-dpi" class="form-control" value="${accessory.dpi}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-layout" class="form-label">Layout <span class="text-danger">*</span></label>
-            <input name="layout" type="text" id="product-layout" class="form-control" value="${accessory.layout}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-switch" class="form-label">Switch <span class="text-danger">*</span></label>
-            <input name="switch" type="text" id="product-switch" class="form-control" value="${accessory.switch}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-feature" class="form-label">Feature <span class="text-danger">*</span></label>
-            <input name="feature" type="text" id="product-feature" class="form-control" value="${accessory.feature}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-originprice" class="form-label">Origin Price <span class="text-danger">*</span></label>
-            <input name="originprice" type="text" id="product-originprice" class="form-control" value="${accessory.originprice}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-saleprice" class="form-label">Sale Price <span class="text-danger">*</span></label>
-            <input name="saleprice" type="text" id="product-saleprice" class="form-control" value="${accessory.saleprice}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-quantity" class="form-label">Quantity <span class="text-danger">*</span></label>
-            <input name="quantity" type="text" id="product-quantity" class="form-control" value="${accessory.quantity}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product-img" class="form-label">Image <span class="text-danger">*</span></label>
-            <input name="img" type="text" id="product-img" class="form-control" value="${accessory.img}" required>
-        </div>
-
-        <div class="text-center mb-3">
-            <button type="button" class="btn btn-light" onclick="window.history.back();">Cancel</button>
-            <button type="submit" class="btn btn-success">Save</button>
-        </div>
-    </form>
-            </div> <!-- end card-body -->
-        </div> <!-- end card -->
-    </div> <!-- end col -->
-</div>
- <!-- end row -->
-
-
-
-                        <!-- file preview template -->
-                        <div class="d-none" id="uploadPreviewTemplate">
-                            <div class="card mt-1 mb-0 shadow-none border">
-                                <div class="p-2">
-                                    <div class="row align-items-center">
-                                        <div class="col-auto">
-                                            <img data-dz-thumbnail src="#" class="avatar-sm rounded bg-light" alt="">
-                                        </div>
-                                        <div class="col ps-0">
-                                            <a href="javascript:void(0);" class="text-muted fw-bold" data-dz-name></a>
-                                            <p class="mb-0" data-dz-size></p>
-                                        </div>
-                                        <div class="col-auto">
-                                            <!-- Button -->
-                                            <a href="#" class="btn btn-link btn-lg text-muted" data-dz-remove>
-                                                <i class="dripicons-cross"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div> <!-- container -->
-
-                </div> <!-- content -->
-
-                <!-- Footer Start -->
-                <footer class="footer">
-                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div><script>document.write(new Date().getFullYear())</script> © Ubold - <a href="https://coderthemes.com/" target="_blank">Coderthemes.com</a></div>
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row justify-content-between">
+                                            <div class="col-auto">
+                                                <form action="" class="d-flex flex-wrap align-items-center">
+                                                    <label for="inputPassword2" class="visually-hidden">Search</label>
+                                                    <div class="me-3">
+                                                        <input type="search" class="form-control my-1 my-lg-0" id="inputPassword2" placeholder="Search...">
+                                                    </div>
+                                                    <label for="status-select" class="me-2">Name</label>
+                                                    <div class="me-sm-3">
+                                                        <select class="form-select my-1 my-lg-0" id="status-select">
+                                                            <option selected="">A - Z</option>
+                                                            <option value="1">Z - A</option>
+                                                        </select>
+                                                    </div>
+                                                    <label for="status-select" class="me-2">Price</label>
+                                                    <div class="me-sm-3">
+                                                        <select class="form-select my-1 my-lg-0" id="status-select">
+                                                            <option selected="">All</option>
+                                                            <option value="1">Low to High</option>
+                                                            <option value="2">High to Low</option>
+                                                        </select>
+                                                    </div>
+                                                    <label for="status-select" class="me-2">status</label>
+                                                    <div class="me-sm-3">
+                                                        <select class="form-select my-1 my-lg-0" id="status-select">
+                                                            <option selected="">All</option>
+                                                            <option value="1">Showing</option>
+                                                            <option value="2">Hiding</option>
+                                                        </select>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="text-lg-end my-1 my-lg-0">
+                                                    <button type="button" class="btn btn-success waves-effect waves-light me-1"><i class="mdi mdi-cog"></i></button>
+                                                    <a href="/SWP391_BL5_G4ComShop/view/marketing/addproduct" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+                                                </div>
+                                            </div><!-- end col-->
+                                        </div> <!-- end row -->
+                                    </div>
+                                </div> <!-- end card -->
+                            </div> <!-- end col-->
+                        </div>
+                        <!-- end row-->
+
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 2%;">ID</th>
+                                        <th style="width: 7%;">Name</th>
+                                        <th style="width: 1%;">Thumnails</th>
+                                        <th style="width: 30%;">Description</th>
+                                        <th style="width: 5%;">Category</th>
+                                        <th style="width: 3%;">Quantity</th>
+                                        <th style="width: 5%;">Origin Price</th>
+                                        <th style="width: 5%;">Sale Price</th>
+                                        <th style="width: 5%;">Status</th>
+                                        <th style="width: 6%;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="product" items="${products}">
+                                        <tr>
+                                            <td>${product.id}</td>
+                                            <td>${product.name}</td>
+                                            <td>
+                                                <div class="bg-light">
+                                                    <c:choose>
+                                                        <c:when test="${empty product.image || product.image == 'null'}">
+                                                            <img style="height: 4em; width: auto;" src="assets/images/products/default-laptop.jpg" alt="product-pic" class="img-fluid small-image" />
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img style="height: 4em; width: auto;" src="${product.image}" alt="product-pic" class="img-fluid small-image" />
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <h5 class="font-16 mt-0 sp-line-1">
+                                                    <a href="ecommerce-product-detail.html" class="text-dark">
+                                                        ${product.description.length() > 150 ? product.description.substring(0, 150) : product.description} ...
+                                                    </a>
+                                                </h5>
+                                                <h5 class="m-0"><span class="text-muted">Quantity: ${product.quantity}</span></h5>
+                                            </td>
+                                            <td>
+                                                <c:forEach var="category" items="${categoryList}">
+                                                    <c:choose>
+                                                        <c:when test="${category.id == product.categoryId}">
+                                                            ${category.name}
+                                                        </c:when>
+                                                    </c:choose>
+                                                </c:forEach>
+                                            </td>
+                                            <td>${product.quantity}</td>
+                                            <td>
+                                                <div class="product-price-tag">
+                                                    ${product.originPrice}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="product-price-tag">
+                                                    ${product.salePrice}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="/SWP391_BL5_G4ComShop/view/marketing/changestatus?id=${product.id}&status=${product.status == 1 ? '0' : '1'}" class="btn btn-${product.status == 1 ? 'success' : 'danger'} btn-xs waves-effect waves-light">
+                                                    <i class="mdi mdi-pencil">${product.status == 1 ? 'Showing' : 'Hiding'}</i>
+                                                </a>
+                                            </td>
+
+                                            <td>
+                                                <a href="/SWP391_BL5_G4ComShop/view/marketing/productdetail?id=${product.id}" class="btn btn-blue btn-xs waves-effect waves-light">
+                                                    <i class="mdi mdi-close">Details/Edit</i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+
+                            </table>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="pagination pagination-rounded justify-content-end mb-3">
+                                        <c:if test="${currentPage > 1}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=${currentPage - 1}" aria-label="Previous">
+                                                    <span aria-hidden="true">«</span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                        <c:forEach var="i" begin="1" end="${totalPages}" varStatus="status">
+                                            <li class="page-item ${currentPage == i ? 'active' : ''}">
+                                                <a class="page-link" href="?page=${i}">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                        <c:if test="${currentPage < totalPages}">
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page=${currentPage + 1}" aria-label="Next">
+                                                    <span aria-hidden="true">»</span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </a>
+                                            </li>
+                                        </c:if>
+                                    </ul>
+                                </div> <!-- end col-->
                             </div>
-                            <div class="col-md-6">
-                                <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end footer-links">
-                                    <a href="javascript: void(0);">About</a>
-                                    <a href="javascript: void(0);">Support</a>
-                                    <a href="javascript: void(0);">Contact Us</a>
+                            <!-- end row-->
+
+                        </div> <!-- container -->
+
+                    </div> <!-- content -->
+
+                    <!-- Footer Start -->
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div><script>document.write(new Date().getFullYear())</script>  Ubold - <a href="https://coderthemes.com/" target="_blank">Coderthemes.com</a></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-none d-md-flex gap-4 align-item-center justify-content-md-end footer-links">
+                                        <a href="javascript: void(0);">About</a>
+                                        <a href="javascript: void(0);">Support</a>
+                                        <a href="javascript: void(0);">Contact Us</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </footer>
-                <!-- end Footer -->
+                    </footer>
+                    <!-- end Footer -->
+
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- End Page content -->
+                <!-- ============================================================== -->
+
 
             </div>
+            <!-- END wrapper -->
 
-            <!-- ============================================================== -->
-            <!-- End Page content -->
-            <!-- ============================================================== -->
-
-
-        </div>
-        <!-- END wrapper -->
-
-        <!-- Theme Settings -->
-        <div class="offcanvas offcanvas-end right-bar" tabindex="-1" id="theme-settings-offcanvas">
-            <div class="d-flex align-items-center w-100 p-0 offcanvas-header">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs nav-bordered nav-justified w-100" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link py-2" data-bs-toggle="tab" href="#chat-tab" role="tab">
-                            <i class="mdi mdi-message-text d-block font-22 my-1"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-2" data-bs-toggle="tab" href="#tasks-tab" role="tab">
-                            <i class="mdi mdi-format-list-checkbox d-block font-22 my-1"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link py-2 active" data-bs-toggle="tab" href="#settings-tab" role="tab">
-                            <i class="mdi mdi-cog-outline d-block font-22 my-1"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="offcanvas-body p-3 h-100" data-simplebar>
-                <!-- Tab panes -->
-                <div class="tab-content pt-0">
-                    <div class="tab-pane" id="chat-tab" role="tabpanel">
-
-                        <form class="search-bar">
-                            <div class="position-relative">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="mdi mdi-magnify"></span>
-                            </div>
-                        </form>
-
-                        <h6 class="fw-medium mt-2 text-uppercase">Group Chats</h6>
-
-                        <div>
-                            <a href="javascript: void(0);" class="text-reset notification-item ps-3 mb-2 d-block">
-                                <i class="mdi mdi-checkbox-blank-circle-outline me-1 text-success"></i>
-                                <span class="mb-0 mt-1">App Development</span>
+            <!-- Theme Settings -->
+            <div class="offcanvas offcanvas-end right-bar" tabindex="-1" id="theme-settings-offcanvas">
+                <div class="d-flex align-items-center w-100 p-0 offcanvas-header">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs nav-bordered nav-justified w-100" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link py-2" data-bs-toggle="tab" href="#chat-tab" role="tab">
+                                <i class="mdi mdi-message-text d-block font-22 my-1"></i>
                             </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item ps-3 mb-2 d-block">
-                                <i class="mdi mdi-checkbox-blank-circle-outline me-1 text-warning"></i>
-                                <span class="mb-0 mt-1">Office Work</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2" data-bs-toggle="tab" href="#tasks-tab" role="tab">
+                                <i class="mdi mdi-format-list-checkbox d-block font-22 my-1"></i>
                             </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item ps-3 mb-2 d-block">
-                                <i class="mdi mdi-checkbox-blank-circle-outline me-1 text-danger"></i>
-                                <span class="mb-0 mt-1">Personal Group</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 active" data-bs-toggle="tab" href="#settings-tab" role="tab">
+                                <i class="mdi mdi-cog-outline d-block font-22 my-1"></i>
                             </a>
+                        </li>
+                    </ul>
+                </div>
 
-                            <a href="javascript: void(0);" class="text-reset notification-item ps-3 d-block">
-                                <i class="mdi mdi-checkbox-blank-circle-outline me-1"></i>
-                                <span class="mb-0 mt-1">Freelance</span>
-                            </a>
-                        </div>
+                <div class="offcanvas-body p-3 h-100" data-simplebar>
+                    <!-- Tab panes -->
+                    <div class="tab-content pt-0">
+                        <div class="tab-pane" id="chat-tab" role="tabpanel">
 
-                        <h6 class="fw-medium mt-3 text-uppercase">Favourites <a href="javascript: void(0);" class="font-18 text-danger"><i class="float-end mdi mdi-plus-circle"></i></a></h6>
-
-                        <div>
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-10.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Andrew Mackie</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">It will seem like simplified English.</p>
-                                        </div>
-                                    </div>
+                            <form class="search-bar">
+                                <div class="position-relative">
+                                    <input type="text" class="form-control" placeholder="Search...">
+                                    <span class="mdi mdi-magnify"></span>
                                 </div>
-                            </a>
+                            </form>
 
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-1.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status away"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Rory Dalyell</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">To an English person, it will seem like simplified</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                            <h6 class="fw-medium mt-2 text-uppercase">Group Chats</h6>
 
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-9.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status busy"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Jaxon Dunhill</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">To achieve this, it would be necessary.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                            <div>
+                                <a href="javascript: void(0);" class="text-reset notification-item ps-3 mb-2 d-block">
+                                    <i class="mdi mdi-checkbox-blank-circle-outline me-1 text-success"></i>
+                                    <span class="mb-0 mt-1">App Development</span>
+                                </a>
 
-                        <h6 class="fw-medium mt-3 text-uppercase">Other Chats <a href="javascript: void(0);" class="font-18 text-danger"><i class="float-end mdi mdi-plus-circle"></i></a></h6>
+                                <a href="javascript: void(0);" class="text-reset notification-item ps-3 mb-2 d-block">
+                                    <i class="mdi mdi-checkbox-blank-circle-outline me-1 text-warning"></i>
+                                    <span class="mb-0 mt-1">Office Work</span>
+                                </a>
 
-                        <div class="pb-4">
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Jackson Therry</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">Everyone realizes why a new common language.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
+                                <a href="javascript: void(0);" class="text-reset notification-item ps-3 mb-2 d-block">
+                                    <i class="mdi mdi-checkbox-blank-circle-outline me-1 text-danger"></i>
+                                    <span class="mb-0 mt-1">Personal Group</span>
+                                </a>
 
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-4.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status away"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Charles Deakin</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">The languages only differ in their grammar.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Ryan Salting</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">If several languages coalesce the grammar of the resulting.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status online"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Sean Howse</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">It will seem like simplified English.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-7.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status busy"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Dean Coward</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">The new common language will be more simple.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset notification-item">
-                                <div class="d-flex align-items-start noti-user-item">
-                                    <div class="position-relative me-2">
-                                        <img src="assets/images/users/user-8.jpg" class="rounded-circle avatar-sm" alt="user-pic">
-                                        <i class="mdi mdi-circle user-status away"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <h6 class="mt-0 mb-1 font-14">Hayley East</h6>
-                                        <div class="font-13 text-muted">
-                                            <p class="mb-0 text-truncate">One could refuse to pay expensive translators.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="text-center mt-3">
-                                <a href="javascript:void(0);" class="btn btn-sm btn-white">
-                                    <i class="mdi mdi-spin mdi-loading me-2"></i>
-                                    Load more
+                                <a href="javascript: void(0);" class="text-reset notification-item ps-3 d-block">
+                                    <i class="mdi mdi-checkbox-blank-circle-outline me-1"></i>
+                                    <span class="mb-0 mt-1">Freelance</span>
                                 </a>
                             </div>
-                        </div>
 
-                    </div>
+                            <h6 class="fw-medium mt-3 text-uppercase">Favourites <a href="javascript: void(0);" class="font-18 text-danger"><i class="float-end mdi mdi-plus-circle"></i></a></h6>
 
-                    <div class="tab-pane" id="tasks-tab" role="tabpanel">
-                        <h6 class="fw-medium p-3 m-0 text-uppercase">Working Tasks</h6>
-                        <div class="px-2">
-                            <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
-                                <p class="text-muted mb-0">App Development<span class="float-end">75%</span></p>
-                                <div class="progress mt-2" style="height: 4px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </a>
+                            <div>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-10.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status online"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Andrew Mackie</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">It will seem like simplified English.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
 
-                            <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
-                                <p class="text-muted mb-0">Database Repair<span class="float-end">37%</span></p>
-                                <div class="progress mt-2" style="height: 4px;">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 37%" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </a>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-1.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status away"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Rory Dalyell</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">To an English person, it will seem like simplified</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
 
-                            <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
-                                <p class="text-muted mb-0">Backup Create<span class="float-end">52%</span></p>
-                                <div class="progress mt-2" style="height: 4px;">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <h6 class="fw-medium mb-0 mt-4 text-uppercase">Upcoming Tasks</h6>
-
-                        <div>
-                            <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
-                                <p class="text-muted mb-0">Sales Reporting<span class="float-end">12%</span></p>
-                                <div class="progress mt-2" style="height: 4px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 12%" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
-                                <p class="text-muted mb-0">Redesign Website<span class="float-end">67%</span></p>
-                                <div class="progress mt-2" style="height: 4px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 67%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </a>
-
-                            <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
-                                <p class="text-muted mb-0">New Admin Design<span class="float-end">84%</span></p>
-                                <div class="progress mt-2" style="height: 4px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 84%" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <div class="p-3 mt-2 d-grid">
-                            <a href="javascript: void(0);" class="btn btn-success waves-effect waves-light">Create Task</a>
-                        </div>
-
-                    </div>
-
-                    <div class="tab-pane active" id="settings-tab" role="tabpanel">
-
-                        <div class="mt-n3">
-                            <h6 class="fw-medium py-2 px-3 font-13 text-uppercase bg-light mx-n3 mt-n3 mb-3">
-                                <span class="d-block py-1">Theme Settings</span>
-                            </h6>
-                        </div>
-
-                        <div class="alert alert-warning" role="alert">
-                            <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
-                        </div>
-
-                        <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Color Scheme</h5>
-
-                        <div class="colorscheme-cardradio">
-                            <div class="d-flex flex-column gap-2">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-bs-theme" id="layout-color-light" value="light">
-                                    <label class="form-check-label" for="layout-color-light">Light</label>
-                                </div>
-
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-bs-theme" id="layout-color-dark" value="dark">
-                                    <label class="form-check-label" for="layout-color-dark">Dark</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Content Width</h5>
-                        <div class="d-flex flex-column gap-2">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="data-layout-width" id="layout-width-default" value="default">
-                                <label class="form-check-label" for="layout-width-default">Fluid (Default)</label>
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-9.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status busy"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Jaxon Dunhill</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">To achieve this, it would be necessary.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
 
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="data-layout-width" id="layout-width-boxed" value="boxed">
-                                <label class="form-check-label" for="layout-width-boxed">Boxed</label>
+                            <h6 class="fw-medium mt-3 text-uppercase">Other Chats <a href="javascript: void(0);" class="font-18 text-danger"><i class="float-end mdi mdi-plus-circle"></i></a></h6>
+
+                            <div class="pb-4">
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status online"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Jackson Therry</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">Everyone realizes why a new common language.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-4.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status away"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Charles Deakin</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">The languages only differ in their grammar.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status online"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Ryan Salting</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">If several languages coalesce the grammar of the resulting.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status online"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Sean Howse</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">It will seem like simplified English.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-7.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status busy"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Dean Coward</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">The new common language will be more simple.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset notification-item">
+                                    <div class="d-flex align-items-start noti-user-item">
+                                        <div class="position-relative me-2">
+                                            <img src="assets/images/users/user-8.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                            <i class="mdi mdi-circle user-status away"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <h6 class="mt-0 mb-1 font-14">Hayley East</h6>
+                                            <div class="font-13 text-muted">
+                                                <p class="mb-0 text-truncate">One could refuse to pay expensive translators.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <div class="text-center mt-3">
+                                    <a href="javascript:void(0);" class="btn btn-sm btn-white">
+                                        <i class="mdi mdi-spin mdi-loading me-2"></i>
+                                        Load more
+                                    </a>
+                                </div>
                             </div>
+
                         </div>
 
-                        <div id="layout-mode">
-                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Layout Mode</h5>
+                        <div class="tab-pane" id="tasks-tab" role="tabpanel">
+                            <h6 class="fw-medium p-3 m-0 text-uppercase">Working Tasks</h6>
+                            <div class="px-2">
+                                <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
+                                    <p class="text-muted mb-0">App Development<span class="float-end">75%</span></p>
+                                    <div class="progress mt-2" style="height: 4px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </a>
 
-                            <div class="d-flex flex-column gap-2">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-layout-mode" id="layout-mode-default" value="default">
-                                    <label class="form-check-label" for="layout-mode-default">Default</label>
-                                </div>
+                                <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
+                                    <p class="text-muted mb-0">Database Repair<span class="float-end">37%</span></p>
+                                    <div class="progress mt-2" style="height: 4px;">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 37%" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </a>
 
+                                <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
+                                    <p class="text-muted mb-0">Backup Create<span class="float-end">52%</span></p>
+                                    <div class="progress mt-2" style="height: 4px;">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 52%" aria-valuenow="52" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </a>
+                            </div>
 
-                                <div id="layout-detached">
+                            <h6 class="fw-medium mb-0 mt-4 text-uppercase">Upcoming Tasks</h6>
+
+                            <div>
+                                <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
+                                    <p class="text-muted mb-0">Sales Reporting<span class="float-end">12%</span></p>
+                                    <div class="progress mt-2" style="height: 4px;">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 12%" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
+                                    <p class="text-muted mb-0">Redesign Website<span class="float-end">67%</span></p>
+                                    <div class="progress mt-2" style="height: 4px;">
+                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 67%" aria-valuenow="67" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </a>
+
+                                <a href="javascript: void(0);" class="text-reset item-hovered d-block p-2">
+                                    <p class="text-muted mb-0">New Admin Design<span class="float-end">84%</span></p>
+                                    <div class="progress mt-2" style="height: 4px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 84%" aria-valuenow="84" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="p-3 mt-2 d-grid">
+                                <a href="javascript: void(0);" class="btn btn-success waves-effect waves-light">Create Task</a>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane active" id="settings-tab" role="tabpanel">
+
+                            <div class="mt-n3">
+                                <h6 class="fw-medium py-2 px-3 font-13 text-uppercase bg-light mx-n3 mt-n3 mb-3">
+                                    <span class="d-block py-1">Theme Settings</span>
+                                </h6>
+                            </div>
+
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Customize </strong> the overall color scheme, sidebar menu, etc.
+                            </div>
+
+                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Color Scheme</h5>
+
+                            <div class="colorscheme-cardradio">
+                                <div class="d-flex flex-column gap-2">
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" name="data-layout-mode" id="layout-mode-detached" value="detached">
-                                        <label class="form-check-label" for="layout-mode-detached">Detached</label>
+                                        <input class="form-check-input" type="checkbox" name="data-bs-theme" id="layout-color-light" value="light">
+                                        <label class="form-check-label" for="layout-color-light">Light</label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-bs-theme" id="layout-color-dark" value="dark">
+                                        <label class="form-check-label" for="layout-color-dark">Dark</label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Topbar Color</h5>
+                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Content Width</h5>
+                            <div class="d-flex flex-column gap-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="data-layout-width" id="layout-width-default" value="default">
+                                    <label class="form-check-label" for="layout-width-default">Fluid (Default)</label>
+                                </div>
 
-                        <div class="d-flex flex-column gap-2">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="data-topbar-color" id="topbar-color-light" value="light">
-                                <label class="form-check-label" for="topbar-color-light">Light</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" name="data-layout-width" id="layout-width-boxed" value="boxed">
+                                    <label class="form-check-label" for="layout-width-boxed">Boxed</label>
+                                </div>
                             </div>
 
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="data-topbar-color" id="topbar-color-dark" value="dark">
-                                <label class="form-check-label" for="topbar-color-dark">Dark</label>
+                            <div id="layout-mode">
+                                <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Layout Mode</h5>
+
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-layout-mode" id="layout-mode-default" value="default">
+                                        <label class="form-check-label" for="layout-mode-default">Default</label>
+                                    </div>
+
+
+                                    <div id="layout-detached">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" name="data-layout-mode" id="layout-mode-detached" value="detached">
+                                            <label class="form-check-label" for="layout-mode-detached">Detached</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" name="data-topbar-color" id="topbar-color-brand" value="brand">
-                                <label class="form-check-label" for="topbar-color-brand">Brand</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Color</h5>
+                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Topbar Color</h5>
 
                             <div class="d-flex flex-column gap-2">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-light" value="light">
-                                    <label class="form-check-label" for="leftbar-color-light">Light</label>
+                                    <input class="form-check-input" type="checkbox" name="data-topbar-color" id="topbar-color-light" value="light">
+                                    <label class="form-check-label" for="topbar-color-light">Light</label>
                                 </div>
 
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-dark" value="dark">
-                                    <label class="form-check-label" for="leftbar-color-dark">Dark</label>
+                                    <input class="form-check-input" type="checkbox" name="data-topbar-color" id="topbar-color-dark" value="dark">
+                                    <label class="form-check-label" for="topbar-color-dark">Dark</label>
                                 </div>
+
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-brand" value="brand">
-                                    <label class="form-check-label" for="leftbar-color-brand">Brand</label>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-gradient" value="gradient">
-                                    <label class="form-check-label" for="leftbar-color-gradient">Gradient</label>
+                                    <input class="form-check-input" type="checkbox" name="data-topbar-color" id="topbar-color-brand" value="brand">
+                                    <label class="form-check-label" for="topbar-color-brand">Brand</label>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="menu-icon-color">
-                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Icon Color</h5>
+                            <div>
+                                <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Color</h5>
 
-                            <div class="d-flex flex-column gap-2">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-light" value="light">
-                                    <label class="form-check-label" for="twocolumn-menu-color-light">Light</label>
-                                </div>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-light" value="light">
+                                        <label class="form-check-label" for="leftbar-color-light">Light</label>
+                                    </div>
 
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-dark" value="dark">
-                                    <label class="form-check-label" for="twocolumn-menu-color-dark">Dark</label>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-brand" value="brand">
-                                    <label class="form-check-label" for="twocolumn-menu-color-brand">Brand</label>
-                                </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-gradient" value="gradient">
-                                    <label class="form-check-label" for="twocolumn-menu-color-gradient">Gradient</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Icon Tone</h5>
-
-                            <div class="d-flex flex-column gap-2">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-menu-icon" id="menu-icon-default" value="default">
-                                    <label class="form-check-label" for="menu-icon-default">Default</label>
-                                </div>
-
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-menu-icon" id="menu-icon-twotone" value="twotones">
-                                    <label class="form-check-label" for="menu-icon-twotone">Twotone</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-dark" value="dark">
+                                        <label class="form-check-label" for="leftbar-color-dark">Dark</label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-brand" value="brand">
+                                        <label class="form-check-label" for="leftbar-color-brand">Brand</label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-menu-color" id="leftbar-color-gradient" value="gradient">
+                                        <label class="form-check-label" for="leftbar-color-gradient">Gradient</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="sidebar-size">
-                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Sidebar Size</h5>
+                            <div id="menu-icon-color">
+                                <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Icon Color</h5>
 
-                            <div class="d-flex flex-column gap-2">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-default" value="default">
-                                    <label class="form-check-label" for="leftbar-size-default">Default</label>
-                                </div>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-light" value="light">
+                                        <label class="form-check-label" for="twocolumn-menu-color-light">Light</label>
+                                    </div>
 
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-compact" value="compact">
-                                    <label class="form-check-label" for="leftbar-size-compact">Compact (Medium Width)</label>
-                                </div>
-
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-small" value="condensed">
-                                    <label class="form-check-label" for="leftbar-size-small">Condensed (Icon View)</label>
-                                </div>
-
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-full" value="full">
-                                    <label class="form-check-label" for="leftbar-size-full">Full Layout</label>
-                                </div>
-
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-fullscreen" value="fullscreen">
-                                    <label class="form-check-label" for="leftbar-size-fullscreen">Fullscreen Layout</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-dark" value="dark">
+                                        <label class="form-check-label" for="twocolumn-menu-color-dark">Dark</label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-brand" value="brand">
+                                        <label class="form-check-label" for="twocolumn-menu-color-brand">Brand</label>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-two-column-color" id="twocolumn-menu-color-gradient" value="gradient">
+                                        <label class="form-check-label" for="twocolumn-menu-color-gradient">Gradient</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="sidebar-user">
-                            <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Sidebar User Info</h5>
+                            <div>
+                                <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Menu Icon Tone</h5>
 
-                            <div class="form-check form-switch">
-                                <input type="checkbox" class="form-check-input" name="data-sidebar-user" id="sidebaruser-check">
-                                <label class="form-check-label" for="sidebaruser-check">Enable</label>
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-menu-icon" id="menu-icon-default" value="default">
+                                        <label class="form-check-label" for="menu-icon-default">Default</label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-menu-icon" id="menu-icon-twotone" value="twotones">
+                                        <label class="form-check-label" for="menu-icon-twotone">Twotone</label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
+                            <div id="sidebar-size">
+                                <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Sidebar Size</h5>
+
+                                <div class="d-flex flex-column gap-2">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-default" value="default">
+                                        <label class="form-check-label" for="leftbar-size-default">Default</label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-compact" value="compact">
+                                        <label class="form-check-label" for="leftbar-size-compact">Compact (Medium Width)</label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-small" value="condensed">
+                                        <label class="form-check-label" for="leftbar-size-small">Condensed (Icon View)</label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-full" value="full">
+                                        <label class="form-check-label" for="leftbar-size-full">Full Layout</label>
+                                    </div>
+
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" name="data-sidenav-size" id="leftbar-size-fullscreen" value="fullscreen">
+                                        <label class="form-check-label" for="leftbar-size-fullscreen">Fullscreen Layout</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="sidebar-user">
+                                <h5 class="fw-medium font-14 mt-4 mb-2 pb-1">Sidebar User Info</h5>
+
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" class="form-check-input" name="data-sidebar-user" id="sidebaruser-check">
+                                    <label class="form-check-label" for="sidebaruser-check">Enable</label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="offcanvas-footer border-top py-2 px-2 text-center">
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-light w-50" id="reset-layout">Reset</button>
+                        <a href="https://1.envato.market/uboldadmin" class="btn btn-danger w-50" target="_blank"><i class="mdi mdi-basket me-1"></i> Buy</a>
                     </div>
                 </div>
             </div>
 
-            <div class="offcanvas-footer border-top py-2 px-2 text-center">
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-light w-50" id="reset-layout">Reset</button>
-                    <a href="https://1.envato.market/uboldadmin" class="btn btn-danger w-50" target="_blank"><i class="mdi mdi-basket me-1"></i> Buy</a>
-                </div>
-            </div>
-        </div>
+            <!-- Vendor js -->
+            <script src="assets/js/vendor.min.js"></script>
 
-        <!-- Vendor js -->
-        <script src="assets/js/vendor.min.js"></script>
-
-        <!-- App js -->
-        <script src="assets/js/app.min.js"></script>
-
-
-        <!-- Select2 js-->
-        <script src="../assets/libs/select2/js/select2.min.js"></script>
-        <!-- Dropzone file uploads-->
-        <script src="../assets/libs/dropzone/min/dropzone.min.js"></script>
-
-        <!-- Quill js -->
-        <script src="../assets/libs/quill/quill.min.js"></script>
-
-        <!-- Init js-->
-        <script src="assets/js/pages/form-fileuploads.init.js"></script>
-
-        <!-- Init js -->
-        <script src="assets/js/pages/add-product.init.js"></script>
-
+            <!-- App js -->
+            <script src="assets/js/app.min.js"></script>
 
     </body>
 
-    <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:06 GMT -->
+    <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-products.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:22:47 GMT -->
 </html>
 

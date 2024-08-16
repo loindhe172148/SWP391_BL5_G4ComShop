@@ -3,8 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="PRJ-4USER">
-            <file>file:/D:/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop/src/java/controller/marketing/AccessoryManagement.java</file>
-            <file>file:/D:/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop-main/SWP391_BL5_G4ComShop/web/view/marketing/ecommerceProductsAccessory.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/marketing/ecommerceProductsAccessory.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/Account.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/DBContext1.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/AccessroryMaketing.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/AccessoryManagement.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/marketing/ecommerceProductAddAccessory.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/marketing/ecommerceProductEditAccessory.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/UpdateAccessory.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/marketing/DashboardMarketing.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/DashboardMarketing.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/AccessoryShowing.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/BaseRequiredAuthenticationController.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/SearchAccessory.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/AccountDBContext.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/DaoAccessory.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/DeleteAccessory.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/fjjfjf.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/AddAccessory.java</file>
         </group>
     </open-files>
 </project-private>

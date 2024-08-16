@@ -1,11 +1,13 @@
 <%-- 
-    Document   : ecommerce-product-edit-accessory
-    Created on : Aug 8, 2024, 12:03:07 PM
-    Author     : LENOVO
+    Document   : product-details
+    Created on : Aug 10, 2024, 5:25:55 PM
+    Author     : xuant
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@page import="entity.Product"%>
 <!DOCTYPE html>
 <html lang="en" data-topbar-color="dark">
 
@@ -13,7 +15,7 @@
     <!-- Mirrored from coderthemes.com/ubold/layouts/default/ecommerce-product-edit.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 07 Aug 2024 17:23:02 GMT -->
     <head>
         <meta charset="utf-8" />
-        <title>Add & Edit Products | Ubold - Responsive Bootstrap 5 Admin Dashboard</title>
+        <title>Product details</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
@@ -22,22 +24,22 @@
         <link rel="shortcut icon" href="assets/images/favicon.ico">
 
         <!-- Plugins css-->
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/quill/quill.core.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
 
         <!-- Theme Config Js -->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/head.js"></script>
+        <script src="assets/js/head.js"></script>
 
         <!-- Bootstrap css -->
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="app-style" />
 
         <!-- App css -->
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" />
 
         <!-- Icons css -->
-        <link href="${pageContext.request.contextPath}/view/marketing/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     </head>
 
     <body>
@@ -53,14 +55,14 @@
                 <div class="logo-box">
                     <!-- Brand Logo Light -->
                     <a href="index.html" class="logo-light">
-                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-light.png" alt="logo" class="logo-lg">
-                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                        <img src="assets/images/logo-light.png" alt="logo" class="logo-lg">
+                        <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                     </a>
 
                     <!-- Brand Logo Dark -->
                     <a href="index.html" class="logo-dark">
-                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
-                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                        <img src="assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
+                        <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                     </a>
                 </div>
 
@@ -208,14 +210,14 @@
                             <div class="logo-box">
                                 <!-- Brand Logo Light -->
                                 <a href="index.html" class="logo-light">
-                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-light.png" alt="logo" class="logo-lg">
-                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                                    <img src="assets/images/logo-light.png" alt="logo" class="logo-lg">
+                                    <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                                 </a>
 
                                 <!-- Brand Logo Dark -->
                                 <a href="index.html" class="logo-dark">
-                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
-                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/logo-sm.png" alt="small logo" class="logo-sm">
+                                    <img src="assets/images/logo-dark.png" alt="dark logo" class="logo-lg">
+                                    <img src="assets/images/logo-sm.png" alt="small logo" class="logo-sm">
                                 </a>
                             </div>
 
@@ -411,7 +413,7 @@
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                                             <div class="d-flex align-items-start">
-                                                <img class="d-flex me-2 rounded-circle" src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-2.jpg" alt="Generic placeholder image" height="32">
+                                                <img class="d-flex me-2 rounded-circle" src="assets/images/users/user-2.jpg" alt="Generic placeholder image" height="32">
                                                 <div class="w-100">
                                                     <h5 class="m-0 font-14">Erwin E. Brown</h5>
                                                     <span class="font-12 mb-0">UI Designer</span>
@@ -422,7 +424,7 @@
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                                             <div class="d-flex align-items-start">
-                                                <img class="d-flex me-2 rounded-circle" src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-5.jpg" alt="Generic placeholder image" height="32">
+                                                <img class="d-flex me-2 rounded-circle" src="assets/images/users/user-5.jpg" alt="Generic placeholder image" height="32">
                                                 <div class="w-100">
                                                     <h5 class="m-0 font-14">Jacob Deo</h5>
                                                     <span class="font-12 mb-0">Developer</span>
@@ -463,19 +465,19 @@
                                         <div class="row g-0">
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/slack.png" alt="slack">
+                                                    <img src="assets/images/brands/slack.png" alt="slack">
                                                     <span>Slack</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/github.png" alt="Github">
+                                                    <img src="assets/images/brands/github.png" alt="Github">
                                                     <span>GitHub</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/dribbble.png" alt="dribbble">
+                                                    <img src="assets/images/brands/dribbble.png" alt="dribbble">
                                                     <span>Dribbble</span>
                                                 </a>
                                             </div>
@@ -484,19 +486,19 @@
                                         <div class="row g-0">
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/bitbucket.png" alt="bitbucket">
+                                                    <img src="assets/images/brands/bitbucket.png" alt="bitbucket">
                                                     <span>Bitbucket</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/dropbox.png" alt="dropbox">
+                                                    <img src="assets/images/brands/dropbox.png" alt="dropbox">
                                                     <span>Dropbox</span>
                                                 </a>
                                             </div>
                                             <div class="col">
                                                 <a class="dropdown-icon-item" href="#">
-                                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/brands/g-suite.png" alt="G Suite">
+                                                    <img src="assets/images/brands/g-suite.png" alt="G Suite">
                                                     <span>G Suite</span>
                                                 </a>
                                             </div>
@@ -508,28 +510,28 @@
                             <!-- Language flag dropdown  -->
                             <li class="dropdown d-none d-md-inline-block">
                                 <a class="nav-link dropdown-toggle waves-effect waves-light arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="18">
+                                    <img src="assets/images/flags/us.jpg" alt="user-image" class="me-0 me-sm-1" height="18">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated">
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
+                                        <img src="assets/images/flags/germany.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">German</span>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
+                                        <img src="assets/images/flags/italy.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item">
-                                        <img src="vassets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
+                                        <img src="assets/images/flags/spain.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Spanish</span>
                                     </a>
 
                                     <!-- item-->
                                     <a href="javascript:void(0);" class="dropdown-item">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
+                                        <img src="assets/images/flags/russia.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">Russian</span>
                                     </a>
 
                                 </div>
@@ -604,7 +606,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0">
                                                         <div class="notify-icon">
-                                                            <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" />
+                                                            <img src="assets/images/users/avatar-2.jpg" class="img-fluid rounded-circle" alt="" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 text-truncate ms-2">
@@ -642,7 +644,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div class="flex-shrink-0">
                                                         <div class="notify-icon">
-                                                            <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" />
+                                                            <img src="assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt="" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1 text-truncate ms-2">
@@ -676,7 +678,7 @@
                             <!-- User Dropdown -->
                             <li class="dropdown">
                                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
+                                    <img src="assets/images/users/user-1.jpg" alt="user-image" class="rounded-circle">
                                     <span class="ms-1 d-none d-md-inline-block">
                                         Geneva <i class="mdi mdi-chevron-down"></i>
                                     </span>
@@ -738,121 +740,179 @@
                                 <div class="page-title-box">
                                     <div class="page-title-right">
                                         <ol class="breadcrumb m-0">
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
-                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
-                                            <li class="breadcrumb-item active">Add / Edit Product</li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="productlist">Product List</a></li>
+                                            <li class="breadcrumb-item active">Product Details</li>
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">Add / Edit Product Accesrory</h4>
+                                    <h4 class="page-title">Product Details</h4>
                                 </div>
                             </div>
                         </div>
                         <!-- end page title -->
 
 
-<div class="row">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <form action="Add" method="post">
-                    <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General Accessory</h5>
+                        <form action="updateproduct" method="post" id="product-form" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="text-uppercase bg-light p-2 mt-0 mb-3">General</h5>
 
-                    <div class="mb-3">
-                        <label for="product-name" class="form-label">Product Name <span class="text-danger">*</span></label>
-                        <input name="name" type="text" id="product-name" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-id" class="form-label">Product ID: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-id" name="product-id" class="form-control" value="${p.id}" readonly>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="bandname-select" class="form-label">Product Brandname <span class="text-danger">*</span></label>
-                        <select name="bandname" class="form-select my-1 my-lg-0" id="bandname-select">
-                            <c:forEach items="${listB}" var="o">
-                                <option value="${o.idBrandName}">${o.brandName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-name" class="form-label">Product Name: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-name" name="product-name" class="form-control" value="${p.name}">
+                                                <span id="product-name-error" class="text-danger"></span>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-status" class="form-label">Status <span class="text-danger">*</span></label>
-                        <input name="status" type="text" id="product-status" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-description" class="form-label">Product Description: <span class="text-danger">*</span></label>
+                                                <textarea style='height: 200px;' id="product-description" name="product-description" class="form-control" placeholder="description here">${p.description}</textarea>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-description" class="form-label">Product Description <span class="text-danger">*</span></label>
-                        <input name="description" type="text" id="product-description" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label class="mb-2">Status: <span class="text-danger">*</span></label>
+                                                <div class="d-flex flex-wrap">
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="radio" name="status" value="1" id="status-show" <c:if test="${p.status == 1}">checked</c:if>>
+                                                        <label class="form-check-label" for="status-show">Show</label>
+                                                    </div>
+                                                    <div class="form-check me-2">
+                                                        <input class="form-check-input" type="radio" name="status" value="0" id="status-hide" <c:if test="${p.status == 0}">checked</c:if>>
+                                                        <label class="form-check-label" for="status-hide">Hide</label>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-capacity" class="form-label">Capacity <span class="text-danger">*</span></label>
-                        <input name="capacity" type="text" id="product-capacity" class="form-control" placeholder="">
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="product-color" class="form-label">Color <span class="text-danger">*</span></label>
-                        <input name="color" type="text" id="product-color" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-originprice" class="form-label">Origin Price: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-originprice" name="product-originprice" class="form-control" value="${p.originPrice}">
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-connect" class="form-label">Connect <span class="text-danger">*</span></label>
-                        <input name="connect" type="text" id="product-connect" class="form-control" placeholder="">
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="product-compatible" class="form-label">Compatible <span class="text-danger">*</span></label>
-                        <input name="compatible" type="text" id="product-compatible" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-saleprice" class="form-label">Sale Price: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-saleprice" name="product-saleprice" class="form-control" value="${p.salePrice} VND">
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-dpi" class="form-label">DPI <span class="text-danger">*</span></label>
-                        <input name="dpi" type="text" id="product-dpi" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-category" class="form-label">Category: <span class="text-danger">*</span></label>
+                                                <select id="product-category" name="product-category" class="form-control">
+                                                    <option value="" disabled selected>${p.categoryId}</option>
+                                                    <c:forEach var="cate" items="${categoryList}">
+                                                        <option value="${cate.id}">${cate.id}. ${cate.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-layout" class="form-label">Layout <span class="text-danger">*</span></label>
-                        <input name="layout" type="text" id="product-layout" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-capacity" class="form-label">Capacity: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-capacity" name="product-capacity" class="form-control" value="${p.capacity} GB">
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-switch" class="form-label">Switch <span class="text-danger">*</span></label>
-                        <input name="switcha" type="text" id="product-switch" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-screensize" class="form-label">Screen Size: <span class="text-danger">*</span></label>
+                                                <input type="text" id="product-screensize" name="product-screensize" class="form-control" value="${p.size} inches">
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-feature" class="form-label">Feature <span class="text-danger">*</span></label>
-                        <input name="feature" type="text" id="product-feature" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-color" class="form-label">Color: <span class="text-danger">*</span></label>
+                                                <select id="product-color" name="product-color" class="form-control">
+                                                    <option value="" disabled selected>${p.color}</option>
+                                                    <option value="Black">Black</option>
+                                                    <option value="White">White</option>
+                                                    <option value="Silver">Silver</option>
+                                                    <option value="Gray">Gray</option>
+                                                    <option value="Blue">Blue</option>
+                                                    <option value="Red">Red</option>
+                                                </select>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-originprice" class="form-label">Origin Price <span class="text-danger">*</span></label>
-                        <input name="originprice" type="text" id="product-originprice" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-cpu" class="form-label">CPU: <span class="text-danger">*</span></label>
+                                                <select id="product-cpu" name="product-cpu" class="form-control">
+                                                    <option value="" disabled selected>${p.cpuId}</option>
+                                                    <c:forEach var="cpu" items="${cpuList}">
+                                                        <option value="${cpu.id}">${cpu.id}. ${cpu.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-saleprice" class="form-label">Sale Price <span class="text-danger">*</span></label>
-                        <input name="saleprice" type="text" id="product-saleprice" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-card" class="form-label">Card: <span class="text-danger">*</span></label>
+                                                <select id="product-card" name="product-card" class="form-control">
+                                                    <option value="" disabled selected>${p.cardId}</option>
+                                                    <c:forEach var="card" items="${cardList}">
+                                                        <option value="${card.id}">${card.id}. ${card.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-quantity" class="form-label">Quantity <span class="text-danger">*</span></label>
-                        <input name="quantity" type="text" id="product-quantity" class="form-control" placeholder="">
-                    </div>
+                                            <div class="mb-3">
+                                                <label for="product-ram" class="form-label">RAM: <span class="text-danger">*</span></label>
+                                                <select id="product-ram" name="product-ram" class="form-control">
+                                                    <option value="" disabled selected>${p.ramId}</option>
+                                                    <c:forEach var="ram" items="${ramList}">
+                                                        <option value="${ram.id}">${ram.id}. ${ram.type}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
 
-                    <div class="mb-3">
-                        <label for="product-img" class="form-label">Image <span class="text-danger">*</span></label>
-                        <input name="img" type="text" id="product-img" class="form-control" placeholder="">
-                    </div>
-                    
+                                            <div class="mb-3">
+                                                <label for="product-type" class="form-label">Type: <span class="text-danger">*</span></label>
+                                                <select id="product-type" name="product-type" class="form-control">
+                                                    <option value="" disabled selected>${p.typeId}</option>
+                                                    <c:forEach var="type" items="${typeList}">
+                                                        <option value="${type.id}">${type.id}. ${type.typeName}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
 
-                    <div class="text-center mb-3">
-                       <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.history.back();">Cancel</button>
-                        <button type="submit" class="btn w-sm btn-success waves-effect waves-light">Save</button>
-                    </div>
-                </form>
-            </div> <!-- end card-body -->
-        </div> <!-- end card -->
-    </div> <!-- end col -->
-</div>
- <!-- end row -->
+                                            <div class="mb-3">
+                                                <label for="product-quantity" class="form-label">Quantity: <span class="text-danger"></span></label>
+                                                <input type="text" id="product-quantity" name="product-quantity" class="form-control" placeholder="${p.quantity}" readonly>
+                                            </div>
+                                        </div>
+                                    </div> <!-- end card -->
+                                </div> <!-- end col -->
 
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="text-uppercase mt-0 mb-3 bg-light p-2">Product Images:</h5>
+                                            <div class="fallback">
+                                                <input id="file-input" name="file" type="file" multiple />
+                                            </div>
+                                            <div class="dz-message needsclick" id="message">
+                                                <i class="h1 text-muted dripicons-cloud-upload"></i>
+                                                <h3>Bạn chưa chọn ảnh nào</h3>
+                                            </div>
+                                            <!-- Preview -->
+                                            <div class="dropzone-previews mt-3" id="file-previews"></div>
+                                        </div>
+                                    </div> <!-- end col-->
+                                </div> <!-- end col-->
+                            </div>
+                            <!-- end row -->
+
+                            <div class="row">
+                                <p style="color: green;"><c:out value="${message}" /></p>
+                                <div class="col-12">
+                                    <div class="text-center mb-3">
+                                        <button type="reset" class="btn w-sm btn-light waves-effect">Cancel</button>
+                                        <button type="submit" class="btn w-sm btn-primary waves-effect waves-light">Save Changes</button>
+                                        <button type="button" class="btn w-sm btn-danger waves-effect waves-light">Delete</button>
+                                    </div>
+                                </div> <!-- end col -->
+                            </div>
+                        </form>
+                        <!-- end row -->
 
 
                         <!-- file preview template -->
@@ -977,7 +1037,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-10.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-10.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -992,7 +1052,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-1.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-1.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1007,7 +1067,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-9.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-9.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status busy"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1026,7 +1086,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-2.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-2.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1041,7 +1101,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-4.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-4.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1056,7 +1116,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-5.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-5.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1071,7 +1131,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-6.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status online"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1086,7 +1146,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-7.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-7.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status busy"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1101,7 +1161,7 @@
                             <a href="javascript: void(0);" class="text-reset notification-item">
                                 <div class="d-flex align-items-start noti-user-item">
                                     <div class="position-relative me-2">
-                                        <img src="${pageContext.request.contextPath}/view/marketing/assets/images/users/user-8.jpg" class="rounded-circle avatar-sm" alt="user-pic">
+                                        <img src="assets/images/users/user-8.jpg" class="rounded-circle avatar-sm" alt="user-pic">
                                         <i class="mdi mdi-circle user-status away"></i>
                                     </div>
                                     <div class="overflow-hidden">
@@ -1375,25 +1435,25 @@
         </div>
 
         <!-- Vendor js -->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/vendor.min.js"></script>
+        <script src="assets/js/vendor.min.js"></script>
 
         <!-- App js -->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/app.min.js"></script>
+        <script src="assets/js/app.min.js"></script>
 
 
         <!-- Select2 js-->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/libs/select2/js/select2.min.js"></script>
+        <script src="../assets/libs/select2/js/select2.min.js"></script>
         <!-- Dropzone file uploads-->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/libs/dropzone/min/dropzone.min.js"></script>
+        <script src="../assets/libs/dropzone/min/dropzone.min.js"></script>
 
         <!-- Quill js -->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/libs/quill/quill.min.js"></script>
+        <script src="../assets/libs/quill/quill.min.js"></script>
 
         <!-- Init js-->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/pages/form-fileuploads.init.js"></script>
+        <script src="assets/js/pages/form-fileuploads.init.js"></script>
 
         <!-- Init js -->
-        <script src="${pageContext.request.contextPath}/view/marketing/assets/js/pages/add-product.init.js"></script>
+        <script src="assets/js/pages/add-product.init.js"></script>
 
 
     </body>
