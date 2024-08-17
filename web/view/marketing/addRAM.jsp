@@ -413,59 +413,54 @@
 
 
 <section class="content">
-
-      <!-- Default box -->
-      <div class="box">
+    <div class="box">
         <div class="box-header with-border">
-          <div class="box box-info">
-            
-<!-- Other HTML content -->
+            <div class="box box-info">
+                <div class="box-body">
+                    <form action="addRam" method="post"> <!-- Ensure this matches your servlet's URL pattern -->
 
-<div class="box-body">
+                        <!-- Display Success or Failure Message -->
+                        <c:if test="${not empty message}">
+                            <div class="alert alert-info">${message}</div>
+                        </c:if>
 
-   <form action="addRam" method="post"> <!-- Ensure this matches your servlet's URL pattern -->
-    
-    <!-- Display Success or Failure Message -->
-    <c:if test="${not empty message}">
-        <div class="alert alert-info">${message}</div>
-    </c:if>
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="name" class="form-control my-colorpicker1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Brand:</label>
+                            <input type="text" name="brand" class="form-control my-colorpicker1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Memory:</label>
+                            <input type="number" name="memory" class="form-control my-colorpicker1" required>
+                        </div>
 
-    <div class="form-group">
-        <label>Name:</label>
-        <input type="text" name="name" class="form-control my-colorpicker1" required>
+                        <div class="form-group">
+                            <label>Speed:</label>
+                            <input type="number" name="speed" class="form-control my-colorpicker1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <textarea name="description" class="form-control my-colorpicker1" required></textarea>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='accessoryRam';">Cancel</button>
+                        </div>  
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-        <div class="form-group">
-        <label>Brand:</label>
-        <input type="text" name="brand" class="form-control my-colorpicker1" required>
-    </div>
-    
-    
-    <div class="form-group">
-        <label>Memory:</label>
-        <input type="text" name="memory" class="form-control my-colorpicker1" required>
-    </div>
+</section>
 
-    <div class="form-group">
-        <label>Speed:</label>
-        <input type="text" name="speed" class="form-control my-colorpicker1" required>
-    </div>
-       <div class="form-group">
-        <label>Description:</label>
-        <input type="text" name="description" class="form-control my-colorpicker1" required>
-    </div>
-
-        
-    <!-- Buttons -->
-    <div class="box-footer">
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='accessoryRam';">Cancel</button>
-    </div>  
-</form>
-
-    
-</div>
-
-    </section>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->

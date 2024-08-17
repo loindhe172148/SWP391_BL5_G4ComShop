@@ -39,8 +39,16 @@ public class AddRam extends HttpServlet {
     String description = request.getParameter("description");
     
     // Convert memory and speed parameters to integers
-    int memory = Integer.parseInt(memoryStr);
-    int speed = Integer.parseInt(speedStr);
+    int memory = 0;
+    int speed = 0;
+    try {
+        memory = Integer.parseInt(memoryStr);
+        speed = Integer.parseInt(speedStr);
+    } catch (NumberFormatException e) {
+        request.setAttribute("message", "Memory and Speed must be valid numbers.");
+        request.getRequestDispatcher("/view/marketing/addRAM.jsp").forward(request, response);
+        return;
+    }
     
     // Create an instance of RAMDAO
     RAMDAO ramDao = new RAMDAO();
@@ -64,6 +72,7 @@ public class AddRam extends HttpServlet {
     // Forward to the appropriate JSP page
     request.getRequestDispatcher("/view/marketing/addRAM.jsp").forward(request, response);
 }
+
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
