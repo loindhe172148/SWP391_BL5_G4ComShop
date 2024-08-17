@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import entity.CPU;
@@ -13,27 +10,27 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author xuant
- */
 public class CPUDAO extends DBContext<CPU> {
 
     public List<CPU> getAllCPU() {
         List<CPU> cpus = new ArrayList<>();
         String sql = "SELECT * FROM CPU";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = connection.prepareStatement(sql); 
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 CPU cpu = new CPU();
                 cpu.setId(rs.getInt("id"));
                 cpu.setName(rs.getString("name"));
+                cpu.setBrand(rs.getString("brand"));
+                cpu.setGeneration(rs.getString("generation"));
+                cpu.setDescription(rs.getString("description"));
                 cpus.add(cpu);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CPUDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CPUDAO.class.getName()).log(Level.SEVERE, "Error fetching CPU list", ex);
         }
         return cpus;
     }
-
 }
+

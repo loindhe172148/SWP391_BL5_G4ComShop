@@ -1,31 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 
-/**
- *
- * @author xuant
- */
 public class ProductDetail {
-    private int id;
-    private int productId;
-    private int ramId;
-    private int cpuId;
-    private int cardId;
-    private double variantPrice;
+    private int id; // key not null
+    private int productId; // not null
+    private int ramId; // not null
+    private int cpuId; // not null
+    private int cardId; // not null
+    private double originPrice; // not null
+    private double salePrice; // not null
 
     public ProductDetail() {
     }
 
-    public ProductDetail(int id, int productId, int ramId, int cpuId, int cardId, double variantPrice) {
+    public ProductDetail(int id, int productId, int ramId, int cpuId, int cardId, double originPrice, double salePrice) {
         this.id = id;
         this.productId = productId;
         this.ramId = ramId;
         this.cpuId = cpuId;
         this.cardId = cardId;
-        this.variantPrice = variantPrice;
+        this.originPrice = originPrice;
+        this.salePrice = salePrice;
     }
 
     public int getId() {
@@ -68,13 +63,20 @@ public class ProductDetail {
         this.cardId = cardId;
     }
 
-    public double getVariantPrice() {
-        return variantPrice;
+    public double getOriginPrice() {
+        return originPrice;
     }
 
-    public void setVariantPrice(double variantPrice) {
-        this.variantPrice = variantPrice;
+    public void setOriginPrice(double originPrice) {
+        this.originPrice = originPrice;
     }
-    
-    
+
+    public double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(double salePrice) {
+        this.salePrice = salePrice;
+    }
+
 }

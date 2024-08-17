@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 
 import java.util.Date;
 
-/**
- *
- * @author xuant
- */
 public class Product {
     private int id;
     private String name;
@@ -17,8 +10,6 @@ public class Product {
     private String description;
     private String image;
     private int quantity;
-    private float originPrice;
-    private float salePrice;
     private int categoryId;
     private int brandId;
     private float screenSize;
@@ -29,15 +20,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String title, String description, String image, int quantity, float originPrice, float salePrice, int categoryId, int brandId, float screenSize, Date createDate, Date updateDate, String status) {
+    public Product(int id, String name, String title, String description, String image, int quantity, int categoryId, int brandId, float screenSize, Date createDate, Date updateDate, String status) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.description = description;
         this.image = image;
         this.quantity = quantity;
-        this.originPrice = originPrice;
-        this.salePrice = salePrice;
         this.categoryId = categoryId;
         this.brandId = brandId;
         this.screenSize = screenSize;
@@ -92,22 +81,6 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public float getOriginPrice() {
-        return originPrice;
-    }
-
-    public void setOriginPrice(float originPrice) {
-        this.originPrice = originPrice;
-    }
-
-    public float getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(float salePrice) {
-        this.salePrice = salePrice;
     }
 
     public int getCategoryId() {

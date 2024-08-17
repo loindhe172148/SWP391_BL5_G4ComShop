@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dal;
 
 import entity.Card;
@@ -19,17 +16,22 @@ public class CardDAO extends DBContext<Card> {
         List<Card> cards = new ArrayList<>();
         String sql = "SELECT * FROM Card";
 
-        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) { // Thực thi truy vấn
+        try (PreparedStatement ps = connection.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Card card = new Card();
                 card.setId(rs.getInt("id"));
                 card.setName(rs.getString("name"));
+                card.setBrand(rs.getString("brand"));
+                card.setMemory(rs.getInt("memory"));
+                card.setChipset(rs.getString("chipset"));
+                card.setDescription(rs.getString("description"));
                 cards.add(card);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(CardDAO.class.getName()).log(Level.SEVERE, null, ex); // Ghi log lỗi
+            Logger.getLogger(CardDAO.class.getName()).log(Level.SEVERE, "Error fetching card list", ex);
         }
-        return cards; // Trả về danh sách các card
+        return cards;
     }
 }
 

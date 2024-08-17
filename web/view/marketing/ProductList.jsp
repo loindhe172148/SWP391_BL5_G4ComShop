@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Data Tables</title>
+        <title>Product List</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -68,71 +68,65 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <form method="get" action="ProductListServlet">
-                                        <input type="text" name="search" value="${search}" placeholder="Search..."/>
-                                        <button type="submit">Search</button>
+                                    <!-- Search Form -->
+                                    <form method="get" action="productlist" class="d-flex mb-3">
+                                        <input type="text" name="search" value="${search}" placeholder="Search..." class="" />
+                                        <button type="submit" class="btn-primary">Search</button>
                                     </form>
 
-                                    <table id="example1" class="table table-bordered table-striped">
+                                    <table id="example111" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
+                                                <th><a href="productlist?sortColumn=id&sortOrder=${sortColumn == 'id' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">ID</a></th>
+                                                <th><a href="productlist?sortColumn=name&sortOrder=${sortColumn == 'name' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Name</a></th>
                                                 <th>Image</th>
-                                                <th>Description</th>
-                                                <th>Origin Price</th>
-                                                <th>Sale Price</th>
-                                                <th>Quantity</th>
-                                                <th>Status</th>
+                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Description</a></th>
+                                                <th><a href="productlist?sortColumn=originPrice&sortOrder=${sortColumn == 'originPrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Origin Price</a></th>
+                                                <th><a href="productlist?sortColumn=salePrice&sortOrder=${sortColumn == 'salePrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Sale Price</a></th>
+                                                <th><a href="productlist?sortColumn=quantity&sortOrder=${sortColumn == 'quantity' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Quantity</a></th>
+                                                <th><a href="productlist?sortColumn=status&sortOrder=${sortColumn == 'status' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Status</a></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="product" items="${products}">
                                                 <tr>
-                                                    <td><c:out value="${product.id}"/></td>
-                                                    <td><c:out value="${product.name}"/></td>
-                                                    <td><img src="${product.image}" alt="Image" width="100"/></td>
-                                                    <td><c:out value="${product.description}"/></td>
-                                                    <td><c:out value="${product.originPrice}"/></td>
-                                                    <td><c:out value="${product.salePrice}"/></td>
-                                                    <td><c:out value="${product.quantity}"/></td>
-                                                    <td><c:out value="${product.status}"/></td>
+                                                    <td><c:out value="${product.productDetails.id}"/></td>
+                                                    <td><c:out value="${product.product.name}"/></td>
+                                                    <td><img src="${product.product.image}" alt="Image" width="100"/></td>
+                                                    <td><c:out value="${product.product.description}"/></td>
+                                                    <td><c:out value="${product.productDetails.originPrice}"/></td>
+                                                    <td><c:out value="${product.productDetails.salePrice}"/></td>
+                                                    <td><c:out value="${product.product.quantity}"/></td>
+                                                    <td><c:out value="${product.product.status}"/></td>
                                                     <td>
-                                                        <a href="viewProduct?id=${product.id}">View</a>
+                                                        <a href="viewProduct?id=${product.product.id}">View/Edit</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Image</th>
-                                                <th>Description</th>
-                                                <th>Origin Price</th>
-                                                <th>Sale Price</th>
-                                                <th>Quantity</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
 
                                     <!-- Pagination -->
-                                    <div class="pagination">
-                                        <c:if test="${currentPage > 1}">
-                                            <a href="ProductListServlet?page=${currentPage - 1}&search=${search}">Previous</a>
-                                        </c:if>
-                                        <c:forEach begin="1" end="${totalPages}" var="i">
-                                            <a href="ProductListServlet?page=${i}&search=${search}">
-                                                <c:out value="${i}"/>
-                                            </a>
-                                        </c:forEach>
-                                        <c:if test="${currentPage < totalPages}">
-                                            <a href="ProductListServlet?page=${currentPage + 1}&search=${search}">Next</a>
-                                        </c:if>
-                                    </div>
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination">
+                                            <c:if test="${currentPage > 1}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="productlist?page=${currentPage - 1}&search=${search}&sortColumn=${sortColumn}&sortOrder=${sortOrder}">Previous</a>
+                                                </li>
+                                            </c:if>
+                                            <c:forEach begin="1" end="${totalPages}" var="i">
+                                                <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'">
+                                                    <a class="page-link" href="productlist?page=${i}&search=${search}&sortColumn=${sortColumn}&sortOrder=${sortOrder}"><c:out value="${i}"/></a>
+                                                </li>
+                                            </c:forEach>
+                                            <c:if test="${currentPage < totalPages}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="productlist?page=${currentPage + 1}&search=${search}&sortColumn=${sortColumn}&sortOrder=${sortOrder}">Next</a>
+                                                </li>
+                                            </c:if>
+                                        </ul>
+                                    </nav>
                                 </div>
                                 <!-- /.box-body -->
                             </div>
@@ -144,6 +138,7 @@
                 </section>
                 <!-- /.content -->
             </div>
+
             <!-- /.content-wrapper -->
 
             <!--footer-->

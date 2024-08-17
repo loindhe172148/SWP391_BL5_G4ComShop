@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller.marketing;
 
 import controller.user.BaseRequiredAuthenticationController;
-import dal.ProductDAO;
-import dal.ProductJoinDetail;
+import dal.ProductWithDetailsDAO;
+import entity.ProductWithDetails;
 import entity.Account;
 import entity.Product;
 import java.io.IOException;
@@ -18,24 +14,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- *
- * @author xuant
- */
 @WebServlet(name = "ProductListController", urlPatterns = {"/marketing/productlist", "/marketing/changestatus"})
 public class ProductListController extends HttpServlet {
 
-    private static final int PAGE_SIZE = 10; // Number of products per page
+    private static final int PAGE_SIZE = 10;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             String search = request.getParameter("search");
             if (search == null) {
                 search = "";
+            }
+
+            String sortColumn = request.getParameter("sortColumn");
+
+            String sortOrder = request.getParameter("sortOrder");
+            if (sortOrder == null || sortOrder.isEmpty()) {
+                sortOrder = "asc"; // Default sorting order
             }
 
             int page = 1;
@@ -47,16 +45,18 @@ public class ProductListController extends HttpServlet {
 
             int start = (page - 1) * PAGE_SIZE;
 
-            ProductDAO productDAO = new ProductDAO();
+            ProductWithDetailsDAO productDAO = new ProductWithDetailsDAO();
             try {
-                List<ProductJoinDetail> products = productDAO.getProducts(start, PAGE_SIZE, search);
+                List<ProductWithDetails> products = productDAO.getProductWithDetails(start, PAGE_SIZE, search, sortColumn, sortOrder);
                 int totalProducts = productDAO.getProductCount(search);
                 int totalPages = (int) Math.ceil((double) totalProducts / PAGE_SIZE);
 
                 request.setAttribute("products", products);
                 request.setAttribute("totalPages", totalPages);
                 request.setAttribute("currentPage", page);
-                request.setAttribute("search", search); // Add this line to pass search term
+                request.setAttribute("search", search);
+                request.setAttribute("sortColumn", sortColumn);
+                request.setAttribute("sortOrder", sortOrder);
                 request.getRequestDispatcher("/view/marketing/ProductList.jsp").forward(request, response);
             } catch (Exception e) {
                 e.printStackTrace();

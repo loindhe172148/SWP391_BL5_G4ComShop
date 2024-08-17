@@ -1,27 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package entity;
 
-/**
- *
- * @author xuant
- */
 public class Card {
-    private int id;
-    private String name;
-    private String model;
-    private int memory;
+    private int id; // key not null
+    private String name; // not null
+    private String brand; // not null
+    private int memory; // not null
+    private String chipset; // not null
+    private String description; // allow nulls
+    
 
     public Card() {
     }
 
-    public Card(int id, String name, String model, int memory) {
+    public Card(int id, String name, String brand, int memory, String chipset, String description) {
         this.id = id;
         this.name = name;
-        this.model = model;
+        this.brand = brand;
         this.memory = memory;
+        this.chipset = chipset;
+        this.description = description;
     }
 
     public int getId() {
@@ -40,12 +38,12 @@ public class Card {
         this.name = name;
     }
 
-    public String getModel() {
-        return model;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public int getMemory() {
@@ -55,5 +53,23 @@ public class Card {
     public void setMemory(int memory) {
         this.memory = memory;
     }
+
+    public String getChipset() {
+        return chipset;
+    }
+
+    public void setChipset(String chipset) {
+        this.chipset = chipset;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
 }
 

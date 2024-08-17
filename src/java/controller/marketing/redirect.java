@@ -7,15 +7,15 @@ package controller.marketing;
 import dal.CPUDAO;
 import dal.CardDAO;
 import dal.CategoryDAO;
-import dal.ProductDAO;
+import dal.ProductWithDetailsDAO;
 import dal.RAMDAO;
-import dal.TypeDAO;
+import dal.ProductTypeDAO;
 import entity.CPU;
 import entity.Card;
 import entity.Category;
 import entity.Product;
 import entity.RAM;
-import entity.Type;
+import entity.ProductType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -48,32 +48,32 @@ public class redirect extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getServletPath();
         try (PrintWriter out = response.getWriter()) {
-            ProductDAO productDAO = new ProductDAO();
-            CPUDAO cpuDAO = new CPUDAO();
-            CardDAO cardDAO = new CardDAO();
-            CategoryDAO categoryDAO = new CategoryDAO();
-            TypeDAO typeDAO = new TypeDAO();
-            RAMDAO ramDAO = new RAMDAO();
-
-            List<CPU> cpuList;
-            cpuList = cpuDAO.getAllCPU();
-            request.setAttribute("cpuList", cpuList);
-
-            List<Card> cardList;
-            cardList = cardDAO.getAllCard();
-            request.setAttribute("cardList", cardList);
-
-            List<Category> categoryList;
-            categoryList = categoryDAO.getAllCategory();
-            request.setAttribute("categoryList", categoryList);
-
-            List<Type> typeList;
-            typeList = typeDAO.getAllType();
-            request.setAttribute("typeList", typeList);
-
-            List<RAM> ramList;
-            ramList = ramDAO.getAllRAM();
-            request.setAttribute("ramList", ramList);
+//            ProductDAO productDAO = new ProductDAO();
+//            CPUDAO cpuDAO = new CPUDAO();
+//            CardDAO cardDAO = new CardDAO();
+//            CategoryDAO categoryDAO = new CategoryDAO();
+//            ProductTypeDAO typeDAO = new ProductTypeDAO();
+//            RAMDAO ramDAO = new RAMDAO();
+//
+//            List<CPU> cpuList;
+//            cpuList = cpuDAO.getAllCPU();
+//            request.setAttribute("cpuList", cpuList);
+//
+//            List<Card> cardList;
+//            cardList = cardDAO.getAllCard();
+//            request.setAttribute("cardList", cardList);
+//
+//            List<Category> categoryList;
+//            categoryList = categoryDAO.getAllCategory();
+//            request.setAttribute("categoryList", categoryList);
+//
+//            List<ProductType> typeList;
+//            typeList = typeDAO.getAllProductType();
+//            request.setAttribute("typeList", typeList);
+//
+//            List<RAM> ramList;
+//            ramList = ramDAO.getAllRAM();
+//            request.setAttribute("ramList", ramList);
 
             switch (action) {
                 // template    
