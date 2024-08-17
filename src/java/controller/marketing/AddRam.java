@@ -5,7 +5,6 @@
 
 package controller.marketing;
 
-import dal.CardDAO;
 import dal.RAMDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author LENOVO
  */
-public class AddCard extends HttpServlet {
+public class AddRam extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,7 +26,7 @@ public class AddCard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     
     response.setContentType("text/html;charset=UTF-8");
@@ -63,7 +62,7 @@ public class AddCard extends HttpServlet {
     }
     
     // Forward to the appropriate JSP page
-    request.getRequestDispatcher("/view/marketing/addRam.jsp").forward(request, response);
+    request.getRequestDispatcher("/view/marketing/addRAM.jsp").forward(request, response);
 }
 
 

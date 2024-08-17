@@ -9,11 +9,11 @@ package entity;
  * @author xuant
  */
 public class CPU {
-  private int id ; 
-  private  String name ; 
-  private String brand;
-  private  String generation ;
-  private  String description;
+   private  int id ; 
+   private  String  name ; 
+   private  String brand ; 
+   private String generation;
+   private String  description;
 
     public CPU() {
     }
@@ -26,7 +26,6 @@ public class CPU {
         this.description = description;
     }
 
-  
     public int getId() {
         return id;
     }
@@ -41,6 +40,14 @@ public class CPU {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getGeneration() {
@@ -58,15 +65,6 @@ public class CPU {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-    
-  
+   
 }
 

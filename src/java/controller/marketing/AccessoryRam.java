@@ -5,20 +5,21 @@
 
 package controller.marketing;
 
-import dal.CardDAO;
 import dal.RAMDAO;
+import entity.RAM;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
  * @author LENOVO
  */
-public class AddCard extends HttpServlet {
+public class AccessoryRam extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -27,43 +28,21 @@ public class AddCard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    
-    // Retrieve parameters from the request
-    String name = request.getParameter("name");
-    String brand = request.getParameter("brand");
-    String memoryStr = request.getParameter("memory");
-    String speedStr = request.getParameter("speed");
-    String description = request.getParameter("description");
-    
-    // Convert memory and speed parameters to integers
-    int memory = Integer.parseInt(memoryStr);
-    int speed = Integer.parseInt(speedStr);
-    
+
     // Create an instance of RAMDAO
     RAMDAO ramDao = new RAMDAO();
-    boolean success = false;
-    
-    try {
-        // Insert the new RAM using the DAO method
-        ramDao.insertRam(name, brand, memory, speed, description);
-        success = true;
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    
-    // Set a success or failure message
-    if (success) {
-        request.setAttribute("message", "RAM inserted successfully!");
-    } else {
-        request.setAttribute("message", "Failed to insert RAM. Please try again.");
-    }
-    
-    // Forward to the appropriate JSP page
-    request.getRequestDispatcher("/view/marketing/addRam.jsp").forward(request, response);
+
+    // Retrieve the list of active RAMs
+    List<RAM> listR = ramDao.getRamAccessory();
+
+    // Set the list as an attribute to be used in the JSP
+    request.setAttribute("listR", listR);
+
+    // Forward the request to the appropriate JSP page for display
+    request.getRequestDispatcher("/view/marketing/Ramview.jsp").forward(request, response);
 }
 
 

@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dal;
 
-/**
- *
- * @author xuant
- */
 import entity.RAM;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,5 +11,56 @@ import java.util.logging.Logger;
 
 public class RAMDAO extends DBContext<RAM> {
 
-   
+    // Method to retrieve all active RAM records
+    public List<RAM> getRamAccessory() {
+        List<RAM> list = new ArrayList<>();
+        String query = "SELECT * FROM RAM WHERE isActive = 1"; // Only active RAMs
+
+        try (PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                RAM ram = new RAM(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("brand"),
+                    rs.getInt("memory"),
+                    rs.getInt("speed"),
+                    rs.getString("description")
+                );
+                list.add(ram);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Method to insert a new RAM record
+    public void insertRam(String name, String brand, int memory, int speed, String description) {
+        String query = "INSERT INTO RAM ([name], [brand], [memory], [speed], [description]) VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, name);
+            ps.setString(2, brand);
+            ps.setInt(3, memory);
+            ps.setInt(4, speed);
+            ps.setString(5, description);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to soft delete a RAM record (mark as inactive)
+    public void softDeleteRam(int id) {
+        String query = "UPDATE RAM SET isActive = 0 WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

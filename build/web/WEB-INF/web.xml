@@ -80,6 +80,18 @@
         <servlet-name>DeleteCard</servlet-name>
         <servlet-class>controller.marketing.DeleteCard</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccessoryRam</servlet-name>
+        <servlet-class>controller.marketing.AccessoryRam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddRam</servlet-name>
+        <servlet-class>controller.marketing.AddRam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRam</servlet-name>
+        <servlet-class>controller.marketing.DeleteRam</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
         <url-pattern>/marketing/accessory</url-pattern>
@@ -159,6 +171,18 @@
     <servlet-mapping>
         <servlet-name>DeleteCard</servlet-name>
         <url-pattern>/marketing/deleteCard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryRam</servlet-name>
+        <url-pattern>/marketing/accessoryRam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRam</servlet-name>
+        <url-pattern>/marketing/addRam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRam</servlet-name>
+        <url-pattern>/marketing/deleteRam</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>
