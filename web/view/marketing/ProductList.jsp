@@ -77,14 +77,14 @@
                                     <table id="example111" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th><a href="productlist?sortColumn=id&sortOrder=${sortColumn == 'id' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">ID</a></th>
-                                                <th><a href="productlist?sortColumn=name&sortOrder=${sortColumn == 'name' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Name</a></th>
+                                                <th><a href="productlist?sortColumn=id&sortOrder=${sortColumn == 'id' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">ID</a></th>
+                                                <th><a href="productlist?sortColumn=name&sortOrder=${sortColumn == 'name' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Name</a></th>
                                                 <th>Image</th>
-                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Description</a></th>
-                                                <th><a href="productlist?sortColumn=originPrice&sortOrder=${sortColumn == 'originPrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Origin Price</a></th>
-                                                <th><a href="productlist?sortColumn=salePrice&sortOrder=${sortColumn == 'salePrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Sale Price</a></th>
-                                                <th><a href="productlist?sortColumn=quantity&sortOrder=${sortColumn == 'quantity' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Quantity</a></th>
-                                                <th><a href="productlist?sortColumn=status&sortOrder=${sortColumn == 'status' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search}">Status</a></th>
+                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Description</a></th>
+                                                <th><a href="productlist?sortColumn=originPrice&sortOrder=${sortColumn == 'originPrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Origin Price</a></th>
+                                                <th><a href="productlist?sortColumn=salePrice&sortOrder=${sortColumn == 'salePrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Sale Price</a></th>
+                                                <th><a href="productlist?sortColumn=quantity&sortOrder=${sortColumn == 'quantity' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Quantity</a></th>
+                                                <th><a href="productlist?sortColumn=status&sortOrder=${sortColumn == 'status' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Status</a></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

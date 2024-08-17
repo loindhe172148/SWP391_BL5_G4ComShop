@@ -13,12 +13,7 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
 
     public List<ProductWithDetails> getProductWithDetails(int start, int pageSize, String search, String sortColumn, String sortOrder) {
         List<ProductWithDetails> products = new ArrayList<>();
-        if (search.trim().equals("_")) {
-                search = search.replace("_", "[_]");
-            }
-            if (search.trim().equals("%")) {
-                search = search.replace("%", "[%]");
-            }
+        
         if (sortColumn == null || sortColumn.isEmpty()) {
             sortColumn = "pd.id"; // Default sorting column
         } else {

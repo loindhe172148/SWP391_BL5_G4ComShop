@@ -25,8 +25,16 @@ public class ProductListController extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             String search = request.getParameter("search");
+            String searchValue = search;
             if (search == null) {
-                search = "";
+                searchValue = "";
+            } else {
+                if (search.trim().equals("_")) {
+                    searchValue = search.replace("_", "[_]");
+                }
+                if (search.trim().equals("%")) {
+                    searchValue = search.replace("%", "[%]");
+                }
             }
 
             String sortColumn = request.getParameter("sortColumn");
@@ -47,13 +55,14 @@ public class ProductListController extends HttpServlet {
 
             ProductWithDetailsDAO productDAO = new ProductWithDetailsDAO();
             try {
-                List<ProductWithDetails> products = productDAO.getProductWithDetails(start, PAGE_SIZE, search, sortColumn, sortOrder);
-                int totalProducts = productDAO.getProductCount(search);
+                List<ProductWithDetails> products = productDAO.getProductWithDetails(start, PAGE_SIZE, searchValue, sortColumn, sortOrder);
+                int totalProducts = productDAO.getProductCount(searchValue);
                 int totalPages = (int) Math.ceil((double) totalProducts / PAGE_SIZE);
 
                 request.setAttribute("products", products);
                 request.setAttribute("totalPages", totalPages);
                 request.setAttribute("currentPage", page);
+                System.out.println(search  +" = sedjfsha");
                 request.setAttribute("search", search);
                 request.setAttribute("sortColumn", sortColumn);
                 request.setAttribute("sortOrder", sortOrder);

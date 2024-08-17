@@ -89,6 +89,7 @@ public class redirect extends HttpServlet {
 
                 // tam test   
                 case "/marketing/dashboard":
+                    
                     request.getRequestDispatcher("/view/marketing/dashboard.jsp").forward(request, response);
                     break;
                 case "/marketing/productlist":

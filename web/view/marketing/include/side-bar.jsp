@@ -52,6 +52,32 @@
                     <li><a href="addproduct"><i class="fa fa-circle-o"></i>Add Product</a></li>
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="productlist">
+                    <i class="fa fa-files-o"></i>
+                    <span>Customer List</span>
+                    <span class="pull-right-container">
+                        <span class="label label-primary pull-right">2</span>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="productlist"><i class="fa fa-circle-o"></i>All Customers</a></li>
+                    <li><a href="addproduct"><i class="fa fa-circle-o"></i>Add Customer</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="productlist">
+                    <i class="fa fa-files-o"></i>
+                    <span>Order List</span>
+                    <span class="pull-right-container">
+                        <span class="label label-primary pull-right">2</span>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="productlist"><i class="fa fa-circle-o"></i>All Orders</a></li>
+                    <li><a href="addproduct"><i class="fa fa-circle-o"></i>Add ... </a></li>
+                </ul>
+            </li>
             
             <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
             <li class="header">LABELS</li>
