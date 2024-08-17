@@ -74,7 +74,51 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return products;
     }
+    
+    public ProductWithDetails getProductDetailById(int detailId) {
+        ProductWithDetails productWithDetails = null;
+        String query = "SELECT p.*, pd.* "
+                + "FROM Product p "
+                + "JOIN ProductDetail pd ON p.id = pd.productid "
+                + "WHERE pd.id = ?";
 
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, detailId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setTitle(rs.getString("title"));
+                product.setDescription(rs.getString("description"));
+                product.setImage(rs.getString("image"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setCategoryId(rs.getInt("categoryId"));
+                product.setBrandId(rs.getInt("brandId"));
+                product.setScreenSize(rs.getFloat("screenSize"));
+                product.setCreateDate(rs.getDate("createDate"));
+                product.setUpdateDate(rs.getDate("updateDate"));
+                product.setStatus(rs.getString("status"));
+
+                ProductDetail productDetails = new ProductDetail();
+                productDetails.setId(rs.getInt(13));
+                productDetails.setProductId(rs.getInt("productId"));
+                productDetails.setRamId(rs.getInt("ramId"));
+                productDetails.setCpuId(rs.getInt("cpuId"));
+                productDetails.setCardId(rs.getInt("cardId"));
+                productDetails.setOriginPrice(rs.getDouble("originPrice"));
+                productDetails.setSalePrice(rs.getDouble("salePrice"));
+
+                productWithDetails = new ProductWithDetails(product, productDetails);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productWithDetails;
+    }
+    
     public int getProductCount(String search) {
         String sql = "SELECT COUNT(*) "
                 + "FROM Product p "

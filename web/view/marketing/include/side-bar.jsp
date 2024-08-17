@@ -29,7 +29,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview">
                 <a href="dashboard">
-                    <i class="fa fa-dashboard"></i> <span>DASHBOARD</span>
+                    <i class="fa fa-home"></i> <span>DASHBOARD</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -41,7 +41,7 @@
             </li>
             <li class="treeview">
                 <a href="productlist">
-                    <i class="fa fa-files-o"></i>
+                    <i class="fa fa-laptop"></i>
                     <span>Product List</span>
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">2</span>
@@ -54,7 +54,7 @@
             </li>
             <li class="treeview">
                 <a href="productlist">
-                    <i class="fa fa-files-o"></i>
+                    <i class="fa fa-user"></i>
                     <span>Customer List</span>
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">2</span>
@@ -81,9 +81,9 @@
             
             <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
             <li class="header">LABELS</li>
-            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
+<!--            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>-->
         </ul>
     </section>
     <!-- /.sidebar -->
