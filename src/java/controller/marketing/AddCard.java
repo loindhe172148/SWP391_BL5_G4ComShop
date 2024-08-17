@@ -27,44 +27,40 @@ public class AddCard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    
-    response.setContentType("text/html;charset=UTF-8");
-    
-    // Retrieve parameters from the request
-    String name = request.getParameter("name");
-    String brand = request.getParameter("brand");
-    String memoryStr = request.getParameter("memory");
-    String speedStr = request.getParameter("speed");
-    String description = request.getParameter("description");
-    
-    // Convert memory and speed parameters to integers
-    int memory = Integer.parseInt(memoryStr);
-    int speed = Integer.parseInt(speedStr);
-    
-    // Create an instance of RAMDAO
-    RAMDAO ramDao = new RAMDAO();
-    boolean success = false;
-    
-    try {
-        // Insert the new RAM using the DAO method
-        ramDao.insertRam(name, brand, memory, speed, description);
-        success = true;
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    
-    // Set a success or failure message
-    if (success) {
-        request.setAttribute("message", "RAM inserted successfully!");
-    } else {
-        request.setAttribute("message", "Failed to insert RAM. Please try again.");
-    }
-    
-    // Forward to the appropriate JSP page
-    request.getRequestDispatcher("/view/marketing/addRam.jsp").forward(request, response);
-}
+        
+        response.setContentType("text/html;charset=UTF-8");
+        
+        // Retrieve parameters from the request
+        String name = request.getParameter("name");
+        String brand = request.getParameter("brand");
+        String memory = request.getParameter("memory");
+        String chipset = request.getParameter("chipset");
+        String description = request.getParameter("description");
+        
+        // Create an instance of CardDao
+         CardDAO cardDao = new CardDAO();
+        boolean success = false;
+        
+        try {
+            // Insert the new Card using the Dao method
+            cardDao.insertCard(name, brand, memory, chipset, description);
+            success = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        // Set a success or failure message
+        if (success) {
+            request.setAttribute("message", "Card inserted successfully!");
+        } else {
+            request.setAttribute("message", "Failed to insert Card. Please try again.");
+        }
+        
+        // Forward to the appropriate JSP page
+        request.getRequestDispatcher("/view/marketing/addCard.jsp").forward(request, response);
+    } 
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -451,7 +451,7 @@
                 <button type="submit" class="label label-danger">Delete</button>
             </form>
         </td>   
-    </tr>
+        </tr>
    </c:forEach>
 
               </table>
