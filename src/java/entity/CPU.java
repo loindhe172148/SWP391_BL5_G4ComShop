@@ -9,30 +9,24 @@ package entity;
  * @author xuant
  */
 public class CPU {
-    private int id;
-    private String name;
-    private String tech;
-    private String type;
-    private float speed;
-    private int core;
-    private int flow;
+  private int id ; 
+  private  String name ; 
+  private String brand;
+  private  String generation ;
+  private  String description;
 
-    // Constructor không tham số
     public CPU() {
     }
 
-    // Constructor có tham số
-    public CPU(int id, String name, String tech, String type, float speed, int core, int flow) {
+    public CPU(int id, String name, String brand, String generation, String description) {
         this.id = id;
         this.name = name;
-        this.tech = tech;
-        this.type = type;
-        this.speed = speed;
-        this.core = core;
-        this.flow = flow;
+        this.brand = brand;
+        this.generation = generation;
+        this.description = description;
     }
 
-    // Getter và Setter cho id
+  
     public int getId() {
         return id;
     }
@@ -41,7 +35,6 @@ public class CPU {
         this.id = id;
     }
 
-    // Getter và Setter cho name
     public String getName() {
         return name;
     }
@@ -50,56 +43,30 @@ public class CPU {
         this.name = name;
     }
 
-    // Getter và Setter cho tech
-    public String getTech() {
-        return tech;
+    public String getGeneration() {
+        return generation;
     }
 
-    public void setTech(String tech) {
-        this.tech = tech;
+    public void setGeneration(String generation) {
+        this.generation = generation;
     }
 
-    // Getter và Setter cho type
-    public String getType() {
-        return type;
+    public String getDescription() {
+        return description;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    // Getter và Setter cho speed
-    public float getSpeed() {
-        return speed;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
-
-    // Getter và Setter cho core
-    public int getCore() {
-        return core;
-    }
-
-    public void setCore(int core) {
-        this.core = core;
-    }
-
-    // Getter và Setter cho flow
-    public int getFlow() {
-        return flow;
-    }
-
-    public void setFlow(int flow) {
-        this.flow = flow;
-    }
-
-    // Override phương thức toString() nếu cần thiết
-    @Override
-    public String toString() {
-        return "CPU [id=" + id + ", name=" + name + ", tech=" + tech + ", type=" + type + ", speed=" + speed
-                + ", core=" + core + ", flow=" + flow + "]";
-    }
+    
+  
 }
 

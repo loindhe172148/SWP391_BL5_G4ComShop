@@ -56,6 +56,30 @@
         <servlet-name>DeleteBrandname</servlet-name>
         <servlet-class>controller.marketing.DeleteBrandname</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccessoryCpu</servlet-name>
+        <servlet-class>controller.marketing.AccessoryCpu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCPU</servlet-name>
+        <servlet-class>controller.marketing.AddCPU</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCPU</servlet-name>
+        <servlet-class>controller.marketing.DeleteCPU</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccessoryCard</servlet-name>
+        <servlet-class>controller.marketing.AccessoryCard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCard</servlet-name>
+        <servlet-class>controller.marketing.AddCard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCard</servlet-name>
+        <servlet-class>controller.marketing.DeleteCard</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
         <url-pattern>/marketing/accessory</url-pattern>
@@ -111,6 +135,30 @@
     <servlet-mapping>
         <servlet-name>DeleteBrandname</servlet-name>
         <url-pattern>/marketing/deleteBrandname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryCpu</servlet-name>
+        <url-pattern>/marketing/accessoryCpu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCPU</servlet-name>
+        <url-pattern>/marketing/addCPU</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCPU</servlet-name>
+        <url-pattern>/marketing/deleteCPU</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryCard</servlet-name>
+        <url-pattern>/marketing/accessoryCard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCard</servlet-name>
+        <url-pattern>/marketing/addCard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCard</servlet-name>
+        <url-pattern>/marketing/deleteCard</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>

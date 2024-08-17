@@ -401,12 +401,12 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Brandname
+                        CPU
                        
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Brandname</a></li>
+                        <li><a href="#">CPU</a></li>
                         <li class="active">Add</li>
                     </ol>
                 </section>
@@ -422,36 +422,41 @@
 <!-- Other HTML content -->
 
 <div class="box-body">
+
+   <form action="addCPU" method="post"> <!-- Ensure this matches your servlet's URL pattern -->
+    
+    <!-- Display Success or Failure Message -->
     <c:if test="${not empty message}">
-        <div class="alert alert-info">
-            ${message}
-        </div>
+        <div class="alert alert-info">${message}</div>
     </c:if>
-    <form action="addBrandname" method="post"> <!-- Replace with your servlet's URL pattern -->
-        <!-- Display Success or Failure Message -->
-       
-        
-        
-        <div class="form-group">
-            <label>Brandname:</label>
-            <input type="text" name="name" class="form-control my-colorpicker1" required>
-        </div>
-        
-        <!-- Description Field -->
-        <div class="form-group">
-            <label>Description:</label>
-            <input type="text" name="description" class="form-control my-colorpicker1" required>
-        </div>
 
-        <!-- Buttons -->
-        <div class="box-footer">
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="text" name="name" class="form-control my-colorpicker1" required>
+    </div>
+        <div class="form-group">
+        <label>Brand:</label>
+        <input type="text" name="brand" class="form-control my-colorpicker1" required>
+    </div>
+    
+    
+    <div class="form-group">
+        <label>Generation:</label>
+        <input type="text" name="generation" class="form-control my-colorpicker1" required>
+    </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <!-- Cancel button to go back to the previous page -->
-            <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='brandname';">Cancel</button>
-        </div>  
-         
-    </form>
+    <div class="form-group">
+        <label>Description:</label>
+        <input type="text" name="description" class="form-control my-colorpicker1" required>
+    </div>
+
+    <!-- Buttons -->
+    <div class="box-footer">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='accessoryCpu';">Cancel</button>
+    </div>  
+</form>
+
     
 </div>
 

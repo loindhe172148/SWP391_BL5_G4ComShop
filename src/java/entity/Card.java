@@ -11,17 +11,22 @@ package entity;
 public class Card {
     private int id;
     private String name;
-    private String model;
-    private int memory;
+    private String brand;
+    private String memory;
+    private String chipset;
+    private String description;
+   
 
     public Card() {
     }
 
-    public Card(int id, String name, String model, int memory) {
+    public Card(int id, String name, String brand, String memory, String chipset, String description) {
         this.id = id;
         this.name = name;
-        this.model = model;
+        this.brand = brand;
         this.memory = memory;
+        this.chipset = chipset;
+        this.description = description;
     }
 
     public int getId() {
@@ -40,20 +45,38 @@ public class Card {
         this.name = name;
     }
 
-    public String getModel() {
-        return model;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public int getMemory() {
+    public String getMemory() {
         return memory;
     }
 
-    public void setMemory(int memory) {
+    public void setMemory(String memory) {
         this.memory = memory;
     }
+
+    public String getChipset() {
+        return chipset;
+    }
+
+    public void setChipset(String chipset) {
+        this.chipset = chipset;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
 }
 

@@ -401,61 +401,63 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Brandname
+                        Card
                        
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Brandname</a></li>
+                        <li><a href="#">Card</a></li>
                         <li class="active">Add</li>
                     </ol>
                 </section>
 
 
 <section class="content">
-
-      <!-- Default box -->
-      <div class="box">
+    <!-- Default box -->
+    <div class="box">
         <div class="box-header with-border">
-          <div class="box box-info">
-            
-<!-- Other HTML content -->
+            <div class="box box-info">
+                <!-- Other HTML content -->
+                <div class="box-body">
+                    <form action="addCard" method="post"> <!-- Ensure this matches your servlet's URL pattern -->
+                        <!-- Display Success or Failure Message -->
+                        <c:if test="${not empty message}">
+                            <div class="alert alert-info">${message}</div>
+                        </c:if>
 
-<div class="box-body">
-    <c:if test="${not empty message}">
-        <div class="alert alert-info">
-            ${message}
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" name="name" class="form-control my-colorpicker1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Brand:</label>
+                            <input type="text" name="brand" class="form-control my-colorpicker1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Memory:</label>
+                            <input type="text" name="memory" class="form-control my-colorpicker1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Chipset:</label>
+                            <input type="text" name="chipset" class="form-control my-colorpicker1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <input type="text" name="description" class="form-control my-colorpicker1" required>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='accessoryCard';">Cancel</button>
+                        </div>  
+                    </form>
+                </div>
+            </div>
         </div>
-    </c:if>
-    <form action="addBrandname" method="post"> <!-- Replace with your servlet's URL pattern -->
-        <!-- Display Success or Failure Message -->
-       
-        
-        
-        <div class="form-group">
-            <label>Brandname:</label>
-            <input type="text" name="name" class="form-control my-colorpicker1" required>
-        </div>
-        
-        <!-- Description Field -->
-        <div class="form-group">
-            <label>Description:</label>
-            <input type="text" name="description" class="form-control my-colorpicker1" required>
-        </div>
+    </div>
+</section>
 
-        <!-- Buttons -->
-        <div class="box-footer">
-
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <!-- Cancel button to go back to the previous page -->
-            <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='brandname';">Cancel</button>
-        </div>  
-         
-    </form>
-    
-</div>
-
-    </section>
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->

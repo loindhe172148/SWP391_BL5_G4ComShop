@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : BlankPage
     Created on : Aug 15, 2024, 10:03:19 PM
     Author     : xuant
@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Blank Page</title>
+        <title>Brandname</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -400,8 +400,8 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Blank page
-                        <small>it all starts here</small>
+                        Brandname
+                        
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
