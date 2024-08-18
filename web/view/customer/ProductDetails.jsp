@@ -150,7 +150,7 @@
                             -->
                             <div>
                                 <h3 class="product-price">$${productWithDetails.productDetails.salePrice} VND<del class="product-old-price"> $${productWithDetails.productDetails.originPrice}</del></h3>
-                                <span class="product-available">${productWithDetails.product.quantity > 0 ? 'In Stock' : 'Out of Stock'}</span>
+                                <span class="product-available">${productWithDetails.product.quantity > 0 ? 'In Stock: ' : 'Out of Stock:'} ${productWithDetails.product.quantity}</span>
                             </div>
                             <p>${productWithDetails.product.description}</p>
 

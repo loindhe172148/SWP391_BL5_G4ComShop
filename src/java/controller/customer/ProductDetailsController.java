@@ -1,4 +1,6 @@
-package controller.user;
+
+
+package controller.customer;
 
 import dal.ProductWithDetailsDAO;
 import dal.ROMDAO;
@@ -91,3 +93,4 @@ public class ProductDetailsController extends HttpServlet {
     }// </editor-fold>
 
 }
+

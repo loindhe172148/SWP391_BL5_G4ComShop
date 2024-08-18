@@ -62,7 +62,6 @@ public class ProductListController extends HttpServlet {
                 request.setAttribute("products", products);
                 request.setAttribute("totalPages", totalPages);
                 request.setAttribute("currentPage", page);
-                System.out.println(search  +" = sedjfsha");
                 request.setAttribute("search", search);
                 request.setAttribute("sortColumn", sortColumn);
                 request.setAttribute("sortOrder", sortOrder);
