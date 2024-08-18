@@ -32,5 +32,26 @@ public class CPUDAO extends DBContext<CPU> {
         }
         return cpus;
     }
+    public CPU getCPUById(int id) {
+        CPU cpu = null;
+        String sql = "SELECT * FROM CPU WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    cpu = new CPU();
+                    cpu.setId(rs.getInt("id"));
+                    cpu.setName(rs.getString("name"));
+                    cpu.setBrand(rs.getString("brand"));
+                    cpu.setGeneration(rs.getString("generation"));
+                    cpu.setDescription(rs.getString("description"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CPUDAO.class.getName()).log(Level.SEVERE, "Error fetching CPU by ID", ex);
+        }
+        return cpu;
+    }
 }
 

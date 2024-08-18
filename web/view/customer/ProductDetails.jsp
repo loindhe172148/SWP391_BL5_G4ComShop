@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,7 +43,7 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-
+        <style></style>
     </head>
     <body>
         <!-- HEADER -->
@@ -92,22 +93,18 @@
         <!-- /BREADCRUMB -->
 
         <!-- SECTION -->
+        <!-- Product Main Image Section -->
         <div class="section">
-            <!-- container -->
             <div class="container">
-                <!-- row -->
                 <div class="row">
-                    <!-- Product main img -->
                     <div class="col-md-5 col-md-push-1">
                         <div id="product-main-img">
                             <div class="product-preview">
                                 <img src="${pageContext.request.contextPath}/${productWithDetails.product.image}" 
-                                     alt="${pageContext.request.contextPath}/${productWithDetails.product.image}">
+                                     alt="${productWithDetails.product.title}">
                             </div>
                         </div>
                     </div>
-                    <!-- /Product main img -->
-
                     <!-- Product thumb imgs -->
                     <div class="col-md-1 col-md-pull-5">
                         <!-- Placeholder for additional thumbnails -->
@@ -129,92 +126,90 @@
                         -->
                     </div>
                     <!-- /Product thumb imgs -->
-
-                    <!-- Product details -->
+                    <!-- Product Details Section -->
                     <div class="col-md-6">
                         <div class="product-details">
-                            <input type="hidden" id="productDetailId" value="${productWithDetails.productDetails.id}">
-                            <div id="price" style="display: none">${productWithDetails.productDetails.salePrice}</div>
+                            <form action="addtocart" method="post">
+                                <input type="hidden" name="productDetailId" value="${productWithDetails.productDetails.id}">
+                                <input type="hidden" name="customerId" value="${customerId}">
+                                <input type="hidden" name="price" value="${productWithDetails.productDetails.salePrice}">
+                                <input type="hidden" name="totalquantity" value="${productWithDetails.productDetails.quantity}">
 
-                            <h2 class="product-name">${productWithDetails.product.title}</h2>
+                                <div id="price" style="display: none">${productWithDetails.productDetails.salePrice}</div>
 
-                            <div>
-                                <h3 class="product-price">$${productWithDetails.productDetails.salePrice} VND
-                                    <del class="product-old-price">$${productWithDetails.productDetails.originPrice}</del>
-                                </h3>
-                                <span class="product-available">
-                                    ${productWithDetails.product.quantity > 0 ? 'In Stock: ' : 'Out of Stock:'} ${productWithDetails.product.quantity}
-                                </span>
-                            </div>
-                            <p>${productWithDetails.product.description}</p>
+                                <h2 class="product-name">${productWithDetails.product.title}</h2>
 
-                            <div class="product-options">
-                                <label>
-                                    Capacity:
-                                    <select class="input-select">
-                                        <c:forEach var="rom" items="${romList}">
-                                            <option value="${rom.id}">${rom.capacity}GB</option>
-                                        </c:forEach>
-                                    </select>
-                                </label>
-                                <label>
-                                    Color:
-                                    <select class="input-select">
-                                        <c:forEach var="color" items="${colorList}">
-                                            <option value="${color}">${color}</option>
-                                        </c:forEach>
-                                    </select>
-                                </label>
-                            </div>
+                                <div>
+                                    <h3 class="product-price">$${productWithDetails.productDetails.salePrice} VND
+                                        <del class="product-old-price">$${productWithDetails.productDetails.originPrice}</del>
+                                    </h3>
+                                    <span class="product-available">
+                                        ${productWithDetails.productDetails.quantity > 0 ? 'In Stock: ' : 'Out of Stock:'} ${productWithDetails.productDetails.quantity}
+                                    </span>
+                                </div>
 
-                            <div class="add-to-cart">
-                                <div class="qty-label">
-                                    Quantity:
-                                    <div class="input-number">
-                                        <input type="number" id="quantity-input" value="1" min="1" data-max-quantity="${productWithDetails.product.quantity}">
-                                        <span class="qty-up">+</span>
-                                        <span class="qty-down">-</span>
+                                <div class="product-options">
+                                    <p><strong>Color:</strong> ${productWithDetails.productDetails.color}</p>
+                                    <p><strong>Brand:</strong> ${brandname.name}</p>
+                                    <p><strong>RAM:</strong> ${ramname.name} (${ramname.memory} GB)</p>
+                                    <p><strong>CPU:</strong> ${cpuname.name} (${cpuname.generation})</p>
+                                    <p><strong>Card:</strong> ${cardname.name} (${cardname.memory} GB)</p>
+                                </div>
+
+                                <div class="add-to-cart">
+                                    <div class="qty-label">
+                                        Quantity:
+                                        <div class="input-number">
+                                            <input type="number" name="quantity" id="quantity-input" value="1" min="1">
+                                            <span class="qty-up">+</span>
+                                            <span class="qty-down">-</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <button class="add-to-cart-btn" onclick="addToCart()">
-                                    <i class="fa fa-shopping-cart"></i> Add to Cart
-                                </button>
-                                <div id="quantity-error" class="error-message" style="color: red; display: none;">
-                                    Please enter 0 < quantity < ${productWithDetails.product.quantity +1}
-                                </div>
-                            </div>
+                                    <button type="submit" class="add-to-cart-btn">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                    <c:if test="${not empty errorMessage}">
+                                        <div class="alert alert-danger">
+                                            <strong>Error!</strong> ${errorMessage}
+                                        </div>
+                                    </c:if>
 
-                            <ul class="product-links">
-                                <li>Category:</li>
-                                <li><a href="#">${productWithDetails.product.categoryId} Laptop</a></li>
-                                <li><a href="#">Accessories</a></li>
-                            </ul>
+                                    <!-- Success Message -->
+                                    <c:if test="${not empty successMessage}">
+                                        <div class="alert alert-success">
+                                            <strong>Success!</strong> ${successMessage}
+                                        </div>
+                                    </c:if>
+                                </div>
 
-                            <ul class="product-links">
-                                <li>Share:</li>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i></a></li>
-                            </ul>
+                                <ul class="product-links">
+                                    <li>Category:</li>
+                                    <li><a href="#">${productWithDetails.product.categoryId == '1' ? 'laptop' : 'accessory'}</a></li>
+                                </ul>
+
+                                <ul class="product-links">
+                                    <li>Share:</li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i></a></li>
+                                </ul>
+                            </form>
                         </div>
                     </div>
-                    <!-- /Product details -->
 
-                    <!-- Product tab -->
+
+
+                    <!-- Product Tab Section -->
                     <div class="col-md-12">
                         <div id="product-tab">
-                            <!-- product tab nav -->
                             <ul class="tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                                 <li><a data-toggle="tab" href="#tab2">Details</a></li>
                                 <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
                             </ul>
-                            <!-- /product tab nav -->
 
-                            <!-- product tab content -->
                             <div class="tab-content">
-                                <!-- tab1 -->
                                 <div id="tab1" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -222,19 +217,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /tab1 -->
 
-                                <!-- tab2 -->
                                 <div id="tab2" class="tab-pane fade in">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p>${productWithDetails.product.description}</p>
+                                            <p><strong>Brand:</strong> ${brandname.name} ${brandname.description}</p>
+                                            <p><strong>RAM:</strong> ${ramname.name} (${ramname.description} GB)</p>
+                                            <p><strong>CPU:</strong> ${cpuname.name} (${cpuname.description})</p>
+                                            <p><strong>Card:</strong> ${cardname.name} (${cardname.description} GB)</p>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /tab2 -->
 
-                                <!-- tab3 -->
                                 <div id="tab3" class="tab-pane fade in">
                                     <div class="row">
                                         <!-- Rating -->
@@ -320,21 +314,101 @@
                                             </div>
                                         </div>
                                         <!-- /Rating -->
+
+                                        <!-- Reviews -->
+                                        <div class="col-md-6">
+                                            <div id="reviews">
+                                                <ul class="reviews">
+                                                    <li>
+                                                        <div class="review-heading">
+                                                            <h5 class="name">John</h5>
+                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
+                                                            <div class="review-rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-o empty"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-body">
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="review-heading">
+                                                            <h5 class="name">John</h5>
+                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
+                                                            <div class="review-rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-o empty"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-body">
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="review-heading">
+                                                            <h5 class="name">John</h5>
+                                                            <p class="date">27 DEC 2018, 8:0 PM</p>
+                                                            <div class="review-rating">
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-o empty"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="review-body">
+                                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="reviews-pagination">
+                                                    <li class="active">1</li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li><a href="#">4</a></li>
+                                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- /Reviews -->
+
+                                        <!-- Review Form -->
+                                        <div class="col-md-3">
+                                            <div id="review-form">
+                                                <form class="review-form">
+                                                    <input class="input" type="text" placeholder="Your Name">
+                                                    <input class="input" type="email" placeholder="Your Email">
+                                                    <textarea class="input" placeholder="Your Review"></textarea>
+                                                    <div class="input-rating">
+                                                        <span>Your Rating: </span>
+                                                        <div class="stars">
+                                                            <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
+                                                            <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
+                                                            <input id="star3" name="rating" value="3" type="radio"><label for="star3"></label>
+                                                            <input id="star2" name="rating" value="2" type="radio"><label for="star2"></label>
+                                                            <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
+                                                        </div>
+                                                    </div>
+                                                    <button class="primary-btn">Submit</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <!-- /Review Form -->
                                     </div>
                                 </div>
-                                <!-- /tab3 -->
                             </div>
-                            <!-- /product tab content -->
                         </div>
                     </div>
-                    <!-- /Product tab -->
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
         </div>
-
-
         <!-- /SECTION -->
 
         <!-- Section -->
@@ -351,123 +425,54 @@
                     </div>
 
                     <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="${pageContext.request.contextPath}/assets/electro/img/product01.png" alt="">
-                                <div class="product-label">
-                                    <span class="sale">-30%</span>
-                                </div>
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
+                    <c:choose>
+                        <c:when test="${empty relatedProducts}">
+                            <p>Không có sản phẩm liên quan nào.</p>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach var="relatedProduct" items="${relatedProducts}">
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <img style="width: 100%;
+                                                 height: 200px;
+                                                 object-fit: cover;" src="${pageContext.request.contextPath}/${relatedProduct.product.image}" alt="${pageContext.request.contextPath}/${relatedProduct.product.image}">
+                                            <div class="product-label">
+                                                <c:choose>
+                                                    <c:when test="${relatedProduct.productDetails.originPrice > relatedProduct.productDetails.salePrice}">
+                                                        <c:set var="discount" value="${100 - (relatedProduct.productDetails.salePrice / relatedProduct.productDetails.originPrice * 100)}" />
+                                                        <c:set var="formattedDiscount" value="${discount}" />
+                                                        <c:set var="discountStr" value="${formattedDiscount.toString().substring(0, 4)}" />
+                                                        <span class="sale">-${discountStr}%</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="new">NEW</span>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category">${relatedProduct.product.categoryId == '1' ? 'laptop' : 'accessory'}</p>
+                                            <h3 class="product-name"><a href="productdetails?id=${relatedProduct.productDetails.id}">${relatedProduct.productDetails.id}. ${relatedProduct.product.name}</a></h3>
+                                            <h4 class="product-price">${relatedProduct.productDetails.salePrice} <del class="product-old-price">${relatedProduct.productDetails.originPrice}</del></h4>
+                                            <div class="product-rating">
 
-                    <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="${pageContext.request.contextPath}/assets/electro/img/product02.png" alt="">
-                                <div class="product-label">
-                                    <span class="new">NEW</span>
+                                            </div>
+                                            <div class="product-btns">
+                                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+                                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
+                                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                            </div>
+                                        </div>
+                                        <div class="add-to-cart">
+                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
-
-                    <div class="clearfix visible-sm visible-xs"></div>
-
-                    <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="${pageContext.request.contextPath}/assets/electro/img/product03.png" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
-
-                    <!-- product -->
-                    <div class="col-md-3 col-xs-6">
-                        <div class="product">
-                            <div class="product-img">
-                                <img src="${pageContext.request.contextPath}/assets/electro/img/product04.png" alt="">
-                            </div>
-                            <div class="product-body">
-                                <p class="product-category">Category</p>
-                                <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                <h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-                                <div class="product-rating">
-                                </div>
-                                <div class="product-btns">
-                                    <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                    <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                    <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-                                </div>
-                            </div>
-                            <div class="add-to-cart">
-                                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /product -->
-
+                            </c:forEach> 
+                            <!-- /product -->
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <!-- /row -->
             </div>
@@ -523,44 +528,9 @@
         <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
-        <script>
-                            function addToCart() {
-                                var quantityInput = document.getElementById('quantity-input');
-                                var quantity = parseInt(quantityInput.value);
-                                var maxQuantity = parseInt(quantityInput.getAttribute('data-max-quantity'));
 
-                                var errorMessage = document.getElementById('quantity-error');
 
-                                if (isNaN(quantity) || quantity < 1 || quantity > maxQuantity) {
-                                    errorMessage.style.display = 'block'; // Hiển thị thông báo lỗi
-                                    errorMessage.textContent = 'Please enter a valid quantity.';
-                                } else {
-                                    errorMessage.style.display = 'none';
 
-                                    // Lấy các thông tin cần thiết để thêm vào giỏ hàng
-                                    var productDetailId = document.getElementById('productDetailId').value;
-                                    var price = parseFloat(document.getElementById('price').textContent);
-                                    var totalPrice = price * quantity;
-
-                                    // Gửi AJAX request để thêm sản phẩm vào giỏ hàng
-                                    var xhr = new XMLHttpRequest();
-                                    xhr.open('POST', 'addtocart', true); 
-                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                    xhr.onreadystatechange = function () {
-                                        if (xhr.readyState === 4 && xhr.status === 200) {
-                                            alert(xhr.responseText); // Thông báo thành công
-                                        } else if (xhr.readyState === 4 && xhr.status === 401) {
-                                            alert("You need to log in to add items to the cart.");
-                                        }
-                                    };
-                                    xhr.send('productDetailId=' + productDetailId +
-                                            '&quantity=' + quantity +
-                                            '&price=' + price +
-                                            '&totalPrice=' + totalPrice);
-                                }
-                            }
-
-        </script>
     </body>
 </html>
 

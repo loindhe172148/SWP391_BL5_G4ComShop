@@ -30,4 +30,26 @@ public class RAMDAO extends DBContext<RAM> {
         }
         return ramList;
     }
+    public RAM getRAMById(int id) {
+        RAM ram = null;
+        String sql = "SELECT * FROM RAM WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ram = new RAM();
+                    ram.setId(rs.getInt("id"));
+                    ram.setName(rs.getString("name"));
+                    ram.setBrand(rs.getString("brand"));
+                    ram.setMemory(rs.getInt("memory"));
+                    ram.setSpeed(rs.getInt("speed"));
+                    ram.setDescription(rs.getString("description"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RAMDAO.class.getName()).log(Level.SEVERE, "Error fetching RAM by ID", ex);
+        }
+        return ram;
+    }
 }

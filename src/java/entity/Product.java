@@ -9,7 +9,6 @@ public class Product {
     private String title;
     private String description;
     private String image;
-    private int quantity;
     private int categoryId;
     private int brandId;
     private float screenSize;
@@ -20,13 +19,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, String name, String title, String description, String image, int quantity, int categoryId, int brandId, float screenSize, Date createDate, Date updateDate, String status) {
+    public Product(int id, String name, String title, String description, String image, int categoryId, int brandId, float screenSize, Date createDate, Date updateDate, String status) {
         this.id = id;
         this.name = name;
         this.title = title;
         this.description = description;
         this.image = image;
-        this.quantity = quantity;
         this.categoryId = categoryId;
         this.brandId = brandId;
         this.screenSize = screenSize;
@@ -73,14 +71,6 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public int getCategoryId() {
@@ -130,8 +120,6 @@ public class Product {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    
 
     
 }

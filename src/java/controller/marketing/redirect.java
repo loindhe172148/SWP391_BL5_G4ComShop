@@ -1,18 +1,7 @@
 
 package controller.marketing;
 
-import dal.CPUDAO;
-import dal.CardDAO;
-import dal.CategoryDAO;
-import dal.ProductWithDetailsDAO;
-import dal.RAMDAO;
-import dal.ProductTypeDAO;
-import entity.CPU;
-import entity.Card;
-import entity.Category;
-import entity.Product;
-import entity.RAM;
-import entity.ProductType;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -20,22 +9,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @WebServlet(name = "redirect", urlPatterns = {"/redirect",
     "/marketing/blankpage", "/marketing/datatable", "/marketing/form",
     "/marketing/dashboard", "/marketing/addproduct", "/marketing/productdetails"})
 public class redirect extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
