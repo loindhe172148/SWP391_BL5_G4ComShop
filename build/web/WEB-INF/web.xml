@@ -92,6 +92,10 @@
         <servlet-name>DeleteRam</servlet-name>
         <servlet-class>controller.marketing.DeleteRam</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductHome</servlet-name>
+        <servlet-class>controller.marketing.ProductHome</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
         <url-pattern>/marketing/accessory</url-pattern>
@@ -183,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>DeleteRam</servlet-name>
         <url-pattern>/marketing/deleteRam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductHome</servlet-name>
+        <url-pattern>/marketing/productHome</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>
