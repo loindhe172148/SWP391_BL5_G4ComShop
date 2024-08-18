@@ -173,4 +173,15 @@ public class UserDBContext extends DBContext<User> {
     }
     return user;
 }
+          public void deleteFromCart(int userId, int productDetailId) {
+        String query = "DELETE FROM CartDetail WHERE customerid = ? AND productdetailid = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, productDetailId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

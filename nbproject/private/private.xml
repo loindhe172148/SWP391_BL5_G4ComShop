@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/CartQuantityController.java</file>
             <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/CartContactController.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/dal/CartDetailDAO.java</file>
             <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/web/view/marketing/AddProduct.jsp</file>
             <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/CartController.java</file>
             <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/dal/CartDao.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/entity/Product.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/entity/ProductType.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/dal/DBContext_1.java</file>
+            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/web/view/user/cartContact.jsp</file>
+            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/util/EmailUtils.java</file>
+            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/SubmitOrder.java</file>
         </group>
     </open-files>
 </project-private>
