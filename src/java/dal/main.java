@@ -18,6 +18,8 @@ public class main {
         ArrayList<User> userList = (ArrayList<User>) dao.listAll();
         User user = dao.getUserByID(7);
           System.err.println(user);
-      
+      CartDao cartDao = new CartDao();
+       cartDao.increaseItemQuantity(1, 11);
+     
       }
 }

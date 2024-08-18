@@ -144,4 +144,33 @@ public class UserDBContext extends DBContext<User> {
         }
         return false;
     }
+        public User getUserByAccountId(int accountId) {
+    User user = null;
+    try {
+        String sql = "SELECT * FROM [User] WHERE accid = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, accountId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            user = new User();
+            user.setId(rs.getInt("id"));
+            user.setGmail(rs.getString("gmail"));
+            user.setDob(rs.getDate("dob"));
+            user.setAddress(rs.getString("address"));
+            user.setGender(rs.getInt("gender"));  // Đổi từ setBoolean thành setInt để tương thích với kiểu int
+            user.setPhone(rs.getString("phone"));
+            user.setStatus(rs.getString("status")); // Đổi từ setBoolean thành setString để tương thích với kiểu String
+            user.setAva(rs.getString("avar")); // Đặt giá trị cho thuộc tính avatar
+            user.setName(rs.getString("fullname")); // Đặt giá trị cho thuộc tính name
+            
+            // Thiết lập đối tượng Account
+            Account account = new Account();
+            account.setId(accountId); 
+            user.setAccount(account);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return user;
+}
 }
