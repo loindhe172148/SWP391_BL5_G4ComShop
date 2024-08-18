@@ -87,7 +87,7 @@ public class AccountDBContext extends DBContext<Account> {
 
     public Account getAccount(String username, String password) {
         try {
-            String sql = "SELECT [username],[pass] FROM Account WHERE username = ? AND pass = ?";
+            String sql = "SELECT * FROM Account WHERE username = ? AND pass = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -131,12 +131,19 @@ public class AccountDBContext extends DBContext<Account> {
         }
     }
 
-    public void getPassbyUsername(String username){
+    public String getPassbyUsername(String username){
+        String pass = "";   
         String sql = "SELECT [pass] from Account WHERE username = ?";
         try{
             PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                pass = rs.getString("pass");
+            }
         }catch(SQLException e){
             
         }
+        return pass;
     }
 }

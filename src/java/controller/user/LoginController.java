@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
         // Set attributes for the login form
         request.setAttribute("username", username);
         request.setAttribute("rememberMe", rememberMe);
-        request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/user/login.jsp").forward(request, response);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
         if (account == null) {
             // Invalid credentials
             request.setAttribute("error", "Invalid username or password. Please try again.");
-            request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/user/login.jsp").forward(request, response);
             return;
         }
 

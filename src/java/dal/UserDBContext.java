@@ -118,20 +118,30 @@ public class UserDBContext extends DBContext<User> {
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("id"));
-               
                 user.setGmail(rs.getString("gmail"));
                 user.setdob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 user.setGender(rs.getInt("gender"));
                 user.setPhone(rs.getString("phone"));
-                user.setStatus(rs.getString("status"));
-               
-
-                
+                user.setStatus(rs.getString("status"));                
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } 
         return user;
+    }
+        public Boolean checkMailExist(int id, String email) {
+        String sql = "SELECT [gmail] FROM dbo.[User] WHERE accid = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String existingEmail = rs.getString("gmail");
+                return email.equals(existingEmail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

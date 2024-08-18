@@ -8,11 +8,8 @@
         </group>
         <group>
             <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/ChangePasswordController.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/ForgotAccountController.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/SignUpController.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/ResetPasswordController.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/UserDBContext.java</file>
-            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/VerifyAccount.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/AccountDBContext.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/LoginController.java</file>
             <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/user/changepassword.jsp</file>
         </group>
     </open-files>

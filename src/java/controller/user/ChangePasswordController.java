@@ -33,6 +33,32 @@ public class ChangePasswordController extends HttpServlet {
         String newPassword = request.getParameter("newpass");
         String confirmPassword = request.getParameter("confirmpass");
 
+        String username = "";
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("username".equals(cookie.getName())) {
+                    username = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        String storedPassword = adc.getPassbyUsername(username);
+
+        // Validate old password
+        if (storedPassword == null || !storedPassword.equals(oldPassword)) {
+            request.setAttribute("err", "Invalid old password.");
+            forwardToChangePassword(request, response);
+            return;
+        }
+
+        // Check if the old and new passwords are the same
+        if (oldPassword.equals(newPassword)) {
+            request.setAttribute("err", "New password cannot be the same as the old password.");
+            forwardToChangePassword(request, response);
+            return;
+        }
+
         // Validate input fields
         if (oldPassword == null || newPassword == null || confirmPassword == null
                 || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
@@ -57,18 +83,9 @@ public class ChangePasswordController extends HttpServlet {
 
         // Process password change
         try {
-            
-
             // Update password in the database
             adc.updatePasswordByUsername(newPassword, currentAccount.getUsername());
-
-            // Update the password in the cookie (if needed)
-            Cookie passwordCookie = new Cookie("password", newPassword);
-            passwordCookie.setMaxAge(60 * 60 * 24 * 7); // 1 week
-            response.addCookie(passwordCookie);
-
-            request.setAttribute("success", "Password changed successfully.");
-            forwardToChangePassword(request, response);
+            request.getRequestDispatcher("/view/user/login.jsp").forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();

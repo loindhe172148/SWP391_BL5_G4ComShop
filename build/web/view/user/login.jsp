@@ -63,7 +63,7 @@
 <body>
 <div class="login-container">
     <h2>Login</h2>
-    <form action="login" method="post">
+    <form action="/SWP391_BL5_G4ComShop/login" method="post">
         <c:if test="${not empty error}">
             <div class="error-message">${error}</div>
         </c:if>
