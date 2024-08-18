@@ -4,7 +4,6 @@ package controller.user;
 import dal.AccountDBContext;
 import dal.UserDBContext;
 import entity.Account;
-import entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,11 +64,11 @@ public class VerifyAccount extends HttpServlet {
             
             String address = request.getParameter("address");
             String fullname = request.getParameter("fullname");
+            String status = "Active";
+            String ava = "";
             // Validate the verification code
             String expectedCode = verificationCodes.get(email);
             if (expectedCode != null && expectedCode.equals(code)) {
-                // Verification successful
-                request.setAttribute("err", "Verification successful. You can now log in.");
                 verificationCodes.remove(email);
 
                 // Perform user registration
@@ -80,17 +79,9 @@ public class VerifyAccount extends HttpServlet {
                 newAcc.setRole(role);
                 acc.insert(newAcc);
                 
+                int accid = acc.getAccountIDByUsername(username);
                 UserDBContext user = new UserDBContext();
-                User newUser = new User();
-                newUser.setAccount(newAcc);
-                newUser.setName(fullname);
-                newUser.setAddress(address);
-                newUser.setGmail(email);
-                newUser.setPhone(phone);
-                newUser.setdob(sqlDate);
-                newUser.setGender(gender);
-                newUser.setStatus("Active");
-                user.insert(newUser);
+                user.insert(accid, email, address, gender, phone, sqlDate, status, ava, fullname);
             } else {
                 // Verification failed
                 request.setAttribute("err", "Invalid verification code. Please try again.");

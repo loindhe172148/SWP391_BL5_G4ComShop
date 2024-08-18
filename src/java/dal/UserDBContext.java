@@ -6,9 +6,7 @@ package dal;
 
 import entity.Account;
 import entity.User;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDBContext extends DBContext<User> {
@@ -40,23 +38,27 @@ public class UserDBContext extends DBContext<User> {
         return users;
     }
       
-    public void insert(User entity) {
-        try {
-            String sql = "INSERT INTO [User]( accid, ava, name, mail, address, gender, phone, dob, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, entity.getAccount().getId());
-            ps.setString(2, entity.getAva());
-            ps.setString(3, entity.getName());
-            ps.setString(4, entity.getGmail());
-            ps.setString(5, entity.getAddress());
-            ps.setInt(6, entity.getGender());
-            ps.setString(7, entity.getPhone());
-            ps.setDate(8, new java.sql.Date(entity.getDob().getTime()));
-            ps.setString(9, entity.getStatus());
-            ps.executeUpdate();
-        } catch (SQLException e) {          
-        }
+    public void insert(int accid, String gmail, String address, int gender, String phone, Date dob, String status, String ava, String fullname) {
+    String sql = """
+                 INSERT INTO [dbo].[User]
+                            ([accid], [gmail], [address], [gender], [phone], [dob], [status], [ava], [fullname])
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setInt(1, accid);
+        ps.setString(2, gmail);
+        ps.setString(3, address);
+        ps.setInt(4, gender);
+        ps.setString(5, phone);
+        ps.setDate(6, dob);
+        ps.setString(7, status);
+        ps.setString(8, ava);
+        ps.setString(9, fullname);
+
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
 
     public void updateById(User entity, int id) {
         try {
