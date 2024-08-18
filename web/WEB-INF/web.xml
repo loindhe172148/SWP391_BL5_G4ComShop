@@ -33,6 +33,7 @@
         <servlet-class>controller.user.VerifyAccount</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>ViewProductDetail</servlet-name>
         <servlet-class>controller.user.ViewProductDetail</servlet-class>
     </servlet>
@@ -47,6 +48,14 @@
     <servlet>
         <servlet-name>ProductDetails</servlet-name>
         <servlet-class>controller.user.ProductDetailsController</servlet-class>
+=======
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>controller.user.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Reset Password</servlet-name>
+        <servlet-class>controller.user.ResetPasswordController</servlet-class>
+>>>>>>> hieudnm
     </servlet>
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
@@ -81,6 +90,7 @@
         <url-pattern>/verify</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>ViewProductDetail</servlet-name>
         <url-pattern>/ViewProductDetail</url-pattern>
     </servlet-mapping>
@@ -95,6 +105,14 @@
     <servlet-mapping>
         <servlet-name>ProductDetails</servlet-name>
         <url-pattern>/viewproduct</url-pattern>
+=======
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/user/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Reset Password</servlet-name>
+        <url-pattern>/user/resetpass</url-pattern>
+>>>>>>> hieudnm
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>

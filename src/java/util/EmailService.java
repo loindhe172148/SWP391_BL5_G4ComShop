@@ -3,8 +3,6 @@ package util;
 import java.util.Properties;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
-import java.util.Date;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,14 +52,6 @@ public class EmailService {
             logger.log(Level.SEVERE, "Failed to send email to " + to, e);
             throw new RuntimeException("Failed to send email", e);
         }
-    }
-    public static String generatePassword(String str, int numOfChars) {
-        StringBuilder sb = new StringBuilder();
-        Random rand = new Random();
-        for (int i = 0; i < numOfChars; i++) {
-            sb.append(str.charAt(rand.nextInt(str.length() - 1)));
-        }
-        return sb.toString();
     }
        
 }
