@@ -11,8 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "redirect", urlPatterns = {"/redirect",
-    "/marketing/blankpage", "/marketing/datatable", "/marketing/form",
-    "/marketing/dashboard", "/marketing/addproduct", "/marketing/productdetails"})
+    "/marketing/blankpage", "/marketing/datatable", "/marketing/form", "/marketing/addproduct", "/marketing/productdetails"})
 public class redirect extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

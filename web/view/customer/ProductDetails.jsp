@@ -140,7 +140,7 @@
                                 <h2 class="product-name">${productWithDetails.product.title}</h2>
 
                                 <div>
-                                    <h3 class="product-price">$${productWithDetails.productDetails.salePrice} VND
+                                    <h3 class="product-price">$${productWithDetails.productDetails.salePrice} 
                                         <del class="product-old-price">$${productWithDetails.productDetails.originPrice}</del>
                                     </h3>
                                     <span class="product-available">

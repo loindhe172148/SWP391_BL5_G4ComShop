@@ -3,12 +3,12 @@ package dal;
 import entity.Product;
 import entity.ProductDetail;
 import entity.ProductWithDetails;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
@@ -181,6 +181,32 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, "%" + search + "%");
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getProductWithDetailsCount(String status, LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT COUNT(*) FROM Product p "
+                + "JOIN ProductDetail pd ON p.id = pd.productId "
+                + "WHERE p.createDate BETWEEN ? AND ?";
+
+        // Add status filtering if status is provided
+        if (status != null) {
+            sql += " AND p.status = ?";
+        }
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setDate(1, Date.valueOf(startDate));
+            stmt.setDate(2, Date.valueOf(endDate));
+            if (status != null) {
+                stmt.setString(3, status);
+            }
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
