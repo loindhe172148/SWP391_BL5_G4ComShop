@@ -10,7 +10,7 @@ public class CartDetailDAO extends DBContext<CartDetail> {
 
     // Thêm mục vào giỏ hàng
     public void addToCart(int productDetailId, int quantity, float price, float totalPrice, int customerId) {
-        String sql = "INSERT INTO Cart (productDetailId, quantity, price, totalPrice, customerId) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CartDetail (productDetailId, quantity, price, totalPrice, customerId) VALUES (?, ?, ?, ?, ?)";
         
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, productDetailId);
@@ -33,7 +33,6 @@ public class CartDetailDAO extends DBContext<CartDetail> {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     CartDetail cart = new CartDetail();
-                    cart.setId(rs.getInt("id"));
                     cart.setProductDetailId(rs.getInt("productDetailId"));
                     cart.setQuantity(rs.getInt("quantity"));
                     cart.setPrice(rs.getFloat("price"));

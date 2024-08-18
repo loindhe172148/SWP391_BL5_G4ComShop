@@ -102,32 +102,30 @@
                         <div id="product-main-img">
                             <div class="product-preview">
                                 <img src="${pageContext.request.contextPath}/${productWithDetails.product.image}" 
-                                     alt="${pageContext.request.contextPath}${productWithDetails.product.image}">
+                                     alt="${pageContext.request.contextPath}/${productWithDetails.product.image}">
                             </div>
                         </div>
                     </div>
                     <!-- /Product main img -->
 
                     <!-- Product thumb imgs -->
-                    <div class="col-md-1  col-md-pull-5">
+                    <div class="col-md-1 col-md-pull-5">
+                        <!-- Placeholder for additional thumbnails -->
                         <!--
-                            <div id="product-imgs">
-                                <div class="product-preview">
-                                    <img src="${pageContext.request.contextPath}/assets/electro/img/product01.png" alt="">
-                                </div>
-        
-                                <div class="product-preview">
-                                    <img src="${pageContext.request.contextPath}/assets/electro/img/product03.png" alt="">
-                                </div>
-        
-                                <div class="product-preview">
-                                    <img src="${pageContext.request.contextPath}/assets/electro/img/product06.png" alt="">
-                                </div>
-        
-                                <div class="product-preview">
-                                    <img src="${pageContext.request.contextPath}/assets/electro/img/product08.png" alt="">
-                                </div>
+                        <div id="product-imgs">
+                            <div class="product-preview">
+                                <img src="${pageContext.request.contextPath}/assets/electro/img/product01.png" alt="">
                             </div>
+                            <div class="product-preview">
+                                <img src="${pageContext.request.contextPath}/assets/electro/img/product03.png" alt="">
+                            </div>
+                            <div class="product-preview">
+                                <img src="${pageContext.request.contextPath}/assets/electro/img/product06.png" alt="">
+                            </div>
+                            <div class="product-preview">
+                                <img src="${pageContext.request.contextPath}/assets/electro/img/product08.png" alt="">
+                            </div>
+                        </div>
                         -->
                     </div>
                     <!-- /Product thumb imgs -->
@@ -135,22 +133,18 @@
                     <!-- Product details -->
                     <div class="col-md-6">
                         <div class="product-details">
+                            <input type="hidden" id="productDetailId" value="${productWithDetails.productDetails.id}">
+                            <div id="price" style="display: none">${productWithDetails.productDetails.salePrice}</div>
+
                             <h2 class="product-name">${productWithDetails.product.title}</h2>
-                            <!--
+
                             <div>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <a class="review-link" href="#">10 Review(s) | Add your review</a>
-                            </div>
-                            -->
-                            <div>
-                                <h3 class="product-price">$${productWithDetails.productDetails.salePrice} VND<del class="product-old-price"> $${productWithDetails.productDetails.originPrice}</del></h3>
-                                <span class="product-available">${productWithDetails.product.quantity > 0 ? 'In Stock: ' : 'Out of Stock:'} ${productWithDetails.product.quantity}</span>
+                                <h3 class="product-price">$${productWithDetails.productDetails.salePrice} VND
+                                    <del class="product-old-price">$${productWithDetails.productDetails.originPrice}</del>
+                                </h3>
+                                <span class="product-available">
+                                    ${productWithDetails.product.quantity > 0 ? 'In Stock: ' : 'Out of Stock:'} ${productWithDetails.product.quantity}
+                                </span>
                             </div>
                             <p>${productWithDetails.product.description}</p>
 
@@ -158,16 +152,14 @@
                                 <label>
                                     Capacity:
                                     <select class="input-select">
-                                        <option value="0">Select Capacity</option>
                                         <c:forEach var="rom" items="${romList}">
-                                            <option value="${rom.id}">${rom.capacity} GB</option>
+                                            <option value="${rom.id}">${rom.capacity}GB</option>
                                         </c:forEach>
                                     </select>
                                 </label>
                                 <label>
                                     Color:
                                     <select class="input-select">
-                                        <option value="0">Select Color</option>
                                         <c:forEach var="color" items="${colorList}">
                                             <option value="${color}">${color}</option>
                                         </c:forEach>
@@ -184,8 +176,12 @@
                                         <span class="qty-down">-</span>
                                     </div>
                                 </div>
-                                <button class="add-to-cart-btn" onclick="addToCart()"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                <div id="quantity-error" class="error-message" style="color: red; display: none;">Please enter a valid quantity.</div>
+                                <button class="add-to-cart-btn" onclick="addToCart()">
+                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </button>
+                                <div id="quantity-error" class="error-message" style="color: red; display: none;">
+                                    Please enter 0 < quantity < ${productWithDetails.product.quantity +1}
+                                </div>
                             </div>
 
                             <ul class="product-links">
@@ -218,25 +214,27 @@
 
                             <!-- product tab content -->
                             <div class="tab-content">
-                                <!-- tab1  -->
+                                <!-- tab1 -->
                                 <div id="tab1" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p>${productWithDetails.product.description}</p>                                        </div>
+                                            <p>${productWithDetails.product.description}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- /tab1  -->
+                                <!-- /tab1 -->
 
-                                <!-- tab2  -->
+                                <!-- tab2 -->
                                 <div id="tab2" class="tab-pane fade in">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p>${productWithDetails.product.description}</p>                                        </div>
+                                            <p>${productWithDetails.product.description}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- /tab2  -->
+                                <!-- /tab2 -->
 
-                                <!-- tab3  -->
+                                <!-- tab3 -->
                                 <div id="tab3" class="tab-pane fade in">
                                     <div class="row">
                                         <!-- Rating -->
@@ -324,7 +322,7 @@
                                         <!-- /Rating -->
                                     </div>
                                 </div>
-                                <!-- /tab3  -->
+                                <!-- /tab3 -->
                             </div>
                             <!-- /product tab content -->
                         </div>
@@ -335,6 +333,7 @@
             </div>
             <!-- /container -->
         </div>
+
 
         <!-- /SECTION -->
 
@@ -525,22 +524,42 @@
         <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
         <script>
-                                    function addToCart() {
-                                        var quantityInput = document.getElementById('quantity-input');
-                                        var quantity = parseInt(quantityInput.value);
-                                        var maxQuantity = parseInt(quantityInput.getAttribute('data-max-quantity'));
+                            function addToCart() {
+                                var quantityInput = document.getElementById('quantity-input');
+                                var quantity = parseInt(quantityInput.value);
+                                var maxQuantity = parseInt(quantityInput.getAttribute('data-max-quantity'));
 
-                                        var errorMessage = document.getElementById('quantity-error');
+                                var errorMessage = document.getElementById('quantity-error');
 
-                                        if (isNaN(quantity) || quantity < 1 || quantity > maxQuantity) {
-                                            errorMessage.style.display = 'block'; // Hiển thị thông báo lỗi
-                                            errorMessage.textContent = 'Please enter a valid quantity.';
-                                        } else {
-                                            errorMessage.style.display = 'none';
-                                            // Xử lý thêm sản phẩm vào giỏ hàng
-                                            // ...
+                                if (isNaN(quantity) || quantity < 1 || quantity > maxQuantity) {
+                                    errorMessage.style.display = 'block'; // Hiển thị thông báo lỗi
+                                    errorMessage.textContent = 'Please enter a valid quantity.';
+                                } else {
+                                    errorMessage.style.display = 'none';
+
+                                    // Lấy các thông tin cần thiết để thêm vào giỏ hàng
+                                    var productDetailId = document.getElementById('productDetailId').value;
+                                    var price = parseFloat(document.getElementById('price').textContent);
+                                    var totalPrice = price * quantity;
+
+                                    // Gửi AJAX request để thêm sản phẩm vào giỏ hàng
+                                    var xhr = new XMLHttpRequest();
+                                    xhr.open('POST', 'addtocart', true); 
+                                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                    xhr.onreadystatechange = function () {
+                                        if (xhr.readyState === 4 && xhr.status === 200) {
+                                            alert(xhr.responseText); // Thông báo thành công
+                                        } else if (xhr.readyState === 4 && xhr.status === 401) {
+                                            alert("You need to log in to add items to the cart.");
                                         }
-                                    }
+                                    };
+                                    xhr.send('productDetailId=' + productDetailId +
+                                            '&quantity=' + quantity +
+                                            '&price=' + price +
+                                            '&totalPrice=' + totalPrice);
+                                }
+                            }
+
         </script>
     </body>
 </html>
