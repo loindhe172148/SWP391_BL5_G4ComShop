@@ -3,6 +3,8 @@ package dal;
 import entity.Product;
 import entity.ProductDetail;
 import entity.ProductWithDetails;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,6 +121,24 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         return productWithDetails;
     }
     
+    public List<String> getDistinctColorsByProductId(int productId) {
+    List<String> colorList = new ArrayList<>();
+    String sql = "SELECT DISTINCT color " +
+                 "FROM ProductDetail " +
+                 "WHERE productid = ? AND color IS NOT NULL";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setInt(1, productId);
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                colorList.add(rs.getString("color"));
+            }
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return colorList;
+}
+
     public int getProductCount(String search) {
         String sql = "SELECT COUNT(*) "
                 + "FROM Product p "
