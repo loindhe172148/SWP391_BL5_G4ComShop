@@ -5,7 +5,12 @@
 
 package controller.marketing;
 
+
+import dal.BrandDao;
+import dal.CategoryDAO;
 import dal.ProductDAO;
+import entity.Brandname;
+import entity.Category;
 import entity.Product;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,18 +37,31 @@ public class ProductHome extends HttpServlet {
     throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
 
-    // Tạo đối tượng DAO để lấy dữ liệu từ cơ sở dữ liệu
     ProductDAO productDAO = new ProductDAO();
+      
     List<Product> productList = productDAO.getAllProduct();
     List<Product> productListnew = productDAO.getNewestProducts(5);
+    List<Product> topDiscountedProducts = productDAO.getTopDiscountedProducts(5);
+    List<Product> topDiscountedProductsa = productDAO.getTopDiscountedProducts(3);
+    
+    
 
-    // Đặt danh sách sản phẩm vào request attribute
     request.setAttribute("productList", productList);
-     request.setAttribute("productListnew", productListnew);
+    request.setAttribute("productListnew", productListnew);
+    request.setAttribute("topDiscountedProducts", topDiscountedProducts);
+    request.setAttribute("topDiscountedProductsa", topDiscountedProductsa);
+    BrandDao band = new BrandDao();
+        List<Brandname> listB = band.getBrandnameAccessory();
+        request.setAttribute("listB", listB);
+         CategoryDAO category = new CategoryDAO();
+         List<Category> listC = category.getAllCategory();
+             request.setAttribute("listC", listC);
 
-    // Chuyển tiếp yêu cầu đến trang ProductHome.jsp
-    request.getRequestDispatcher("/ProductHome.jsp").forward(request, response);
+        request.getRequestDispatcher("/ProductHome.jsp").forward(request, response);
+       
+        
 }
+
 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

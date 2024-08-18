@@ -65,7 +65,7 @@ public class DaoAccessory extends DBContext<Accessory> {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Brandname brandname = new Brandname(rs.getInt(1), rs.getString(2));
+               Brandname brandname = new Brandname(rs.getInt(1), rs.getString(2), rs.getString(3));
                 list.add(brandname);
             }
         } catch (SQLException e) {
