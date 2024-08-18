@@ -1,13 +1,18 @@
-package controller.user;
+
+
+package controller.customer;
 
 import dal.ProductWithDetailsDAO;
+import dal.ROMDAO;
 import entity.ProductWithDetails;
+import entity.ROM;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class ProductDetailsController extends HttpServlet {
 
@@ -15,23 +20,28 @@ public class ProductDetailsController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         ProductWithDetailsDAO productDetailsDAO = new ProductWithDetailsDAO();
+        ROMDAO romDAO = new ROMDAO();
         try (PrintWriter out = response.getWriter()) {
             String detailIdParam = request.getParameter("detailId");
             if (detailIdParam == null || detailIdParam.isEmpty()) {
-                detailIdParam = "3";
-//                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product detail ID");
-//                return;
+                detailIdParam = "6"; // giả sử người dùng chọn sản phẩm có id là 3
             }
-
             try {
                 int detailId = Integer.parseInt(detailIdParam);
 
                 // Fetch product details from DAO
                 ProductWithDetails productWithDetails = productDetailsDAO.getProductDetailById(detailId);
+                List<String> colorList = productDetailsDAO.getDistinctColorsByProductId(detailId);
+
+                // Lấy danh sách ROMs dựa trên productId
+                List<ROM> romList = romDAO.getROMsByProductId(detailId);
 
                 if (productWithDetails != null) {
-                    // Set the product details as a request attribute
+                    // Set the product details and romList as request attributes
                     request.setAttribute("productWithDetails", productWithDetails);
+                    request.setAttribute("colorList", colorList);
+                    request.setAttribute("romList", romList);
+
                     // Forward to JSP page to display the product details
                     request.getRequestDispatcher("/view/customer/ProductDetails.jsp").forward(request, response);
                 } else {
@@ -83,3 +93,4 @@ public class ProductDetailsController extends HttpServlet {
     }// </editor-fold>
 
 }
+
