@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CardDAO extends DBContext<Card> {
-
+    // Tam
     public List<Card> getAllCard() {
         List<Card> cards = new ArrayList<>();
         String sql = "SELECT * FROM Card";
@@ -33,6 +33,30 @@ public class CardDAO extends DBContext<Card> {
         }
         return cards;
     }
+    public Card getCardById(int id) {
+        Card card = null;
+        String sql = "SELECT * FROM Card WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    card = new Card();
+                    card.setId(rs.getInt("id"));
+                    card.setName(rs.getString("name"));
+                    card.setBrand(rs.getString("brand"));
+                    card.setMemory(rs.getInt("memory"));
+                    card.setChipset(rs.getString("chipset"));
+                    card.setDescription(rs.getString("description"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CardDAO.class.getName()).log(Level.SEVERE, "Error fetching card by id", ex);
+        }
+
+        return card;
+    }
+    // Linh 
      public List<Card> getCardAccessory() {
         List<Card> list = new ArrayList<>();
         String query = "SELECT * FROM Card WHERE isActive = 1"; // Only active Cards

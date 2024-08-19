@@ -1,11 +1,15 @@
-
-
 package controller.customer;
 
+import dal.BrandDAL;
+import dal.CPUDAO;
+import dal.CardDAO;
 import dal.ProductWithDetailsDAO;
-import dal.ROMDAO;
+import dal.RAMDAO;
+import entity.Brand;
+import entity.CPU;
+import entity.Card;
 import entity.ProductWithDetails;
-import entity.ROM;
+import entity.RAM;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,41 +21,57 @@ import java.util.List;
 public class ProductDetailsController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         ProductWithDetailsDAO productDetailsDAO = new ProductWithDetailsDAO();
-        ROMDAO romDAO = new ROMDAO();
-        try (PrintWriter out = response.getWriter()) {
-            String detailIdParam = request.getParameter("detailId");
-            if (detailIdParam == null || detailIdParam.isEmpty()) {
-                detailIdParam = "6"; // giả sử người dùng chọn sản phẩm có id là 3
-            }
-            try {
-                int detailId = Integer.parseInt(detailIdParam);
-
-                // Fetch product details from DAO
-                ProductWithDetails productWithDetails = productDetailsDAO.getProductDetailById(detailId);
-                List<String> colorList = productDetailsDAO.getDistinctColorsByProductId(detailId);
-
-                // Lấy danh sách ROMs dựa trên productId
-                List<ROM> romList = romDAO.getROMsByProductId(detailId);
-
-                if (productWithDetails != null) {
-                    // Set the product details and romList as request attributes
-                    request.setAttribute("productWithDetails", productWithDetails);
-                    request.setAttribute("colorList", colorList);
-                    request.setAttribute("romList", romList);
-
-                    // Forward to JSP page to display the product details
-                    request.getRequestDispatcher("/view/customer/ProductDetails.jsp").forward(request, response);
-                } else {
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
-                }
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product detail ID format");
-            }
+        BrandDAL branddao = new BrandDAL();
+        RAMDAO ramdao = new RAMDAO();
+        CPUDAO cpudao = new CPUDAO();
+        CardDAO carddao = new CardDAO();
+        
+        String detailIdParam = request.getParameter("id");
+        if (detailIdParam == null || detailIdParam.isEmpty()) {
+            detailIdParam = "3"; // Default product ID
         }
-    }
+
+        try {
+            int detailId = Integer.parseInt(detailIdParam);
+
+            ProductWithDetails productWithDetails = productDetailsDAO.getProductDetailById(detailId);
+            if (productWithDetails == null) {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
+                return;
+            }
+
+            Brand brandname = branddao.getBrandById(productWithDetails.getProduct().getBrandId());
+            RAM ramname = ramdao.getRAMById(productWithDetails.getProductDetails().getRamId());
+            CPU cpuname = cpudao.getCPUById(productWithDetails.getProductDetails().getCpuId());
+            Card cardname = carddao.getCardById(productWithDetails.getProductDetails().getCardId());
+            
+            int brandid = productWithDetails.getProduct().getBrandId();
+            List<ProductWithDetails> relatedProducts = productDetailsDAO.getProductsByBrand(brandid, 4);
+
+            request.setAttribute("productWithDetails", productWithDetails);
+            request.setAttribute("brandname", brandname);
+            request.setAttribute("ramname", ramname);
+            request.setAttribute("cpuname", cpuname);
+            request.setAttribute("cardname", cardname);
+            request.setAttribute("relatedProducts", relatedProducts);
+            
+            // Check for error or success messages
+            String errorMessage = (String) request.getAttribute("errorMessage");
+            String successMessage = (String) request.getAttribute("successMessage");
+
+            request.setAttribute("errorMessage", errorMessage);
+            request.setAttribute("successMessage", successMessage);
+
+            request.getRequestDispatcher("/view/customer/ProductDetails.jsp").forward(request, response);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product detail ID format");
+        }
+}
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -93,4 +113,3 @@ public class ProductDetailsController extends HttpServlet {
     }// </editor-fold>
 
 }
-
