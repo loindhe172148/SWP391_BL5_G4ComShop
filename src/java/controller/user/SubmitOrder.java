@@ -67,10 +67,12 @@ public class SubmitOrder extends HttpServlet {
                     double productTotal = price * quantityInCart;
                     totalPrice += productTotal;
 
+                    // Append product details to the email content
                     emailContent.append("- ").append(product.getName())
-                            .append(" (Quantity: ").append(quantityInCart)
-                            .append(", Price: $").append(String.format("%.2f", productTotal))
-                            .append(")\n");
+                                .append(" (Original Price: $").append(String.format("%.2f", price))
+                                .append(", Quantity: ").append(quantityInCart)
+                                .append(", Total: $").append(String.format("%.2f", productTotal))
+                                .append(")\n");
                 }
             }
         }
@@ -86,11 +88,11 @@ public class SubmitOrder extends HttpServlet {
         boolean emailSent = EmailUtils.sendMail(email, subject, emailContent.toString());
 
         if (emailSent) {
-            // Clear the cart in the database and session
+           
            
             request.getSession().removeAttribute("cartItems");
 
-            // Redirect to an order confirmation page
+           
             response.sendRedirect("order-confirmation.jsp");
         } else {
             // Handle email sending failure (show error message, retry, etc.)

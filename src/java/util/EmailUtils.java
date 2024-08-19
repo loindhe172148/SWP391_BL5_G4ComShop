@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package util;
 
 import java.util.Properties;
@@ -18,34 +14,37 @@ import jakarta.mail.internet.MimeMessage;
  * @author ADMIN
  */
 public class EmailUtils {
-    private static final String GMAIL_SENT = "truongtqhe172652@fpt.edu.vn";
-    private static final String GMAIL_PASSWORD = "mdpb oftj hikf gpvx";
+    private static final String GMAIL_SENT = "vuthanhml102@gmail.com";
+    private static final String GMAIL_PASSWORD = "ssav zoln lqiw slwg";
     
-
     public static boolean sendMail(String emailTo, String subject, String content) {
-        Properties properies = new Properties();
-        properies.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
-        properies.put("mail.smtp.port", "587"); // TLS 587 SSL 465
-        properies.put("mail.smtp.auth", "true");
-        properies.put("mail.smtp.starttls.enable", "true");
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com"); // SMTP HOST
+        properties.put("mail.smtp.port", "587"); // TLS 587 SSL 465
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
 
-        Session session = Session.getDefaultInstance(properies, new jakarta.mail.Authenticator() {
+        Session session = Session.getInstance(properties, new jakarta.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(GMAIL_SENT, GMAIL_PASSWORD);
             }
         });
 
-        // Compose message
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(emailTo));
+            message.setFrom(new InternetAddress(GMAIL_SENT));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailTo));
             message.setSubject(subject);
-            message.setText("Your OTP to reset your password is:  " + content);
+            
+            // Set the content of the email
+            message.setText(content);
+
+            // Send the message
             Transport.send(message);
             return true;
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false;
         }
     }
 }
