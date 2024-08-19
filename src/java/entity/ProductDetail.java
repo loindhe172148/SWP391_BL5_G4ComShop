@@ -1,32 +1,29 @@
-
 package entity;
 
 public class ProductDetail {
+
     private int id; // key not null
     private int productId; // not null
     private int ramId; // not null
-    private int romId; // not null
     private int cpuId; // not null
     private int cardId; // not null
     private String color; // not null
-    private int typeId; // not null
     private double originPrice; // not null
     private double salePrice; // not null
-
+    private int quantity; // not null
     public ProductDetail() {
     }
 
-    public ProductDetail(int id, int productId, int ramId, int romId, int cpuId, int cardId, String color, int typeId, double originPrice, double salePrice) {
+    public ProductDetail(int id, int productId, int ramId, int cpuId, int cardId, String color, double originPrice, double salePrice, int quantity) {
         this.id = id;
         this.productId = productId;
         this.ramId = ramId;
-        this.romId = romId;
         this.cpuId = cpuId;
         this.cardId = cardId;
         this.color = color;
-        this.typeId = typeId;
         this.originPrice = originPrice;
         this.salePrice = salePrice;
+        this.quantity = quantity;
     }
 
     public int getId() {
@@ -53,14 +50,6 @@ public class ProductDetail {
         this.ramId = ramId;
     }
 
-    public int getRomId() {
-        return romId;
-    }
-
-    public void setRomId(int romId) {
-        this.romId = romId;
-    }
-
     public int getCpuId() {
         return cpuId;
     }
@@ -85,14 +74,6 @@ public class ProductDetail {
         this.color = color;
     }
 
-    public int getTypeId() {
-        return typeId;
-    }
-
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
-    }
-
     public double getOriginPrice() {
         return originPrice;
     }
@@ -109,6 +90,12 @@ public class ProductDetail {
         this.salePrice = salePrice;
     }
 
-    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
 }

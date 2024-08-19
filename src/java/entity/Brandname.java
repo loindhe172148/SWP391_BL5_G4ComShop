@@ -11,14 +11,18 @@ package entity;
 public class Brandname {
     private  int idBrandName; 
     private  String brandName ;
+    private  String description;
 
     public Brandname() {
     }
 
-    public Brandname(int idBrandName, String brandName) {
+    public Brandname(int idBrandName, String brandName, String description) {
         this.idBrandName = idBrandName;
         this.brandName = brandName;
+        this.description = description;
     }
+
+ 
 
     public int getIdBrandName() {
         return idBrandName;
@@ -34,6 +38,14 @@ public class Brandname {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
 
