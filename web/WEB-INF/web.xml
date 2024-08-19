@@ -1,34 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-
     <!-- Các servlet định nghĩa -->
-    <servlet>
-        <servlet-name>AccessoryManagement</servlet-name>
-        <servlet-class>controller.marketing.AccessoryManagement</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>FillterAccessory</servlet-name>
         <servlet-class>controller.marketing.FillterAccessory</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteAccessory</servlet-name>
-        <servlet-class>controller.marketing.DeleteAccessory</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AddAccessory</servlet-name>
-        <servlet-class>controller.marketing.AddAccessory</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AccessoryMarketing</servlet-name>
         <servlet-class>controller.marketing.AccessoryMarketing</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AccessoryShowing</servlet-name>
-        <servlet-class>controller.marketing.AccessoryShowing</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateAccessory</servlet-name>
-        <servlet-class>controller.marketing.UpdateAccessory</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VerifyAccount</servlet-name>
@@ -57,10 +36,6 @@
     <servlet>
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>controller.customer.AddToCartController</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AccessoryBrandname</servlet-name>
-        <servlet-class>controller.marketing.AccessoryBrandname</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddBrandname</servlet-name>
@@ -114,35 +89,18 @@
         <servlet-name>FillterProduct</servlet-name>
         <servlet-class>controller.marketing.FillterProduct</servlet-class>
     </servlet>
-
     <!-- Các ánh xạ servlet -->
-    <servlet-mapping>
-        <servlet-name>AccessoryManagement</servlet-name>
-        <url-pattern>/marketing/accessory</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>AccessoryBrandname</servlet-name>
+        <servlet-class>controller.marketing.AccessoryBrandname</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
         <url-pattern>/marketing/bandname</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteAccessory</servlet-name>
-        <url-pattern>/marketing/delete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddAccessory</servlet-name>
-        <url-pattern>/marketing/add</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AccessoryMarketing</servlet-name>
         <url-pattern>/marketing/maketing</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AccessoryShowing</servlet-name>
-        <url-pattern>/marketing/showing</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateAccessory</servlet-name>
-        <url-pattern>/marketing/updateAccessory</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyAccount</servlet-name>
@@ -171,10 +129,6 @@
     <servlet-mapping>
         <servlet-name>AddToCart</servlet-name>
         <url-pattern>/addtocart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AccessoryBrandname</servlet-name>
-        <url-pattern>/marketing/brandname</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddBrandname</servlet-name>
@@ -228,7 +182,10 @@
         <servlet-name>FillterProduct</servlet-name>
         <url-pattern>/fillterProduct</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>AccessoryBrandname</servlet-name>
+        <url-pattern>/marketing/brandname</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>
     </welcome-file-list>
