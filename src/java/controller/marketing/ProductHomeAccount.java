@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class FillterProduct extends HttpServlet {
+public class ProductHomeAccount extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,43 +32,34 @@ public class FillterProduct extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-
-    String idB = request.getParameter("idBrandName");
-    System.out.println("Received idBrandName: " + idB); // In giá trị idBrandName để kiểm tra
-
-    ProductDAO productDAO = new ProductDAO();
-    BrandDao band = new BrandDao();
-
-    List<Product> filterProducts;
-    if (idB != null && !idB.isEmpty()) {
-        filterProducts = productDAO.getFilterProducts(idB);
-    } else {
-        filterProducts = productDAO.getAllProduct();
-    }
-    request.setAttribute("productList", filterProducts);
-
-    List<Brandname> listB = band.getBrandnameAccessory();
-    request.setAttribute("listB", listB);
-
+    
+  ProductDAO productDAO = new ProductDAO();
+      
+    List<Product> productList = productDAO.getAllProduct();
     List<Product> productListnew = productDAO.getNewestProducts(5);
     List<Product> topDiscountedProducts = productDAO.getTopDiscountedProducts(5);
     List<Product> topDiscountedProductsa = productDAO.getTopDiscountedProducts(3);
+    
+    
 
+    request.setAttribute("productList", productList);
     request.setAttribute("productListnew", productListnew);
     request.setAttribute("topDiscountedProducts", topDiscountedProducts);
     request.setAttribute("topDiscountedProductsa", topDiscountedProductsa);
+    BrandDao band = new BrandDao();
+        List<Brandname> listB = band.getBrandnameAccessory();
+        request.setAttribute("listB", listB);
+         CategoryDAO category = new CategoryDAO();
+         List<Category> listC = category.getAllCategory();
+             request.setAttribute("listC", listC);
 
-    CategoryDAO category = new CategoryDAO();
-    List<Category> listC = category.getAllCategory();
-    request.setAttribute("listC", listC);
-
-    request.getRequestDispatcher("/ProductHome.jsp").forward(request, response);
+        request.getRequestDispatcher("/ProductHomeAccount.jsp").forward(request, response);
+       
+        
 }
-
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.

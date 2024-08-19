@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class FillterProduct extends HttpServlet {
+public class FillterProductAccount extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -67,7 +67,6 @@ public class FillterProduct extends HttpServlet {
 
     request.getRequestDispatcher("/ProductHome.jsp").forward(request, response);
 }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
