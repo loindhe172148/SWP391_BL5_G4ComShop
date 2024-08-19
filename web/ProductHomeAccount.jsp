@@ -21,20 +21,20 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/bootstrap.min.css"/>
 
         <!-- Slick -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/slick-theme.css"/>
 
         <!-- nouislider -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/nouislider.min.css"/>
 
         <!-- Font Awesome Icon -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/font-awesome.min.css">
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/style.css"/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,10 +56,10 @@
                         <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
                     </ul>
                     <ul class="header-links pull-right">
-                        <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
-                         <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-    
-                      
+                         <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
+    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+   
+
                     </ul>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                         <div class="col-md-3">
                             <div class="header-logo">
                                 <a href="#" class="logo">
-                                    <img src="${pageContext.request.contextPath}/img/Screenshot 2024-08-18 035922.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                                         <div class="cart-list">
                                             <div class="product-widget">
                                                 <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/./img/product01.png" alt="">
+                                                    <img src="${pageContext.request.contextPath}/assets/electro/./img/product01.png" alt="">
                                                 </div>
                                                 <div class="product-body">
                                                     <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -122,7 +122,7 @@
 
                                             <div class="product-widget">
                                                 <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/./img/product02.png" alt="">
+                                                    <img src="${pageContext.request.contextPath}/assets/electro/./img/product02.png" alt="">
                                                 </div>
                                                 <div class="product-body">
                                                     <h3 class="product-name"><a href="#">product name goes here</a></h3>
@@ -221,14 +221,14 @@
                                         <c:forEach var="o" items="${productListnew}">
                                             <div class="product">
                                                 <div class="product-img">
-                                                    <img src="${o.image}" alt="${o.name}" width="300" height="200">
+                                                    <img src="${pageContext.request.contextPath}/${o.image}" alt="${o.name}" width="300" height="200">
                                                     <div class="product-label">
                                                         <span class="new">NEW</span>
                                                     </div>
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${o.title}</p>
-                                                    <h3 class="product-name"><a href="#">${o.name}</a></h3>
+                                                    <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                     <h4 class="product-price">${o.salePrice}<del class="product-old-price">${o.originPrice}</del></h4>
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
@@ -283,10 +283,9 @@
                                     </label>
                                 </form>
 
-
                             </div>
                         </div>
-                       
+
                         <!-- aside Widget -->
                         <div class="aside">
                             <h3 class="aside-title">Price</h3>
@@ -309,15 +308,16 @@
                         <!-- aside Widget -->
                         <div class="aside">
                             <h3 class="aside-title">Top selling</h3>
-                            <c:forEach var="o" items="${topDiscountedProductsa}">
+                            <c:forEach var="o" items="${topDiscountedProductsa}" >
                                 <div class="product-widget">
                                     <div class="product-img">
                                         <img src="${o.image}" alt="${o.name}" width="125" height="100">
                                     </div>
                                     <div class="product-body">
                                         <p class="product-category">${o.title}</p>
-                                        <h3 class="product-name"><a href="#">${o.name}</a></h3>
-                                        <h4 class="product-price">
+                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
+                                        <h4 class="product-price">                                        
+
                                             ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
                                         </h4>
                                     </div>
@@ -373,7 +373,7 @@
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">${product.title}</p>
-                                            <h3 class="product-name"><a href="#">${product.name}</a></h3>
+                                            <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
                                             <h4 class="product-price">
                                                 ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
                                             </h4>
@@ -389,15 +389,15 @@
                             </c:forEach>
                         </div>
                         <div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
+                            <span class="store-qty">Showing 20-100 products</span>
+                            <ul class="store-pagination">
+                                <li class="active">1</li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                            </ul>
+                        </div>
                         <!-- /store products -->
                     </div>
                     <!-- /STORE -->
@@ -449,7 +449,7 @@
                                                     </div>
                                                     <div class="product-body">
                                                         <p class="product-category">${o.title}</p>
-                                                        <h3 class="product-name"><a href="#">${o.name}</a></h3>
+                                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                         <h4 class="product-price">
                                                             ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
                                                         </h4>
@@ -610,12 +610,12 @@
             <!-- /FOOTER -->
 
             <!-- jQuery Plugins -->
-            <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/main.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/slick.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
 
     </body>
 </html>
