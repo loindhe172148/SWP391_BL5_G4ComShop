@@ -1,4 +1,3 @@
-
 package dal;
 
 import entity.RAM;
@@ -31,21 +30,44 @@ public class RAMDAO extends DBContext<RAM> {
         }
         return ramList;
     }
-        public List<RAM> getRamAccessory(){
+
+    public RAM getRAMById(int id) {
+        RAM ram = null;
+        String sql = "SELECT * FROM RAM WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    ram = new RAM();
+                    ram.setId(rs.getInt("id"));
+                    ram.setName(rs.getString("name"));
+                    ram.setBrand(rs.getString("brand"));
+                    ram.setMemory(rs.getInt("memory"));
+                    ram.setSpeed(rs.getInt("speed"));
+                    ram.setDescription(rs.getString("description"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RAMDAO.class.getName()).log(Level.SEVERE, "Error fetching RAM by ID", ex);
+        }
+        return ram;
+    }
+
+    public List<RAM> getRamAccessory() {
         List<RAM> list = new ArrayList<>();
         String query = "SELECT * FROM RAM WHERE isActive = 1"; // Only active RAMs
 
-        try (PreparedStatement ps = connection.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
+        try (PreparedStatement ps = connection.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 RAM ram = new RAM(
-                    rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("brand"),
-                    rs.getInt("memory"),
-                    rs.getInt("speed"),
-                    rs.getString("description")
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("brand"),
+                        rs.getInt("memory"),
+                        rs.getInt("speed"),
+                        rs.getString("description")
                 );
                 list.add(ram);
             }
@@ -56,8 +78,6 @@ public class RAMDAO extends DBContext<RAM> {
     }
 
     // Method to retrieve all active RAM records
-
-
     // Method to insert a new RAM record
     public void insertRam(String name, String brand, int memory, int speed, String description) {
         String query = "INSERT INTO RAM ([name], [brand], [memory], [speed], [description]) VALUES (?, ?, ?, ?, ?)";
