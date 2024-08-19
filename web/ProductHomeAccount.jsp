@@ -56,8 +56,9 @@
                         <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
                     </ul>
                     <ul class="header-links pull-right">
-                        <li><a href="login"><i class="fa fa-sign-in"></i> Login</a></li>
-                        <li><a href="signup"><i class="fa fa-user-plus"></i> Signup</a></li>
+                        <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
+                         <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+    
                       
                     </ul>
                 </div>
@@ -282,9 +283,10 @@
                                     </label>
                                 </form>
 
+
                             </div>
                         </div>
-
+                       
                         <!-- aside Widget -->
                         <div class="aside">
                             <h3 class="aside-title">Price</h3>

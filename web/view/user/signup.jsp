@@ -20,27 +20,11 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
             width: 400px;
         }
         .signup-container h2 {
-            margin-bottom: 20px;
-        }
-        .signup-container input[type="text"],
-        .signup-container input[type="email"],
-        .signup-container input[type="password"],
-        .signup-container input[type="tel"],
-        .signup-container input[type="date"],
-        .signup-container select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-
-            width: 100%;
-            max-width: 400px;
-        }
-        .signup-container h2 {
             text-align: center;
+            margin-bottom: 20px;
         }
         .form-group {
             display: flex;
@@ -54,9 +38,10 @@
         .form-group input,
         .form-group select {
             padding: 10px;
-
             border: 1px solid #ccc;
             border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
         }
         .signup-container input[type="submit"] {
             width: 100%;
@@ -66,23 +51,20 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 20px;
         }
         .signup-container input[type="submit"]:hover {
             background-color: #45a049;
         }
+        .error-message, .success-message {
+            text-align: center;
+            margin-bottom: 10px;
+        }
         .error-message {
             color: red;
-            margin-bottom: 10px;
-
-
-            text-align: center;
-
         }
         .success-message {
             color: green;
-            margin-bottom: 10px;
-
-            text-align: center;
         }
         @media (min-width: 768px) {
             .form-group {
@@ -99,7 +81,6 @@
             .form-group select {
                 width: 70%;
             }
-
         }
     </style>
 </head>
@@ -110,40 +91,7 @@
         <c:if test="${not empty err}">
             <div class="error-message">${err}</div>
         </c:if>
-<<<<<<< HEAD
         
-        <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" value="${name}" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="${email}" required>
-
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" value="${username}" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="pass" required>
-
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" value="${phone}" required>
-
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="add" value="${address}" required>
-
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" value="${dob}" required>
-
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="Male" ${gender == 'Male' ? 'selected' : ''}>Male</option>
-            <option value="Female" ${gender == 'Female' ? 'selected' : ''}>Female</option>
-        </select>
-        <input type="hidden" name="role" value="user"/>
-
-
-        <input type="submit" value="Sign Up">
-=======
-
         <div class="form-group">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" value="${username}" required>
@@ -194,17 +142,8 @@
         </div>
 
         <input type="hidden" name="role" value="user"/>
-        <input style="width: 100px; margin-left: 150px" type="submit" value="Sign Up">
->>>>>>> main
+        <input type="submit" value="Sign Up">
     </form>
 </div>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
-<<<<<<< HEAD
-=======
-
->>>>>>> main
->>>>>>> linhnd

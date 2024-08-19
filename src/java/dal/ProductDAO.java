@@ -176,10 +176,10 @@ public class ProductDAO extends DBContext<Product> {
     String sql = "SELECT p.*, pd.originprice, pd.saleprice " +
                  "FROM Product p " +
                  "JOIN ProductDetail pd ON p.id = pd.productId " +
-                 "WHERE p.brandId = ?";
+                 "WHERE p.brandId = (?)"; // Đảm bảo rằng tên cột trong cơ sở dữ liệu và tên trong SQL khớp
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, idBrandName);
+        ps.setString(1, idBrandName); // Nếu idBrandName là chuỗi, sử dụng setString
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -190,17 +190,13 @@ public class ProductDAO extends DBContext<Product> {
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
             product.setCategoryId(rs.getInt("categoryid"));
-            product.setBrandId(rs.getInt("brandid"));
+            product.setBrandId(rs.getInt("brandid")); // Đảm bảo tên cột khớp
             product.setScreenSize(rs.getFloat("screensize"));
             product.setCreateDate(rs.getDate("createdate"));
             product.setUpdateDate(rs.getDate("updatedate"));
             product.setStatus(rs.getString("status"));
             product.setOriginPrice(rs.getFloat("originprice"));
             product.setSalePrice(rs.getFloat("saleprice"));
-            products.add(product);
-            // You can add these to your Product class if needed
-            // product.setOriginPrice(originPrice);
-            // product.setSalePrice(salePrice);
 
             products.add(product);
         }
@@ -209,6 +205,7 @@ public class ProductDAO extends DBContext<Product> {
     }
     return products;
 }
+
 
     
      
