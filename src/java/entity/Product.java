@@ -16,6 +16,27 @@ public class Product {
     private Date createDate;
     private Date updateDate;
     private String status;
+    private float originPrice;
+   private float salePrice;
+
+// Getters and setters for these fields
+
+    public float getOriginPrice() {
+        return originPrice;
+    }
+
+    public void setOriginPrice(float originPrice) {
+        this.originPrice = originPrice;
+    }
+
+    public float getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(float salePrice) {
+        this.salePrice = salePrice;
+    }
+
 
     public Product() {
     }
@@ -130,6 +151,7 @@ public class Product {
     public void setStatus(String status) {
         this.status = status;
     }
+
 
     
 

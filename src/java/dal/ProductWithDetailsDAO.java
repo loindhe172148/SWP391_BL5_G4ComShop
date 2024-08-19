@@ -218,4 +218,47 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return 0;
     }
+    public List<ProductWithDetails> getListProduct() {
+    List<ProductWithDetails> productWithDetailsList = new ArrayList<>();
+    String sql = "SELECT p.*, pd.* FROM Product p JOIN ProductDetail pd ON p.id = pd.productId";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+            // Populate Product object
+            Product product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setTitle(rs.getString("title"));
+            product.setDescription(rs.getString("description"));
+            product.setImage(rs.getString("image"));
+            product.setQuantity(rs.getInt("quantity"));
+            product.setCategoryId(rs.getInt("categoryId"));
+            product.setBrandId(rs.getInt("brandId"));
+            product.setScreenSize(rs.getFloat("screenSize"));
+            product.setCreateDate(rs.getDate("createDate"));
+            product.setUpdateDate(rs.getDate("updateDate"));
+            product.setStatus(rs.getString("status"));
+
+            // Populate ProductDetail object
+            ProductDetail productDetails = new ProductDetail();
+            productDetails.setId(rs.getInt("id"));  // Assuming id is the correct column for ProductDetail id
+            productDetails.setProductId(rs.getInt("productId"));
+            productDetails.setRamId(rs.getInt("ramId"));
+            productDetails.setCpuId(rs.getInt("cpuId"));
+            productDetails.setCardId(rs.getInt("cardId"));
+            productDetails.setColor(rs.getString("color"));
+            productDetails.setOriginPrice(rs.getDouble("originPrice"));
+            productDetails.setSalePrice(rs.getDouble("salePrice"));
+            productDetails.setQuantity(rs.getInt("quantity"));
+
+            // Create ProductWithDetails and add to list
+            ProductWithDetails productWithDetails = new ProductWithDetails(product, productDetails);
+            productWithDetailsList.add(productWithDetails);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return productWithDetailsList;
+}
+
 }

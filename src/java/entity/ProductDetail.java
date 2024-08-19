@@ -11,7 +11,6 @@ public class ProductDetail {
     private double originPrice; // not null
     private double salePrice; // not null
     private int quantity; // not null
-
     public ProductDetail() {
     }
 

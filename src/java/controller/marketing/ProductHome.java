@@ -36,8 +36,8 @@ public class ProductHome extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-
-    ProductDAO productDAO = new ProductDAO();
+    
+  ProductDAO productDAO = new ProductDAO();
       
     List<Product> productList = productDAO.getAllProduct();
     List<Product> productListnew = productDAO.getNewestProducts(5);
@@ -61,8 +61,6 @@ public class ProductHome extends HttpServlet {
        
         
 }
-
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 

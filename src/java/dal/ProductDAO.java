@@ -60,9 +60,11 @@ public class ProductDAO extends DBContext<Product> {
         return getProductCount("Hiding", startDate, endDate);
     }
     // Linh
-    public List<Product> getAllProduct() {
+  public List<Product> getAllProduct() {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT * FROM Product";
+    String sql = "SELECT p.*, pd.originprice, pd.saleprice \n" +
+"                 FROM Product p \n" +
+"                 JOIN ProductDetail pd ON p.id = pd.productId";
 
     try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -72,13 +74,14 @@ public class ProductDAO extends DBContext<Product> {
             product.setTitle(rs.getString("title"));
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
-            product.setQuantity(rs.getInt("quantity"));
             product.setCategoryId(rs.getInt("categoryid"));
             product.setBrandId(rs.getInt("brandid"));
             product.setScreenSize(rs.getFloat("screensize"));
             product.setCreateDate(rs.getDate("createdate"));
             product.setUpdateDate(rs.getDate("updatedate"));
             product.setStatus(rs.getString("status"));
+            product.setOriginPrice(rs.getFloat("originprice"));
+            product.setSalePrice(rs.getFloat("saleprice"));
             products.add(product);
         }
     } catch (SQLException ex) {
@@ -86,28 +89,41 @@ public class ProductDAO extends DBContext<Product> {
     }
     return products;
 }
+
+
+
     public List<Product> getNewestProducts(int limit) {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT TOP (?) * FROM Product ORDER BY createdate DESC";
+    String sql = "SELECT TOP (?) p.*, pd.originprice, pd.saleprice \n" +
+"                 FROM Product p\n" +
+"                 JOIN ProductDetail pd ON p.id = pd.productId \n" +
+"                 ORDER BY p.createdate DESC";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
         ps.setInt(1, limit);
         ResultSet rs = ps.executeQuery();
-        
+
         while (rs.next()) {
-            Product product = new Product();
+             Product product = new Product();
             product.setId(rs.getInt("id"));
             product.setName(rs.getString("name"));
             product.setTitle(rs.getString("title"));
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
-            product.setQuantity(rs.getInt("quantity"));
             product.setCategoryId(rs.getInt("categoryid"));
             product.setBrandId(rs.getInt("brandid"));
             product.setScreenSize(rs.getFloat("screensize"));
             product.setCreateDate(rs.getDate("createdate"));
             product.setUpdateDate(rs.getDate("updatedate"));
             product.setStatus(rs.getString("status"));
+            product.setOriginPrice(rs.getFloat("originprice"));
+            product.setSalePrice(rs.getFloat("saleprice"));
+            
+
+            // You can add these to your Product class if needed
+            // product.setOriginPrice(originPrice);
+            // product.setSalePrice(salePrice);
+
             products.add(product);
         }
     } catch (SQLException ex) {
@@ -115,43 +131,57 @@ public class ProductDAO extends DBContext<Product> {
     }
     return products;
 }
+
     public List<Product> getTopDiscountedProducts(int limit) {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT TOP (?) * FROM Product ORDER BY (originprice - saleprice) / originprice DESC";
+    String sql = "SELECT TOP (?) p.*, pd.originprice, pd.saleprice " +
+                 "FROM Product p " +
+                 "JOIN ProductDetail pd ON p.id = pd.productId " +
+                 "ORDER BY (pd.originprice - pd.saleprice) / pd.originprice DESC";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
         ps.setInt(1, limit);
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setTitle(rs.getString("title"));
-                product.setDescription(rs.getString("description"));
-                product.setImage(rs.getString("image"));
-                product.setQuantity(rs.getInt("quantity"));
-                product.setCategoryId(rs.getInt("categoryid"));
-                product.setBrandId(rs.getInt("brandid"));
-                product.setScreenSize(rs.getFloat("screensize"));
-                product.setCreateDate(rs.getDate("createdate"));
-                product.setUpdateDate(rs.getDate("updatedate"));
-                product.setStatus(rs.getString("status"));
-                products.add(product);
-            }
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+             Product product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setTitle(rs.getString("title"));
+            product.setDescription(rs.getString("description"));
+            product.setImage(rs.getString("image"));
+            product.setCategoryId(rs.getInt("categoryid"));
+            product.setBrandId(rs.getInt("brandid"));
+            product.setScreenSize(rs.getFloat("screensize"));
+            product.setCreateDate(rs.getDate("createdate"));
+            product.setUpdateDate(rs.getDate("updatedate"));
+            product.setStatus(rs.getString("status"));
+            product.setOriginPrice(rs.getFloat("originprice"));
+            product.setSalePrice(rs.getFloat("saleprice"));
+            products.add(product);
+            // You can add these to your Product class if needed
+            // product.setOriginPrice(originPrice);
+            // product.setSalePrice(salePrice);
+
+          
         }
     } catch (SQLException ex) {
         ex.printStackTrace();
     }
     return products;
 }
+
     public List<Product> getFilterProducts(String idBrandName) {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT * FROM [dbo].[Product] WHERE brandid = 1";
+    String sql = "SELECT p.*, pd.originprice, pd.saleprice " +
+                 "FROM Product p " +
+                 "JOIN ProductDetail pd ON p.id = pd.productId " +
+                 "WHERE p.brandId = ?";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
         ps.setString(1, idBrandName);
         ResultSet rs = ps.executeQuery();
-        
+
         while (rs.next()) {
             Product product = new Product();
             product.setId(rs.getInt("id"));
@@ -159,13 +189,19 @@ public class ProductDAO extends DBContext<Product> {
             product.setTitle(rs.getString("title"));
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
-            product.setQuantity(rs.getInt("quantity"));
             product.setCategoryId(rs.getInt("categoryid"));
             product.setBrandId(rs.getInt("brandid"));
             product.setScreenSize(rs.getFloat("screensize"));
             product.setCreateDate(rs.getDate("createdate"));
             product.setUpdateDate(rs.getDate("updatedate"));
             product.setStatus(rs.getString("status"));
+            product.setOriginPrice(rs.getFloat("originprice"));
+            product.setSalePrice(rs.getFloat("saleprice"));
+            products.add(product);
+            // You can add these to your Product class if needed
+            // product.setOriginPrice(originPrice);
+            // product.setSalePrice(salePrice);
+
             products.add(product);
         }
     } catch (SQLException ex) {
@@ -173,8 +209,7 @@ public class ProductDAO extends DBContext<Product> {
     }
     return products;
 }
-    
-    
+
     
      
 
