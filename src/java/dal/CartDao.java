@@ -9,9 +9,9 @@ import java.util.Map;
 public class CartDao extends DBContext_1 {
 
     // Method to retrieve cart items for a specific user
-    public Map<Integer, Map<Product, Double>> getCartItemsByUserId(int userId) {
+   public Map<Integer, Map<Product, Double>> getCartItemsByUserId(int userId) {
     Map<Integer, Map<Product, Double>> items = new HashMap<>();
-    String query = "SELECT pd.id as productdetailid, p.*, pd.saleprice, cd.quantity as cart_quantity " +
+    String query = "SELECT pd.id as productdetailid, p.id, p.name, p.image, pd.saleprice, cd.quantity as cart_quantity " +
                    "FROM CartDetail cd " +
                    "JOIN ProductDetail pd ON cd.productdetailid = pd.id " +
                    "JOIN Product p ON pd.productid = p.id " +
@@ -22,17 +22,21 @@ public class CartDao extends DBContext_1 {
         try (ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 int productDetailId = rs.getInt("productdetailid");
-                
+
+                // Create a Product object and set its attributes
                 Product item = new Product();
-                item.setId(rs.getInt("id")); // Product ID from the Product table
+                item.setId(rs.getInt("id")); 
                 item.setName(rs.getString("name"));
-                item.setQuantity(rs.getInt("cart_quantity")); // Quantity from CartDetail
+                item.setQuantity(rs.getInt("cart_quantity"));
+                item.setImage(rs.getString("image")); // Set the image URL
 
-                double saleprice = rs.getDouble("saleprice"); // Sale price from ProductDetail
+                double saleprice = rs.getDouble("saleprice");
 
-                // Store the product in a map with productdetailid as the key
+                // Create a map to hold the product and its price
                 Map<Product, Double> productWithPrice = new HashMap<>();
                 productWithPrice.put(item, saleprice);
+
+                // Add the product detail ID and the product with price to the items map
                 items.put(productDetailId, productWithPrice);
             }
         }
@@ -41,6 +45,7 @@ public class CartDao extends DBContext_1 {
     }
     return items;
 }
+
 
 
     // Method to increase the quantity of a product in the cart
