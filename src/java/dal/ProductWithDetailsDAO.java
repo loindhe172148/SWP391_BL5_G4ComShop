@@ -156,5 +156,6 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return 0;
     }
+    
 
 }

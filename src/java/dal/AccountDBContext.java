@@ -14,7 +14,9 @@ import java.util.ArrayList;
  *
  * @author HP
  */
+
 public class AccountDBContext extends DBContext<Account> {
+
 
     public ArrayList<Account> listAll() {
         ArrayList<Account> accounts = new ArrayList<>();
@@ -37,16 +39,14 @@ public class AccountDBContext extends DBContext<Account> {
 
     public void insert(Account entity) {
         try {
-            String sql = """
-                         INSERT INTO [dbo].[Account]
-                                    ([username]
-                                    ,[pass]
-                                    ,[role])
-                                    VALUES (?, ?, ?)""";
+
+            String sql = "INSERT INTO Account (username, pass, role) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, entity.getUsername());
-            ps.setString(2, entity.getPassword());
-            ps.setString(3, entity.getRole());
+            ps.setString(2, entity.getUsername());
+            ps.setString(3, entity.getPassword());
+            ps.setString(4, entity.getRole());
+
+
 
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -64,6 +64,30 @@ public class AccountDBContext extends DBContext<Account> {
             ps.executeUpdate();
         } catch (SQLException e) {
         }
+    }
+
+
+    public void delete(Account entity) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public Account checkAccountExist(String username, String email) {
+        try {
+            String sql = "SELECT * FROM Account WHERE username = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account a = new Account();
+                a.setId(rs.getInt("id"));
+                a.setUsername(rs.getString("username"));
+                a.setPassword(rs.getString("pass"));
+                a.setRole(rs.getString("role"));
+                return a;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
     }
 
     public Account checkAccountExist(String username) {

@@ -33,5 +33,58 @@ public class CardDAO extends DBContext<Card> {
         }
         return cards;
     }
+     public List<Card> getCardAccessory() {
+        List<Card> list = new ArrayList<>();
+        String query = "SELECT * FROM Card WHERE isActive = 1"; // Only active Cards
+
+        try (PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Card card = new Card(
+                    rs.getInt("id"), 
+                    rs.getString("name"), 
+                    rs.getString("brand"), 
+                    rs.getInt("memory"), 
+                    rs.getString("chipset"), 
+                    rs.getString("description")
+                );
+                list.add(card);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // Method to insert a new Card record
+    public void insertCard(String name, String brand, String memory, String chipset, String description) {
+        String query = "INSERT INTO [dbo].[Card] ([name], [brand], [memory], [chipset], [description]) VALUES\n" +
+"(?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, name);
+            ps.setString(2, brand);
+            ps.setString(3, memory);
+            ps.setString(4, chipset);
+            ps.setString(5, description);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to soft delete a Card record (mark as inactive)
+    public void softDeleteCard(int id) {
+        String query = "UPDATE Card SET isActive = 0 WHERE id = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }
 
