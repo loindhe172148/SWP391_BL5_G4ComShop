@@ -18,8 +18,8 @@ import jakarta.mail.internet.MimeMessage;
  * @author ADMIN
  */
 public class EmailUtils {
-    private static final String GMAIL_SENT = "vuthanhml102@gmail.com";
-    private static final String GMAIL_PASSWORD = "ssav zoln lqiw slwg";
+    private static final String GMAIL_SENT = "truongtqhe172652@fpt.edu.vn";
+    private static final String GMAIL_PASSWORD = "mdpb oftj hikf gpvx";
     
 
     public static boolean sendMail(String emailTo, String subject, String content) {
