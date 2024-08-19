@@ -151,6 +151,7 @@
                                 <div class="product-options">
                                     <p><strong>Color:</strong> ${productWithDetails.productDetails.color}</p>
                                     <p><strong>Brand:</strong> ${brandname.name}</p>
+                                    <p><strong>Screen Size:</strong> ${productWithDetails.product.screenSize} (inches)</p>
                                     <p><strong>RAM:</strong> ${ramname.name} (${ramname.memory} GB)</p>
                                     <p><strong>CPU:</strong> ${cpuname.name} (${cpuname.generation})</p>
                                     <p><strong>Card:</strong> ${cardname.name} (${cardname.memory} GB)</p>
@@ -221,10 +222,10 @@
                                 <div id="tab2" class="tab-pane fade in">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <p><strong>Brand:</strong> ${brandname.name} ${brandname.description}</p>
-                                            <p><strong>RAM:</strong> ${ramname.name} (${ramname.description} GB)</p>
-                                            <p><strong>CPU:</strong> ${cpuname.name} (${cpuname.description})</p>
-                                            <p><strong>Card:</strong> ${cardname.name} (${cardname.description} GB)</p>
+                                            <p><strong>Brand:</strong> ${brandname.name} - ${brandname.description}</p>
+                                            <p><strong>RAM:</strong> ${ramname.name} ${ramname.description} </p>
+                                            <p><strong>CPU:</strong> ${cpuname.name} ${cpuname.description}</p>
+                                            <p><strong>Card:</strong> ${cardname.name} ${cardname.description} </p>
                                         </div>
                                     </div>
                                 </div>

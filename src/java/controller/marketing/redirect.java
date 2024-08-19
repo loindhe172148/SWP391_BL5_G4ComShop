@@ -23,8 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @WebServlet(name = "redirect", urlPatterns = {"/redirect",
-    "/marketing/blankpage", "/marketing/datatable", "/marketing/form",
-    "/marketing/dashboard", "/marketing/addproduct", "/marketing/productdetails"})
+    "/marketing/blankpage", "/marketing/datatable", "/marketing/form", "/marketing/addproduct", "/marketing/productdetails"})
 public class redirect extends HttpServlet {
 
     /**
