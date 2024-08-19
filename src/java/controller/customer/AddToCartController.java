@@ -6,6 +6,7 @@ import dal.CardDAO;
 import dal.CartDetailDAO;
 import dal.ProductWithDetailsDAO;
 import dal.RAMDAO;
+import entity.Account;
 import entity.Brand;
 import entity.CPU;
 import entity.Card;
@@ -28,11 +29,11 @@ public class AddToCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         CartDetailDAO cartDAO = new CartDetailDAO();
         HttpSession session = request.getSession();
-        User user = new User();
+        Account account = new Account();
         try {
-            user = (User) session.getAttribute("user");
+            account = (Account) session.getAttribute("account");
         } catch (Exception e) {
-            user.setId(1);
+            e.printStackTrace();
         }
         int productDetailId = Integer.parseInt(request.getParameter("productDetailId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -44,8 +45,9 @@ public class AddToCartController extends HttpServlet {
             if (quantity <= 0 || quantity > totalquantity) {
                 request.setAttribute("errorMessage", "Invalid quantity must > 0 and <= total quantity in stock.");
             } else {
-                if (user != null) {
-                    int customerId = user.getId();
+                System.out.println("cuss id = " + account);
+                if (account != null) {
+                    int customerId = account.getId();
                     boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, customerId);
 
                     if (success) {
@@ -54,12 +56,9 @@ public class AddToCartController extends HttpServlet {
                         request.setAttribute("errorMessage", "Product already in cart.");
                     }
                 } else {
-                    boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, 1); // Default customerId as 1 for guests
-
-                    if (success) {
-                        request.setAttribute("successMessage", "Product added to cart successfully!");
-                    } else {
-                        request.setAttribute("errorMessage", "Product already in cart.");
+                    if (account == null) {
+                        response.sendRedirect("login");
+                        return;
                     }
                 }
             }
