@@ -98,6 +98,10 @@
         <servlet-name>Dashboard</servlet-name>
         <servlet-class>controller.marketing.Dashboard</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingProductList</servlet-name>
+        <servlet-class>controller.marketing.MarketingProductList</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
         <url-pattern>/marketing/bandname</url-pattern>
@@ -193,6 +197,10 @@
     <servlet-mapping>
         <servlet-name>Dashboard</servlet-name>
         <url-pattern>/marketing/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingProductList</servlet-name>
+        <url-pattern>/marketing/productList</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>
