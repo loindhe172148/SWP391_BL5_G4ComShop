@@ -1,9 +1,3 @@
-<%-- 
-    Document   : signup
-    Created on : Aug 9, 2024, 9:11:47 AM
-    Author     : HP
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -29,7 +23,7 @@
             width: 100%;
             max-width: 400px;
         }
-        .signup-container h2 {;
+        .signup-container h2 {
             text-align: center;
         }
         .form-group {
@@ -112,7 +106,7 @@
 
         <div class="form-group">
             <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" value="${name}" required>
+            <input type="text" id="name" name="name" value="${fullname}" required>
         </div>
 
         <div class="form-group">
@@ -138,9 +132,9 @@
         <div class="form-group">
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
-                <option id="male" name="gender" value="1">Male</option>
-                <option id="female" name="gender" value="0">Female</option>
-                <option id="other" name="gender" value="2">Other</option>
+                <option value="1" <c:if test="${gender == 1}">selected</c:if>>Male</option>
+                <option value="0" <c:if test="${gender == 0}">selected</c:if>>Female</option>
+                <option value="2" <c:if test="${gender == 2}">selected</c:if>>Other</option>
             </select>
         </div>
 
@@ -150,4 +144,3 @@
 </div>
 </body>
 </html>
-

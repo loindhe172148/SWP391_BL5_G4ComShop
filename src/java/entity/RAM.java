@@ -3,12 +3,14 @@ package entity;
 
 public class RAM {
 
+
     private int id;  //key not null
     private String name; //not null
     private String brand; //not null
     private int memory;  //not null
     private int speed; //not null
     private String description; // alow nulls
+
 
     public RAM() {
     }
@@ -69,7 +71,4 @@ public class RAM {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    
-
 }

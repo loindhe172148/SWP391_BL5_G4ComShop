@@ -190,6 +190,7 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return 0;
     }
+    
 
     public int getProductWithDetailsCount(String status, LocalDate startDate, LocalDate endDate) {
         String sql = "SELECT COUNT(*) FROM Product p "

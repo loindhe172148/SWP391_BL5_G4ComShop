@@ -2,7 +2,6 @@
 package entity;
 
 public class CPU {
-
     private int id; //key not null
     private String name; // not null
     private String brand; // not null

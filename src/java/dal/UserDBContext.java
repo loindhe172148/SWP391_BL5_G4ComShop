@@ -6,9 +6,7 @@ package dal;
 
 import entity.Account;
 import entity.User;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDBContext extends DBContext<User> {
@@ -40,23 +38,27 @@ public class UserDBContext extends DBContext<User> {
         return users;
     }
       
-    public void insert(User entity) {
-        try {
-            String sql = "INSERT INTO [User]( accid, ava, name, mail, address, gender, phone, dob, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, entity.getAccount().getId());
-            ps.setString(2, entity.getAva());
-            ps.setString(3, entity.getName());
-            ps.setString(4, entity.getGmail());
-            ps.setString(5, entity.getAddress());
-            ps.setInt(6, entity.getGender());
-            ps.setString(7, entity.getPhone());
-            ps.setDate(8, new java.sql.Date(entity.getDob().getTime()));
-            ps.setString(9, entity.getStatus());
-            ps.executeUpdate();
-        } catch (SQLException e) {          
-        }
+    public void insert(int accid, String gmail, String address, int gender, String phone, Date dob, String status, String ava, String fullname) {
+    String sql = """
+                 INSERT INTO [dbo].[User]
+                            ([accid], [gmail], [address], [gender], [phone], [dob], [status], [ava], [fullname])
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""";
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setInt(1, accid);
+        ps.setString(2, gmail);
+        ps.setString(3, address);
+        ps.setInt(4, gender);
+        ps.setString(5, phone);
+        ps.setDate(6, dob);
+        ps.setString(7, status);
+        ps.setString(8, ava);
+        ps.setString(9, fullname);
+
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+}
 
     public void updateById(User entity, int id) {
         try {
@@ -116,20 +118,70 @@ public class UserDBContext extends DBContext<User> {
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt("id"));
-               
                 user.setGmail(rs.getString("gmail"));
                 user.setdob(rs.getDate("dob"));
                 user.setAddress(rs.getString("address"));
                 user.setGender(rs.getInt("gender"));
                 user.setPhone(rs.getString("phone"));
-                user.setStatus(rs.getString("status"));
-               
-
-                
+                user.setStatus(rs.getString("status"));                
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } 
         return user;
+    }
+        public Boolean checkMailExist(int id, String email) {
+        String sql = "SELECT [gmail] FROM dbo.[User] WHERE accid = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String existingEmail = rs.getString("gmail");
+                return email.equals(existingEmail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+        public User getUserByAccountId(int accountId) {
+    User user = null;
+    try {
+        String sql = "SELECT * FROM [User] WHERE accid = ?";
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, accountId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            user = new User();
+            user.setId(rs.getInt("id"));
+            user.setGmail(rs.getString("gmail"));
+            user.setDob(rs.getDate("dob"));
+            user.setAddress(rs.getString("address"));
+            user.setGender(rs.getInt("gender"));  // Đổi từ setBoolean thành setInt để tương thích với kiểu int
+            user.setPhone(rs.getString("phone"));
+            user.setStatus(rs.getString("status")); // Đổi từ setBoolean thành setString để tương thích với kiểu String
+            user.setAva(rs.getString("avar")); // Đặt giá trị cho thuộc tính avatar
+            user.setName(rs.getString("fullname")); // Đặt giá trị cho thuộc tính name
+            
+            // Thiết lập đối tượng Account
+            Account account = new Account();
+            account.setId(accountId); 
+            user.setAccount(account);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return user;
+}
+          public void deleteFromCart(int userId, int productDetailId) {
+        String query = "DELETE FROM CartDetail WHERE customerid = ? AND productdetailid = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, productDetailId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

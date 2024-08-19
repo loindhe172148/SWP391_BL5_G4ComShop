@@ -65,7 +65,7 @@ public class DaoAccessory extends DBContext<Accessory> {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Brandname brandname = new Brandname(rs.getInt(1), rs.getString(2));
+               Brandname brandname = new Brandname(rs.getInt(1), rs.getString(2), rs.getString(3));
                 list.add(brandname);
             }
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class DaoAccessory extends DBContext<Accessory> {
     public List<Accessory> getFillterAccessory(String idBrandName) {
         List<Accessory> list = new ArrayList<>();
         String query = "SELECT * FROM [dbo].[Accessory] \n"
-                + "WHERE brandname = ?"; // Corrected the query format
+                + "WHERE idbrandname = ?"; // Corrected the query format
 
         try {
             ps = connection.prepareStatement(query);

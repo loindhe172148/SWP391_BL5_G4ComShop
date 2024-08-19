@@ -64,7 +64,7 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
         if (account != null && isAuthorized(account, servletPath)) {
             doPost(req, resp, account);
         } else {
-            resp.getWriter().println("access denied!");
+            resp.sendRedirect("/SWP391_BL5_G4ComShop/view/user/login.jsp");
         }
     }
 
@@ -77,7 +77,7 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
         if (account != null && isAuthorized(account, servletPath)) {
             doGet(req, resp, account);
         } else {
-            resp.getWriter().println("access denied!");
+            resp.sendRedirect("/SWP391_BL5_G4ComShop/view/user/login.jsp");
         }
     }
 }

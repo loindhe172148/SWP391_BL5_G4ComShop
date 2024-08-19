@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+
+    <!-- Các servlet định nghĩa -->
     <servlet>
         <servlet-name>AccessoryManagement</servlet-name>
         <servlet-class>controller.marketing.AccessoryManagement</servlet-class>
@@ -17,8 +19,8 @@
         <servlet-class>controller.marketing.AddAccessory</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AccessroryMaketing</servlet-name>
-        <servlet-class>controller.marketing.AccessroryMaketing</servlet-class>
+        <servlet-name>AccessoryMarketing</servlet-name>
+        <servlet-class>controller.marketing.AccessoryMarketing</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccessoryShowing</servlet-name>
@@ -41,8 +43,12 @@
         <servlet-class>controller.marketing.ProductListController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductList</servlet-name>
-        <servlet-class>controller.marketing.ProductListController</servlet-class>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>controller.user.ChangePasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPassword</servlet-name>
+        <servlet-class>controller.user.ResetPasswordController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProductDetailsController</servlet-name>
@@ -56,6 +62,64 @@
         <servlet-name>DashBoard</servlet-name>
         <servlet-class>controller.marketing.DashBoard</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccessoryBrandname</servlet-name>
+        <servlet-class>controller.marketing.AccessoryBrandname</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddBrandname</servlet-name>
+        <servlet-class>controller.marketing.AddBrandname</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteBrandname</servlet-name>
+        <servlet-class>controller.marketing.DeleteBrandname</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccessoryCpu</servlet-name>
+        <servlet-class>controller.marketing.AccessoryCpu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCPU</servlet-name>
+        <servlet-class>controller.marketing.AddCPU</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCPU</servlet-name>
+        <servlet-class>controller.marketing.DeleteCPU</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccessoryCard</servlet-name>
+        <servlet-class>controller.marketing.AccessoryCard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCard</servlet-name>
+        <servlet-class>controller.marketing.AddCard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCard</servlet-name>
+        <servlet-class>controller.marketing.DeleteCard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AccessoryRam</servlet-name>
+        <servlet-class>controller.marketing.AccessoryRam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddRam</servlet-name>
+        <servlet-class>controller.marketing.AddRam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteRam</servlet-name>
+        <servlet-class>controller.marketing.DeleteRam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProductHome</servlet-name>
+        <servlet-class>controller.marketing.ProductHome</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FillterProduct</servlet-name>
+        <servlet-class>controller.marketing.FillterProduct</servlet-class>
+    </servlet>
+
+    <!-- Các ánh xạ servlet -->
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
         <url-pattern>/marketing/accessory</url-pattern>
@@ -73,7 +137,7 @@
         <url-pattern>/marketing/add</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AccessroryMaketing</servlet-name>
+        <servlet-name>AccessoryMarketing</servlet-name>
         <url-pattern>/marketing/maketing</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -97,8 +161,12 @@
         <url-pattern>/ProductListController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductList</servlet-name>
-        <url-pattern>/marketing/productlist</url-pattern>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/user/changepass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/user/resetpass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDetailsController</servlet-name>
@@ -112,7 +180,61 @@
         <servlet-name>DashBoard</servlet-name>
         <url-pattern>/marketing/dashboard</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>view/home.jsp</welcome-file>
-    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>AccessoryBrandname</servlet-name>
+        <url-pattern>/marketing/brandname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddBrandname</servlet-name>
+        <url-pattern>/marketing/addBrandname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBrandname</servlet-name>
+        <url-pattern>/marketing/deleteBrandname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryCpu</servlet-name>
+        <url-pattern>/marketing/cpu</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCPU</servlet-name>
+        <url-pattern>/marketing/addCPU</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCPU</servlet-name>
+        <url-pattern>/marketing/deleteCPU</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryCard</servlet-name>
+        <url-pattern>/marketing/card</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCard</servlet-name>
+        <url-pattern>/marketing/addCard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCard</servlet-name>
+        <url-pattern>/marketing/deleteCard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessoryRam</servlet-name>
+        <url-pattern>/marketing/ram</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddRam</servlet-name>
+        <url-pattern>/marketing/addRam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteRam</servlet-name>
+        <url-pattern>/marketing/deleteRam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductHome</servlet-name>
+        <url-pattern>/marketing/producthome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FillterProduct</servlet-name>
+        <url-pattern>/marketing/fillter</url-pattern>
+    </servlet-mapping>
+
 </web-app>
