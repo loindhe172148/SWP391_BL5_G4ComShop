@@ -1,12 +1,13 @@
 package dal;
 
+import entity.CartDetail;
 import entity.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CartDao extends DBContext_1 {
+public class CartDao extends DBContext<CartDetail> {
 
     // Method to retrieve cart items for a specific user
    public Map<Integer, Map<Product, Double>> getCartItemsByUserId(int userId) {

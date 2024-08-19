@@ -62,6 +62,7 @@ public class LoginController extends HttpServlet {
         // Successful login
         HttpSession session = request.getSession();
         session.setAttribute("account", account);
+        session.setAttribute("username", username);
         session.setAttribute("userRole", account.getRole());
 
         // Set user information in session
