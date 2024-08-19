@@ -62,7 +62,7 @@ public class ProductDAO extends DBContext<Product> {
     // Linh
   public List<Product> getAllProduct() {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT p.*, pd.originprice, pd.saleprice \n" +
+    String sql = "SELECT p.*, pd.originprice, pd.saleprice,pd.id \n" +
 "                 FROM Product p \n" +
 "                 JOIN ProductDetail pd ON p.id = pd.productId";
 
@@ -82,6 +82,7 @@ public class ProductDAO extends DBContext<Product> {
             product.setStatus(rs.getString("status"));
             product.setOriginPrice(rs.getFloat("originprice"));
             product.setSalePrice(rs.getFloat("saleprice"));
+            product.setproductdetailID(rs.getInt(14));
             products.add(product);
         }
     } catch (SQLException ex) {
@@ -94,7 +95,7 @@ public class ProductDAO extends DBContext<Product> {
 
     public List<Product> getNewestProducts(int limit) {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT TOP (?) p.*, pd.originprice, pd.saleprice \n" +
+    String sql = "SELECT TOP (?) p.*, pd.originprice, pd.saleprice ,pd.id\n" +
 "                 FROM Product p\n" +
 "                 JOIN ProductDetail pd ON p.id = pd.productId \n" +
 "                 ORDER BY p.createdate DESC";
@@ -118,7 +119,7 @@ public class ProductDAO extends DBContext<Product> {
             product.setStatus(rs.getString("status"));
             product.setOriginPrice(rs.getFloat("originprice"));
             product.setSalePrice(rs.getFloat("saleprice"));
-            
+              product.setproductdetailID(rs.getInt(14));
 
             // You can add these to your Product class if needed
             // product.setOriginPrice(originPrice);
@@ -134,7 +135,7 @@ public class ProductDAO extends DBContext<Product> {
 
     public List<Product> getTopDiscountedProducts(int limit) {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT TOP (?) p.*, pd.originprice, pd.saleprice " +
+    String sql = "SELECT TOP (?) p.*, pd.originprice, pd.saleprice,pd.id " +
                  "FROM Product p " +
                  "JOIN ProductDetail pd ON p.id = pd.productId " +
                  "ORDER BY (pd.originprice - pd.saleprice) / pd.originprice DESC";
@@ -158,6 +159,7 @@ public class ProductDAO extends DBContext<Product> {
             product.setStatus(rs.getString("status"));
             product.setOriginPrice(rs.getFloat("originprice"));
             product.setSalePrice(rs.getFloat("saleprice"));
+              product.setproductdetailID(rs.getInt(14));
             products.add(product);
             // You can add these to your Product class if needed
             // product.setOriginPrice(originPrice);
@@ -173,7 +175,7 @@ public class ProductDAO extends DBContext<Product> {
 
     public List<Product> getFilterProducts(String idBrandName) {
     List<Product> products = new ArrayList<>();
-    String sql = "SELECT p.*, pd.originprice, pd.saleprice " +
+    String sql = "SELECT p.*, pd.originprice, pd.saleprice,pd.id " +
                  "FROM Product p " +
                  "JOIN ProductDetail pd ON p.id = pd.productId " +
                  "WHERE p.brandId = (?)"; // Đảm bảo rằng tên cột trong cơ sở dữ liệu và tên trong SQL khớp
@@ -197,7 +199,7 @@ public class ProductDAO extends DBContext<Product> {
             product.setStatus(rs.getString("status"));
             product.setOriginPrice(rs.getFloat("originprice"));
             product.setSalePrice(rs.getFloat("saleprice"));
-
+             product.setproductdetailID(rs.getInt(14));
             products.add(product);
         }
     } catch (SQLException ex) {

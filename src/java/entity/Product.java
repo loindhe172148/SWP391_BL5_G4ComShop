@@ -18,7 +18,7 @@ public class Product {
     private String status;
     private float originPrice;
    private float salePrice;
-
+   private int productdetailID ; 
 // Getters and setters for these fields
 
     public float getOriginPrice() {
@@ -37,6 +37,14 @@ public class Product {
         this.salePrice = salePrice;
     }
 
+    public int getproductdetailID() {
+        return productdetailID;
+    }
+
+    public void setproductdetailID(int productdetailID) {
+        this.productdetailID = productdetailID;
+    }
+    
 
     public Product() {
     }
