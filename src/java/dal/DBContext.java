@@ -17,7 +17,7 @@ public abstract class DBContext<T> {
 
     public DBContext() {
         try {
-           String user = "linh";
+           String user = "sa";
             String pass = "123456";
 
             String url = "jdbc:sqlserver://localhost:1433;databaseName=G4COMShop;encrypt=true;trustServerCertificate=true;";

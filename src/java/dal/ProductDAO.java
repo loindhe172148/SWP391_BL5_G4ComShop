@@ -23,8 +23,6 @@ public class ProductDAO extends DBContext<Product> {
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
             product.setQuantity(rs.getInt("quantity"));
-            product.setOriginPrice(rs.getFloat("originprice"));
-            product.setSalePrice(rs.getFloat("saleprice"));
             product.setCategoryId(rs.getInt("categoryid"));
             product.setBrandId(rs.getInt("brandid"));
             product.setScreenSize(rs.getFloat("screensize"));
@@ -54,8 +52,6 @@ public class ProductDAO extends DBContext<Product> {
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
             product.setQuantity(rs.getInt("quantity"));
-            product.setOriginPrice(rs.getFloat("originprice"));
-            product.setSalePrice(rs.getFloat("saleprice"));
             product.setCategoryId(rs.getInt("categoryid"));
             product.setBrandId(rs.getInt("brandid"));
             product.setScreenSize(rs.getFloat("screensize"));
@@ -84,8 +80,6 @@ public class ProductDAO extends DBContext<Product> {
                 product.setDescription(rs.getString("description"));
                 product.setImage(rs.getString("image"));
                 product.setQuantity(rs.getInt("quantity"));
-                product.setOriginPrice(rs.getFloat("originprice"));
-                product.setSalePrice(rs.getFloat("saleprice"));
                 product.setCategoryId(rs.getInt("categoryid"));
                 product.setBrandId(rs.getInt("brandid"));
                 product.setScreenSize(rs.getFloat("screensize"));
@@ -116,8 +110,6 @@ public class ProductDAO extends DBContext<Product> {
             product.setDescription(rs.getString("description"));
             product.setImage(rs.getString("image"));
             product.setQuantity(rs.getInt("quantity"));
-            product.setOriginPrice(rs.getFloat("originprice"));
-            product.setSalePrice(rs.getFloat("saleprice"));
             product.setCategoryId(rs.getInt("categoryid"));
             product.setBrandId(rs.getInt("brandid"));
             product.setScreenSize(rs.getFloat("screensize"));
