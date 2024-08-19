@@ -260,25 +260,31 @@
                 <div class="row">
                     <!-- ASIDE -->
                     <div id="aside" class="col-md-3">
-                        <!-- aside Widget -->
-                        <div class="aside">
-                            <h3 class="aside-title">Categories</h3>
-                            <div class="checkbox-filter">
-                                  <c:forEach var="o" items="${listC}">
-                                    <div class="input-checkbox">
-                                        <!-- Ensure unique IDs for each checkbox -->
-                                        <input type="checkbox" id="brand-${o.id}" name="category" >
-                                        <label for="brand-${o.id}"value="name?id=${o.id}">
-                                            <span></span>
-                                            ${o.name}
-                                        </label>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-                        <!-- /aside Widget -->
+                        <form action="fillterProduct" method="POST" id="filter-form">
+    <div class="aside">
+        <h3 class="aside-title">Brand</h3>
+        <div class="checkbox-filter">
+            <c:forEach var="o" items="${listB}">
+                <div class="input-checkbox">
+                    <input type="checkbox" id="brand-${o.idBrandName}" name="idBrandName" value="${o.idBrandName}" onchange="submitForm()">
+                    <label for="brand-${o.idBrandName}">
+                        <span></span>
+                        ${o.brandName}
+                    </label>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+</form>
+
+<script>
+    function submitForm() {
+        document.getElementById('filter-form').submit();
+    }
+</script>
 
                         <!-- aside Widget -->
+                      
                         <div class="aside">
                             <h3 class="aside-title">Price</h3>
                             <div class="price-filter">
@@ -298,24 +304,6 @@
                         </div>
                         <!-- /aside Widget -->
 
-                        <!-- aside Widget -->
-                        <div class="aside">
-                            <h3 class="aside-title">Brand</h3>
-                            <div class="checkbox-filter">
-                                  <c:forEach var="o" items="${listB}">
-                                    <div class="input-checkbox">
-                                        <!-- Ensure unique IDs for each checkbox -->
-                                        <input type="checkbox" value=Bandname?idBrandName=${o.idBrandName}">
-                                        <label for="brand-${o.idBrandName}">
-                                            <span></span>
-                                            ${o.brandName}
-                                        </label>
-                                    </div>
-                                </c:forEach>
-                            </div>
-                        </div>
-
-                        <!-- /aside Widget -->
 
                         <!-- aside Widget -->
                         <div class="aside">

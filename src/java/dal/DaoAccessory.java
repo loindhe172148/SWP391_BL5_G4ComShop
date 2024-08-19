@@ -92,7 +92,7 @@ public class DaoAccessory extends DBContext<Accessory> {
     public List<Accessory> getFillterAccessory(String idBrandName) {
         List<Accessory> list = new ArrayList<>();
         String query = "SELECT * FROM [dbo].[Accessory] \n"
-                + "WHERE brandname = ?"; // Corrected the query format
+                + "WHERE idbrandname = ?"; // Corrected the query format
 
         try {
             ps = connection.prepareStatement(query);

@@ -96,6 +96,10 @@
         <servlet-name>ProductHome</servlet-name>
         <servlet-class>controller.marketing.ProductHome</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FillterProduct</servlet-name>
+        <servlet-class>controller.marketing.FillterProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AccessoryManagement</servlet-name>
         <url-pattern>/marketing/accessory</url-pattern>
@@ -190,7 +194,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductHome</servlet-name>
-        <url-pattern>/marketing/productHome</url-pattern>
+        <url-pattern>/productHome</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FillterProduct</servlet-name>
+        <url-pattern>/fillterProduct</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>view/home.jsp</welcome-file>

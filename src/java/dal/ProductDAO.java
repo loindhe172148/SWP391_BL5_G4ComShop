@@ -156,12 +156,12 @@ public class ProductDAO extends DBContext<ProductJoinDetail> {
     }
     return products;
 }
-    public List<Product> getFilterProducts(int limit) {
+    public List<Product> getFilterProducts(String idBrandName) {
     List<Product> products = new ArrayList<>();
     String sql = "SELECT * FROM [dbo].[Product] WHERE brandid = 1";
 
     try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setInt(1, limit);
+        ps.setString(1, idBrandName);
         ResultSet rs = ps.executeQuery();
         
         while (rs.next()) {
@@ -187,6 +187,10 @@ public class ProductDAO extends DBContext<ProductJoinDetail> {
     }
     return products;
 }
+    
+    
+    
+     
 
 
 
