@@ -68,11 +68,11 @@ public class LoginController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/productHomeAccount?id=" + account.getId());
                 break;
             case "marketing":
-                response.sendRedirect(request.getContextPath() + "/marketingDashboard.jsp?id=" + account.getId());
+                response.sendRedirect(request.getContextPath() + "/marketing/dashboard?id=" + account.getId());
                 break;
             case "admin":
+                break;
             case "sale":
-                response.sendRedirect(request.getContextPath() + "/adminDashboard.jsp?id=" + account.getId());
                 break;
             default:
                 session.invalidate();

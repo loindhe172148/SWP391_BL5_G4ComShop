@@ -80,11 +80,11 @@
                                                 <th><a href="productlist?sortColumn=id&sortOrder=${sortColumn == 'id' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">ID</a></th>
                                                 <th><a href="productlist?sortColumn=name&sortOrder=${sortColumn == 'name' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Name</a></th>
                                                 <th>Image</th>
-                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Description</a></th>
-                                                <th><a href="productlist?sortColumn=originPrice&sortOrder=${sortColumn == 'originPrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Origin Price</a></th>
-                                                <th><a href="productlist?sortColumn=salePrice&sortOrder=${sortColumn == 'salePrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Sale Price</a></th>
-                                                <th><a href="productlist?sortColumn=quantity&sortOrder=${sortColumn == 'quantity' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Quantity</a></th>
-                                                <th><a href="productlist?sortColumn=status&sortOrder=${sortColumn == 'status' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Status</a></th>
+                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Description</a></th>
+                                                <th><a href="productlist?sortColumn=originPrice&sortOrder=${sortColumn == 'originPrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Origin Price</a></th>
+                                                <th><a href="productlist?sortColumn=salePrice&sortOrder=${sortColumn == 'salePrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Sale Price</a></th>
+                                                <th><a href="productlist?sortColumn=quantity&sortOrder=${sortColumn == 'quantity' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Quantity</a></th>
+                                                <th><a href="productlist?sortColumn=status&sortOrder=${sortColumn == 'status' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Status</a></th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -94,8 +94,8 @@
                                                     <td><c:out value="${product.productDetails.id}"/></td>
                                                     <td><c:out value="${product.product.name}"/></td>
                                                     <td><img src="${product.product.image}" alt="Image" width="100"/></td>
-                                                    <td>
-                                                        ${product.product.description}
+                                                    <td style="max-width: 1000px; max-height: 4.5em; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
+                                                        <c:out value="${product.product.description}" escapeXml="false"/>
                                                     </td>
                                                     <td><c:out value="${product.productDetails.originPrice}"/></td>
                                                     <td><c:out value="${product.productDetails.salePrice}"/></td>
@@ -107,6 +107,7 @@
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
+
                                     </table>
 
                                     <!-- Pagination -->
