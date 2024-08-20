@@ -81,9 +81,6 @@ public class ProductDAO extends DBContext<Product> {
     public int getHidingProductCount(LocalDate startDate, LocalDate endDate) {
         return getProductCount("Hiding", startDate, endDate);
     }
-    public void addProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     // Linh
     public List<Product> getAllProduct() {

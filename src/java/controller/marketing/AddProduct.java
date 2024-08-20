@@ -42,7 +42,7 @@ public class AddProduct extends HttpServlet {
 
             if (addAction == null) {
                 // Load danh sách category và brand để đổ vào form
-                loadFormData(request);
+                loadFormData(request, response);
 
                 // Chuyển tiếp đến trang thêm sản phẩm
                 request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
@@ -72,7 +72,7 @@ public class AddProduct extends HttpServlet {
 
                 if (!errors.isEmpty()) {
                     // Nếu có lỗi, gửi lỗi và dữ liệu đã nhập lại về trang thêm sản phẩm
-                    loadFormData(request);
+                    loadFormData(request, response);
                     request.setAttribute("error", errors);
                     setFormAttributes(request, name, description, statusStr, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, categoryIdStr, cpuIdStr, cardIdStr, ramIdStr, typeIdStr);
 
@@ -109,7 +109,7 @@ public class AddProduct extends HttpServlet {
                     productDAO.addProduct(product);
 
                     // Load lại dữ liệu để gửi về form
-                    loadFormData(request);
+                    loadFormData(request, response);
                     setFormAttributes(request, name, description, statusStr, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, categoryIdStr, cpuIdStr, cardIdStr, ramIdStr, typeIdStr);
 
                     // Success message
@@ -120,7 +120,7 @@ public class AddProduct extends HttpServlet {
         }
     }
 
-    private void loadFormData(HttpServletRequest request) throws SQLException {
+    private void loadFormData(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         CPUDAO cpuDAO = new CPUDAO();
         List<CPU> cpuList = cpuDAO.getAllCPU();
         request.setAttribute("cpuList", cpuList);
