@@ -1,9 +1,3 @@
-<%-- 
-    Document   : ProductHome
-    Created on : Aug 18, 2024, 10:52:29 AM
-    Author     : LENOVO
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -14,67 +8,307 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-        <title>Electro - HTML Ecommerce Template</title>
-
+        <title>G4COMShop</title>
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
         <!-- Bootstrap -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/bootstrap.min.css"/>
-
         <!-- Slick -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/slick.css"/>
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/slick-theme.css"/>
-
         <!-- nouislider -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/nouislider.min.css"/>
-
         <!-- Font Awesome Icon -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/font-awesome.min.css">
-
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/style.css"/>
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
     </head>
-    <body>
-        <!-- HEADER -->
-        <header>
-            <!-- TOP HEADER -->
-            <div id="top-header">
-                <div class="container">
-                    <ul class="header-links pull-left">
-                        <li><a href="#"><i class="fa fa-phone"></i> 0333222454</a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i>G4COMShop@gmail.com</a></li>
-                        <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
-                    </ul>
-                    <ul class="header-links pull-right">
-                        <li><a href="login"><i class="fa fa-sign-in"></i> Login</a></li>
-                        <li><a href="signup"><i class="fa fa-user-plus"></i> Signup</a></li>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        .modal-content h2 {
+            margin-bottom: 20px;
+        }
+        .modal-content input[type="text"],
+        .modal-content input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .modal-content input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        .modal-content input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .modal-content input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+        /* Base styles for the modal container */
+        .signup-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-                    </ul>
+        /* Styles for the modal content */
+        .signup-modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px; /* Adjust this value as needed */
+            box-sizing: border-box;
+            overflow: hidden; /* Hide overflow to ensure the content fits */
+        }
+
+        /* Modal heading */
+        .signup-modal-content h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Form styles */
+        .signup-modal-content .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .signup-modal-content .form-group label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .signup-modal-content .form-group input,
+        .signup-modal-content .form-group select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .signup-modal-content input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .signup-modal-content input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Message styles */
+        .signup-modal-content .error-message,
+        .signup-modal-content .success-message {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .signup-modal-content .error-message {
+            color: red;
+        }
+
+        .signup-modal-content .success-message {
+            color: green;
+        }
+
+        /* Responsive design adjustments */
+        @media (min-width: 768px) {
+            .signup-modal-content .form-group {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .signup-modal-content .form-group label {
+                width: 30%;
+                margin-bottom: 0;
+                text-align: right;
+                padding-right: 10px;
+            }
+
+            .signup-modal-content .form-group input,
+            .signup-modal-content .form-group select {
+                width: 70%;
+            }
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var loginModal = document.getElementById("loginModal");
+            var signupModal = document.getElementById("signupModal");
+            var loginLink = document.getElementById("loginLink");
+            var signupLink = document.getElementById("signupLink");
+
+            loginLink.onclick = function (event) {
+                event.preventDefault();
+                loginModal.style.display = "flex";
+            };
+
+            signupLink.onclick = function (event) {
+                event.preventDefault();
+                signupModal.style.display = "flex";
+            };
+
+            window.onclick = function (event) {
+                if (event.target === loginModal) {
+                    loginModal.style.display = "none";
+                }
+                if (event.target === signupModal) {
+                    signupModal.style.display = "none";
+                }
+            };
+        };
+    </script>
+    <body>
+        <div style="display: none" id="loginModal" class="modal">
+            <div class="modal-content">
+                <form action="/SWP391_BL5_G4ComShop/login" method="post">
+                    <c:if test="${not empty error}">
+                        <div class="error-message">${error}</div>
+                    </c:if>
+
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="${username}" required>
+
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <label>
+                        <input type="checkbox" name="rememberMe" ${rememberMe == 'on' ? 'checked' : ''}> Remember me
+                    </label>
+
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+        <div style="display: none;" id="signupModal" class="signup-modal">
+            <div class="signup-modal-content">
+                <form action="signup" method="post">
+                    <c:if test="${not empty err}">
+                        <div class="error-message">${err}</div>
+                    </c:if>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" value="${username}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="pass" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmpassword">Confirm Password:</label>
+                        <input type="password" id="confirmpassword" name="confirmpassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" value="${fullname}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="${email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" value="${phone}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="add" value="${address}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" value="${dob}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" name="gender" required>
+                            <option value="1" <c:if test="${gender == 1}">selected</c:if>>Male</option>
+                            <option value="0" <c:if test="${gender == 0}">selected</c:if>>Female</option>
+                            <option value="2" <c:if test="${gender == 2}">selected</c:if>>Other</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="role" value="user"/>
+                        <input type="submit" value="Sign Up">
+                    </form>
                 </div>
             </div>
-            <!-- /TOP HEADER -->
+            <!-- HEADER -->
+            <header>
+                <!-- TOP HEADER -->
+                <div id="top-header">
+                    <div class="container">
+                        <ul class="header-links pull-left">
+                            <li><a href="#"><i class="fa fa-phone"></i> 0333222454</a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>G4COMShop@gmail.com</a></li>
+                            <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
+                        </ul>
+                        <ul class="header-links pull-right">
+                            <li><a href="#" id="loginLink"><i class="fa fa-sign-in"></i> Login</a></li>
+                            <li><a href="#" id="signupLink"><i class="fa fa-user-plus"></i> Signup</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /TOP HEADER -->
 
-            <!-- MAIN HEADER -->
-            <div id="header">
-                <!-- container -->
-                <div class="container">
-                    <!-- row -->
-                    <div class="row">
-                        <!-- LOGO -->
-                        <div class="col-md-3">
-                            <div class="header-logo">
-                                <a href="#" class="logo">
-                                    <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
+                <!-- MAIN HEADER -->
+                <div id="header">
+                    <!-- container -->
+                    <div class="container">
+                        <!-- row -->
+                        <div class="row">
+                            <!-- LOGO -->
+                            <div class="col-md-3">
+                                <div class="header-logo">
+                                    <a href="#" class="logo">
+                                        <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -405,14 +639,12 @@
             </div>
             <!-- /container -->
             <!-- /SECTION -->
-
             <!-- SECTION -->
             <div class="section">
                 <!-- container -->
                 <div class="container">
                     <!-- row -->
                     <div class="row">
-
                         <!-- section title -->
                         <div class="col-md-12">
                             <div class="section-title">
@@ -426,7 +658,6 @@
                             </div>
                         </div>
                         <!-- /section title -->
-
                         <!-- Products tab & slick -->
                         <div class="col-md-12">
                             <div class="row">
@@ -444,7 +675,6 @@
                                                                 - <fmt:formatNumber value="${(o.originPrice - o.salePrice) / o.originPrice * 100}" type="number" maxFractionDigits="0"/>%
                                                             </span>
                                                         </div>
-
                                                     </div>
                                                     <div class="product-body">
                                                         <p class="product-category">${o.title}</p>
@@ -455,10 +685,7 @@
                                                     </div>
                                                 </div>
                                             </c:forEach>
-
                                             <!-- /product -->
-
-
                                         </div>
                                         <div id="slick-nav-2" class="products-slick-nav"></div>
                                     </div>
@@ -473,9 +700,6 @@
                 <!-- /container -->
             </div>
             <!-- /SECTION -->
-
-
-
             <!-- NEWSLETTER -->
             <div id="newsletter" class="section">
                 <!-- container -->
@@ -615,8 +839,5 @@
             <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
             <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
             <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
-
     </body>
 </html>
-
-
