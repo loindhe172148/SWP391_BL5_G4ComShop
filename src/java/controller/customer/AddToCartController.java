@@ -12,14 +12,12 @@ import entity.CPU;
 import entity.Card;
 import entity.ProductWithDetails;
 import entity.RAM;
-import entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 public class AddToCartController extends HttpServlet {
@@ -45,7 +43,6 @@ public class AddToCartController extends HttpServlet {
             if (quantity <= 0 || quantity > totalquantity) {
                 request.setAttribute("errorMessage", "Invalid quantity must > 0 and <= total quantity in stock.");
             } else {
-                System.out.println("cuss id = " + account);
                 if (account != null) {
                     int customerId = account.getId();
                     boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, customerId);
