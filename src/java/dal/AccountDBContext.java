@@ -14,9 +14,7 @@ import java.util.ArrayList;
  *
  * @author HP
  */
-
 public class AccountDBContext extends DBContext<Account> {
-
 
     public ArrayList<Account> listAll() {
         ArrayList<Account> accounts = new ArrayList<>();
@@ -42,12 +40,9 @@ public class AccountDBContext extends DBContext<Account> {
 
             String sql = "INSERT INTO Account (username, pass, role) VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(2, entity.getUsername());
-            ps.setString(3, entity.getPassword());
-            ps.setString(4, entity.getRole());
-
-
-
+            ps.setString(1, entity.getUsername());
+            ps.setString(2, entity.getPassword());
+            ps.setString(3, entity.getRole());
             ps.executeUpdate();
         } catch (SQLException e) {
         }
@@ -65,7 +60,6 @@ public class AccountDBContext extends DBContext<Account> {
         } catch (SQLException e) {
         }
     }
-
 
     public void delete(Account entity) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -155,18 +149,18 @@ public class AccountDBContext extends DBContext<Account> {
         }
     }
 
-    public String getPassbyUsername(String username){
-        String pass = "";   
+    public String getPassbyUsername(String username) {
+        String pass = "";
         String sql = "SELECT [pass] from Account WHERE username = ?";
-        try{
+        try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 pass = rs.getString("pass");
             }
-        }catch(SQLException e){
-            
+        } catch (SQLException e) {
+
         }
         return pass;
     }

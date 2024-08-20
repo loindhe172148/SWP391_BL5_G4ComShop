@@ -56,15 +56,39 @@
                         <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
                     </ul>
                     <ul class="header-links pull-right">
-                         <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
-    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-   
+                        <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user-o"></i> My Account <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">View profile</a></li>
+                                <li><a href="./user/changepass">Change Pass</a></li>
+                                <li><a href="./user/resetpass">Reset Pass</a></li>
+                            </ul>
+                        </li>
+
 
                     </ul>
                 </div>
             </div>
             <!-- /TOP HEADER -->
+            <style>
+                .dropdown-menu {
+                    min-width: 160px;
+                    background: black;
+                }
 
+                .dropdown-menu li a {
+                    padding: 10px 20px;
+                    display: block;
+                }
+
+                .dropdown-menu li a:hover {
+                    background-color: #f8f9fa;
+                    color: #343a40;
+                }
+            </style>
             <!-- MAIN HEADER -->
             <div id="header">
                 <!-- container -->
@@ -134,7 +158,7 @@
                     <ul class="main-nav nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#new-product">New Laptops</a></li>
-                       
+
                         <li><a href="#product-list">Laptops</a></li>
                         <li><a href="#product-sale">Top Sale Laptops</a></li>
                     </ul>

@@ -1,6 +1,5 @@
 package controller.user;
 
-
 import dal.AccountDBContext;
 import dal.UserDBContext;
 import entity.Account;
@@ -11,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class VerifyAccount extends HttpServlet {
+
     private Map<String, String> verificationCodes;
 
     /**
@@ -58,14 +59,16 @@ public class VerifyAccount extends HttpServlet {
 
             String dobString = request.getParameter("dob");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            
+
             java.util.Date utilDate = dateFormat.parse(dobString);
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            
+
             String address = request.getParameter("address");
             String fullname = request.getParameter("fullname");
             String status = "Active";
             String ava = "";
+            java.util.Date utilDate1 = Calendar.getInstance().getTime();
+            java.sql.Date sqlDate1 = new java.sql.Date(utilDate.getTime());
             // Validate the verification code
             String expectedCode = verificationCodes.get(email);
             if (expectedCode != null && expectedCode.equals(code)) {
@@ -78,17 +81,15 @@ public class VerifyAccount extends HttpServlet {
                 newAcc.setPassword(password);
                 newAcc.setRole(role);
                 acc.insert(newAcc);
-                
+
                 int accid = acc.getAccountIDByUsername(username);
                 UserDBContext user = new UserDBContext();
-                user.insert(accid, email, address, gender, phone, sqlDate, status, ava, fullname);
+                user.insert(accid, email, address, gender, phone, sqlDate, status, ava, fullname, sqlDate1);
+                request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
             } else {
-                // Verification failed
                 request.setAttribute("err", "Invalid verification code. Please try again.");
+                request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
             }
-
-            // Forward to the result page
-            request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
         } catch (ParseException ex) {
             Logger.getLogger(VerifyAccount.class.getName()).log(Level.SEVERE, null, ex);
         }
