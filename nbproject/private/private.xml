@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/CartContactController.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/web/view/marketing/AddProduct.jsp</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/CartController.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/dal/CartDao.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/web/view/user/cartContact.jsp</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/util/EmailUtils.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/entity/Product.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/src/java/controller/user/SubmitOrder.java</file>
-            <file>file:/D:/PRJ301/SWP391_BL5_G4ComShop/web/view/user/cart.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/RAM.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/marketing/ecommerceProductsAccessory.jsp</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/Card.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/CPU.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/ProductWithDetailsDAO.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/RAMDAO.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/AccessoryRam.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/ProductWithDetails.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/DBContext.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/DaoAccessory.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/ProductDAO.java</file>
-            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/HomeController.java</file>
-        </group>
         <group>
             <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/controller/customer/AddToCartController.java</file>
             <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/controller/marketing/redirect.java</file>
@@ -35,5 +12,6 @@
             <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/dal/ProductWithDetailsDAO.java</file>
             <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/web/view/customer/ProductDetails.jsp</file>
         </group>
+        <group/>
     </open-files>
 </project-private>
