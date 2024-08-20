@@ -77,7 +77,6 @@
             <label for="passconfirm">Enter Passcode:</label>
             <input type="text" id="passconfirm" name="code" required><br>
             
-            <!-- Hidden fields to pass data -->
             <input type="hidden" name="email" value="${email}">
             <input type="hidden" name="username" value="${username}">
             <input type="hidden" name="password" value="${password}">

@@ -233,54 +233,22 @@
 
         <!-- SECTION -->
         <div id="product-list" class="section">
-            <!-- container -->
             <div class="container">
-                <!-- row -->
                 <div class="row">
-                    <!-- ASIDE -->
                     <div id="aside" class="col-md-3">
-                        <div class="store-filter clearfix">
-                            <div class="store-sort">
-                                <form action="fillterProduct" method="get">
-                                    <label>
-                                        Sort By:
-                                        <select class="input-select" name="idBrandName" onchange="this.form.submit()">
-                                            <c:forEach items="${listB}" var="o"> 
-                                                <option value="${o.idBrandName}"
-                                                        <c:if test="${o.idBrandName == param.idBrandName}">
-                                                            selected="selected"
-                                                        </c:if>
-                                                        >
-                                                    ${o.brandName}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </label>
-                                </form>
-
-                            </div>
-                        </div>
-
-                        <!-- aside Widget -->
-                        <div class="aside">
-                            <h3 class="aside-title">Price</h3>
-                            <div class="price-filter">
-                                <div id="price-slider"></div>
-                                <div class="input-number price-min">
-                                    <input id="price-min" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                                <span>-</span>
-                                <div class="input-number price-max">
-                                    <input id="price-max" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /aside Widget -->
-                        <!-- aside Widget -->
+                        <form action="fillterProduct" method="get">
+                            <label class="input-select" name="idBrandName" onchange="this.form.submit()">
+                                <c:forEach items="${listB}" var="o"> 
+                                    <option value="${o.idBrandName}"
+                                            <c:if test="${o.idBrandName == param.idBrandName}">
+                                                selected="selected"
+                                            </c:if>
+                                            >
+                                        ${o.brandName}
+                                    </option>
+                                </c:forEach>
+                            </label>
+                        </form>
                         <div class="aside">
                             <h3 class="aside-title">Top selling</h3>
                             <c:forEach var="o" items="${topDiscountedProductsa}" >
@@ -315,30 +283,7 @@
                             </form>
                         </div>
                     </div>
-                    <!-- STORE -->
                     <div id="store" class="col-md-9">
-                        <!-- store top filter -->
-                        <div class="store-filter clearfix">
-                            <div class="store-sort">
-                                <label>
-                                    Sort By:
-                                    <select class="input-select">
-                                        <option value="0">Popular</option>
-                                        <option value="1">Position</option>
-                                    </select>
-                                </label>
-                                <label>
-                                    Show:
-                                </label>
-                            </div>
-                            <ul class="store-grid">
-                                <li class="active"><i class="fa fa-th"></i></li>
-                                <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- /store top filter -->
-
-                        <!-- store products -->
                         <div class="row">
                             <c:forEach var="product" items="${productList}">
                                 <div class="col-md-4 col-xs-6">
@@ -353,7 +298,6 @@
                                                 ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
                                             </h4>
                                             <div class="product-rating">
-                                                <!-- Product rating stars -->
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
@@ -363,33 +307,12 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="store-filter clearfix">
-                            <span class="store-qty">Showing 20-100 products</span>
-                            <ul class="store-pagination">
-                                <li class="active">1</li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- /store products -->
                     </div>
-                    <!-- /STORE -->
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
-            <!-- /SECTION -->
-
-            <!-- SECTION -->
             <div id ="product-sale"class="section">
-                <!-- container -->
                 <div class="container">
-                    <!-- row -->
                     <div class="row">
-
-                        <!-- section title -->
                         <div class="col-md-12">
                             <div class="section-title">
                                 <h3 class="title">Top selling</h3>
@@ -401,16 +324,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /section title -->
-
-                        <!-- Products tab & slick -->
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="products-tabs">
                                     <!-- tab -->
                                     <div id="tab2" class="tab-pane fade in active">
                                         <div class="products-slick" data-nav="#slick-nav-2">
-                                            <!-- product -->
                                             <c:forEach var="o" items="${topDiscountedProducts}">
                                                 <div class="product">
                                                     <div class="product-img">

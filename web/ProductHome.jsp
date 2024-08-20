@@ -139,11 +139,6 @@
                 <div class="col-md-12">
                     <div class="section-title">
                         <h3 class="title">New Laptops</h3>
-                        <div class="section-nav">
-                            <ul class="section-tab-nav tab-nav">
-                                <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -187,61 +182,20 @@
             <div class="row">
                 <h3 class="title">All Laptops</h3>
                 <div id="aside" class="col-md-3">
-                    <div class="store-filter clearfix">
+                    <div style="display:grid; width: 50px" class="store-filter clearfix">
                         <div class="store-sort">
                             <form action="fillterProduct" method="get">
-                                <label>
-                                    Sort By:
-                                    <select class="input-select" name="idBrandName" onchange="this.form.submit()">
-                                        <c:forEach items="${listB}" var="o"> 
-                                            <option value="${o.idBrandName}"
-                                                    <c:if test="${o.idBrandName == param.idBrandName}">
-                                                        selected="selected"
-                                                    </c:if>
-                                                    >
-                                                ${o.brandName}
-                                            </option>
-                                        </c:forEach>
-                                    </select>
-                                </label>
+                                <label>Acer</label>
+                                <label>Hp</label>
+                                <label>text</label>
+                                <label>text</label>
+                                <label>text</label>
+                                <label>text</label>
+                                <label>text</label>
+                                <label>text</label>
+                                <label>text</label>
                             </form>
-
                         </div>
-                    </div>
-                    <div class="aside">
-                        <h3 class="aside-title">Price</h3>
-                        <div class="price-filter">
-                            <div id="price-slider"></div>
-                            <div class="input-number price-min">
-                                <input id="price-min" type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                            <span>-</span>
-                            <div class="input-number price-max">
-                                <input id="price-max" type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="aside">
-                        <h3 class="aside-title">Top Salers</h3>
-                        <c:forEach var="o" items="${topDiscountedProductsa}" >
-                            <div class="product-widget">
-                                <div class="product-img">
-                                    <img src="${o.image}" alt="${o.name}" width="125" height="100">
-                                </div>
-                                <div class="product-body">
-                                    <p class="product-category">${o.title}</p>
-                                    <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
-                                    <h4 class="product-price">                                        
-
-                                        ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
-                                    </h4>
-                                </div>
-                            </div>
-                        </c:forEach>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -258,24 +212,6 @@
                     </div>
                 </div>
                 <div id="store" class="col-md-9">
-                    <div class="store-filter clearfix">
-                        <div class="store-sort">
-                            <label>
-                                Sort By:
-                                <select class="input-select">
-                                    <option value="0">Popular</option>
-                                    <option value="1">Position</option>
-                                </select>
-                            </label>
-                            <label>
-                                Show:
-                            </label>
-                        </div>
-                        <ul class="store-grid">
-                            <li class="active"><i class="fa fa-th"></i></li>
-                            <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-                        </ul>
-                    </div>
                     <div class="row">
                         <c:forEach var="product" items="${productList}">
                             <div class="col-md-4 col-xs-6">
@@ -318,12 +254,6 @@
                     <div class="col-md-12">
                         <div class="section-title">
                             <h3 class="title">Top selling</h3>
-                            <div class="section-nav">
-                                <ul class="section-tab-nav tab-nav">
-                                    <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
-
-                                </ul>
-                            </div>
                         </div>
                     </div>
                     <div class="col-md-12">
