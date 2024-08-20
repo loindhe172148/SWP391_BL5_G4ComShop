@@ -25,214 +25,37 @@
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/style.css"/>
     </head>
-    <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        .modal-content h2 {
-            margin-bottom: 20px;
-        }
-        .modal-content input[type="text"],
-        .modal-content input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .modal-content input[type="checkbox"] {
-            margin-right: 5px;
-        }
-        .modal-content input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .modal-content input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .error-message {
-            color: red;
-            margin-bottom: 10px;
-        }
-        /* Base styles for the modal container */
-        .signup-modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Styles for the modal content */
-        .signup-modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px; /* Adjust this value as needed */
-            box-sizing: border-box;
-            overflow: hidden; /* Hide overflow to ensure the content fits */
-        }
-
-        /* Modal heading */
-        .signup-modal-content h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        /* Form styles */
-        .signup-modal-content .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
-        }
-
-        .signup-modal-content .form-group label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .signup-modal-content .form-group input,
-        .signup-modal-content .form-group select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .signup-modal-content input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        .signup-modal-content input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        /* Message styles */
-        .signup-modal-content .error-message,
-        .signup-modal-content .success-message {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .signup-modal-content .error-message {
-            color: red;
-        }
-
-        .signup-modal-content .success-message {
-            color: green;
-        }
-
-        /* Responsive design adjustments */
-        @media (min-width: 768px) {
-            .signup-modal-content .form-group {
-                flex-direction: row;
-                align-items: center;
-            }
-
-            .signup-modal-content .form-group label {
-                width: 30%;
-                margin-bottom: 0;
-                text-align: right;
-                padding-right: 10px;
-            }
-
-            .signup-modal-content .form-group input,
-            .signup-modal-content .form-group select {
-                width: 70%;
-            }
-        }
-    </style>
-    <script>
-        window.onload = function () {
-            var loginModal = document.getElementById("loginModal");
-            var signupModal = document.getElementById("signupModal");
-            var loginLink = document.getElementById("loginLink");
-            var signupLink = document.getElementById("signupLink");
-
-            loginLink.onclick = function (event) {
-                event.preventDefault();
-                loginModal.style.display = "flex";
-            };
-
-            signupLink.onclick = function (event) {
-                event.preventDefault();
-                signupModal.style.display = "flex";
-            };
-
-            window.onclick = function (event) {
-                if (event.target === loginModal) {
-                    loginModal.style.display = "none";
-                }
-                if (event.target === signupModal) {
-                    signupModal.style.display = "none";
-                }
-            };
-        };
-    </script>
     <body>
-        <div style="display: none" id="loginModal" class="modal">
+        <div id="loginModal" class="modal">
             <div class="modal-content">
+                <span class="close" onclick="closeModal('loginModal')">&times;</span>
                 <form action="/SWP391_BL5_G4ComShop/login" method="post">
                     <c:if test="${not empty error}">
                         <div class="error-message">${error}</div>
                     </c:if>
 
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" value="${username}" required>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" value="${username}" required>
+                    </div>
 
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
 
-                    <label>
-                        <input type="checkbox" name="rememberMe" ${rememberMe == 'on' ? 'checked' : ''}> Remember me
-                    </label>
+                    <div class="form-group" style="flex-direction: row; align-items: center;">
+                        <input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe == 'on' ? 'checked' : ''}>
+                        <label for="rememberMe">Remember me</label>
+                    </div>
 
                     <input type="submit" value="Login">
                 </form>
             </div>
         </div>
-        <div style="display: none;" id="signupModal" class="signup-modal">
-            <div class="signup-modal-content">
+        <div id="signupModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('signupModal')">&times;</span>
                 <form action="signup" method="post">
                     <c:if test="${not empty err}">
                         <div class="error-message">${err}</div>
@@ -282,519 +105,397 @@
                     </form>
                 </div>
             </div>
-            <!-- HEADER -->
             <header>
-                <!-- TOP HEADER -->
-                <div id="top-header">
+                <div style="background-color: #1a1818;" id="top-header">
                     <div class="container">
-                        <ul class="header-links pull-left">
-                            <li><a href="#"><i class="fa fa-phone"></i> 0333222454</a></li>
-                            <li><a href="#"><i class="fa fa-envelope-o"></i>G4COMShop@gmail.com</a></li>
-                            <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
-                        </ul>
-                        <ul class="header-links pull-right">
-                            <li><a href="#" id="loginLink"><i class="fa fa-sign-in"></i> Login</a></li>
-                            <li><a href="#" id="signupLink"><i class="fa fa-user-plus"></i> Signup</a></li>
-                        </ul>
+                        <div class="header-logo">
+                            <a href="#" class="logo">
+                                <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
+                        </a>
+                    </div>
+                        <ul style="margin-top: 10px" class="header-links pull-right">
+                        <li><a style="font-size: 20px" href="#" onclick="openModal('loginModal')"><i class="fa fa-sign-in"></i> Login</a></li>
+                        <li><a style="font-size: 20px" href="#" onclick="openModal('signupModal')"><i class="fa fa-user-plus"></i> Sign up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav id="navigation">
+        <div style="display: flex; justify-content: center" class="container">
+            <div id="responsive-nav">
+                <ul class="main-nav nav navbar-nav">
+                    <li class="active"><a href="/SWP391_BL5_G4ComShop">Home</a></li>
+                    <li><a href="#new-product">New Laptops</a></li>
+                    <li><a href="#product-list">Laptops</a></li>
+                    <li><a href="#product-sale">Top Salers</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="section">
+        <div id ="new-product" class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h3 class="title">New Laptops</h3>
+                        <div class="section-nav">
+                            <ul class="section-tab-nav tab-nav">
+                                <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-                <!-- /TOP HEADER -->
-
-                <!-- MAIN HEADER -->
-                <div id="header">
-                    <!-- container -->
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <!-- LOGO -->
-                            <div class="col-md-3">
-                                <div class="header-logo">
-                                    <a href="#" class="logo">
-                                        <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
-                                </a>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="products-tabs">
+                            <div id="tab1" class="tab-pane active">
+                                <div class="products-slick" data-nav="#slick-nav-1">
+                                    <c:forEach var="o" items="${productListnew}">
+                                        <div class="product">
+                                            <div class="product-img">
+                                                <img src="${pageContext.request.contextPath}/${o.image}" alt="${o.name}" width="300" height="200">
+                                                <div class="product-label">
+                                                    <span class="new">NEW</span>
+                                                </div>
+                                            </div>
+                                            <div class="product-body">
+                                                <p class="product-category">${o.title}</p>
+                                                <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
+                                                <h4 class="product-price">${o.salePrice}<del class="product-old-price">${o.originPrice}</del></h4>
+                                                <div class="product-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div id="slick-nav-1" class="products-slick-nav"></div>
                             </div>
                         </div>
-                        <!-- /LOGO -->
-
-                        <!-- SEARCH BAR -->
-                        <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="product-list" class="section">
+        <div class="container">
+            <div class="row">
+                <h3 class="title">All Laptops</h3>
+                <div id="aside" class="col-md-3">
+                    <div class="store-filter clearfix">
+                        <div class="store-sort">
+                            <form action="fillterProduct" method="get">
+                                <label>
+                                    Sort By:
+                                    <select class="input-select" name="idBrandName" onchange="this.form.submit()">
+                                        <c:forEach items="${listB}" var="o"> 
+                                            <option value="${o.idBrandName}"
+                                                    <c:if test="${o.idBrandName == param.idBrandName}">
+                                                        selected="selected"
+                                                    </c:if>
+                                                    >
+                                                ${o.brandName}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </label>
+                            </form>
 
                         </div>
-                        <!-- /SEARCH BAR -->
+                    </div>
+                    <div class="aside">
+                        <h3 class="aside-title">Price</h3>
+                        <div class="price-filter">
+                            <div id="price-slider"></div>
+                            <div class="input-number price-min">
+                                <input id="price-min" type="number">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                            <span>-</span>
+                            <div class="input-number price-max">
+                                <input id="price-max" type="number">
+                                <span class="qty-up">+</span>
+                                <span class="qty-down">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aside">
+                        <h3 class="aside-title">Top Salers</h3>
+                        <c:forEach var="o" items="${topDiscountedProductsa}" >
+                            <div class="product-widget">
+                                <div class="product-img">
+                                    <img src="${o.image}" alt="${o.name}" width="125" height="100">
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">${o.title}</p>
+                                    <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
+                                    <h4 class="product-price">                                        
 
-                        <!-- ACCOUNT -->
-                        <div class="col-md-3 clearfix">
-                            <div class="header-ctn">
-                                <!-- Cart -->
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span>Your Cart</span>
-                                    </a>
+                                        ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
+                                    </h4>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="header-search">
+                        <form>
+                            <select class="input-select">
+                                <option value="0">All Categories</option>
+                                <option value="1">Category 01</option>
+                                <option value="1">Category 02</option>
+                            </select>
+                            <input class="input" placeholder="Search here">
+                            <button class="search-btn">Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div id="store" class="col-md-9">
+                    <div class="store-filter clearfix">
+                        <div class="store-sort">
+                            <label>
+                                Sort By:
+                                <select class="input-select">
+                                    <option value="0">Popular</option>
+                                    <option value="1">Position</option>
+                                </select>
+                            </label>
+                            <label>
+                                Show:
+                            </label>
+                        </div>
+                        <ul class="store-grid">
+                            <li class="active"><i class="fa fa-th"></i></li>
+                            <li><a href="#"><i class="fa fa-th-list"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <c:forEach var="product" items="${productList}">
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="${product.image}" alt="${product.name}" width="300" height="200">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">${product.title}</p>
+                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
+                                        <h4 class="product-price">
+                                            ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
+                                        </h4>
+                                        <div class="product-rating">
+                                        </div>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                     </div>
                                 </div>
-                                <!-- /Cart -->
-
-                                <!-- Menu Toogle -->
-                                <div class="menu-toggle">
-                                    <a href="#">
-                                        <i class="fa fa-bars"></i>
-                                        <span>Menu</span>
-                                    </a>
-                                </div>
-                                <!-- /Menu Toogle -->
                             </div>
-                        </div>
-                        <!-- /ACCOUNT -->
+                        </c:forEach>
                     </div>
-                    <!-- row -->
+                    <div class="store-filter clearfix">
+                        <span class="store-qty">Showing 20-100 products</span>
+                        <ul class="store-pagination">
+                            <li class="active">1</li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
-                <!-- container -->
             </div>
-            <!-- /MAIN HEADER -->
-        </header>
-        <!-- /HEADER -->
-
-        <!-- NAVIGATION -->
-        <nav id="navigation">
-            <!-- container -->
+        </div>
+        <div id="product-sale" class="section">
             <div class="container">
-                <!-- responsive-nav -->
-                    <div id="responsive-nav">
-                    <!-- NAV -->
-                    <ul class="main-nav nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#new-product">New Laptops</a></li>
-                       
-                        <li><a href="#product-list">Laptops</a></li>
-                        <li><a href="#product-sale">Top Sale Laptops</a></li>
-                    </ul>
-                    <!-- /NAV -->
-                </div>
-                <!-- /responsive-nav -->
-            </div>
-            <!-- /container -->
-        </nav>
-        <!-- /NAVIGATION -->
-
-
-        <!-- /SECTION -->
-
-        <!-- SECTION -->
-        <div class="section">
-            <!-- container -->
-            <div id ="new-product" class="container">
-                <!-- row -->
                 <div class="row">
-
-                    <!-- section title -->
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">New Products</h3>
+                            <h3 class="title">Top selling</h3>
                             <div class="section-nav">
                                 <ul class="section-tab-nav tab-nav">
-                                    <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
+                                    <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
+
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- /section title -->
-
-                    <!-- Products tab & slick -->
                     <div class="col-md-12">
                         <div class="row">
                             <div class="products-tabs">
-                                <!-- tab -->
-                                <div id="tab1" class="tab-pane active">
-                                    <div class="products-slick" data-nav="#slick-nav-1">
-                                        <!-- product -->
-                                        <c:forEach var="o" items="${productListnew}">
+                                <div id="tab2" class="tab-pane fade in active">
+                                    <div class="products-slick" data-nav="#slick-nav-2">
+                                        <c:forEach var="o" items="${topDiscountedProducts}">
                                             <div class="product">
                                                 <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/${o.image}" alt="${o.name}" width="300" height="200">
+                                                    <img src="${o.image}" alt="${o.name} width="300" height="200"">
                                                     <div class="product-label">
-                                                        <span class="new">NEW</span>
+                                                        <span class="sale">
+                                                            - <fmt:formatNumber value="${(o.originPrice - o.salePrice) / o.originPrice * 100}" type="number" maxFractionDigits="0"/>%
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${o.title}</p>
                                                     <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
-                                                    <h4 class="product-price">${o.salePrice}<del class="product-old-price">${o.originPrice}</del></h4>
-                                                    <div class="product-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                    </div>
+                                                    <h4 class="product-price">
+                                                        ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
+                                                    </h4>
                                                 </div>
                                             </div>
                                         </c:forEach>
                                     </div>
-                                    <div id="slick-nav-1" class="products-slick-nav"></div>
+                                    <div id="slick-nav-2" class="products-slick-nav"></div>
                                 </div>
-                                <!-- /tab -->
                             </div>
                         </div>
                     </div>
-                    <!-- /Products tab & slick -->
-
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
         </div>
-        <!-- /SECTION -->
-
-        <!-- SECTION -->
-        <div id="product-list" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <!-- ASIDE -->
-                    <div id="aside" class="col-md-3">
-                        <div class="store-filter clearfix">
-                            <div class="store-sort">
-                                <form action="fillterProduct" method="get">
-                                    <label>
-                                        Sort By:
-                                        <select class="input-select" name="idBrandName" onchange="this.form.submit()">
-                                            <c:forEach items="${listB}" var="o"> 
-                                                <option value="${o.idBrandName}"
-                                                        <c:if test="${o.idBrandName == param.idBrandName}">
-                                                            selected="selected"
-                                                        </c:if>
-                                                        >
-                                                    ${o.brandName}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </label>
-                                </form>
-
-                            </div>
-                        </div>
-
-                        <!-- aside Widget -->
-                        <div class="aside">
-                            <h3 class="aside-title">Price</h3>
-                            <div class="price-filter">
-                                <div id="price-slider"></div>
-                                <div class="input-number price-min">
-                                    <input id="price-min" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                                <span>-</span>
-                                <div class="input-number price-max">
-                                    <input id="price-max" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /aside Widget -->
-                        <!-- aside Widget -->
-                        <div class="aside">
-                            <h3 class="aside-title">Top selling</h3>
-                            <c:forEach var="o" items="${topDiscountedProductsa}" >
-                                <div class="product-widget">
-                                    <div class="product-img">
-                                        <img src="${o.image}" alt="${o.name}" width="125" height="100">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">${o.title}</p>
-                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
-                                        <h4 class="product-price">                                        
-
-                                            ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <!-- /aside Widget -->
-                    </div>
-                    <!-- /ASIDE -->
-                    <div class="col-md-6">
-                        <div class="header-search">
-                            <form>
-                                <select class="input-select">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Category 01</option>
-                                    <option value="1">Category 02</option>
-                                </select>
-                                <input class="input" placeholder="Search here">
-                                <button class="search-btn">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- STORE -->
-                    <div id="store" class="col-md-9">
-                        <!-- store top filter -->
-                        <div class="store-filter clearfix">
-                            <div class="store-sort">
-                                <label>
-                                    Sort By:
-                                    <select class="input-select">
-                                        <option value="0">Popular</option>
-                                        <option value="1">Position</option>
-                                    </select>
-                                </label>
-                                <label>
-                                    Show:
-                                </label>
-                            </div>
-                            <ul class="store-grid">
-                                <li class="active"><i class="fa fa-th"></i></li>
-                                <li><a href="#"><i class="fa fa-th-list"></i></a></li>
+        <footer id="footer">
+            <div id="bottom-footer" class="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul style="margin-left: 350px" class="header-links pull-left">
+                                <li><a href="#"><i class="fa fa-phone"></i> 0333222454</a></li>
+                                <li><a href="#"><i class="fa fa-envelope-o"></i>G4COMShop@gmail.com</a></li>
+                                <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
                             </ul>
                         </div>
-                        <!-- /store top filter -->
-
-                        <!-- store products -->
-                        <div class="row">
-                            <c:forEach var="product" items="${productList}">
-                                <div class="col-md-4 col-xs-6">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <img src="${product.image}" alt="${product.name}" width="300" height="200">
-                                        </div>
-                                        <div class="product-body">
-                                            <p class="product-category">${product.title}</p>
-                                            <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
-                                            <h4 class="product-price">
-                                                ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
-                                            </h4>
-                                            <div class="product-rating">
-                                                <!-- Product rating stars -->
-                                            </div>
-                                        </div>
-                                        <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </div>
-                        <div class="store-filter clearfix">
-                            <span class="store-qty">Showing 20-100 products</span>
-                            <ul class="store-pagination">
-                                <li class="active">1</li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- /store products -->
                     </div>
-                    <!-- /STORE -->
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
-            <!-- /SECTION -->
-            <!-- SECTION -->
-            <div id="product-sale" class="section">
-                <!-- container -->
-                <div class="container">
-                    <!-- row -->
-                    <div class="row">
-                        <!-- section title -->
-                        <div class="col-md-12">
-                            <div class="section-title">
-                                <h3 class="title">Top selling</h3>
-                                <div class="section-nav">
-                                    <ul class="section-tab-nav tab-nav">
-                                        <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li>
+        </footer>
 
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /section title -->
-                        <!-- Products tab & slick -->
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="products-tabs">
-                                    <!-- tab -->
-                                    <div id="tab2" class="tab-pane fade in active">
-                                        <div class="products-slick" data-nav="#slick-nav-2">
-                                            <!-- product -->
-                                            <c:forEach var="o" items="${topDiscountedProducts}">
-                                                <div class="product">
-                                                    <div class="product-img">
-                                                        <img src="${o.image}" alt="${o.name} width="300" height="200"">
-                                                        <div class="product-label">
-                                                            <span class="sale">
-                                                                - <fmt:formatNumber value="${(o.originPrice - o.salePrice) / o.originPrice * 100}" type="number" maxFractionDigits="0"/>%
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-body">
-                                                        <p class="product-category">${o.title}</p>
-                                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
-                                                        <h4 class="product-price">
-                                                            ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                            <!-- /product -->
-                                        </div>
-                                        <div id="slick-nav-2" class="products-slick-nav"></div>
-                                    </div>
-                                    <!-- /tab -->
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Products tab & slick -->
-                    </div>
-                    <!-- /row -->
-                </div>
-                <!-- /container -->
-            </div>
-            <!-- /SECTION -->
-            <!-- NEWSLETTER -->
-            <div id="newsletter" class="section">
-                <!-- container -->
-                <div class="container">
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="newsletter">
-                                <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                                <form>
-                                    <input class="input" type="email" placeholder="Enter Your Email">
-                                    <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                                </form>
-                                <ul class="newsletter-follow">
-                                    <li>
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /row -->
-                </div>
-                <!-- /container -->
-            </div>
-            <!-- /NEWSLETTER -->
+        <!-- jQuery Plugins -->
+        <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/electro/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/electro/js/slick.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
+</body>
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 
-            <!-- FOOTER -->
-            <footer id="footer">
-                <!-- top footer -->
-                <div class="section">
-                    <!-- container -->
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">About Us</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
-                                    <ul class="footer-links">
-                                        <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                                        <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                        <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 90%;
+        max-width: 400px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    }
 
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Categories</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">Hot deals</a></li>
-                                        <li><a href="#">Laptops</a></li>
-                                        <li><a href="#">Smartphones</a></li>
-                                        <li><a href="#">Cameras</a></li>
-                                        <li><a href="#">Accessories</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-                            <div class="clearfix visible-xs"></div>
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
 
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Information</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                        <li><a href="#">Orders and Returns</a></li>
-                                        <li><a href="#">Terms & Conditions</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+    .modal-content form {
+        display: flex;
+        flex-direction: column;
+    }
 
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Service</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">My Account</a></li>
-                                        <li><a href="#">View Cart</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Track My Order</a></li>
-                                        <li><a href="#">Help</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /container -->
-                </div>
-                <!-- /top footer -->
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
 
-                <!-- bottom footer -->
-                <div id="bottom-footer" class="section">
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <ul class="footer-payments">
-                                    <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                                </ul>
-                                <span class="copyright">
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </span>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /container -->
-                </div>
-                <!-- /bottom footer -->
-            </footer>
-            <!-- /FOOTER -->
+    .form-group label {
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
 
-            <!-- jQuery Plugins -->
-            <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.min.js"></script>
-            <script src="${pageContext.request.contextPath}/assets/electro/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/assets/electro/js/slick.min.js"></script>
-            <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
-            <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
-            <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
-    </body>
+    .modal-content input[type="text"],
+    .modal-content input[type="password"],
+    .modal-content input[type="email"],
+    .modal-content input[type="tel"],
+    .modal-content input[type="date"],
+    .modal-content select {
+        padding: 3px;
+        margin-bottom: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .modal-content input[type="checkbox"] {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    .modal-content input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        border: none;
+        width: 80px;
+        margin-left: 40%;
+    }
+
+    .modal-content input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+</style>
+<script>
+                                        function openModal(modalId) {
+                                            document.getElementById(modalId).style.display = "block";
+                                        }
+
+                                        function closeModal(modalId) {
+                                            document.getElementById(modalId).style.display = "none";
+                                        }
+
+                                        window.onclick = function (event) {
+                                            var modals = ['loginModal', 'signupModal'];
+                                            modals.forEach(function (modalId) {
+                                                var modal = document.getElementById(modalId);
+                                                if (event.target === modal) {
+                                                    modal.style.display = "none";
+                                                }
+                                            });
+                                        };
+</script>
 </html>
