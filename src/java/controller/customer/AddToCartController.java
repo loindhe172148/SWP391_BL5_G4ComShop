@@ -53,9 +53,12 @@ public class AddToCartController extends HttpServlet {
                         request.setAttribute("errorMessage", "Product already in cart.");
                     }
                 } else {
-                    if (account == null) {
-                        response.sendRedirect("login");
-                        return;
+                    boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, 1);
+
+                    if (success) {
+                        request.setAttribute("successMessage", "Product added to cart successfully!");
+                    } else {
+                        request.setAttribute("errorMessage", "Product already in cart.");
                     }
                 }
             }
