@@ -30,6 +30,7 @@ public class AddToCartController extends HttpServlet {
         CartDetailDAO cartDAO = new CartDetailDAO();
         HttpSession session = request.getSession();
         Account account = new Account();
+        
         try {
             account = (Account) session.getAttribute("account");
         } catch (Exception e) {

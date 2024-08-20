@@ -11,7 +11,8 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Advanced form elements</title>
+        <title>Add Product</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -37,7 +38,8 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/_all-skins.min.css">
-
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -58,408 +60,180 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Advanced Form Elements
-                        <small>Preview</small>
+                        Add Product
+                        <small>Add a new product</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Forms</a></li>
-                        <li class="active">Advanced Elements</li>
+                        <li><a href="#">Product List</a></li>
+                        <li class="active">Add Product</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-
-                    <!-- SELECT2 EXAMPLE -->
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Select555</h3>
-
+                            <h3 class="box-title">Add New Product</h3>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Minimal</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
+                        <form action="/your-action-url" method="post" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+
                                     </div>
-                                    <!-- /.form-group -->
-                                    <div class="form-group">
-                                        <label>Disabled</label>
-                                        <select class="form-control select2" disabled="disabled" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Multiple</label>
-                                        <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                                            <option>Alabama</option>
-                                            <option>Alaska</option>
-                                            <option>California</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
-                                    </div>
-                                    <!-- /.form-group -->
-                                    <div class="form-group">
-                                        <label>Disabled Result</label>
-                                        <select class="form-control select2" style="width: 100%;">
-                                            <option selected="selected">Alabama</option>
-                                            <option>Alaska</option>
-                                            <option disabled="disabled">California (disabled)</option>
-                                            <option>Delaware</option>
-                                            <option>Tennessee</option>
-                                            <option>Texas</option>
-                                            <option>Washington</option>
-                                        </select>
-                                    </div>
-                                    <!-- /.form-group -->
-                                </div>
-                                <!-- /.col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-                            the plugin.
-                        </div>
-                    </div>
-                    <!-- /.box -->
-
-                    <div class="row">
-                        <div class="col-md-6">
-
-                            <div class="box box-danger">
-                                <div class="box-header">
-                                    <h3 class="box-title">Input masks</h3>
-                                </div>
-                                <div class="box-body">
-                                    <!-- Date dd/mm/yyyy -->
-                                    <div class="form-group">
-                                        <label>Date masks:</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- Date mm/dd/yyyy -->
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- phone mask -->
-                                    <div class="form-group">
-                                        <label>US phone mask:</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-phone"></i>
-                                            </div>
-                                            <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- phone mask -->
-                                    <div class="form-group">
-                                        <label>Intl US phone mask:</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-phone"></i>
-                                            </div>
-                                            <input type="text" class="form-control" data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- IP mask -->
-                                    <div class="form-group">
-                                        <label>IP mask:</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-laptop"></i>
-                                            </div>
-                                            <input type="text" class="form-control" data-inputmask="'alias': 'ip'" data-mask>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.box -->
-
-                            <div class="box box-info">
-                                <div class="box-header">
-                                    <h3 class="box-title">Color & Time Picker</h3>
-                                </div>
-                                <div class="box-body">
-                                    <!-- Color Picker -->
-                                    <div class="form-group">
-                                        <label>Color picker:</label>
-                                        <input type="text" class="form-control my-colorpicker1">
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- Color Picker -->
-                                    <div class="form-group">
-                                        <label>Color picker with addon:</label>
-
-                                        <div class="input-group my-colorpicker2">
-                                            <input type="text" class="form-control">
-
-                                            <div class="input-group-addon">
-                                                <i></i>
-                                            </div>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- time Picker -->
-                                    <div class="bootstrap-timepicker">
+                                    <!-- /.col -->
+                                    <div class="col-md-6">
+                                        <!-- ID (Disabled) -->
                                         <div class="form-group">
-                                            <label>Time picker:</label>
-
+                                            <label>Product ID:</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control timepicker">
-
                                                 <div class="input-group-addon">
-                                                    <i class="fa fa-clock-o"></i>
+                                                    <i class="fa fa-id-badge"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="product_id" placeholder="Auto-generated ID" disabled>
+                                            </div>
+                                        </div>
+                                        <!-- Name -->
+                                        <div class="form-group">
+                                            <label>Product Name: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-tag"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="product_name" placeholder="Enter product name" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <div class="form-group">
+                                            <label>Title: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-paper-plane"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="title" placeholder="Enter a title" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Description -->
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h3 class="box-title">Product Description
+                                                    <small>Simple and fast</small>
+                                                </h3>
+                                                <!-- tools box -->
+                                                <div class="pull-right box-tools">
+                                                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                        <i class="fa fa-minus"></i></button>
+                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
+                                                        <i class="fa fa-times"></i></button>
+                                                </div>
+                                                <!-- /. tools -->
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body pad">
+                                                <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Category -->
+                                        <div class="form-group">
+                                            <label>Category: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-list-alt"></i>
+                                                </div>
+                                                <select class="form-control select2" name="product_category" style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select category</option>
+                                                    <option value="electronics">Laptop</option>
+                                                    <option value="apparel">PC</option>
+                                                    <option value="accessories">Accessories</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Brand -->
+                                        <div class="form-group">
+                                            <label>Brand: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-list-alt"></i>
+                                                </div>
+                                                <select class="form-control select2" name="product_brand" style="width: 100%;" required>
+                                                    <option selected="selected" disabled>Select brand</option>
+                                                    <option value="apple">Apple</option>
+                                                    <option value="dell">Dell</option>
+                                                    <option value="acer">Acer</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Screen Size -->
+                                        <div class="form-group">
+                                            <label>Screen Size: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-television"></i>
+                                                </div>
+                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- Product Image -->
+                                        <div class="form-group">
+                                            <label>Product Image: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-picture-o"></i>
+                                                </div>
+                                                <input type="file" class="form-control" name="product_image" id="productImage" accept="image/*" required onchange="previewImage(event)">
+                                            </div>
+                                            <img id="imagePreview" src="#" alt="Image Preview" style="display: none; margin-top: 10px; max-width: 100%; height: auto;">
+                                        </div>
+
+
+                                        <!-- Status -->
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <div class="input-group">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="product_status" value="show" checked> Show
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="product_status" value="hide"> Hide
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <!-- /.input group -->
                                         </div>
-                                        <!-- /.form group -->
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-primary">Add Product</button>
+                                            <button type="reset" class="btn btn-default">Reset</button>
+                                        </div>
                                     </div>
+                                    <div class="col-md-3">
+
+                                    </div>
+                                    <!-- /.col -->
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- /.row -->
                             </div>
-                            <!-- /.box -->
-
-                        </div>
-                        <!-- /.col (left) -->
-                        <div class="col-md-6">
-                            <div class="box box-primary">
-                                <div class="box-header">
-                                    <h3 class="box-title">Date picker</h3>
-                                </div>
-                                <div class="box-body">
-                                    <!-- Date -->
-                                    <div class="form-group">
-                                        <label>Date:</label>
-
-                                        <div class="input-group date">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="datepicker">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- Date range -->
-                                    <div class="form-group">
-                                        <label>Date range:</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-calendar"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="reservation">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- Date and time range -->
-                                    <div class="form-group">
-                                        <label>Date and time range:</label>
-
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-clock-o"></i>
-                                            </div>
-                                            <input type="text" class="form-control pull-right" id="reservationtime">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                    <!-- /.form group -->
-
-                                    <!-- Date and time range -->
-                                    <div class="form-group">
-                                        <label>Date range button:</label>
-
-                                        <div class="input-group">
-                                            <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                                                <span>
-                                                    <i class="fa fa-calendar"></i> Date range picker
-                                                </span>
-                                                <i class="fa fa-caret-down"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- /.form group -->
-
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.box -->
-
-                            <!-- iCheck -->
-                            <div class="box box-success">
-                                <div class="box-header">
-                                    <h3 class="box-title">iCheck - Checkbox &amp; Radio Inputs</h3>
-                                </div>
-                                <div class="box-body">
-                                    <!-- Minimal style -->
-
-                                    <!-- checkbox -->
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" class="minimal" checked>
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="minimal">
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="minimal" disabled>
-                                            Minimal skin checkbox
-                                        </label>
-                                    </div>
-
-                                    <!-- radio -->
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="radio" name="r1" class="minimal" checked>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="r1" class="minimal">
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="r1" class="minimal" disabled>
-                                            Minimal skin radio
-                                        </label>
-                                    </div>
-
-                                    <!-- Minimal red style -->
-
-                                    <!-- checkbox -->
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" class="minimal-red" checked>
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="minimal-red">
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="minimal-red" disabled>
-                                            Minimal red skin checkbox
-                                        </label>
-                                    </div>
-
-                                    <!-- radio -->
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="radio" name="r2" class="minimal-red" checked>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="r2" class="minimal-red">
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="r2" class="minimal-red" disabled>
-                                            Minimal red skin radio
-                                        </label>
-                                    </div>
-
-                                    <!-- Minimal red style -->
-
-                                    <!-- checkbox -->
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="checkbox" class="flat-red" checked>
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="flat-red">
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="flat-red" disabled>
-                                            Flat green skin checkbox
-                                        </label>
-                                    </div>
-
-                                    <!-- radio -->
-                                    <div class="form-group">
-                                        <label>
-                                            <input type="radio" name="r3" class="flat-red" checked>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="r3" class="flat-red">
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="r3" class="flat-red" disabled>
-                                            Flat green skin radio
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- /.box-body -->
-                                <div class="box-footer">
-                                    Many more skins available. <a href="http://fronteed.com/iCheck/">Documentation</a>
-                                </div>
-                            </div>
-                            <!-- /.box -->
-                        </div>
-                        <!-- /.col (right) -->
+                            <!-- /.box-body -->
+                        </form>
                     </div>
-                    <!-- /.row -->
-
+                    <!-- /.box -->
                 </section>
+
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
@@ -696,7 +470,37 @@
         <script src="${pageContext.request.contextPath}/assets/dist/js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="${pageContext.request.contextPath}/assets/dist/js/demo.js"></script>
+        <!-- CK Editor -->
+        <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <script>
+                                                    document.querySelector('form').addEventListener('reset', function () {
+                                                        var imagePreview = document.getElementById('imagePreview');
+                                                        imagePreview.src = '#';
+                                                        imagePreview.style.display = 'none'; // Ẩn lại hình ảnh khi reset
+                                                    });
+
+                                                    $(function () {
+                                                        // Replace the <textarea id="editor1"> with a CKEditor
+                                                        // instance, using default configuration.
+                                                        CKEDITOR.replace('editor1');
+                                                        //bootstrap WYSIHTML5 - text editor
+                                                        $(".textarea").wysihtml5();
+                                                    });
+        </script>
         <!-- Page script -->
+        <script>
+            function previewImage(event) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var output = document.getElementById('imagePreview');
+                    output.src = reader.result;
+                    output.style.display = 'block'; // Make sure the preview is visible
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        </script>
         <script>
             $(function () {
                 //Initialize Select2 Elements

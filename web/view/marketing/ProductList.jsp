@@ -94,7 +94,9 @@
                                                     <td><c:out value="${product.productDetails.id}"/></td>
                                                     <td><c:out value="${product.product.name}"/></td>
                                                     <td><img src="${product.product.image}" alt="Image" width="100"/></td>
-                                                    <td><c:out value="${product.product.description}"/></td>
+                                                    <td>
+                                                        ${product.product.description}
+                                                    </td>
                                                     <td><c:out value="${product.productDetails.originPrice}"/></td>
                                                     <td><c:out value="${product.productDetails.salePrice}"/></td>
                                                     <td><c:out value="${product.product.quantity}"/></td>
