@@ -12,9 +12,31 @@
             <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/dal/ProductWithDetailsDAO.java</file>
             <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/web/view/customer/ProductDetails.jsp</file>
         </group>
+<<<<<<< Updated upstream
+        <group name="PRJ-4USER">
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/RAM.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/LoginController.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/FillterProductAccount.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/ProductHome.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/index.html</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/ProductHome.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/ProductHomeAccount.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/FillterProduct.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/view/user/signup.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/BaseRequiredAuthenticationController.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/web/ProductHomeAccount.jsp</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/entity/Product.java</file>
+            <file>file:/C:/Users/LENOVO/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/ProductDAO.java</file>
+=======
         <group>
-            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/controller/marketing/AddProduct.java</file>
-            <file>file:/D:/K17_KTPM_RESOURCE/Ky_5/SWP391_BL5/SWP391_BL5_G4ComShop/src/java/dal/ProductDAO.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/web/ProductHomeAccount.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/marketing/ProductHomeAccount.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/web/ProductHome.jsp</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/dal/UserDBContext.java</file>
+            <file>file:/C:/Users/Admin/Documents/GitHub/SWP391_BL5_G4ComShop/src/java/controller/user/VerifyAccount.java</file>
+>>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>

@@ -15,33 +15,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-        <title>Electro - HTML Ecommerce Template</title>
+        <title>G4COMShop</title>
 
         <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/bootstrap.min.css"/>
 
         <!-- Slick -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/slick-theme.css"/>
 
         <!-- nouislider -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/nouislider.min.css"/>
 
         <!-- Font Awesome Icon -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/font-awesome.min.css">
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/style.css"/>
 
     </head>
     <body>
@@ -57,14 +50,37 @@
                     </ul>
                     <ul class="header-links pull-right">
                         <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
-                         <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-    
-                      
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user-o"></i> My Account <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">View profile</a></li>
+                                <li><a href="./user/changepass">Change Pass</a></li>
+                            </ul>
+                        </li>
+
+
                     </ul>
                 </div>
             </div>
             <!-- /TOP HEADER -->
+            <style>
+                .dropdown-menu {
+                    min-width: 160px;
+                    background: black;
+                }
 
+                .dropdown-menu li a {
+                    padding: 10px 20px;
+                    display: block;
+                }
+
+                .dropdown-menu li a:hover {
+                    background-color: #f8f9fa;
+                    color: #343a40;
+                }
+            </style>
             <!-- MAIN HEADER -->
             <div id="header">
                 <!-- container -->
@@ -75,7 +91,7 @@
                         <div class="col-md-3">
                             <div class="header-logo">
                                 <a href="#" class="logo">
-                                    <img src="${pageContext.request.contextPath}/img/Screenshot 2024-08-18 035922.png" alt="">
+                                    <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
                                 </a>
                             </div>
                         </div>
@@ -90,54 +106,15 @@
                         <!-- ACCOUNT -->
                         <div class="col-md-3 clearfix">
                             <div class="header-ctn">
-                                <!-- Wishlist -->
-                                <div>
-                                    <a href="#">
-                                        <i class="fa fa-heart-o"></i>
-                                        <span>Your Wishlist</span>
-                                        <div class="qty">2</div>
-                                    </a>
-                                </div>
-                                <!-- /Wishlist -->
-
                                 <!-- Cart -->
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                                         <i class="fa fa-shopping-cart"></i>
                                         <span>Your Cart</span>
-                                        <div class="qty">3</div>
                                     </a>
-                                    <div class="cart-dropdown">
-                                        <div class="cart-list">
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/./img/product01.png" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                    <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                                </div>
-                                                <button class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="${pageContext.request.contextPath}/./img/product02.png" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                                    <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                                </div>
-                                                <button class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-                                        </div>
-                                        <div class="cart-summary">
-                                            <small>3 Item(s) selected</small>
-                                            <h5>SUBTOTAL: $2940.00</h5>
-                                        </div>
+                                    <div class="cart-dropdown">                                        
                                         <div class="cart-btns">
-                                            <a href="#">View Cart</a>
-                                            <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="">View Cart</a>
                                         </div>
                                     </div>
                                 </div>
@@ -172,12 +149,10 @@
                     <!-- NAV -->
                     <ul class="main-nav nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Hot Deals</a></li>
-                        <li><a href="#">Categories</a></li>
-                        <li><a href="#">Laptops</a></li>
-                        <li><a href="#">Smartphones</a></li>
-                        <li><a href="#">Cameras</a></li>
-                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#new-product">New Laptops</a></li>
+
+                        <li><a href="#product-list">Laptops</a></li>
+                        <li><a href="#product-sale">Top Sale Laptops</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>
@@ -200,7 +175,7 @@
                     <!-- section title -->
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">New Products</h3>
+                            <h3 id="new-product" class="title">New Products</h3>
                             <div class="section-nav">
                                 <ul class="section-tab-nav tab-nav">
                                     <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
@@ -221,14 +196,14 @@
                                         <c:forEach var="o" items="${productListnew}">
                                             <div class="product">
                                                 <div class="product-img">
-                                                    <img src="${o.image}" alt="${o.name}" width="300" height="200">
+                                                    <img src="${pageContext.request.contextPath}/${o.image}" alt="${o.name}" width="300" height="200">
                                                     <div class="product-label">
                                                         <span class="new">NEW</span>
                                                     </div>
                                                 </div>
                                                 <div class="product-body">
                                                     <p class="product-category">${o.title}</p>
-                                                    <h3 class="product-name"><a href="#">${o.name}</a></h3>
+                                                    <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                     <h4 class="product-price">${o.salePrice}<del class="product-old-price">${o.originPrice}</del></h4>
                                                     <div class="product-rating">
                                                         <i class="fa fa-star"></i>
@@ -257,67 +232,35 @@
         <!-- /SECTION -->
 
         <!-- SECTION -->
-        <div class="section">
-            <!-- container -->
+        <div id="product-list" class="section">
             <div class="container">
-                <!-- row -->
                 <div class="row">
-                    <!-- ASIDE -->
                     <div id="aside" class="col-md-3">
-                        <div class="store-filter clearfix">
-                            <div class="store-sort">
-                                <form action="fillterProduct" method="get">
-                                    <label>
-                                        Sort By:
-                                        <select class="input-select" name="idBrandName" onchange="this.form.submit()">
-                                            <c:forEach items="${listB}" var="o"> 
-                                                <option value="${o.idBrandName}"
-                                                        <c:if test="${o.idBrandName == param.idBrandName}">
-                                                            selected="selected"
-                                                        </c:if>
-                                                        >
-                                                    ${o.brandName}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </label>
-                                </form>
-
-
-                            </div>
-                        </div>
-                       
-                        <!-- aside Widget -->
-                        <div class="aside">
-                            <h3 class="aside-title">Price</h3>
-                            <div class="price-filter">
-                                <div id="price-slider"></div>
-                                <div class="input-number price-min">
-                                    <input id="price-min" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                                <span>-</span>
-                                <div class="input-number price-max">
-                                    <input id="price-max" type="number">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /aside Widget -->
-                        <!-- aside Widget -->
+                        <form action="fillterProduct" method="get">
+                            <label class="input-select" name="idBrandName" onchange="this.form.submit()">
+                                <c:forEach items="${listB}" var="o"> 
+                                    <option value="${o.idBrandName}"
+                                            <c:if test="${o.idBrandName == param.idBrandName}">
+                                                selected="selected"
+                                            </c:if>
+                                            >
+                                        ${o.brandName}
+                                    </option>
+                                </c:forEach>
+                            </label>
+                        </form>
                         <div class="aside">
                             <h3 class="aside-title">Top selling</h3>
-                            <c:forEach var="o" items="${topDiscountedProductsa}">
+                            <c:forEach var="o" items="${topDiscountedProductsa}" >
                                 <div class="product-widget">
                                     <div class="product-img">
                                         <img src="${o.image}" alt="${o.name}" width="125" height="100">
                                     </div>
                                     <div class="product-body">
                                         <p class="product-category">${o.title}</p>
-                                        <h3 class="product-name"><a href="#">${o.name}</a></h3>
-                                        <h4 class="product-price">
+                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
+                                        <h4 class="product-price">                                        
+
                                             ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
                                         </h4>
                                     </div>
@@ -340,30 +283,7 @@
                             </form>
                         </div>
                     </div>
-                    <!-- STORE -->
                     <div id="store" class="col-md-9">
-                        <!-- store top filter -->
-                        <div class="store-filter clearfix">
-                            <div class="store-sort">
-                                <label>
-                                    Sort By:
-                                    <select class="input-select">
-                                        <option value="0">Popular</option>
-                                        <option value="1">Position</option>
-                                    </select>
-                                </label>
-                                <label>
-                                    Show:
-                                </label>
-                            </div>
-                            <ul class="store-grid">
-                                <li class="active"><i class="fa fa-th"></i></li>
-                                <li><a href="#"><i class="fa fa-th-list"></i></a></li>
-                            </ul>
-                        </div>
-                        <!-- /store top filter -->
-
-                        <!-- store products -->
                         <div class="row">
                             <c:forEach var="product" items="${productList}">
                                 <div class="col-md-4 col-xs-6">
@@ -373,12 +293,11 @@
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">${product.title}</p>
-                                            <h3 class="product-name"><a href="#">${product.name}</a></h3>
+                                            <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
                                             <h4 class="product-price">
                                                 ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
                                             </h4>
                                             <div class="product-rating">
-                                                <!-- Product rating stars -->
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
@@ -388,33 +307,12 @@
                                 </div>
                             </c:forEach>
                         </div>
-                        <div class="store-filter clearfix">
-							<span class="store-qty">Showing 20-100 products</span>
-							<ul class="store-pagination">
-								<li class="active">1</li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-							</ul>
-						</div>
-                        <!-- /store products -->
                     </div>
-                    <!-- /STORE -->
                 </div>
-                <!-- /row -->
             </div>
-            <!-- /container -->
-            <!-- /SECTION -->
-
-            <!-- SECTION -->
-            <div class="section">
-                <!-- container -->
+            <div id ="product-sale"class="section">
                 <div class="container">
-                    <!-- row -->
                     <div class="row">
-
-                        <!-- section title -->
                         <div class="col-md-12">
                             <div class="section-title">
                                 <h3 class="title">Top selling</h3>
@@ -426,16 +324,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /section title -->
-
-                        <!-- Products tab & slick -->
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="products-tabs">
                                     <!-- tab -->
                                     <div id="tab2" class="tab-pane fade in active">
                                         <div class="products-slick" data-nav="#slick-nav-2">
-                                            <!-- product -->
                                             <c:forEach var="o" items="${topDiscountedProducts}">
                                                 <div class="product">
                                                     <div class="product-img">
@@ -449,7 +343,7 @@
                                                     </div>
                                                     <div class="product-body">
                                                         <p class="product-category">${o.title}</p>
-                                                        <h3 class="product-name"><a href="#">${o.name}</a></h3>
+                                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                         <h4 class="product-price">
                                                             ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
                                                         </h4>
@@ -610,12 +504,12 @@
             <!-- /FOOTER -->
 
             <!-- jQuery Plugins -->
-            <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
-            <script src="${pageContext.request.contextPath}/js/main.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/bootstrap.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/slick.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
+            <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
 
     </body>
 </html>
