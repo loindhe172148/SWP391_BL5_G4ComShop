@@ -35,109 +35,26 @@
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/style.css"/>
+        <style>
+            .dropdown-menu {
+                min-width: 160px;
+                background: black;
+            }
 
+            .dropdown-menu li a {
+                padding: 10px 20px;
+                display: block;
+            }
+
+            .dropdown-menu li a:hover {
+                background-color: #f8f9fa;
+                color: #343a40;
+            }
+        </style>
     </head>
     <body>
         <!-- HEADER -->
-        <header>
-            <!-- TOP HEADER -->
-            <div id="top-header">
-                <div class="container">
-                    <ul class="header-links pull-left">
-                        <li><a href="#"><i class="fa fa-phone"></i> 0333222454</a></li>
-                        <li><a href="#"><i class="fa fa-envelope-o"></i>G4COMShop@gmail.com</a></li>
-                        <li><a href="#"><i class="fa fa-map-marker"></i>14,ThaiThinh,Ha Noi</a></li>
-                    </ul>
-                    <ul class="header-links pull-right">
-                        <li><a href="logout.jsp"><i class="fa fa-sign-out"></i> Logout</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-user-o"></i> My Account <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">View profile</a></li>
-                                <li><a href="./user/changepass">Change Pass</a></li>
-                            </ul>
-                        </li>
-
-
-                    </ul>
-                </div>
-            </div>
-            <!-- /TOP HEADER -->
-            <style>
-                .dropdown-menu {
-                    min-width: 160px;
-                    background: black;
-                }
-
-                .dropdown-menu li a {
-                    padding: 10px 20px;
-                    display: block;
-                }
-
-                .dropdown-menu li a:hover {
-                    background-color: #f8f9fa;
-                    color: #343a40;
-                }
-            </style>
-            <!-- MAIN HEADER -->
-            <div id="header">
-                <!-- container -->
-                <div class="container">
-                    <!-- row -->
-                    <div class="row">
-                        <!-- LOGO -->
-                        <div class="col-md-3">
-                            <div class="header-logo">
-                                <a href="#" class="logo">
-                                    <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <!-- /LOGO -->
-
-                        <!-- SEARCH BAR -->
-                        <div class="col-md-6">
-
-                        </div>
-                        <!-- /SEARCH BAR -->
-
-                        <!-- ACCOUNT -->
-                        <div class="col-md-3 clearfix">
-                            <div class="header-ctn">
-                                <!-- Cart -->
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span>Your Cart</span>
-                                    </a>
-                                    <div class="cart-dropdown">                                        
-                                        <div class="cart-btns">
-                                            <a href="">View Cart</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Cart -->
-
-                                <!-- Menu Toogle -->
-                                <div class="menu-toggle">
-                                    <a href="#">
-                                        <i class="fa fa-bars"></i>
-                                        <span>Menu</span>
-                                    </a>
-                                </div>
-                                <!-- /Menu Toogle -->
-                            </div>
-                        </div>
-                        <!-- /ACCOUNT -->
-                    </div>
-                    <!-- row -->
-                </div>
-                <!-- container -->
-            </div>
-            <!-- /MAIN HEADER -->
-        </header>
+        <jsp:include page="include/header-bar.jsp" />
         <!-- /HEADER -->
 
         <!-- NAVIGATION -->
@@ -408,99 +325,7 @@
             <!-- /NEWSLETTER -->
 
             <!-- FOOTER -->
-            <footer id="footer">
-                <!-- top footer -->
-                <div class="section">
-                    <!-- container -->
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">About Us</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
-                                    <ul class="footer-links">
-                                        <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-                                        <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
-                                        <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Categories</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">Hot deals</a></li>
-                                        <li><a href="#">Laptops</a></li>
-                                        <li><a href="#">Smartphones</a></li>
-                                        <li><a href="#">Cameras</a></li>
-                                        <li><a href="#">Accessories</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="clearfix visible-xs"></div>
-
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Information</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">Contact Us</a></li>
-                                        <li><a href="#">Privacy Policy</a></li>
-                                        <li><a href="#">Orders and Returns</a></li>
-                                        <li><a href="#">Terms & Conditions</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-xs-6">
-                                <div class="footer">
-                                    <h3 class="footer-title">Service</h3>
-                                    <ul class="footer-links">
-                                        <li><a href="#">My Account</a></li>
-                                        <li><a href="#">View Cart</a></li>
-                                        <li><a href="#">Wishlist</a></li>
-                                        <li><a href="#">Track My Order</a></li>
-                                        <li><a href="#">Help</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /container -->
-                </div>
-                <!-- /top footer -->
-
-                <!-- bottom footer -->
-                <div id="bottom-footer" class="section">
-                    <div class="container">
-                        <!-- row -->
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <ul class="footer-payments">
-                                    <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-                                </ul>
-                                <span class="copyright">
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                </span>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /container -->
-                </div>
-                <!-- /bottom footer -->
-            </footer>
+            <jsp:include page="include/footer-bar.jsp" />
             <!-- /FOOTER -->
 
             <!-- jQuery Plugins -->

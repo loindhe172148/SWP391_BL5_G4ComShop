@@ -43,7 +43,102 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <style></style>
+        <style>
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 1000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            .modal-content {
+                background-color: #fefefe;
+                margin: 5% auto;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 90%;
+                max-width: 400px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+            }
+
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            .modal-content form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+            }
+
+            .form-group label {
+                margin-bottom: 5px;
+                font-weight: bold;
+            }
+
+            .modal-content input[type="text"],
+            .modal-content input[type="password"],
+            .modal-content input[type="email"],
+            .modal-content input[type="tel"],
+            .modal-content input[type="date"],
+            .modal-content select {
+                padding: 3px;
+                margin-bottom: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .modal-content input[type="checkbox"] {
+                width: auto;
+                margin-right: 10px;
+            }
+
+            .modal-content input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                margin-top: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                border: none;
+                width: 80px;
+                margin-left: 40%;
+            }
+
+            .modal-content input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+
+            .error-message {
+                color: red;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+        </style>
     </head>
     <body>
         <!-- HEADER -->
@@ -530,7 +625,25 @@
         <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
 
+        <script>
+            function openModal(modalId) {
+                document.getElementById(modalId).style.display = "block";
+            }
 
+            function closeModal(modalId) {
+                document.getElementById(modalId).style.display = "none";
+            }
+
+            window.onclick = function (event) {
+                var modals = ['loginModal', 'signupModal'];
+                modals.forEach(function (modalId) {
+                    var modal = document.getElementById(modalId);
+                    if (event.target === modal) {
+                        modal.style.display = "none";
+                    }
+                });
+            };
+        </script>
 
     </body>
 </html>
