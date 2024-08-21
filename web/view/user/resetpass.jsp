@@ -63,20 +63,15 @@
 </head>
 <body>
     <div class="forgot-container">
-        <h1>Forgot Password</h1>
-
         <!-- Display any error messages from the servlet -->
-        <c:if test="${not empty error}">
-            <p class="error">${error}</p>
+        <c:if test="${not empty errorReset}">
+            <p class="error">${errorReset}</p>
         </c:if>
 
         <!-- Forgot password request form -->
         <form action="resetpass" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" value="${username}" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="${mail}" required>
+            <label for="input">Enter username or email </label>
+            <input type="text" id="input" name="input" value="${input}" required>
 
             <input type="submit" value="Reset Password">
         </form>

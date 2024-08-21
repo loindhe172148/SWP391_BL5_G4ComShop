@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -16,18 +15,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Admin
- */
 public class VerifyAccount extends HttpServlet {
 
     private Map<String, String> verificationCodes;
 
-    /**
-     *
-     * @throws ServletException
-     */
     @Override
     public void init() throws ServletException {
         // Initialize the verification codes map
@@ -38,13 +29,6 @@ public class VerifyAccount extends HttpServlet {
         }
     }
 
-    /**
-     *
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -56,43 +40,62 @@ public class VerifyAccount extends HttpServlet {
             String role = request.getParameter("role");
             String phone = request.getParameter("phone");
             int gender = Integer.parseInt(request.getParameter("gender"));
-
             String dobString = request.getParameter("dob");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-            java.util.Date utilDate = dateFormat.parse(dobString);
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-
             String address = request.getParameter("address");
             String fullname = request.getParameter("fullname");
-            String status = "Active";
-            String ava = "";
-            java.util.Date utilDate1 = Calendar.getInstance().getTime();
-            java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
-            
+
+            // Validate input
+            if (email == null || code == null || username == null || password == null
+                    || role == null || phone == null || dobString == null || address == null || fullname == null) {
+                request.setAttribute("errorVerify", "All fields are required.");
+                request.getRequestDispatcher("/productHome").forward(request, response);
+                return;
+            }
+
+            // Parse date of birth
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            java.sql.Date dob;
+            java.util.Date utilDate = dateFormat.parse(dobString);
+            dob = new java.sql.Date(utilDate.getTime());
+
+            request.setAttribute("fullname", fullname);
+            request.setAttribute("email", email);
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
+            request.setAttribute("phone", phone);
+            request.setAttribute("address", address);
+            request.setAttribute("dob", dob);
+            request.setAttribute("gender", gender);
+            request.setAttribute("role", role);
+
             String expectedCode = verificationCodes.get(email);
             if (expectedCode != null && expectedCode.equals(code)) {
+                // Verification successful, proceed with registration
                 verificationCodes.remove(email);
-                request.setAttribute("code", null);
-                
-                // Perform user registration
-                AccountDBContext acc = new AccountDBContext();
+
+                request.setAttribute("code", null);  // Clear the verification code from the request
+
+                AccountDBContext accDB = new AccountDBContext();
                 Account newAcc = new Account();
                 newAcc.setUsername(username);
                 newAcc.setPassword(password);
                 newAcc.setRole(role);
-                acc.insert(newAcc);
+                accDB.insert(newAcc);
 
-                int accid = acc.getAccountIDByUsername(username);
-                UserDBContext user = new UserDBContext();
-                user.insert(accid, email, address, gender, phone, sqlDate, status, ava, fullname, sqlDate1);
+                int accId = accDB.getAccountIDByUsername(username);
+                UserDBContext userDB = new UserDBContext();
+                userDB.insert(accId, email, address, gender, phone, dob, "Active", "", fullname, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+                request.setAttribute("verificationSuccess", true);
                 request.getRequestDispatcher("/productHome").forward(request, response);
             } else {
+                // Verification failed
                 request.setAttribute("errorVerify", "Invalid verification code. Please try again.");
                 request.getRequestDispatcher("/productHome").forward(request, response);
             }
-        } catch (ParseException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(VerifyAccount.class.getName()).log(Level.SEVERE, null, ex);
+            request.setAttribute("errorVerify", "An unexpected error occurred. Please try again.");
+            request.getRequestDispatcher("/productHome").forward(request, response);
         }
     }
 }

@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/font-awesome.min.css">
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets/electro/css/style.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     </head>
     <body>
         <div id="loginModal" class="modal">
@@ -50,7 +51,7 @@
                     </div>
 
                     <div style="display: flex;">
-                        <button type="button" onclick="location.href = '/SWP391_BL5_G4ComShop/resetpass'" style="margin:0px 10px 10px 40px; background-color: #4CAF50;
+                        <button type="button" onclick="openModal('resetPasswordModal')" style="margin:0px 10px 10px 40px; background-color: #4CAF50;
                                 color: white;
                                 margin-top: 10px;
                                 border-radius: 5px;
@@ -115,9 +116,32 @@
                     </form>
                 </div>
             </div>
-            <div id="verificationModal" class="modal">
+            <div id="resetPasswordModal" class="modal">
                 <div class="modal-content">
-                    <span class="close" onclick="closeModal('verificationModal')">&times;</span>
+                    <span class="close" onclick="closeModal('resetPasswordModal')">&times;</span>
+                <c:if test="${not empty errorReset}">
+                    <p class="error">${errorReset}</p>
+                </c:if>
+                <form action="resetpass" method="post">
+                    <label for="input">Enter your username or email</label>
+                    <input type="text" id="input" name="input" value="${input}" required>
+
+                    <input type="submit" value="Reset">
+                </form>
+            </div>
+        </div>
+        <%
+            Boolean resetSuccess = (Boolean) request.getAttribute("resetSuccess");
+        %>
+
+        <script>
+            <% if (Boolean.TRUE.equals(resetSuccess)) { %>
+            showResetSuccessAlert();
+            <% } %>
+        </script>
+        <div id="verificationModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('verificationModal')">&times;</span>
                 <c:if test="${not empty code}">
                     <input type="hidden" class="code" id="code" />
                 </c:if>
@@ -143,6 +167,15 @@
                 </form>
             </div>
         </div>
+        <%
+                Boolean verificationSuccess = (Boolean) request.getAttribute("verificationSuccess");
+        %>
+
+        <script>
+            <% if (Boolean.TRUE.equals(verificationSuccess)) { %>
+            showSignupSuccessAlert();
+            <% } %>
+        </script>
         <header>
             <c:if test="${sessionScope.account eq null}">
                 <div style="background-color: #1a1818;" id="top-header">
@@ -169,7 +202,8 @@
                             <li><a style="font-size: 20px" href="/SWP391_BL5_G4ComShop/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i style="font-size: 20px" class="fa fa-user-o"></i> My Account <span class="caret"></span>
+                                    <i style="font-size: 20px" class="fa fa-user-o"></i>
+                                    <span style="font-size: 20px;">My Account</span> <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">View profile</a></li>
@@ -357,6 +391,7 @@
         <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 <style>
     .modal {
@@ -453,9 +488,49 @@
         font-weight: bold;
         margin-bottom: 15px;
     }
+    .dropdown-menu {
+        width: 120px;
+        background: #1a1818;
+    }
+    .dropdown-menu li{
+        width: 160px;
+    }
+    .dropdown-menu li a {
+        padding: 10px 20px;
+        display: block;
+
+    }
+    .dropdown-menu li a:hover {
+        background-color: #f8f9fa;
+        color: #343a40;
+
+    }
+    .custom-popup {
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        background: #f9f9f9;
+    }
+    .custom-title {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #333;
+    }
+    .custom-content {
+        font-size: 1rem;
+        color: #555;
+        line-height: 1.5;
+    }
 </style>
 <script>
                                 function openModal(modalId) {
+                                    var modals = ['loginModal', 'signupModal', 'resetPasswordModal'];
+                                    modals.forEach(function (id) {
+                                        var modal = document.getElementById(id);
+                                        if (modalId !== id) {
+                                            modal.style.display = "none";
+                                        }
+                                    });
                                     document.getElementById(modalId).style.display = "block";
                                 }
 
@@ -464,7 +539,7 @@
                                 }
 
                                 window.onclick = function (event) {
-                                    var modals = ['loginModal', 'signupModal', 'verificationModal'];
+                                    var modals = ['loginModal', 'signupModal', 'resetPasswordModal'];
                                     modals.forEach(function (modalId) {
                                         var modal = document.getElementById(modalId);
                                         if (event.target === modal) {
@@ -495,6 +570,46 @@
                                     if (errorSignup) {
                                         document.getElementById('signupModal').style.display = 'block';
                                     }
+                                }
+                                function showResetModalWithError() {
+                                    var errorReset = '${errorReset}';
+                                    if (errorReset) {
+                                        document.getElementById('resetPasswordModal').style.display = 'block';
+                                    }
+                                }
+                                function showSignupSuccessAlert() {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Verification Successful!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        customClass: {
+                                            popup: 'custom-popup',
+                                            title: 'custom-title',
+                                            content: 'custom-content'
+                                        },
+                                        width: '300px',
+                                        padding: '1rem',
+                                        backdrop: true,
+                                        timerProgressBar: true
+                                    });
+                                }
+                                function showResetSuccessAlert() {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Reset Password Successful!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        customClass: {
+                                            popup: 'custom-popup',
+                                            title: 'custom-title',
+                                            content: 'custom-content'
+                                        },
+                                        width: '300px',
+                                        padding: '1rem',
+                                        backdrop: true,
+                                        timerProgressBar: true
+                                    });
                                 }
 </script>
 </html>
