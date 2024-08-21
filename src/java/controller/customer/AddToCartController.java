@@ -89,7 +89,7 @@ public class AddToCartController extends HttpServlet {
             request.setAttribute("cardname", cardname);
             request.setAttribute("relatedProducts", relatedProducts);
 
-            request.getRequestDispatcher("/view/customer/ProductDetails.jsp").forward(request, response);
+            request.getRequestDispatcher("ProductDetails.jsp").forward(request, response);
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product detail ID format");
         }
