@@ -9,15 +9,14 @@ import java.util.logging.Logger;
 public class CartDetailDAO extends DBContext<CartDetail> {
 
     // Thêm mục vào giỏ hàng
-    public boolean addToCart(int productDetailId, int quantity, float price, float totalPrice, int customerId) {
-        String sql = "INSERT INTO CartDetail (productDetailId, quantity, price, totalPrice, customerId) VALUES (?, ?, ?, ?, ?)";
+    public boolean addToCart(int productDetailId, int quantity, float price, int customerId) {
+        String sql = "INSERT INTO CartDetail (productDetailId, quantity, price, customerId) VALUES (?, ?, ?, ?)";
         
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, productDetailId);
             ps.setInt(2, quantity);
             ps.setFloat(3, price);
-            ps.setFloat(4, totalPrice);
-            ps.setInt(5, customerId);
+            ps.setInt(4, customerId);
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CartDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -38,7 +37,6 @@ public class CartDetailDAO extends DBContext<CartDetail> {
                     cart.setProductDetailId(rs.getInt("productDetailId"));
                     cart.setQuantity(rs.getInt("quantity"));
                     cart.setPrice(rs.getFloat("price"));
-                    cart.setTotalPrice(rs.getFloat("totalPrice"));
                     cart.setCustomerId(rs.getInt("customerId"));
                     carts.add(cart);
                 }

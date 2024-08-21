@@ -146,24 +146,6 @@
         <!-- /HEADER -->
 
         <!-- NAVIGATION -->
-        <nav id="navigation">
-            <!-- container -->
-            <div class="container">
-                <!-- responsive-nav -->
-                <div id="responsive-nav">
-                    <!-- NAV -->
-                    <ul class="main-nav nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Products</a></li>
-                        <li><a href="#">Laptops</a></li>
-                        <li><a href="#">Accessories</a></li>
-                    </ul>
-                    <!-- /NAV -->
-                </div>
-                <!-- /responsive-nav -->
-            </div>
-            <!-- /container -->
-        </nav>
         <!-- /NAVIGATION -->
 
         <!-- BREADCRUMB -->
@@ -174,9 +156,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ul class="breadcrumb-tree">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Product</a></li>
-                            <li><a href="#">Product Details</a></li>
+                            <li><a href="productHome">Home</a></li>
+                            <li><a href="productHome">Product</a></li>
                             <li class="active">${productWithDetails.product.name}</li>
                         </ul>
                     </div>
@@ -195,7 +176,7 @@
                     <div class="col-md-5 col-md-push-1">
                         <div id="product-main-img">
                             <div class="product-preview">
-                                <img src="${pageContext.request.contextPath}/${productWithDetails.product.image}" 
+                                <img src="${pageContext.request.contextPath}/assets/electro/img/${productWithDetails.product.image}" 
                                      alt="${productWithDetails.product.title}">
                             </div>
                         </div>
@@ -244,6 +225,13 @@
                                 </div>
 
                                 <div class="product-options">
+
+                                    <p><strong>Discount</strong> 
+                                        <c:set var="discount" value="${((productWithDetails.productDetails.originPrice - productWithDetails.productDetails.salePrice) / productWithDetails.productDetails.originPrice) * 100}" />
+                                        <c:set var="formattedDiscount" value="${discount}" />
+                                        <c:set var="discount" value="${formattedDiscount.toString().substring(0, 5)}" />
+                                        <strong style="color: red; font-size: 1.2em;">${discount}%</strong> 
+                                    </p>
                                     <p><strong>Color:</strong> ${productWithDetails.productDetails.color}</p>
                                     <p><strong>Brand:</strong> ${brandname.name}</p>
                                     <p><strong>Screen Size:</strong> ${productWithDetails.product.screenSize} (inches)</p>
@@ -265,14 +253,14 @@
                                         <i class="fa fa-shopping-cart"></i> Add to Cart
                                     </button>
                                     <c:if test="${not empty errorMessage}">
-                                        <div class="alert alert-danger">
+                                        <div class="alert alert-danger" style="margin-top: 10px;">
                                             <strong>Error!</strong> ${errorMessage}
                                         </div>
                                     </c:if>
 
                                     <!-- Success Message -->
                                     <c:if test="${not empty successMessage}">
-                                        <div class="alert alert-success">
+                                        <div class="alert alert-success" style="margin-top: 10px;">
                                             <strong>Success!</strong> ${successMessage}
                                         </div>
                                     </c:if>
@@ -281,14 +269,6 @@
                                 <ul class="product-links">
                                     <li>Category:</li>
                                     <li><a href="#">${productWithDetails.product.categoryId == '1' ? 'laptop' : 'accessory'}</a></li>
-                                </ul>
-
-                                <ul class="product-links">
-                                    <li>Share:</li>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-envelope"></i></a></li>
                                 </ul>
                             </form>
                         </div>
@@ -302,7 +282,7 @@
                             <ul class="tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                                 <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                                <li><a data-toggle="tab" href="#tab3">Reviews</a></li>
+                                <!--                                <li><a data-toggle="tab" href="#tab3">Reviews</a></li>-->
                             </ul>
 
                             <div class="tab-content">
@@ -532,13 +512,13 @@
                                         <div class="product-img">
                                             <img style="width: 100%;
                                                  height: 200px;
-                                                 object-fit: cover;" src="${pageContext.request.contextPath}/${relatedProduct.product.image}" alt="${pageContext.request.contextPath}/${relatedProduct.product.image}">
+                                                 object-fit: cover;" src="${pageContext.request.contextPath}/assets/electro/img/${relatedProduct.product.image}" alt="${pageContext.request.contextPath}/${relatedProduct.product.image}">
                                             <div class="product-label">
                                                 <c:choose>
                                                     <c:when test="${relatedProduct.productDetails.originPrice > relatedProduct.productDetails.salePrice}">
-                                                        <c:set var="discount" value="${100 - (relatedProduct.productDetails.salePrice / relatedProduct.productDetails.originPrice * 100)}" />
+                                                        <c:set var="discount" value="${((relatedProduct.productDetails.originPrice - relatedProduct.productDetails.salePrice) / relatedProduct.productDetails.originPrice) * 100}" />
                                                         <c:set var="formattedDiscount" value="${discount}" />
-                                                        <c:set var="discountStr" value="${formattedDiscount.toString().substring(0, 4)}" />
+                                                        <c:set var="discountStr" value="${formattedDiscount.toString().substring(0, 5)}" />
                                                         <span class="sale">-${discountStr}%</span>
                                                     </c:when>
                                                     <c:otherwise>
@@ -549,15 +529,13 @@
                                         </div>
                                         <div class="product-body">
                                             <p class="product-category">${relatedProduct.product.categoryId == '1' ? 'laptop' : 'accessory'}</p>
-                                            <h3 class="product-name"><a href="productdetails?id=${relatedProduct.productDetails.id}">${relatedProduct.productDetails.id}. ${relatedProduct.product.name}</a></h3>
+                                            <h3 class="product-name"><a href="productdetails?id=${relatedProduct.productDetails.id}">${relatedProduct.product.title}</a></h3>
                                             <h4 class="product-price">${relatedProduct.productDetails.salePrice} <del class="product-old-price">${relatedProduct.productDetails.originPrice}</del></h4>
                                             <div class="product-rating">
 
                                             </div>
                                             <div class="product-btns">
-                                                <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                                <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                                <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                                <button class="quick-view" onclick="window.location.href = 'productdetails?id=${relatedProduct.productDetails.id}'"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
@@ -576,42 +554,6 @@
         </div>
         <!-- /Section -->
 
-        <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
-            <div class="container">
-                <!-- row -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="newsletter">
-                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
-                            <form>
-                                <input class="input" type="email" placeholder="Enter Your Email">
-                                <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
-                            </form>
-                            <ul class="newsletter-follow">
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /NEWSLETTER -->
-
         <!-- FOOTER -->
         <jsp:include page="include/footer-bar.jsp" />
 
@@ -626,23 +568,23 @@
         <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
 
         <script>
-            function openModal(modalId) {
-                document.getElementById(modalId).style.display = "block";
-            }
+                                                    function openModal(modalId) {
+                                                        document.getElementById(modalId).style.display = "block";
+                                                    }
 
-            function closeModal(modalId) {
-                document.getElementById(modalId).style.display = "none";
-            }
+                                                    function closeModal(modalId) {
+                                                        document.getElementById(modalId).style.display = "none";
+                                                    }
 
-            window.onclick = function (event) {
-                var modals = ['loginModal', 'signupModal'];
-                modals.forEach(function (modalId) {
-                    var modal = document.getElementById(modalId);
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                });
-            };
+                                                    window.onclick = function (event) {
+                                                        var modals = ['loginModal', 'signupModal'];
+                                                        modals.forEach(function (modalId) {
+                                                            var modal = document.getElementById(modalId);
+                                                            if (event.target === modal) {
+                                                                modal.style.display = "none";
+                                                            }
+                                                        });
+                                                    };
         </script>
 
     </body>

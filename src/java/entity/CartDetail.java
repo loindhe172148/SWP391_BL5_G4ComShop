@@ -5,17 +5,15 @@ public class CartDetail {
      private int productDetailId; // key  not null
      private int quantity; //  not null
      private float price; // not null
-     private float totalPrice; // not null
      private int customerId; // key not null
 
     public CartDetail() {
     }
 
-    public CartDetail(int productDetailId, int quantity, float price, float totalPrice, int customerId) {
+    public CartDetail(int productDetailId, int quantity, float price, int customerId) {
         this.productDetailId = productDetailId;
         this.quantity = quantity;
         this.price = price;
-        this.totalPrice = totalPrice;
         this.customerId = customerId;
     }
 
@@ -42,14 +40,6 @@ public class CartDetail {
 
     public void setPrice(float price) {
         this.price = price;
-    }
-
-    public float getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(float totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public int getCustomerId() {

@@ -25,6 +25,7 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
                 case "id":
                 case "originPrice":
                 case "salePrice":
+                case "quantity" :
                     sortColumn = "pd." + sortColumn;
                     break;
                 default:

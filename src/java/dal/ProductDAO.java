@@ -47,9 +47,10 @@ public class ProductDAO extends DBContext<Product> {
         }
         return 0;
     }
+
     public void addProduct(Product product) throws SQLException {
-        String sql = "INSERT INTO Product (name, title, description, image, categoryId, brandId, screenSize, createDate, updateDate, status) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Product (name, title, description, image, categoryId, brandId, screenSize, createDate, updateDate, status) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
@@ -63,6 +64,19 @@ public class ProductDAO extends DBContext<Product> {
             stmt.setDate(9, new Date(product.getUpdateDate().getTime()));
             stmt.setString(10, product.getStatus());
 
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw ex;
+        }
+    }
+
+    public void updateProductStatus(int productId, String newStatus) throws SQLException {
+        String sql = "UPDATE Product SET status = ? WHERE id = ?";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, productId);
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
