@@ -316,7 +316,25 @@
             <script src="${pageContext.request.contextPath}/assets/electro/js/nouislider.min.js"></script>
             <script src="${pageContext.request.contextPath}/assets/electro/js/jquery.zoom.min.js"></script>
             <script src="${pageContext.request.contextPath}/assets/electro/js/main.js"></script>
+            <script>
+                function openModal(modalId) {
+                    document.getElementById(modalId).style.display = "block";
+                }
 
-            
+                function closeModal(modalId) {
+                    document.getElementById(modalId).style.display = "none";
+                }
+
+                window.onclick = function (event) {
+                    var modals = ['loginModal', 'signupModal'];
+                    modals.forEach(function (modalId) {
+                        var modal = document.getElementById(modalId);
+                        if (event.target === modal) {
+                            modal.style.display = "none";
+                        }
+                    });
+                };
+            </script>
+
     </body>
 </html>
