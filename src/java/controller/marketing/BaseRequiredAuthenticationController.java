@@ -1,6 +1,4 @@
-package controller.marketing;
-
-
+package controller.user;
 
 import dal.AccountDBContext;
 import entity.Account;
@@ -34,7 +32,7 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
 
                 if (username != null && password != null) {
                     AccountDBContext db = new AccountDBContext();
-                    return db.checkAccountExist(username, password);
+                    return db.getAccount(username, password);
                 } else {
                     return null;
                 }
@@ -63,7 +61,11 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = getAuthentication(req);
         String servletPath = req.getServletPath();
-       
+        if (account != null && isAuthorized(account, servletPath)) {
+            doPost(req, resp, account);
+        } else {
+            resp.sendRedirect("/SWP391_BL5_G4ComShop/view/user/login.jsp");
+        }
     }
 
     protected abstract void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException;
@@ -72,6 +74,10 @@ public abstract class BaseRequiredAuthenticationController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = getAuthentication(req);
         String servletPath = req.getServletPath();
-
+        if (account != null && isAuthorized(account, servletPath)) {
+            doGet(req, resp, account);
+        } else {
+            resp.sendRedirect("/SWP391_BL5_G4ComShop/view/user/login.jsp");
+        }
     }
 }
