@@ -10,9 +10,6 @@ import entity.Card;
 import entity.Category;
 import entity.Product;
 import entity.RAM;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,9 +18,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "AddProductController", urlPatterns = {"/view/marketing/addnew"})
 @MultipartConfig
@@ -33,89 +34,86 @@ public class AddProduct extends HttpServlet {
     private static final String FOLDER_DIRECTORY = "web/view/marketing/assets/images/products";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
         String addAction = request.getParameter("addaction");
 
-        try (PrintWriter out = response.getWriter()) {
+        if (addAction == null) {
+            // Load danh sách category và brand để đổ vào form
+            loadFormData(request, response);
 
-            if (addAction == null) {
-                // Load danh sách category và brand để đổ vào form
+            // Chuyển tiếp đến trang thêm sản phẩm
+            request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
+        } else {
+            // Xử lý khi addaction không null, tức là người dùng gửi form để thêm sản phẩm
+            Map<String, String> errors = new HashMap<>();
+
+            // Lấy dữ liệu từ form
+            String name = request.getParameter("product-name").trim();
+            String description = request.getParameter("product-description").trim();
+            String statusStr = request.getParameter("status");
+            String originPriceStr = request.getParameter("product-originprice").trim();
+            String salePriceStr = request.getParameter("product-saleprice").trim();
+            String capacityStr = request.getParameter("product-capacity").trim();
+            String sizeStr = request.getParameter("product-screensize").trim();
+            String color = request.getParameter("product-color").trim();
+            String quantityStr = request.getParameter("product-quantity").trim();
+
+            String categoryIdStr = request.getParameter("product-category");
+            String cpuIdStr = request.getParameter("product-cpu");
+            String cardIdStr = request.getParameter("product-card");
+            String ramIdStr = request.getParameter("product-ram");
+            String typeIdStr = request.getParameter("product-type");
+
+            // Validate dữ liệu
+            validateFormData(name, description, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, errors);
+
+            if (!errors.isEmpty()) {
+                // Nếu có lỗi, gửi lỗi và dữ liệu đã nhập lại về trang thêm sản phẩm
                 loadFormData(request, response);
+                request.setAttribute("error", errors);
+                setFormAttributes(request, name, description, statusStr, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, categoryIdStr, cpuIdStr, cardIdStr, ramIdStr, typeIdStr);
 
-                // Chuyển tiếp đến trang thêm sản phẩm
                 request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
             } else {
-                // Xử lý khi addaction không null, tức là người dùng gửi form để thêm sản phẩm
-                Map<String, String> errors = new HashMap<>();
+                // Nếu không có lỗi, xử lý thêm sản phẩm vào cơ sở dữ liệu
+                int status = Integer.parseInt(statusStr);
+                double originPrice = Double.parseDouble(originPriceStr);
+                double salePrice = Double.parseDouble(salePriceStr);
+                double capacity = Double.parseDouble(capacityStr);
+                double size = Double.parseDouble(sizeStr);
+                int quantity = Integer.parseInt(quantityStr);
 
-                // Lấy dữ liệu từ form
-                String name = request.getParameter("product-name").trim();
-                String description = request.getParameter("product-description").trim();
-                String statusStr = request.getParameter("status");
-                String originPriceStr = request.getParameter("product-originprice").trim();
-                String salePriceStr = request.getParameter("product-saleprice").trim();
-                String capacityStr = request.getParameter("product-capacity").trim();
-                String sizeStr = request.getParameter("product-screensize").trim();
-                String color = request.getParameter("product-color").trim();
-                String quantityStr = request.getParameter("product-quantity").trim();
+                Integer categoryId = (categoryIdStr != null && !categoryIdStr.isEmpty()) ? Integer.parseInt(categoryIdStr) : null;
+                Integer cpuId = (cpuIdStr != null && !cpuIdStr.isEmpty()) ? Integer.parseInt(cpuIdStr) : null;
+                Integer cardId = (cardIdStr != null && !cardIdStr.isEmpty()) ? Integer.parseInt(cardIdStr) : null;
+                Integer ramId = (ramIdStr != null && !ramIdStr.isEmpty()) ? Integer.parseInt(ramIdStr) : null;
+                Integer typeId = (typeIdStr != null && !typeIdStr.isEmpty()) ? Integer.parseInt(typeIdStr) : null;
 
-                String categoryIdStr = request.getParameter("product-category");
-                String cpuIdStr = request.getParameter("product-cpu");
-                String cardIdStr = request.getParameter("product-card");
-                String ramIdStr = request.getParameter("product-ram");
-                String typeIdStr = request.getParameter("product-type");
+                // Handle image upload
+                Part filePart = request.getPart("product-image");
+                String fileName = handleImageUpload(filePart);
 
-                // Validate dữ liệu
-                validateFormData(name, description, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, errors);
+                // Create Product object
+                Product product = new Product();
+                product.setName(name);
+                product.setDescription(description);
+                product.setImage(fileName != null ? UPLOAD_DIRECTORY + "/" + fileName : null);
+                product.setCategoryId(categoryId);
+                product.setQuantity(quantity);
 
-                if (!errors.isEmpty()) {
-                    // Nếu có lỗi, gửi lỗi và dữ liệu đã nhập lại về trang thêm sản phẩm
-                    loadFormData(request, response);
-                    request.setAttribute("error", errors);
-                    setFormAttributes(request, name, description, statusStr, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, categoryIdStr, cpuIdStr, cardIdStr, ramIdStr, typeIdStr);
+                // Insert into database
+                ProductDAO productDAO = new ProductDAO();
+                productDAO.addProduct(product);
 
-                    request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
-                } else {
-                    // Nếu không có lỗi, xử lý thêm sản phẩm vào cơ sở dữ liệu
-                    int status = Integer.parseInt(statusStr);
-                    double originPrice = Double.parseDouble(originPriceStr);
-                    double salePrice = Double.parseDouble(salePriceStr);
-                    double capacity = Double.parseDouble(capacityStr);
-                    double size = Double.parseDouble(sizeStr);
-                    int quantity = Integer.parseInt(quantityStr);
+                // Load lại dữ liệu để gửi về form
+                loadFormData(request, response);
+                setFormAttributes(request, name, description, statusStr, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, categoryIdStr, cpuIdStr, cardIdStr, ramIdStr, typeIdStr);
 
-                    Integer categoryId = (categoryIdStr != null && !categoryIdStr.isEmpty()) ? Integer.parseInt(categoryIdStr) : null;
-                    Integer cpuId = (cpuIdStr != null && !cpuIdStr.isEmpty()) ? Integer.parseInt(cpuIdStr) : null;
-                    Integer cardId = (cardIdStr != null && !cardIdStr.isEmpty()) ? Integer.parseInt(cardIdStr) : null;
-                    Integer ramId = (ramIdStr != null && !ramIdStr.isEmpty()) ? Integer.parseInt(ramIdStr) : null;
-                    Integer typeId = (typeIdStr != null && !typeIdStr.isEmpty()) ? Integer.parseInt(typeIdStr) : null;
-
-                    // Handle image upload
-                    Part filePart = request.getPart("product-image");
-                    String fileName = handleImageUpload(filePart);
-
-                    // Create Product object
-                    Product product = new Product();
-                    product.setName(name);
-                    product.setDescription(description);
-                    product.setImage(fileName != null ? UPLOAD_DIRECTORY + "/" + fileName : null);
-                    product.setCategoryId(categoryId);
-                    product.setQuantity(quantity);
-
-                    // Insert into database
-                    ProductDAO productDAO = new ProductDAO();
-                    productDAO.addProduct(product);
-
-                    // Load lại dữ liệu để gửi về form
-                    loadFormData(request, response);
-                    setFormAttributes(request, name, description, statusStr, originPriceStr, salePriceStr, capacityStr, sizeStr, color, quantityStr, categoryIdStr, cpuIdStr, cardIdStr, ramIdStr, typeIdStr);
-
-                    // Success message
-                    request.setAttribute("message", "Product added successfully!");
-                    request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
-                }
+                // Success message
+                request.setAttribute("message", "Product added successfully!");
+                request.getRequestDispatcher("AddProduct.jsp").forward(request, response);
             }
         }
     }
@@ -226,7 +224,11 @@ public class AddProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -240,7 +242,11 @@ public class AddProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
