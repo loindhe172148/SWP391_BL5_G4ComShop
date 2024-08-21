@@ -30,26 +30,36 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal('loginModal')">&times;</span>
                 <form action="/SWP391_BL5_G4ComShop/login" method="post">
-                    <c:if test="${not empty error}">
-                        <div class="error-message">${error}</div>
+                    <c:if test="${not empty errorLogin}">
+                        <div class="error-message">${errorLogin}</div>
                     </c:if>
 
                     <div class="form-group">
-                        <label for="username">Username:</label>
+                        <label for="username">Username</label>
                         <input type="text" id="username" name="username" value="${username}" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" value="${password}" required>
                     </div>
 
                     <div class="form-group" style="flex-direction: row; align-items: center;">
-                        <input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe == 'on' ? 'checked' : ''}>
-                        <label for="rememberMe">Remember me</label>
+                        <input  type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe == 'on' ? 'checked' : ''}>
+                        <label style="margin:4px 0 0 0" for="rememberMe">Remember me</label>
                     </div>
 
-                    <input type="submit" value="Login">
+                    <div style="display: flex;">
+                        <button type="button" onclick="location.href = '/SWP391_BL5_G4ComShop/resetpass'" style="margin:0px 10px 10px 40px; background-color: #4CAF50;
+        color: white;
+        margin-top: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        border: none;
+        width: 180px;">Reset Password</button>
+        <input style="margin: 10px" type="submit" value="Login">
+                    </div>
                 </form>
             </div>
         </div>
@@ -57,39 +67,39 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal('signupModal')">&times;</span>
                 <form action="signup" method="post">
-                    <c:if test="${not empty err}">
-                        <div class="error-message">${err}</div>
+                    <c:if test="${not empty errorSignup}">
+                        <div class="error-message">${errorSignup}</div>
                     </c:if>
                     <div class="form-group">
-                        <label for="username">Username:</label>
+                        <label for="username">Username</label>
                         <input type="text" id="username" name="username" value="${username}" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password:</label>
+                        <label for="password">Password</label>
                         <input type="password" id="password" name="pass" required>
                     </div>
                     <div class="form-group">
-                        <label for="confirmpassword">Confirm Password:</label>
+                        <label for="confirmpassword">Confirm Password</label>
                         <input type="password" id="confirmpassword" name="confirmpassword" required>
                     </div>
                     <div class="form-group">
-                        <label for="name">Full Name:</label>
+                        <label for="name">Full Name</label>
                         <input type="text" id="name" name="name" value="${fullname}" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email:</label>
+                        <label for="email">Email</label>
                         <input type="email" id="email" name="email" value="${email}" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone:</label>
+                        <label for="phone">Phone</label>
                         <input type="tel" id="phone" name="phone" value="${phone}" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>
+                        <label for="address">Address</label>
                         <input type="text" id="address" name="add" value="${address}" required>
                     </div>
                     <div class="form-group">
-                        <label for="dob">Date of Birth:</label>
+                        <label for="dob">Date of Birth</label>
                         <input type="date" id="dob" name="dob" value="${dob}" required>
                     </div>
                     <div class="form-group">
@@ -109,11 +119,9 @@
                 <div style="background-color: #1a1818;" id="top-header">
                     <div class="container">
                         <div class="header-logo">
-                            <a href="#" class="logo">
-                                <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
-                        </a>
+                            <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt=""/>
                     </div>
-                        <ul style="margin-top: 10px" class="header-links pull-right">
+                    <ul style="margin-top: 10px" class="header-links pull-right">
                         <li><a style="font-size: 20px" href="#" onclick="openModal('loginModal')"><i class="fa fa-sign-in"></i> Login</a></li>
                         <li><a style="font-size: 20px" href="#" onclick="openModal('signupModal')"><i class="fa fa-user-plus"></i> Sign up</a></li>
                     </ul>
@@ -128,7 +136,7 @@
                     <li class="active"><a href="/SWP391_BL5_G4ComShop">Home</a></li>
                     <li><a href="#new-product">New Laptops</a></li>
                     <li><a href="#product-list">Laptops</a></li>
-                    <li><a href="#product-sale">Top Salers</a></li>
+                    <li><a href="#product-sale">Top Sellers</a></li>
                 </ul>
             </div>
         </div>
@@ -181,69 +189,52 @@
         <div class="container">
             <div class="row">
                 <h3 class="title">All Laptops</h3>
-                <div id="aside" class="col-md-3">
-                    <div style="display:grid; width: 50px" class="store-filter clearfix">
-                        <div class="store-sort">
-                            <form action="fillterProduct" method="get">
-                                <label>Acer</label>
-                                <label>Hp</label>
-                                <label>text</label>
-                                <label>text</label>
-                                <label>text</label>
-                                <label>text</label>
-                                <label>text</label>
-                                <label>text</label>
-                                <label>text</label>
+                <div id="aside" class="col-md-1">
+                    <h4 style="margin-top: 15px">Brand</h4>
+                    <form style="width: 100px;" action="fillterProduct" method="get">
+                        <c:forEach items="${listB}" var="o"> 
+                            <a href="url">${o.brandName}</a></br>
+                        </c:forEach>
+                    </form>
+                </div>
+                <div class="col-md-11">
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form>
+                                <select class="input-select">
+                                    <option value="0">All Categories</option>
+                                    <option value="1">Category 01</option>
+                                    <option value="1">Category 02</option>
+                                </select>
+                                <input class="input" placeholder="Search here">
+                                <button class="search-btn">Search</button>
                             </form>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
-                            </select>
-                            <input class="input" placeholder="Search here">
-                            <button class="search-btn">Search</button>
-                        </form>
-                    </div>
-                </div>
-                <div id="store" class="col-md-9">
-                    <div class="row">
-                        <c:forEach var="product" items="${productList}">
-                            <div class="col-md-4 col-xs-6">
-                                <div class="product">
-                                    <div class="product-img">
-                                        <img src="${product.image}" alt="${product.name}" width="300" height="200">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">${product.title}</p>
-                                        <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
-                                        <h4 class="product-price">
-                                            ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
-                                        </h4>
-                                        <div class="product-rating">
+                    <div id="store" class="col-md-12">
+                        <div class="row">
+                            <c:forEach var="product" items="${productList}">
+                                <div class="col-md-4 col-xs-6">
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <img src="${product.image}" alt="${product.name}" width="300" height="200">
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category">${product.title}</p>
+                                            <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
+                                            <h4 class="product-price">
+                                                ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
+                                            </h4>
+                                            <div class="product-rating">
+                                            </div>
+                                        </div>
+                                        <div class="add-to-cart">
+                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                         </div>
                                     </div>
-                                    <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                    </div>
                                 </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                    <div class="store-filter clearfix">
-                        <span class="store-qty">Showing 20-100 products</span>
-                        <ul class="store-pagination">
-                            <li class="active">1</li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,7 +244,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="section-title">
-                            <h3 class="title">Top selling</h3>
+                            <h3 class="title">Top Sellers</h3>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -410,22 +401,31 @@
     }
 </style>
 <script>
-                                        function openModal(modalId) {
-                                            document.getElementById(modalId).style.display = "block";
-                                        }
+                            function openModal(modalId) {
+                                document.getElementById(modalId).style.display = "block";
+                            }
 
-                                        function closeModal(modalId) {
-                                            document.getElementById(modalId).style.display = "none";
-                                        }
+                            function closeModal(modalId) {
+                                document.getElementById(modalId).style.display = "none";
+                            }
 
-                                        window.onclick = function (event) {
-                                            var modals = ['loginModal', 'signupModal'];
-                                            modals.forEach(function (modalId) {
-                                                var modal = document.getElementById(modalId);
-                                                if (event.target === modal) {
-                                                    modal.style.display = "none";
-                                                }
-                                            });
-                                        };
+                            window.onclick = function (event) {
+                                var modals = ['loginModal', 'signupModal'];
+                                modals.forEach(function (modalId) {
+                                    var modal = document.getElementById(modalId);
+                                    if (event.target === modal) {
+                                        modal.style.display = "none";
+                                    }
+                                });
+                            };
+                            window.onload = function () {
+                                showLoginModalWithError();
+                            };
+                            function showLoginModalWithError() {
+                                var errorLogin = '${errorLogin}';
+                                if (errorLogin) {
+                                    document.getElementById('loginModal').style.display = 'block';
+                                }
+                            }
 </script>
 </html>

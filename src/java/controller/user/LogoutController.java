@@ -1,33 +1,36 @@
 package controller.user;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Cookie;
-
 import java.io.IOException;
 
 public class LogoutController extends HttpServlet {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Invalidate the current session to log out the user
-        request.getSession().invalidate();
+        request.getSession().setAttribute("account", null);
+        Cookie c_user = new Cookie("username", "");
+        Cookie c_pass = new Cookie("password", "");
 
-        // Optionally, remove cookies if present
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username") || cookie.getName().equals("rememberMe")) {
-                    cookie.setMaxAge(0); // Set cookie age to 0 to delete it
-                    response.addCookie(cookie);
-                }
-            }
-        }
+        c_user.setMaxAge(-1);
+        c_pass.setMaxAge(-1);
 
-        // Redirect to the login page
-        response.sendRedirect("login");
-    } 
+        response.addCookie(c_pass);
+        response.addCookie(c_user);
+        response.sendRedirect("productHome");
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
 }
