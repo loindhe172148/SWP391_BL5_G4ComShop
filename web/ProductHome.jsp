@@ -31,7 +31,7 @@
                 <span class="close" onclick="closeModal('loginModal')">&times;</span>
                 <form action="/SWP391_BL5_G4ComShop/login" method="post">
                     <c:if test="${not empty errorLogin}">
-                        <div class="error-message">${errorLogin}</div>
+                        <div id="loginErrorMessage" class="error-message">${errorLogin}</div>
                     </c:if>
 
                     <div class="form-group">
@@ -68,7 +68,7 @@
                 <span class="close" onclick="closeModal('signupModal')">&times;</span>
                 <form action="signup" method="post">
                     <c:if test="${not empty errorSignup}">
-                        <div class="error-message">${errorSignup}</div>
+                        <div id="signupErrorMessage" class="error-message">${errorSignup}</div>
                     </c:if>
                     <div class="form-group">
                         <label for="username">Username</label>
@@ -115,7 +115,35 @@
                     </form>
                 </div>
             </div>
-            <header>
+            <div id="verificationModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('verificationModal')">&times;</span>
+                <c:if test="${not empty code}">
+                    <input type="hidden" class="code" id="code" />
+                </c:if>
+                <c:if test="${not empty errorVerify}">
+                    <div class="error-message">${errorVerify}</div>
+                </c:if>
+
+                <form action="verify" method="post">
+                    <label for="passconfirm">Enter Passcode:</label>
+                    <input type="text" id="passconfirm" name="code" required><br>
+
+                    <input type="hidden" name="email" value="${email}">
+                    <input type="hidden" name="username" value="${username}">
+                    <input type="hidden" name="password" value="${password}">
+                    <input type="hidden" name="role" value="${role}">
+                    <input type="hidden" name="phone" value="${phone}">
+                    <input type="hidden" name="address" value="${address}">
+                    <input type="hidden" name="dob" value="${dob}">
+                    <input type="hidden" name="gender" value="${gender}">
+                    <input type="hidden" name="fullname" value="${fullname}">
+
+                    <input type="submit" value="Verify">
+                </form>
+            </div>
+        </div>
+        <header>
             <c:if test="${sessionScope.account eq null}">
                 <div style="background-color: #1a1818;" id="top-header">
                     <div class="container">
@@ -436,7 +464,7 @@
                                 }
 
                                 window.onclick = function (event) {
-                                    var modals = ['loginModal', 'signupModal'];
+                                    var modals = ['loginModal', 'signupModal', 'verificationModal'];
                                     modals.forEach(function (modalId) {
                                         var modal = document.getElementById(modalId);
                                         if (event.target === modal) {
@@ -446,11 +474,26 @@
                                 };
                                 window.onload = function () {
                                     showLoginModalWithError();
+                                    showSignupModalWithError();
+                                    showVerifyModalWithError();
                                 };
                                 function showLoginModalWithError() {
                                     var errorLogin = '${errorLogin}';
                                     if (errorLogin) {
                                         document.getElementById('loginModal').style.display = 'block';
+                                    }
+                                }
+                                function showVerifyModalWithError() {
+                                    var code = '${code}';
+                                    var errorVerify = '${errorVerify}';
+                                    if (code || errorVerify) {
+                                        document.getElementById('verificationModal').style.display = 'block';
+                                    }
+                                }
+                                function showSignupModalWithError() {
+                                    var errorSignup = '${errorSignup}';
+                                    if (errorSignup) {
+                                        document.getElementById('signupModal').style.display = 'block';
                                     }
                                 }
 </script>

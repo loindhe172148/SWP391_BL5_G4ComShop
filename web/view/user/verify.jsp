@@ -68,8 +68,8 @@
         <h1>Verify Your Account</h1>
 
         <!-- Display any error messages from the servlet -->
-        <c:if test="${not empty err}">
-            <p class="error">${err}</p>
+        <c:if test="${not empty errorVerify}">
+            <p class="error">${errorVerify}</p>
         </c:if>
 
         <!-- Verification form -->
