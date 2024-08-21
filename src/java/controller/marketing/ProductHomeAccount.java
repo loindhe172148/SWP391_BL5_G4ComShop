@@ -31,12 +31,12 @@ public class ProductHomeAccount extends BaseRequiredAuthenticationController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
        
             ProductDAO productDAO = new ProductDAO();
-            List<Product> productList = productDAO.getAllProduct();
+           
             List<Product> productListnew = productDAO.getNewestProducts(5);
             List<Product> topDiscountedProducts = productDAO.getTopDiscountedProducts(5);
             List<Product> topDiscountedProductsa = productDAO.getTopDiscountedProducts(3);
 
-            req.setAttribute("productList", productList);
+           
             req.setAttribute("productListnew", productListnew);
             req.setAttribute("topDiscountedProducts", topDiscountedProducts);
             req.setAttribute("topDiscountedProductsa", topDiscountedProductsa);

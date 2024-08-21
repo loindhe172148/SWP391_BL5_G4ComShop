@@ -44,11 +44,11 @@ public class FillterProductAccount extends HttpServlet {
 
     List<Product> filterProducts;
     if (idB != null && !idB.isEmpty()) {
-        filterProducts = productDAO.getFilterProducts(idB);
+        
     } else {
-        filterProducts = productDAO.getAllProduct();
+        
     }
-    request.setAttribute("productList", filterProducts);
+    
 
     List<Brandname> listB = band.getBrandnameAccessory();
     request.setAttribute("listB", listB);
