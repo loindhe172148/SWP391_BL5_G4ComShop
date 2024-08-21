@@ -161,7 +161,7 @@
                                     <div class="qty-label">
                                         Quantity:
                                         <div class="input-number">
-                                            <input type="number" name="quantity" id="quantity-input" value="1" min="1">
+                                            <input type="number" name="quantity" id="quantity-input" value="1">
                                             <span class="qty-up">+</span>
                                             <span class="qty-down">-</span>
                                         </div>
@@ -207,7 +207,7 @@
                             <ul class="tab-nav">
                                 <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                                 <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                                <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+                                <li><a data-toggle="tab" href="#tab3">Reviews</a></li>
                             </ul>
 
                             <div class="tab-content">

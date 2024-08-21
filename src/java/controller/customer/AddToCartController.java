@@ -28,7 +28,7 @@ public class AddToCartController extends HttpServlet {
         CartDetailDAO cartDAO = new CartDetailDAO();
         HttpSession session = request.getSession();
         Account account = new Account();
-        
+
         try {
             account = (Account) session.getAttribute("account");
         } catch (Exception e) {
@@ -38,30 +38,24 @@ public class AddToCartController extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         float price = Float.parseFloat(request.getParameter("price"));
         int totalquantity = Integer.parseInt(request.getParameter("totalquantity"));
+        System.out.println("check total price: " + price + quantity);
         float totalPrice = price * quantity;
 
         try {
-            if (quantity <= 0 || quantity > totalquantity) {
-                request.setAttribute("errorMessage", "Invalid quantity must > 0 and <= total quantity in stock.");
-            } else {
-                if (account != null) {
+            if (account != null) {
+                if (quantity <= 0 || quantity > totalquantity) {
+                    request.setAttribute("errorMessage", "Invalid quantity must > 0 and <= total quantity in stock.");
+                } else {
                     int customerId = account.getId();
                     boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, customerId);
-
-                    if (success) {
-                        request.setAttribute("successMessage", "Product added to cart successfully!");
-                    } else {
-                        request.setAttribute("errorMessage", "Product already in cart.");
-                    }
-                } else {
-                    boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, 1);
-
                     if (success) {
                         request.setAttribute("successMessage", "Product added to cart successfully!");
                     } else {
                         request.setAttribute("errorMessage", "Product already in cart.");
                     }
                 }
+            }else {
+                request.setAttribute("errorMessage", "You have to login first.");
             }
         } catch (NumberFormatException e) {
             request.setAttribute("errorMessage", "Invalid input format");
@@ -80,7 +74,6 @@ public class AddToCartController extends HttpServlet {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
                 return;
             }
-
             Brand brandname = branddao.getBrandById(productWithDetails.getProduct().getBrandId());
             RAM ramname = ramdao.getRAMById(productWithDetails.getProductDetails().getRamId());
             CPU cpuname = cpudao.getCPUById(productWithDetails.getProductDetails().getCpuId());
