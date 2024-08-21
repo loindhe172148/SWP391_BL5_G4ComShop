@@ -27,14 +27,18 @@ public class LoginController extends HttpServlet {
         Account account = accountDB.getAccount(username, password);
 
         if (account == null) {
+            request.setAttribute("username", username);
+            request.setAttribute("password", password);
             request.setAttribute("errorLogin", "Invalid username or password");
-            request.getRequestDispatcher("/view/ProductHome.jsp").forward(request, response);
+            request.getRequestDispatcher("/productHome").forward(request, response);
             return;
         }
 
         HttpSession session = request.getSession();
         session.setAttribute("account", account);
         session.setAttribute("username", username);
+        session.setAttribute("password", password);
+        session.setAttribute("rememberMe", rememberMe);
         session.setAttribute("userRole", account.getRole());
 
         UserDBContext userDB = new UserDBContext();
@@ -43,25 +47,30 @@ public class LoginController extends HttpServlet {
 
         if ("on".equals(rememberMe)) {
             Cookie cuser = new Cookie("username", username);
+            Cookie cpass = new Cookie("password", password);
             Cookie cRememberMe = new Cookie("rememberMe", "on");
 
-            cuser.setMaxAge(3600 * 24 * 7); 
-            cRememberMe.setMaxAge(3600 * 24 * 7); 
+            cuser.setMaxAge(3600 * 24 * 7);
+            cpass.setMaxAge(3600 * 24 * 7);
+            cRememberMe.setMaxAge(3600 * 24 * 7);
 
             response.addCookie(cuser);
+            response.addCookie(cpass);
             response.addCookie(cRememberMe);
         } else {
             Cookie cuser = new Cookie("username", "");
+            Cookie cpass = new Cookie("password", "");
             Cookie cRememberMe = new Cookie("rememberMe", "");
 
-            cuser.setMaxAge(0); 
-            cRememberMe.setMaxAge(0);  
+            cuser.setMaxAge(0);
+            cpass.setMaxAge(0);
+            cRememberMe.setMaxAge(0);
 
             response.addCookie(cuser);
+            response.addCookie(cpass);
             response.addCookie(cRememberMe);
         }
 
-        // Redirect based on user role
         String role = account.getRole();
         switch (role) {
             case "user":
