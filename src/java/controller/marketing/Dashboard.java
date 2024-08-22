@@ -1,9 +1,11 @@
 package controller.marketing;
 
+import controller.user.BaseRequiredAuthenticationController;
 import dal.AccountWithUserDAO;
 import dal.OrderDAO;
 import dal.ProductDAO;
 import dal.ProductWithDetailsDAO;
+import entity.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +14,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
-public class Dashboard extends HttpServlet {
-
+public class Dashboard extends BaseRequiredAuthenticationController {
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         ProductDAO productDAO = new ProductDAO();
         ProductWithDetailsDAO productDetailsDAO = new ProductWithDetailsDAO();
         AccountWithUserDAO accountWithUserDAO = new AccountWithUserDAO();
@@ -57,15 +59,15 @@ public class Dashboard extends HttpServlet {
         request.setAttribute("totalProducts", totalProducts);
         request.setAttribute("showingProducts", showingProducts);
         request.setAttribute("hidingProducts", hidingProducts);
-
+        
         request.setAttribute("totalProductDetails", totalProductDetails);
         request.setAttribute("showingProductDetails", showingProductDetails);
         request.setAttribute("hidingProductDetails", hidingProductDetails);
-
+        
         request.setAttribute("totalAccounts", totalAccounts);
         request.setAttribute("admins", admins);
         request.setAttribute("customers", customers);
-
+        
         request.setAttribute("totalOrders", totalOrders);
         request.setAttribute("deliveredOrders", deliveredOrders);
         request.setAttribute("pendingOrders", pendingOrders);
@@ -115,4 +117,14 @@ public class Dashboard extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+    
 }

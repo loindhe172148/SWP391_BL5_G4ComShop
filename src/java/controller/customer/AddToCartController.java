@@ -1,17 +1,8 @@
 package controller.customer;
 
-import dal.BrandDAL;
-import dal.CPUDAO;
-import dal.CardDAO;
-import dal.CartDetailDAO;
-import dal.ProductWithDetailsDAO;
-import dal.RAMDAO;
-import entity.Account;
-import entity.Brand;
-import entity.CPU;
-import entity.Card;
-import entity.ProductWithDetails;
-import entity.RAM;
+import controller.user.BaseRequiredAuthenticationController;
+import dal.*;
+import entity.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class AddToCartController extends HttpServlet {
+public class AddToCartController extends BaseRequiredAuthenticationController {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,11 +26,14 @@ public class AddToCartController extends HttpServlet {
             e.printStackTrace();
         }
         int productDetailId = Integer.parseInt(request.getParameter("productDetailId"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        int quantity = 0;
+        try {
+            quantity = Integer.parseInt(request.getParameter("quantity"));
+        } catch (NumberFormatException e) {
+            request.setAttribute("errorMessage", "Invalid quantity must > 0 and <= total quantity in stock.");
+        }
         float price = Float.parseFloat(request.getParameter("price"));
         int totalquantity = Integer.parseInt(request.getParameter("totalquantity"));
-        System.out.println("check total price: " + price + quantity);
-        float totalPrice = price * quantity;
 
         try {
             if (account != null) {
@@ -47,14 +41,14 @@ public class AddToCartController extends HttpServlet {
                     request.setAttribute("errorMessage", "Invalid quantity must > 0 and <= total quantity in stock.");
                 } else {
                     int customerId = account.getId();
-                    boolean success = cartDAO.addToCart(productDetailId, quantity, price, totalPrice, customerId);
+                    boolean success = cartDAO.addToCart(productDetailId, quantity, price, customerId);
                     if (success) {
                         request.setAttribute("successMessage", "Product added to cart successfully!");
                     } else {
                         request.setAttribute("errorMessage", "Product already in cart.");
                     }
                 }
-            }else {
+            } else {
                 request.setAttribute("errorMessage", "You have to login first.");
             }
         } catch (NumberFormatException e) {
@@ -95,13 +89,6 @@ public class AddToCartController extends HttpServlet {
         }
     }
 
-    private void forwardToProductDetails(HttpServletRequest request, HttpServletResponse response, int productDetailId)
-            throws ServletException, IOException {
-        ProductDetailsController productDetailsController = new ProductDetailsController();
-        request.setAttribute("id", productDetailId);
-        productDetailsController.processRequest(request, response);
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -117,5 +104,15 @@ public class AddToCartController extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Handles adding products to cart";
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
     }
 }

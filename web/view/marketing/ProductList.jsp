@@ -72,15 +72,19 @@
                                     <form method="get" action="productlist" class="d-flex mb-3">
                                         <input type="text" name="search" value="${search}" placeholder="Search..." class="" />
                                         <button type="submit" class="btn-primary">Search</button>
+                                        <div class="pull-right">
+                                            <a href="formadd" class="btn btn-primary">Add Product</a>
+                                        </div>
                                     </form>
+
 
                                     <table id="example111" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th><a href="productlist?sortColumn=id&sortOrder=${sortColumn == 'id' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">ID</a></th>
-                                                <th><a href="productlist?sortColumn=name&sortOrder=${sortColumn == 'name' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : '${search}'}">Name</a></th>
+                                                <th><a href="productlist?sortColumn=id&sortOrder=${sortColumn == 'id' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">ID</a></th>
+                                                <th><a href="productlist?sortColumn=name&sortOrder=${sortColumn == 'name' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Name</a></th>
                                                 <th>Image</th>
-                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Description</a></th>
+                                                <th><a href="productlist?sortColumn=description&sortOrder=${sortColumn == 'description' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Title</a></th>
                                                 <th><a href="productlist?sortColumn=originPrice&sortOrder=${sortColumn == 'originPrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Origin Price</a></th>
                                                 <th><a href="productlist?sortColumn=salePrice&sortOrder=${sortColumn == 'salePrice' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Sale Price</a></th>
                                                 <th><a href="productlist?sortColumn=quantity&sortOrder=${sortColumn == 'quantity' && sortOrder == 'asc' ? 'desc' : 'asc'}&search=${search == '%' ? '%25' : search}">Quantity</a></th>
@@ -91,16 +95,32 @@
                                         <tbody>
                                             <c:forEach var="product" items="${products}">
                                                 <tr>
-                                                    <td><c:out value="${product.productDetails.id}"/></td>
+                                                    <td><c:out value="${product.product.id}"/></td>
                                                     <td><c:out value="${product.product.name}"/></td>
-                                                    <td><img src="${product.product.image}" alt="Image" width="100"/></td>
+                                                    <td>
+                                                        <img src="${pageContext.request.contextPath}\assets\electro\img/${product.product.image}" 
+                                                             alt="assets\electro\img/${product.product.image}" 
+                                                             style="width: 70px; height: 70px; object-fit: cover; overflow: hidden;" />
+                                                    </td>
                                                     <td style="max-width: 1000px; max-height: 4.5em; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
-                                                        <c:out value="${product.product.description}" escapeXml="false"/>
+                                                        <c:out value="${product.product.title}" escapeXml="false"/>
                                                     </td>
                                                     <td><c:out value="${product.productDetails.originPrice}"/></td>
                                                     <td><c:out value="${product.productDetails.salePrice}"/></td>
-                                                    <td><c:out value="${product.product.quantity}"/></td>
-                                                    <td><c:out value="${product.product.status}"/></td>
+                                                    <td><c:out value="${product.productDetails.quantity}"/></td>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${product.product.status == 'Showing'}">
+                                                                <a href="changestatus?page=${currentPage}&id=${product.product.id}&currentStatus=${product.product.status}&sortColumn=${sortColumn}&sortOrder=${sortOrder}&search=${search}"
+                                                                   class="btn btn-success">Showing</a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a href="changestatus?page=${currentPage}&id=${product.product.id}&currentStatus=${product.product.status}&sortColumn=${sortColumn}&sortOrder=${sortOrder}&search=${search}"
+                                                                   class="btn btn-danger">Hiding</a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+
                                                     <td>
                                                         <a href="viewProduct?id=${product.product.id}">View/Edit</a>
                                                     </td>

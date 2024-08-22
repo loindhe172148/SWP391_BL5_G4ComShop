@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,8 +65,8 @@
                         <small>Add a new product</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Product List</a></li>
+                        <li><a href="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="productlist">Product List</a></li>
                         <li class="active">Add Product</li>
                     </ol>
                 </section>
@@ -85,13 +86,12 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <form action="/your-action-url" method="post" enctype="multipart/form-data">
+                        <form action="addproduct" method="post" enctype="multipart/form-data">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-3">
-
+                                        <!-- Left padding (optional) -->
                                     </div>
-                                    <!-- /.col -->
                                     <div class="col-md-6">
                                         <!-- ID (Disabled) -->
                                         <div class="form-group">
@@ -103,6 +103,7 @@
                                                 <input type="text" class="form-control" name="product_id" placeholder="Auto-generated ID" disabled>
                                             </div>
                                         </div>
+
                                         <!-- Name -->
                                         <div class="form-group">
                                             <label>Product Name: <span style="color: red;">*</span></label>
@@ -110,8 +111,9 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-tag"></i>
                                                 </div>
-                                                <input type="text" class="form-control" name="product_name" placeholder="Enter product name" required>
+                                                <input type="text" class="form-control" name="product_name" placeholder="Enter product name" value="${product_name}">
                                             </div>
+                                            <div class="text-danger">${errors.productNameError}</div>
                                         </div>
 
                                         <!-- Title -->
@@ -121,29 +123,17 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-paper-plane"></i>
                                                 </div>
-                                                <input type="text" class="form-control" name="title" placeholder="Enter a title" required>
+                                                <input type="text" class="form-control" name="title" placeholder="Enter a title" value="${title}">
                                             </div>
+                                            <div class="text-danger">${errors.titleError}</div>
                                         </div>
 
                                         <!-- Description -->
-                                        <div class="box">
-                                            <div class="box-header">
-                                                <h3 class="box-title">Product Description
-                                                    <small>Simple and fast</small>
-                                                </h3>
-                                                <!-- tools box -->
-                                                <div class="pull-right box-tools">
-                                                    <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                        <i class="fa fa-minus"></i></button>
-                                                    <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                                        <i class="fa fa-times"></i></button>
-                                                </div>
-                                                <!-- /. tools -->
-                                            </div>
-                                            <!-- /.box-header -->
-                                            <div class="box-body pad">
-                                                <textarea class="textarea" placeholder="Place some text here" style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                            </div>
+                                        <div class="form-group">
+                                            <label>Product Description:</label>
+                                            <textarea class="textarea form-control" placeholder="Enter product description" name="description" 
+                                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${description}</textarea>
+                                            <div class="text-danger">${errors.descriptionError}</div>
                                         </div>
 
                                         <!-- Category -->
@@ -153,13 +143,14 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-list-alt"></i>
                                                 </div>
-                                                <select class="form-control select2" name="product_category" style="width: 100%;" required>
-                                                    <option selected="selected" disabled>Select category</option>
-                                                    <option value="electronics">Laptop</option>
-                                                    <option value="apparel">PC</option>
-                                                    <option value="accessories">Accessories</option>
+                                                <select class="form-control select2" name="product_category" style="width: 100%;">
+                                                    <option selected disabled>Select category</option>
+                                                    <c:forEach var="cate" items="${categoryList}">
+                                                        <option value="${cate.id}" ${cate.id == selectedCategory ? 'selected' : ''}>${cate.name}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
+                                            <div class="text-danger">${errors.categoryError}</div>
                                         </div>
 
                                         <!-- Brand -->
@@ -169,13 +160,14 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-list-alt"></i>
                                                 </div>
-                                                <select class="form-control select2" name="product_brand" style="width: 100%;" required>
-                                                    <option selected="selected" disabled>Select brand</option>
-                                                    <option value="apple">Apple</option>
-                                                    <option value="dell">Dell</option>
-                                                    <option value="acer">Acer</option>
+                                                <select class="form-control select2" name="product_brand" style="width: 100%;">
+                                                    <option selected disabled>Select brand</option>
+                                                    <c:forEach var="brand" items="${brandList}">
+                                                        <option value="${brand.id}" ${brand.id == selectedBrand ? 'selected' : ''}>${brand.name}</option>
+                                                    </c:forEach>
                                                 </select>
                                             </div>
+                                            <div class="text-danger">${errors.brandError}</div>
                                         </div>
 
                                         <!-- Screen Size -->
@@ -185,8 +177,96 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-television"></i>
                                                 </div>
-                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" required>
+                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" value="${screen_size}">
                                             </div>
+                                            <div class="text-danger">${errors.screenSizeError}</div>
+                                        </div>
+
+                                        <!-- RAM -->
+                                        <div class="form-group">
+                                            <label>RAM:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-building-o"></i>
+                                                </div>
+                                                <select class="form-control select2" name="ram" style="width: 100%;">
+                                                    <option value="" selected disabled>Select RAM</option>
+                                                    <c:forEach var="ram" items="${ramList}">
+                                                        <option value="${ram.id}" ${ram.id == selectedRam ? 'selected' : ''}>${ram.memory}GB - ${ram.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.ramError}</div>
+                                        </div>
+
+                                        <!-- CPU -->
+                                        <div class="form-group">
+                                            <label>CPU: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                </div>
+                                                <select class="form-control select2" name="cpu" style="width: 100%;">
+                                                    <option selected disabled>Select CPU</option>
+                                                    <c:forEach var="cpu" items="${cpuList}">
+                                                        <option value="${cpu.id}" ${cpu.id == selectedCpu ? 'selected' : ''}>${cpu.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.cpuError}</div>
+                                        </div>
+
+                                        <!-- Card -->
+                                        <div class="form-group">
+                                            <label>Graphics Card: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </div>
+                                                <select class="form-control select2" name="card" style="width: 100%;">
+                                                    <option selected disabled>Select Graphics Card</option>
+                                                    <c:forEach var="card" items="${cardList}">
+                                                        <option value="${card.id}" ${card.id == selectedCard ? 'selected' : ''}>${card.memory}GB - ${card.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.cardError}</div>
+                                        </div>
+
+                                        <!-- Color -->
+                                        <div class="form-group">
+                                            <label>Color: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-paint-brush"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="color" placeholder="Enter product color" value="${color}">
+                                            </div>
+                                            <div class="text-danger">${errors.colorError}</div>
+                                        </div>
+
+                                        <!-- Origin Price -->
+                                        <div class="form-group">
+                                            <label>Origin Price: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-money"></i>
+                                                </div>
+                                                <input type="number" class="form-control" name="origin_price" placeholder="Enter origin price" value="${origin_price}">
+                                            </div>
+                                            <div class="text-danger">${errors.originPriceError}</div>
+                                        </div>
+
+                                        <!-- Sale Price -->
+                                        <div class="form-group">
+                                            <label>Sale Price: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-tag"></i>
+                                                </div>
+                                                <input type="number" class="form-control" name="sale_price" placeholder="Enter sale price" value="${sale_price}">
+                                            </div>
+                                            <div class="text-danger">${errors.salePriceError}</div>
                                         </div>
 
                                         <!-- Product Image -->
@@ -196,9 +276,10 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-picture-o"></i>
                                                 </div>
-                                                <input type="file" class="form-control" name="product_image" id="productImage" accept="image/*" required onchange="previewImage(event)">
+                                                <input type="file" class="form-control" name="product_image" id="productImage" accept="image/*" onchange="previewImage(event)">
                                             </div>
-                                            <img id="imagePreview" src="#" alt="Image Preview" style="display: none; margin-top: 10px; max-width: 100%; height: auto;">
+                                            <img id="imagePreview" src="" alt="Image Preview" style="margin-top: 10px; max-width: 100%; height: auto; display: none;">
+                                            <div class="text-danger">${errors.imageError}</div>
                                         </div>
 
 
@@ -208,27 +289,32 @@
                                             <div class="input-group">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="product_status" value="show" checked> Show
+                                                        <input type="radio" name="status" value="Showing" ${status == null || status.equals("Showing") ? 'checked' : ''}>
+                                                        Show
                                                     </label>
+                                                </div>
+                                                <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="product_status" value="hide"> Hide
+                                                        <input type="radio" name="status" value="Hiding" ${status != null && status.equals("Hiding") ? 'checked' : ''}>
+                                                        Hide
                                                     </label>
                                                 </div>
                                             </div>
+                                            <div class="text-danger">${errors.statusError}</div>
                                         </div>
-                                        <div class="box-footer">
-                                            <button type="submit" class="btn btn-primary">Add Product</button>
-                                            <button type="reset" class="btn btn-default">Reset</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
 
                                     </div>
-                                    <!-- /.col -->
+                                    <div class="col-md-3">
+                                        <!-- Right padding (optional) -->
+                                    </div>
                                 </div>
-                                <!-- /.row -->
                             </div>
-                            <!-- /.box-body -->
+
+                            <!-- Buttons -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
                         </form>
                     </div>
                     <!-- /.box -->
@@ -237,13 +323,7 @@
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 2.3.12
-                </div>
-                <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-                reserved.
-            </footer>
+            <jsp:include page="include/footer-bar.jsp" />
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
@@ -475,32 +555,27 @@
         <!-- Bootstrap WYSIHTML5 -->
         <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <script>
-                                                    document.querySelector('form').addEventListener('reset', function () {
-                                                        var imagePreview = document.getElementById('imagePreview');
-                                                        imagePreview.src = '#';
-                                                        imagePreview.style.display = 'none'; // Ẩn lại hình ảnh khi reset
-                                                    });
+                                                    function previewImage(event) {
+                                                        const fileInput = event.target;
+                                                        const imagePreview = document.getElementById('imagePreview');
 
-                                                    $(function () {
-                                                        // Replace the <textarea id="editor1"> with a CKEditor
-                                                        // instance, using default configuration.
-                                                        CKEDITOR.replace('editor1');
-                                                        //bootstrap WYSIHTML5 - text editor
-                                                        $(".textarea").wysihtml5();
-                                                    });
+                                                        // Clear any previous preview
+                                                        imagePreview.src = "";
+                                                        imagePreview.style.display = 'none';
+
+                                                        if (fileInput.files && fileInput.files[0]) {
+                                                            const reader = new FileReader();
+
+                                                            reader.onload = function (e) {
+                                                                imagePreview.src = e.target.result;
+                                                                imagePreview.style.display = 'block';
+                                                            };
+
+                                                            reader.readAsDataURL(fileInput.files[0]);
+                                                        }
+                                                    }
         </script>
-        <!-- Page script -->
-        <script>
-            function previewImage(event) {
-                var reader = new FileReader();
-                reader.onload = function () {
-                    var output = document.getElementById('imagePreview');
-                    output.src = reader.result;
-                    output.style.display = 'block'; // Make sure the preview is visible
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            }
-        </script>
+
         <script>
             $(function () {
                 //Initialize Select2 Elements

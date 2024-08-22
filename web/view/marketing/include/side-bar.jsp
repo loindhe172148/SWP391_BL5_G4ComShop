@@ -49,7 +49,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="productlist"><i class="fa fa-circle-o"></i>All Product</a></li>
-                    <li><a href="addproduct"><i class="fa fa-circle-o"></i>Add Product</a></li>
+                    <li><a href="formadd"><i class="fa fa-circle-o"></i>Add Product</a></li>
                 </ul>
             </li>
             <li class="treeview">

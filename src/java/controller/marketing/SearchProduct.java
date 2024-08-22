@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class FillterProduct extends HttpServlet {
+public class SearchProduct extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,16 +32,18 @@ public class FillterProduct extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
 
     String idB = request.getParameter("idBrandName");
+    String searchQuery = request.getParameter("search"); // Lấy từ khóa tìm kiếm từ yêu cầu
     System.out.println("Received idBrandName: " + idB); // In giá trị idBrandName để kiểm tra
+    System.out.println("Received search query: " + searchQuery); // In từ khóa tìm kiếm để kiểm tra
 
     ProductDAO productDAO = new ProductDAO();
     BrandDao brandDao = new BrandDao();
-    
+
     // Default values for pagination
     int page = 1;
     int pageSize = 6; // Number of products per page
@@ -54,22 +56,37 @@ public class FillterProduct extends HttpServlet {
             page = 1; // If the parameter is not a number, default to page 1
         }
     }
-    
-    List<Product> filterProducts;
+
+    List<Product> searchProducts;
     int totalProducts;
     int totalPages;
     
- 
+    // Xử lý tìm kiếm sản phẩm nếu có từ khóa tìm kiếm
+    if (searchQuery != null && !searchQuery.trim().isEmpty()) {
+        // Lấy tổng số sản phẩm tìm kiếm và tính số trang
+        totalProducts = productDAO.getTotalSearchProducts(searchQuery);
+        totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        
+        // Lấy danh sách sản phẩm tìm kiếm cho trang hiện tại
+        searchProducts = productDAO.getSearchProducts(searchQuery, page, pageSize);
+    } else if (idB != null && !idB.isEmpty()) {
         // Lấy tổng số sản phẩm lọc và tính số trang
         totalProducts = productDAO.getTotalFilteredProducts(idB);
         totalPages = (int) Math.ceil((double) totalProducts / pageSize);
         
         // Lấy danh sách sản phẩm đã lọc cho trang hiện tại
-        filterProducts = productDAO.getFilterProducts(idB, page, pageSize);
-   
+        searchProducts = productDAO.getFilterProducts(idB, page, pageSize);
+    } else {
+        // Lấy tổng số sản phẩm và tính số trang
+        totalProducts = productDAO.getTotalProducts();
+        totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+        
+        // Lấy tất cả sản phẩm cho trang hiện tại
+        searchProducts = productDAO.getProductsByPage(page, pageSize);
+    }
     
     // Thiết lập các thuộc tính cho JSP
-    request.setAttribute("productList", filterProducts);
+    request.setAttribute("productList", searchProducts);
     request.setAttribute("currentPage", page);
     request.setAttribute("totalPages", totalPages);
 

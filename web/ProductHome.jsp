@@ -273,55 +273,84 @@
             </div>
         </div>
     </div>
-    <div id="product-list" class="section">
-        <div class="container">
-            <div class="row">
-                <h3 class="title">All Laptops</h3>
-                <div id="aside" class="col-md-1">
-                    <h4 style="margin-top: 15px">Brand</h4>
-                    <form style="width: 100px;" action="fillterProduct" method="get">
-                        <c:forEach items="${listB}" var="o"> 
-                            <a href="url">${o.brandName}</a></br>
+                    <div id="product-list" class="section">
+                        <div class="container">
+                            <div class="row">
+                                <a class="title" href="productHome">
+                                    <h3>All Laptops</h3>
+                                </a>
+
+                                <div id="aside" class="col-md-1">
+                                    <h4 style="margin-top: 15px">Brand</h4>
+                                    <form style="width: 100px;" action="fillterProduct" method="get">
+                                        <c:forEach items="${listB}" var="o"> 
+                            <a href="fillterProduct?idBrandName=${o.idBrandName}">${o.brandName}</a></br>
                         </c:forEach>
                     </form>
                 </div>
                 <div class="col-md-11">
                     <div class="col-md-6">
                         <div class="header-search">
-                            <form>
-                                <select class="input-select">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Category 01</option>
-                                    <option value="1">Category 02</option>
-                                </select>
-                                <input class="input" placeholder="Search here">
-                                <button class="search-btn">Search</button>
+                            <form action="searchProduct" method="get">
+                                <input class="input input-select" name="search" placeholder="Search here" value="${param.search}">
+                                <button class="search-btn" type="submit">Search</button>
                             </form>
+
                         </div>
                     </div>
                     <div id="store" class="col-md-12">
                         <div class="row">
-                            <c:forEach var="product" items="${productList}">
-                                <div class="col-md-4 col-xs-6">
-                                    <div class="product">
-                                        <div class="product-img">
-                                            <img src="${product.image}" alt="${product.name}" width="300" height="200">
-                                        </div>
-                                        <div class="product-body">
-                                            <p class="product-category">${product.title}</p>
-                                            <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${product.name}</a></h3>
-                                            <h4 class="product-price">
-                                                ${product.salePrice} <del class="product-old-price">${product.originPrice}</del>
-                                            </h4>
-                                            <div class="product-rating">
-                                            </div>
-                                        </div>
-                                        <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                          <!-- Displaying the list of products -->
+<c:forEach var="product" items="${productList}">
+    <div class="col-md-4 col-xs-6">
+        <div class="product">
+            <div class="product-img">
+                <img src="${product.image}" alt="${product.name}" width="300" height="200">
+            </div>
+            <div class="product-body">
+                <p class="product-category">${product.title}</p>
+                <h3 class="product-name"><a href="${pageContext.request.contextPath}/productdetails?id=${product.productdetailID}">${product.name}</a></h3>
+                <h4 class="product-price">${product.salePrice} <del class="product-old-price">${product.originPrice}</del></h4>
+                <div class="product-rating">
+                    <!-- Rating stars can go here -->
+                </div>
+            </div>
+            <div class="add-to-cart">
+                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+            </div>
+        </div>
+    </div>
+</c:forEach>
+<div id="store" class="col-md-12">
+    <div class="row">
+        <!-- Pagination controls -->
+        <div class="store-pagination">
+            <c:if test="${currentPage > 1}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=${currentPage - 1}" aria-label="Previous">
+                        <span aria-hidden="true">«</span>
+                      
+                    </a>
+                </li>
+            </c:if>
+            <c:forEach var="i" begin="1" end="${totalPages}" varStatus="status">
+                <li class="page-item ${currentPage == i ? 'active' : ''}">
+                    <a class="page-link" href="?page=${i}">${i}</a>
+                </li>
+            </c:forEach>
+            <c:if test="${currentPage < totalPages}">
+                <li class="page-item">
+                    <a class="page-link" href="?page=${currentPage + 1}" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                       
+                    </a>
+                </li>
+            </c:if>
+        </div>
+    </div>
+</div>
+
+
                         </div>
                     </div>
                 </div>
