@@ -111,12 +111,18 @@
         <servlet-class>controller.marketing.Dashboard</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>MarketingAddProduct</servlet-name>
+        <servlet-class>controller.marketing.MarketingAddProduct</servlet-class>
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.user.LogoutController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SignupController</servlet-name>
         <servlet-class>controller.user.SignUpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchProduct</servlet-name>
+        <servlet-class>controller.marketing.SearchProduct</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
@@ -212,6 +218,9 @@
         <url-pattern>/marketing/dashboard</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>MarketingAddProduct</servlet-name>
+        <url-pattern>/marketing/formadd</url-pattern>
+        <url-pattern>/marketing/addproduct</url-pattern>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
@@ -232,8 +241,13 @@
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>ResetPassword</servlet-name>
         <url-pattern>/resetpass</url-pattern>
+=======
+        <servlet-name>SearchProduct</servlet-name>
+        <url-pattern>/searchProduct</url-pattern>
+>>>>>>> d076ed8b6fb8f2a762253e2aa1c2d236b44b1b32
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>productHome</welcome-file>
