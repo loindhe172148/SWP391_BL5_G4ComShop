@@ -25,7 +25,7 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
                 case "id":
                 case "originPrice":
                 case "salePrice":
-                case "quantity" :
+                case "quantity":
                     sortColumn = "pd." + sortColumn;
                     break;
                 default:
@@ -33,18 +33,24 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
                     break;
             }
         }
+
+        // Construct SQL query with dynamic search conditions
         String query = "SELECT p.*, pd.* "
                 + "FROM Product p "
                 + "JOIN ProductDetail pd ON p.id = pd.productid "
-                + "WHERE p.name LIKE ? "
+                + "WHERE (p.name LIKE ? OR p.title LIKE ? OR p.description LIKE ?) "
                 + "ORDER BY " + sortColumn + " " + sortOrder + " "
                 + "OFFSET ? ROWS "
                 + "FETCH NEXT ? ROWS ONLY;";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, "%" + search + "%");
-            stmt.setInt(2, start);
-            stmt.setInt(3, pageSize);
+            String searchParam = "%" + search + "%";
+            stmt.setString(1, searchParam);
+            stmt.setString(2, searchParam);
+            stmt.setString(3, searchParam);
+            stmt.setInt(4, start);
+            stmt.setInt(5, pageSize);
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -219,47 +225,48 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return 0;
     }
+
     public List<ProductWithDetails> getListProduct() {
-    List<ProductWithDetails> productWithDetailsList = new ArrayList<>();
-    String sql = "SELECT p.*, pd.* FROM Product p JOIN ProductDetail pd ON p.id = pd.productId";
+        List<ProductWithDetails> productWithDetailsList = new ArrayList<>();
+        String sql = "SELECT p.*, pd.* FROM Product p JOIN ProductDetail pd ON p.id = pd.productId";
 
-    try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-            // Populate Product object
-            Product product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setTitle(rs.getString("title"));
-            product.setDescription(rs.getString("description"));
-            product.setImage(rs.getString("image"));
-            product.setQuantity(rs.getInt("quantity"));
-            product.setCategoryId(rs.getInt("categoryId"));
-            product.setBrandId(rs.getInt("brandId"));
-            product.setScreenSize(rs.getFloat("screenSize"));
-            product.setCreateDate(rs.getDate("createDate"));
-            product.setUpdateDate(rs.getDate("updateDate"));
-            product.setStatus(rs.getString("status"));
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                // Populate Product object
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setTitle(rs.getString("title"));
+                product.setDescription(rs.getString("description"));
+                product.setImage(rs.getString("image"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setCategoryId(rs.getInt("categoryId"));
+                product.setBrandId(rs.getInt("brandId"));
+                product.setScreenSize(rs.getFloat("screenSize"));
+                product.setCreateDate(rs.getDate("createDate"));
+                product.setUpdateDate(rs.getDate("updateDate"));
+                product.setStatus(rs.getString("status"));
 
-            // Populate ProductDetail object
-            ProductDetail productDetails = new ProductDetail();
-            productDetails.setId(rs.getInt("id"));  // Assuming id is the correct column for ProductDetail id
-            productDetails.setProductId(rs.getInt("productId"));
-            productDetails.setRamId(rs.getInt("ramId"));
-            productDetails.setCpuId(rs.getInt("cpuId"));
-            productDetails.setCardId(rs.getInt("cardId"));
-            productDetails.setColor(rs.getString("color"));
-            productDetails.setOriginPrice(rs.getDouble("originPrice"));
-            productDetails.setSalePrice(rs.getDouble("salePrice"));
-            productDetails.setQuantity(rs.getInt("quantity"));
+                // Populate ProductDetail object
+                ProductDetail productDetails = new ProductDetail();
+                productDetails.setId(rs.getInt("id"));  // Assuming id is the correct column for ProductDetail id
+                productDetails.setProductId(rs.getInt("productId"));
+                productDetails.setRamId(rs.getInt("ramId"));
+                productDetails.setCpuId(rs.getInt("cpuId"));
+                productDetails.setCardId(rs.getInt("cardId"));
+                productDetails.setColor(rs.getString("color"));
+                productDetails.setOriginPrice(rs.getDouble("originPrice"));
+                productDetails.setSalePrice(rs.getDouble("salePrice"));
+                productDetails.setQuantity(rs.getInt("quantity"));
 
-            // Create ProductWithDetails and add to list
-            ProductWithDetails productWithDetails = new ProductWithDetails(product, productDetails);
-            productWithDetailsList.add(productWithDetails);
+                // Create ProductWithDetails and add to list
+                ProductWithDetails productWithDetails = new ProductWithDetails(product, productDetails);
+                productWithDetailsList.add(productWithDetails);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return productWithDetailsList;
     }
-    return productWithDetailsList;
-}
 
 }

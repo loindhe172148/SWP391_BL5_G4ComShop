@@ -32,10 +32,10 @@ public class MarketingProductList extends HttpServlet {
             searchValue = "";
         } else {
             if (search.trim().equals("_")) {
-                searchValue = search.replace("_", "[_]");
+                searchValue = search.replace("_", "[_]").trim();
             }
             if (search.trim().equals("%")) {
-                searchValue = search.replace("%", "[%]");
+                searchValue = search.replace("%", "[%]").trim();
             }
         }
 
