@@ -229,7 +229,7 @@
                                     <p><strong>Discount</strong> 
                                         <c:set var="discount" value="${((productWithDetails.productDetails.originPrice - productWithDetails.productDetails.salePrice) / productWithDetails.productDetails.originPrice) * 100}" />
                                         <c:set var="formattedDiscount" value="${discount}" />
-                                        <c:set var="discount" value="${formattedDiscount.toString().substring(0, 5)}" />
+                                        <c:set var="discount" value="${formattedDiscount.toString().substring(0, 4)}" />
                                         <strong style="color: red; font-size: 1.2em;">${discount}%</strong> 
                                     </p>
                                     <p><strong>Color:</strong> ${productWithDetails.productDetails.color}</p>
@@ -518,7 +518,7 @@
                                                     <c:when test="${relatedProduct.productDetails.originPrice > relatedProduct.productDetails.salePrice}">
                                                         <c:set var="discount" value="${((relatedProduct.productDetails.originPrice - relatedProduct.productDetails.salePrice) / relatedProduct.productDetails.originPrice) * 100}" />
                                                         <c:set var="formattedDiscount" value="${discount}" />
-                                                        <c:set var="discountStr" value="${formattedDiscount.toString().substring(0, 5)}" />
+                                                        <c:set var="discountStr" value="${formattedDiscount.toString().substring(0, 4)}" />
                                                         <span class="sale">-${discountStr}%</span>
                                                     </c:when>
                                                     <c:otherwise>

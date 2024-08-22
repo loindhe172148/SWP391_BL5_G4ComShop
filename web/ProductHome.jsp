@@ -245,7 +245,7 @@
                                     <c:forEach var="o" items="${productListnew}">
                                         <div class="product">
                                             <div class="product-img">
-                                                <img src="${pageContext.request.contextPath}/${o.image}" alt="${o.name}" width="300" height="200">
+                                                <img src="${pageContext.request.contextPath}/assets/electro/img/${o.image}" alt="${o.name}" width="300" height="200">
                                                 <div class="product-label">
                                                     <span class="new">NEW</span>
                                                 </div>
@@ -305,7 +305,7 @@
     <div class="col-md-4 col-xs-6">
         <div class="product">
             <div class="product-img">
-                <img src="${product.image}" alt="${product.name}" width="300" height="200">
+                <img src="${pageContext.request.contextPath}/assets/electro/img/${product.image}" alt="${product.name}" width="300" height="200">
             </div>
             <div class="product-body">
                 <p class="product-category">${product.title}</p>
@@ -372,7 +372,7 @@
                                         <c:forEach var="o" items="${topDiscountedProducts}">
                                             <div class="product">
                                                 <div class="product-img">
-                                                    <img src="${o.image}" alt="${o.name} width="300" height="200"">
+                                                    <img src="${pageContext.request.contextPath}/assets/electro/img/${o.image}" alt="${o.name} width="300" height="200"">
                                                     <div class="product-label">
                                                         <span class="sale">
                                                             - <fmt:formatNumber value="${(o.originPrice - o.salePrice) / o.originPrice * 100}" type="number" maxFractionDigits="0"/>%

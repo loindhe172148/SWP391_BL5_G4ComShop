@@ -94,14 +94,6 @@
         <servlet-class>controller.marketing.AccessoryBrandname</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProductHomeAccount</servlet-name>
-        <servlet-class>controller.marketing.ProductHomeAccount</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FillterProductAccount</servlet-name>
-        <servlet-class>controller.marketing.FillterProductAccount</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MarketingProductList</servlet-name>
         <servlet-class>controller.marketing.MarketingProductList</servlet-class>
     </servlet>
@@ -125,7 +117,6 @@
         <servlet-name>SearchProduct</servlet-name>
         <servlet-class>controller.marketing.SearchProduct</servlet-class>
     </servlet>
-    
     <!-- Các ánh xạ servlet -->
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
@@ -212,14 +203,6 @@
         <url-pattern>/accessoryBrandname</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProductHomeAccount</servlet-name>
-        <url-pattern>/productHomeAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FillterProductAccount</servlet-name>
-        <url-pattern>/fillterProductAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>MarketingProductList</servlet-name>
         <url-pattern>/marketing/productList</url-pattern>
     </servlet-mapping>
@@ -244,9 +227,16 @@
         <servlet-name>SearchProduct</servlet-name>
         <url-pattern>/searchProduct</url-pattern>
     </servlet-mapping>
-    
     <!-- Tập tin chào mừng -->
+    <servlet-mapping>
+        <servlet-name>ResetPassword</servlet-name>
+        <url-pattern>/resetpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/addtocart</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>productHome</welcome-file>
+        <welcome-file>/productHome</welcome-file>
     </welcome-file-list>
 </web-app>
