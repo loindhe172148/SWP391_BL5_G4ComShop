@@ -210,7 +210,7 @@
                         <div id="product-main-img">
                             <div class="product-preview">
                                 <img src="${pageContext.request.contextPath}/assets/electro/img/${productWithDetails.product.image}" 
-                                     alt="${productWithDetails.product.title}">
+                                     alt="${productWithDetails.product.name}">
                             </div>
                         </div>
                     </div>

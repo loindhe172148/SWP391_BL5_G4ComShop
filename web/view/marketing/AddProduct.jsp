@@ -95,12 +95,14 @@
                                     <div class="col-md-6">
                                         <!-- ID (Disabled) -->
                                         <div class="form-group">
-                                            <label>Product ID:</label>
+                                            <div style="color: green">${message}</div>
+                                            <div style="color: red">${err}</div>
+                                            <label>Product ID: </label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-id-badge"></i>
                                                 </div>
-                                                <input type="text" class="form-control" name="product_id" placeholder="Auto-generated ID" disabled>
+                                                <input type="text" class="form-control" name="product_id" value="${pid}" placeholder="Auto-generated ID" disabled>
                                             </div>
                                         </div>
 
@@ -146,7 +148,7 @@
                                                 <select class="form-control select2" name="product_category" style="width: 100%;">
                                                     <option selected disabled>Select category</option>
                                                     <c:forEach var="cate" items="${categoryList}">
-                                                        <option value="${cate.id}" ${cate.id == selectedCategory ? 'selected' : ''}>${cate.name}</option>
+                                                        <option value="${cate.id}" ${cate.id == product_category ? 'selected' : ''}>${cate.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -163,7 +165,7 @@
                                                 <select class="form-control select2" name="product_brand" style="width: 100%;">
                                                     <option selected disabled>Select brand</option>
                                                     <c:forEach var="brand" items="${brandList}">
-                                                        <option value="${brand.id}" ${brand.id == selectedBrand ? 'selected' : ''}>${brand.name}</option>
+                                                        <option value="${brand.id}" ${brand.id == product_brand ? 'selected' : ''}>${brand.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -177,7 +179,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-television"></i>
                                                 </div>
-                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" value="${screen_size}">
+                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" value="${screen_size}" step="0.1">
                                             </div>
                                             <div class="text-danger">${errors.screenSizeError}</div>
                                         </div>
