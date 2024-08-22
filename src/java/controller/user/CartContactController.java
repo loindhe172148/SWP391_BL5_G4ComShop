@@ -19,11 +19,8 @@ public class CartContactController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // Retrieve the account from the session
         Account account = (Account) request.getSession().getAttribute("account");
 
-        // Redirect to login if the user is not logged in
         if (account == null) {
             response.sendRedirect("login");
             return;
@@ -41,12 +38,13 @@ public class CartContactController extends HttpServlet {
 
         // Initialize the CartDao to retrieve cart items
         CartDao cartDao = new CartDao();
-        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(loggedInUser.getId());
-
+        int x = account.getId();
+        System.out.println(x);
+        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(account.getId());
+        
         // Set the retrieved items and user details as request attributes
         request.setAttribute("cartItems", cartItems);
         request.setAttribute("user", loggedInUser);
-
         // Forward the request to the JSP page to display the cart details
         request.getRequestDispatcher("./view/user/cartContact.jsp").forward(request, response);
     }

@@ -23,7 +23,7 @@ public class DeleteFromCart extends HttpServlet {
         }
 
         int userId = account.getId();
-        int productDetailId = Integer.parseInt(request.getParameter("productDetailId"));
+        int productDetailId = Integer.parseInt(request.getParameter("itemId"));
 
         CartDao cartDao = new CartDao();
         cartDao.deleteFromCart(userId, productDetailId);

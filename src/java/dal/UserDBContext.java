@@ -91,7 +91,7 @@ public class UserDBContext extends DBContext<User> {
 
     public User getUserById(int id) {
         try {
-            String sql = "SELECT u.id, u.accid, u.ava, u.name, u.gmail, u.address, u.gender, u.phone, u.dob, u.status, a.username, a.role FROM [Account] a JOIN [User] u ON a.id = u.accid WHERE u.id = ?";
+            String sql = "SELECT u.id, u.accid, u.ava, u.fullname, u.gmail, u.address, u.gender, u.phone, u.dob, u.status, a.username, a.role FROM [Account] a JOIN [User] u ON a.id = u.accid WHERE u.id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -109,7 +109,7 @@ public class UserDBContext extends DBContext<User> {
                 user.setPhone(rs.getString("phone"));
                 user.setStatus(rs.getString("status"));
                 user.setAva(rs.getString("ava"));
-                user.setName(rs.getString("name"));
+                user.setName(rs.getString("fullname"));
                 user.setAccount(account);
                 return user;
             }
@@ -173,7 +173,7 @@ public class UserDBContext extends DBContext<User> {
                 user.setGender(rs.getInt("gender"));  // Đổi từ setBoolean thành setInt để tương thích với kiểu int
                 user.setPhone(rs.getString("phone"));
                 user.setStatus(rs.getString("status")); // Đổi từ setBoolean thành setString để tương thích với kiểu String
-                user.setAva(rs.getString("avar")); // Đặt giá trị cho thuộc tính avatar
+                user.setAva(rs.getString("ava")); // Đặt giá trị cho thuộc tính avatar
                 user.setName(rs.getString("fullname")); // Đặt giá trị cho thuộc tính name
 
                 // Thiết lập đối tượng Account
