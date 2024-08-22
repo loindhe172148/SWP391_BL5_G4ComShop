@@ -68,12 +68,13 @@ public class VerifyAccount extends HttpServlet {
             String status = "Active";
             String ava = "";
             java.util.Date utilDate1 = Calendar.getInstance().getTime();
-            java.sql.Date sqlDate1 = new java.sql.Date(utilDate.getTime());
-            // Validate the verification code
+            java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+            
             String expectedCode = verificationCodes.get(email);
             if (expectedCode != null && expectedCode.equals(code)) {
                 verificationCodes.remove(email);
-
+                request.setAttribute("code", null);
+                
                 // Perform user registration
                 AccountDBContext acc = new AccountDBContext();
                 Account newAcc = new Account();
@@ -85,10 +86,10 @@ public class VerifyAccount extends HttpServlet {
                 int accid = acc.getAccountIDByUsername(username);
                 UserDBContext user = new UserDBContext();
                 user.insert(accid, email, address, gender, phone, sqlDate, status, ava, fullname, sqlDate1);
-                request.getRequestDispatcher("./view/user/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/productHome").forward(request, response);
             } else {
-                request.setAttribute("err", "Invalid verification code. Please try again.");
-                request.getRequestDispatcher("./view/user/verify.jsp").forward(request, response);
+                request.setAttribute("errorVerify", "Invalid verification code. Please try again.");
+                request.getRequestDispatcher("/productHome").forward(request, response);
             }
         } catch (ParseException ex) {
             Logger.getLogger(VerifyAccount.class.getName()).log(Level.SEVERE, null, ex);

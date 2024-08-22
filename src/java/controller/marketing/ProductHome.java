@@ -12,12 +12,11 @@ import dal.ProductDAO;
 import entity.Brandname;
 import entity.Category;
 import entity.Product;
-import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,34 +32,64 @@ public class ProductHome extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
     response.setContentType("text/html;charset=UTF-8");
-    
-  ProductDAO productDAO = new ProductDAO();
-      
-    List<Product> productList = productDAO.getAllProduct();
-    List<Product> productListnew = productDAO.getNewestProducts(5);
-    List<Product> topDiscountedProducts = productDAO.getTopDiscountedProducts(5);
-    List<Product> topDiscountedProductsa = productDAO.getTopDiscountedProducts(3);
-    
-    
 
+    ProductDAO productDAO = new ProductDAO();
+    
+    // Default values
+    int page = 1;
+    int pageSize = 6; // Number of products per page
+    
+    // Retrieve the current page from the request, if available
+    if (request.getParameter("page") != null) {
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch (NumberFormatException e) {
+            page = 1; // If the parameter is not a number, default to page 1
+        }
+    }
+
+    // Ensure that page is greater than 0
+    if (page < 1) {
+        page = 1;
+    }
+
+    // Calculate the total number of products and pages
+    int totalProducts = productDAO.getTotalProducts();
+    int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+    // Fetch the products for the current page
+    List<Product> productList = productDAO.getProductsByPage(page, pageSize);
+
+    // Set attributes for the JSP
     request.setAttribute("productList", productList);
-    request.setAttribute("productListnew", productListnew);
-    request.setAttribute("topDiscountedProducts", topDiscountedProducts);
-    request.setAttribute("topDiscountedProductsa", topDiscountedProductsa);
-    BrandDao band = new BrandDao();
-        List<Brandname> listB = band.getBrandnameAccessory();
-        request.setAttribute("listB", listB);
-         CategoryDAO category = new CategoryDAO();
-         List<Category> listC = category.getAllCategory();
-             request.setAttribute("listC", listC);
+    request.setAttribute("currentPage", page);
+    request.setAttribute("totalPages", totalPages);
 
-        request.getRequestDispatcher("/ProductHome.jsp").forward(request, response);
-       
-        
+    // Fetch and set additional product data
+    List<Product> productListNew = productDAO.getNewestProducts(5);
+    List<Product> topDiscountedProducts = productDAO.getTopDiscountedProducts(5);
+    List<Product> topDiscountedProductsA = productDAO.getTopDiscountedProducts(3);
+
+    request.setAttribute("productListnew", productListNew);
+    request.setAttribute("topDiscountedProducts", topDiscountedProducts);
+    request.setAttribute("topDiscountedProductsa", topDiscountedProductsA);
+
+    // Fetch and set brand and category data
+    BrandDao brandDao = new BrandDao();
+    List<Brandname> brandList = brandDao.getBrandnameAccessory();
+    request.setAttribute("listB", brandList);
+
+    CategoryDAO categoryDAO = new CategoryDAO();
+    List<Category> categoryList = categoryDAO.getAllCategory();
+    request.setAttribute("listC", categoryList);
+
+    // Forward the request to the JSP page
+    request.getRequestDispatcher("/ProductHome.jsp").forward(request, response);
 }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
