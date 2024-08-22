@@ -118,6 +118,10 @@
         <servlet-class>controller.marketing.SearchProduct</servlet-class>
     </servlet>
     <!-- Các ánh xạ servlet -->
+    <servlet>
+        <servlet-name>MarketingProductDetails</servlet-name>
+        <servlet-class>controller.marketing.MarketingProductDetails</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
         <url-pattern>/marketing/bandname</url-pattern>
@@ -236,6 +240,11 @@
         <servlet-name>MarketingProductList</servlet-name>
         <url-pattern>/marketing/changestatus</url-pattern>
         <url-pattern>/marketing/productlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingProductDetails</servlet-name>
+        <url-pattern>/marketing/updateproduct</url-pattern>
+        <url-pattern>/marketing/productdetails</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>/productHome</welcome-file>

@@ -100,7 +100,7 @@
                                             <label>Product ID: </label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
-                                                    <i class="fa fa-id-badge"></i>
+                                                    <i class="fa fa-key"></i>
                                                 </div>
                                                 <input type="text" class="form-control" name="product_id" value="${pid}" placeholder="Auto-generated ID" disabled>
                                             </div>
@@ -132,7 +132,7 @@
 
                                         <!-- Description -->
                                         <div class="form-group">
-                                            <label>Product Description:</label>
+                                            <label>Product Description: <span style="color: red;">*</span></label>
                                             <textarea class="textarea form-control" placeholder="Enter product description" name="description" 
                                                       style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${description}</textarea>
                                             <div class="text-danger">${errors.descriptionError}</div>
@@ -186,7 +186,7 @@
 
                                         <!-- RAM -->
                                         <div class="form-group">
-                                            <label>RAM:</label>
+                                            <label>RAM: <span style="color: red;">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-building-o"></i>
@@ -273,7 +273,7 @@
 
                                         <!-- Product Image -->
                                         <div class="form-group">
-                                            <label>Product Image: <span style="color: red;">*</span></label>
+                                            <label>Product Image: </label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-picture-o"></i>
@@ -311,12 +311,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Buttons -->
-                            <div class="box-footer">
+                            <div class="box-footer" style="text-align: center;">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="reset" class="btn btn-secondary">Clear</button>
                             </div>
+
                         </form>
                     </div>
                     <!-- /.box -->

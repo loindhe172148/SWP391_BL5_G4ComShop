@@ -4,56 +4,96 @@ import controller.user.BaseRequiredAuthenticationController;
 import dal.*;
 import entity.*;
 import java.io.IOException;
-import java.sql.*;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import java.io.File;
-import java.util.*;
+import java.util.List;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
-@MultipartConfig
-public class MarketingAddProduct extends BaseRequiredAuthenticationController {
-    
+public class MarketingProductDetails extends BaseRequiredAuthenticationController {
+
     private static final String FOLDER_DIRECTORY = "web/assets/electro/img/";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> categoryList = categoryDAO.getAllCategories();
         request.setAttribute("categoryList", categoryList);
-        
+
         BrandDAL brandDAO = new BrandDAL();
         List<Brand> brandList = brandDAO.getAllBrands();
         request.setAttribute("brandList", brandList);
-        
+
         RAMDAO ramDAO = new RAMDAO();
         List<RAM> ramList = ramDAO.getAllRAM();
         request.setAttribute("ramList", ramList);
-        
+
         CPUDAO cpuDAO = new CPUDAO();
         List<CPU> cpuList = cpuDAO.getAllCPU();
         request.setAttribute("cpuList", cpuList);
-        
+
         CardDAO cardDAO = new CardDAO();
         List<Card> cardList = cardDAO.getAllCard();
         request.setAttribute("cardList", cardList);
-        
+
         String servletPath = request.getServletPath();
-        
+        String idParam = request.getParameter("id");
+
         switch (servletPath) {
-            case "/marketing/formadd":
-                request.setAttribute("screen_size", 0);
-                request.getRequestDispatcher("/view/marketing/AddProduct.jsp").forward(request, response);
-                break;
-            
-            case "/marketing/addproduct":
+            case "/marketing/productdetails":   
+                try {
+                if (idParam != null && !idParam.isEmpty()) {
+                    int detailId = Integer.parseInt(idParam);
+
+                    ProductWithDetailsDAO productDAO = new ProductWithDetailsDAO();
+
+                    ProductWithDetails productWithDetails = productDAO.getProductDetailById(detailId);
+
+                    if (productWithDetails != null) {
+                        request.setAttribute("p_id", productWithDetails.getProduct().getId());
+                        request.setAttribute("createDate", productWithDetails.getProduct().getCreateDate());
+                        request.setAttribute("updateDate", productWithDetails.getProduct().getUpdateDate());
+                        request.setAttribute("product_quantity", productWithDetails.getProductDetails().getQuantity());
+                        request.setAttribute("product_name", productWithDetails.getProduct().getName());
+                        request.setAttribute("product_title", productWithDetails.getProduct().getTitle());
+                        request.setAttribute("product_description", productWithDetails.getProduct().getDescription());
+                        request.setAttribute("product_cate", productWithDetails.getProduct().getCategoryId());
+                        request.setAttribute("product_brandid", productWithDetails.getProduct().getBrandId());
+                        request.setAttribute("screen_size", productWithDetails.getProduct().getScreenSize());
+                        request.setAttribute("pd_ramid", productWithDetails.getProductDetails().getRamId());
+                        request.setAttribute("pd_cpuid", productWithDetails.getProductDetails().getCpuId());
+                        request.setAttribute("pd_cardid", productWithDetails.getProductDetails().getCardId());
+                        request.setAttribute("color", productWithDetails.getProductDetails().getColor());
+                        request.setAttribute("origin_price", productWithDetails.getProductDetails().getOriginPrice());
+                        request.setAttribute("sale_price", productWithDetails.getProductDetails().getSalePrice());
+                        request.setAttribute("product_quantity", productWithDetails.getProductDetails().getQuantity());
+                        request.setAttribute("product_image", productWithDetails.getProduct().getImage());
+                        request.setAttribute("product_status", productWithDetails.getProduct().getStatus());
+                        
+                        request.getRequestDispatcher("/view/marketing/ProductDetails.jsp").forward(request, response);
+                    } else {
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Product details not found.");
+                    }
+                } else {
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
+                }
+            } catch (NumberFormatException e) {
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid ID format.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error.");
+            }
+            break;
+            case "/marketing/updateproduct":
                 Map<String, String> errors = new HashMap<>();
+//                String productIdParam = request.getParameter("product_id").trim();
                 String productName = request.getParameter("product_name").trim();
                 String title = request.getParameter("title").trim();
                 String description = request.getParameter("description").trim();
@@ -182,7 +222,8 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
                 if (status == null || status.isEmpty()) {
                     status = "Showing";
                 }
-                
+
+                request.setAttribute("product_id", productName);
                 request.setAttribute("product_name", productName);
                 request.setAttribute("title", title);
                 request.setAttribute("description", description);
@@ -207,19 +248,19 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
                 // Handle Image Upload
                 if (!imageName.equals("default_laptop.jpg")) {
                     String uploadPath = getServletContext().getRealPath("/") + FOLDER_DIRECTORY + imageName;
-                    
+
                     String buildWebPathUnix = "build/web/";
                     String buildWebPathWindows = "build\\web\\";
-                    
+
                     if (uploadPath.contains(buildWebPathUnix)) {
                         uploadPath = uploadPath.replace(buildWebPathUnix, "");
                     } else if (uploadPath.contains(buildWebPathWindows)) {
                         uploadPath = uploadPath.replace(buildWebPathWindows, "");
                     }
-                    
+
                     imagePart.write(uploadPath);
                 }
-                
+
                 Product product = new Product();
                 product.setName(productName);
                 product.setTitle(title);
@@ -231,7 +272,7 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
                 product.setCreateDate(new java.util.Date()); // Current Date
                 product.setUpdateDate(new java.util.Date()); // Current Date
                 product.setStatus(status);
-                
+
                 try {
                     // Add Product to database
                     ProductDAO productDAO = new ProductDAO();
@@ -253,19 +294,21 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
                     productDetailDAO.addProductDetail(productDetail);
 
                     // Set success message and forward to form
-                    request.setAttribute("message", "Product added successfully!");
+                    request.setAttribute("message", "Product UPDATE successfully!");
                     request.setAttribute("pid", productId);
-                    request.getRequestDispatcher("/view/marketing/AddProduct.jsp").forward(request, response);
+                    request.getRequestDispatcher("/view/marketing/ProductDetails.jsp").forward(request, response);
                 } catch (SQLException e) {
                     e.printStackTrace();
                     // Handle error and forward to an error page or display error message
                     request.setAttribute("err", "There was an error while adding the product SQLException. Please try again.");
-                    request.getRequestDispatcher("/view/marketing/AddProduct.jsp").forward(request, response);
+                    request.getRequestDispatcher("/view/marketing/ProductDetails.jsp").forward(request, response);
                 }
                 break;
-            
+            case "/marketing/changestatus":
+
+                break;
             default:
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "The requested page is not available. fr mkt add prd");
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "The requested page is not available. From mkt product details svlet");
                 break;
         }
     }
@@ -313,10 +356,10 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         processRequest(req, resp);
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         processRequest(req, resp);
     }
-    
+
 }

@@ -122,7 +122,7 @@
                                                     </td>
 
                                                     <td>
-                                                        <a href="viewProduct?id=${product.product.id}">View/Edit</a>
+                                                        <a href="productdetails?id=${product.product.id}">View/Edit</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
