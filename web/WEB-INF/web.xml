@@ -89,7 +89,6 @@
         <servlet-name>FillterProduct</servlet-name>
         <servlet-class>controller.marketing.FillterProduct</servlet-class>
     </servlet>
-    <!-- Các ánh xạ servlet -->
     <servlet>
         <servlet-name>AccessoryBrandname</servlet-name>
         <servlet-class>controller.marketing.AccessoryBrandname</servlet-class>
@@ -113,6 +112,8 @@
     <servlet>
         <servlet-name>MarketingAddProduct</servlet-name>
         <servlet-class>controller.marketing.MarketingAddProduct</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>Logout</servlet-name>
         <servlet-class>controller.user.LogoutController</servlet-class>
     </servlet>
@@ -124,6 +125,8 @@
         <servlet-name>SearchProduct</servlet-name>
         <servlet-class>controller.marketing.SearchProduct</servlet-class>
     </servlet>
+    
+    <!-- Các ánh xạ servlet -->
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
         <url-pattern>/marketing/bandname</url-pattern>
@@ -206,12 +209,19 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccessoryBrandname</servlet-name>
-        <url-pattern>/marketing/brandname</url-pattern>
+        <url-pattern>/accessoryBrandname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductHomeAccount</servlet-name>
+        <url-pattern>/productHomeAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FillterProductAccount</servlet-name>
+        <url-pattern>/fillterProductAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingProductList</servlet-name>
-        <url-pattern>/marketing/productlist</url-pattern>
-        <url-pattern>/marketing/changestatus</url-pattern>
+        <url-pattern>/marketing/productList</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingDashboard</servlet-name>
@@ -221,34 +231,21 @@
         <servlet-name>MarketingAddProduct</servlet-name>
         <url-pattern>/marketing/formadd</url-pattern>
         <url-pattern>/marketing/addproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ProductHomeAccount</servlet-name>
-        <url-pattern>/user/productHomeAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FillterProductAccount</servlet-name>
-        <url-pattern>/user/fillterProductAccount</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddToCart</servlet-name>
-        <url-pattern>/addtocart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SignupController</servlet-name>
         <url-pattern>/signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
-        <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/resetpass</url-pattern>
-=======
         <servlet-name>SearchProduct</servlet-name>
         <url-pattern>/searchProduct</url-pattern>
->>>>>>> d076ed8b6fb8f2a762253e2aa1c2d236b44b1b32
     </servlet-mapping>
+    
+    <!-- Tập tin chào mừng -->
     <welcome-file-list>
         <welcome-file>productHome</welcome-file>
     </welcome-file-list>
