@@ -150,7 +150,7 @@
                 </c:if>
 
                 <form action="verify" method="post">
-                    <label for="passconfirm">Enter Passcode:</label>
+                    <label for="passconfirm">Enter Verify code:</label>
                     <input type="text" id="passconfirm" name="code" required><br>
 
                     <input type="hidden" name="email" value="${email}">
