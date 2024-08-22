@@ -1,34 +1,21 @@
 package controller.user;
 
 import dal.AccountDBContext;
-import dal.UserDBContext;
-import entity.Account;
+import dal.UserAccountDBContext;
+import entity.UserAccount;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import util.EmailService;
 
-/**
- * Handles password reset requests.
- */
-@WebServlet(name = "ResetPasswordController", urlPatterns = {"/reset-password"})
-public class ResetPasswordController extends BaseRequiredAuthenticationController {
+public class ResetPasswordController extends HttpServlet {
 
     @Override
     public String getServletInfo() {
         return "Handles password reset requests.";
-    }
-
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     public static String generatePassword() {
@@ -42,49 +29,28 @@ public class ResetPasswordController extends BaseRequiredAuthenticationControlle
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        String username = req.getParameter("username");
-        String mail = req.getParameter("email");
-        req.setAttribute("mail", mail);
-        req.setAttribute("username", username);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String input = req.getParameter("input");
+        req.setAttribute("input", input);
         EmailService emailService = new EmailService();
-
-        if (!isValidEmail(mail)) {
-            req.setAttribute("error", "Invalid email format.");
-            req.getRequestDispatcher("/view/user/resetpass.jsp").forward(req, resp);
-            return;
-        }
+        AccountDBContext adc = new AccountDBContext();
+        UserAccount uc;
+        UserAccountDBContext ucd = new UserAccountDBContext();
         try {
-            AccountDBContext adc = new AccountDBContext();
-            int accid = adc.getAccountIDByUsername(username);
-
-            UserDBContext user = new UserDBContext();
-            Account acc = new Account();
-            acc = adc.checkAccountExist(username);
-            if (acc != null) {
-                if (user.checkMailExist(accid, mail)) {
-
-                    String resetpass = generatePassword();
-                    adc.updatePasswordByUsername(resetpass, username);
-                    emailService.sendEmail(mail, "Reset Password",
-                            "Dear user,\nHere is your password:\n" + resetpass + "\n");
-                    req.getRequestDispatcher("/view/user/login.jsp").forward(req, resp);
-                } else {
-                    req.setAttribute("error", "Mail is not correct.");
-                    req.getRequestDispatcher("/view/user/resetpass.jsp").forward(req, resp);
-                }
+            uc = ucd.getEmailandUsername(input);
+            if (uc != null) {
+                String resetpass = generatePassword();
+                adc.updatePasswordByUsername(resetpass, input);
+                emailService.sendEmail(uc.getMail(), "Reset Password",
+                        "Dear user,\nHere is your username: " + uc.getUsername() + "\nAnd your password: " + resetpass + "\n");
+                req.setAttribute("resetSuccess", true);
+                req.getRequestDispatcher("/productHome").forward(req, resp);
             } else {
-                req.setAttribute("error", "Invalid username.");
-                req.getRequestDispatcher("/view/user/resetpass.jsp").forward(req, resp);
+                req.setAttribute("errorReset", "Incorrect username or email");
+                req.getRequestDispatcher("/productHome").forward(req, resp);
             }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while resetting the password. Please try again later.");
+        } catch (ServletException | IOException e) {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while resetting the password");
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        req.getRequestDispatcher("/view/user/resetpass.jsp").forward(req, resp);
     }
 }

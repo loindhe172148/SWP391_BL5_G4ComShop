@@ -120,7 +120,7 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeModal('resetPasswordModal')">&times;</span>
                 <c:if test="${not empty errorReset}">
-                    <p class="error">${errorReset}</p>
+                    <p class="error-message">${errorReset}</p>
                 </c:if>
                 <form action="resetpass" method="post">
                     <label for="input">Enter your username or email</label>
@@ -551,6 +551,7 @@
                                     showLoginModalWithError();
                                     showSignupModalWithError();
                                     showVerifyModalWithError();
+                                    showResetModalWithError();
                                 };
                                 function showLoginModalWithError() {
                                     var errorLogin = '${errorLogin}';
