@@ -138,6 +138,39 @@
                 font-weight: bold;
                 margin-bottom: 15px;
             }
+            .dropdown-menu {
+                width: 120px;
+                background: #1a1818;
+            }
+            .dropdown-menu li{
+                width: 160px;
+            }
+            .dropdown-menu li a {
+                padding: 10px 20px;
+                display: block;
+
+            }
+            .dropdown-menu li a:hover {
+                background-color: #f8f9fa;
+                color: #343a40;
+
+            }
+            .custom-popup {
+                border-radius: 15px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                background: #f9f9f9;
+            }
+            .custom-title {
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: #333;
+            }
+            .custom-content {
+                font-size: 1rem;
+                color: #555;
+                line-height: 1.5;
+            }
         </style>
     </head>
     <body>
@@ -569,6 +602,13 @@
 
         <script>
                                                     function openModal(modalId) {
+                                                        var modals = ['loginModal', 'signupModal', 'resetPasswordModal'];
+                                                        modals.forEach(function (id) {
+                                                            var modal = document.getElementById(id);
+                                                            if (modalId !== id) {
+                                                                modal.style.display = "none";
+                                                            }
+                                                        });
                                                         document.getElementById(modalId).style.display = "block";
                                                     }
 
@@ -577,7 +617,7 @@
                                                     }
 
                                                     window.onclick = function (event) {
-                                                        var modals = ['loginModal', 'signupModal'];
+                                                        var modals = ['loginModal', 'signupModal', 'resetPasswordModal'];
                                                         modals.forEach(function (modalId) {
                                                             var modal = document.getElementById(modalId);
                                                             if (event.target === modal) {
@@ -585,6 +625,71 @@
                                                             }
                                                         });
                                                     };
+                                                    window.onload = function () {
+                                                        showLoginModalWithError();
+                                                        showSignupModalWithError();
+                                                        showVerifyModalWithError();
+                                                        showResetModalWithError();
+                                                    };
+                                                    function showLoginModalWithError() {
+                                                        var errorLogin = '${errorLogin}';
+                                                        if (errorLogin) {
+                                                            document.getElementById('loginModal').style.display = 'block';
+                                                        }
+                                                    }
+                                                    function showVerifyModalWithError() {
+                                                        var code = '${code}';
+                                                        var errorVerify = '${errorVerify}';
+                                                        if (code || errorVerify) {
+                                                            document.getElementById('verificationModal').style.display = 'block';
+                                                        }
+                                                    }
+                                                    function showSignupModalWithError() {
+                                                        var errorSignup = '${errorSignup}';
+                                                        if (errorSignup) {
+                                                            document.getElementById('signupModal').style.display = 'block';
+                                                        }
+                                                    }
+                                                    function showResetModalWithError() {
+                                                        var errorReset = '${errorReset}';
+                                                        if (errorReset) {
+                                                            document.getElementById('resetPasswordModal').style.display = 'block';
+                                                        }
+                                                    }
+                                                    function showSignupSuccessAlert() {
+                                                        Swal.fire({
+                                                            icon: 'success',
+                                                            title: 'Verification Successful!',
+                                                            showConfirmButton: false,
+                                                            timer: 2000,
+                                                            customClass: {
+                                                                popup: 'custom-popup',
+                                                                title: 'custom-title',
+                                                                content: 'custom-content'
+                                                            },
+                                                            width: '300px',
+                                                            padding: '1rem',
+                                                            backdrop: true,
+                                                            timerProgressBar: true
+                                                        });
+                                                    }
+                                                    function showResetSuccessAlert() {
+                                                        Swal.fire({
+                                                            icon: 'success',
+                                                            title: 'Reset Password Successful!',
+                                                            showConfirmButton: false,
+                                                            timer: 2000,
+                                                            customClass: {
+                                                                popup: 'custom-popup',
+                                                                title: 'custom-title',
+                                                                content: 'custom-content'
+                                                            },
+                                                            width: '300px',
+                                                            padding: '1rem',
+                                                            backdrop: true,
+                                                            timerProgressBar: true
+                                                        });
+                                                    }
         </script>
 
     </body>
