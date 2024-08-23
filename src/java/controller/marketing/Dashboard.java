@@ -38,42 +38,41 @@ public class Dashboard extends BaseRequiredAuthenticationController {
         int showingProducts = productDAO.getProductCount("Showing", startDate, endDate);
         int hidingProducts = productDAO.getProductCount("Hiding", startDate, endDate);
 
-        // Get the counts for product details
-        int totalProductDetails = productDetailsDAO.getProductWithDetailsCount(null, startDate, endDate);
-        int showingProductDetails = productDetailsDAO.getProductWithDetailsCount("Showing", startDate, endDate);
-        int hidingProductDetails = productDetailsDAO.getProductWithDetailsCount("Hiding", startDate, endDate);
-
         // Get the counts for accounts
         int totalAccounts = accountWithUserDAO.getAccountWithUserCount(null, startDate, endDate);
         int admins = accountWithUserDAO.getAccountWithUserCount("Admin", startDate, endDate);
-        int customers = accountWithUserDAO.getAccountWithUserCount("User", startDate, endDate);
+        int marketings = accountWithUserDAO.getAccountWithUserCount("Marketing", startDate, endDate);
+        int sales = accountWithUserDAO.getAccountWithUserCount("Sale", startDate, endDate);
+        int customers = accountWithUserDAO.getAccountWithUserCount("Customer", startDate, endDate);
 
         // Get the counts for orders
         int totalOrders = orderDAO.getOrderCount(null, startDate, endDate);
-        int deliveredOrders = orderDAO.getOrderCount("Delivered", startDate, endDate);
-        int pendingOrders = orderDAO.getOrderCount("Pending", startDate, endDate);
-        int shippedOrders = orderDAO.getOrderCount("Shipped", startDate, endDate);
-        int cancelledOrders = orderDAO.getOrderCount("Cancelled", startDate, endDate);
+        int processingOrders = orderDAO.getOrderCount("processing", startDate, endDate);
+        int deliveredOrders = orderDAO.getOrderCount("delivered", startDate, endDate);
+        int deliveringOrders = orderDAO.getOrderCount("delivering", startDate, endDate);
+        int canceledOrders = orderDAO.getOrderCount("canceled", startDate, endDate);
+        int rejectedOrders = orderDAO.getOrderCount("rejected", startDate, endDate);
 
         // Set attributes to pass to JSP
         request.setAttribute("totalProducts", totalProducts);
         request.setAttribute("showingProducts", showingProducts);
         request.setAttribute("hidingProducts", hidingProducts);
         
-        request.setAttribute("totalProductDetails", totalProductDetails);
-        request.setAttribute("showingProductDetails", showingProductDetails);
-        request.setAttribute("hidingProductDetails", hidingProductDetails);
-        
         request.setAttribute("totalAccounts", totalAccounts);
         request.setAttribute("admins", admins);
+        request.setAttribute("marketings", marketings);
+        request.setAttribute("sales", sales);
         request.setAttribute("customers", customers);
         
         request.setAttribute("totalOrders", totalOrders);
+        request.setAttribute("processingOrders", processingOrders);
         request.setAttribute("deliveredOrders", deliveredOrders);
-        request.setAttribute("pendingOrders", pendingOrders);
-        request.setAttribute("shippedOrders", shippedOrders);
-        request.setAttribute("cancelledOrders", cancelledOrders);
+        request.setAttribute("deliveringOrders", deliveringOrders);
+        request.setAttribute("canceledOrders", canceledOrders);
+        request.setAttribute("rejectedOrders", rejectedOrders);
 
+        request.setAttribute("startDate", startDate);
+        request.setAttribute("endDate", endDate);
         // Forward to the dashboard view
         request.getRequestDispatcher("/view/marketing/dashboard.jsp").forward(request, response);
     }

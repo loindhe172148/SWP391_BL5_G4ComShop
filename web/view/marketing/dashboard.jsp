@@ -89,21 +89,6 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-aqua">
-                                <div class="inner">
-                                    <p>Total Products Details</p>
-                                    <h3>${totalProductDetails}</h3>
-                                    <p>Number of Show Product Details: ${showingProductDetails}</p>
-                                    <p>Number of Hide Product Details: ${hidingProductDetails}</p>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="productlist" class="small-box-footer">View Product List <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
                         <!-- ./col -->
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
@@ -112,6 +97,8 @@
                                     <p>Total Users</p>
                                     <h3>${totalAccounts}<sup style="font-size: 20px"></sup></h3>
                                     <p>Number of Admins: ${admins}</p>
+                                    <p>Number of Marketings: ${marketings}</p>
+                                    <p>Number of Sales: ${sales}</p>
                                     <p>Number of Customers: ${customers}</p>
                                 </div>
                                 <div class="icon">
@@ -127,10 +114,11 @@
                                 <div class="inner">
                                     <p>Total Orders</p>
                                     <h3>${totalOrders}</h3>
+                                    <p>Processing: ${processingOrders}</p>
                                     <p>Delivered: ${deliveredOrders}</p>
-                                    <p>Pending: ${pendingOrders}</p>
-                                    <p>Shipped: ${shippedOrders}</p>
-                                    <p>Cancelled: ${cancelledOrders}</p>
+                                    <p>Delivering: ${deliveringOrders}</p>
+                                    <p>Cancelled: ${canceledOrders}</p>
+                                    <p>Rejected: ${rejectedOrders}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-ios-cart-outline"></i>
@@ -145,11 +133,11 @@
                     <form action="dashboard" method="get" class="form-inline">
                         <div class="form-group">
                             <label for="startDate">Start Date:</label>
-                            <input type="date" id="startDate" name="startDate" class="form-control" value="2024-08-12">
+                            <input type="date" id="startDate" name="startDate" class="form-control" value="${startDate}">
                         </div>
                         <div class="form-group ml-2">
                             <label for="endDate">End Date:</label>
-                            <input type="date" id="endDate" name="endDate" class="form-control" value="2024-08-19">
+                            <input type="date" id="endDate" name="endDate" class="form-control" value="${endDate}">
                         </div>
                         <button type="submit" class="btn btn-primary ml-2">Filter</button>
                     </form>

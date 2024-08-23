@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <header class="main-header">
     <!-- Logo -->
-    <a href="dashboard" class="logo">
+    <a href="${pageContext.request.contextPath}/productHome" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>G</b>4</span>
         <!-- logo for regular state and mobile devices -->
