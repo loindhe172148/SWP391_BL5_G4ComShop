@@ -54,7 +54,7 @@ public class UserDBContext extends DBContext<User> {
                                  ,[dob]
                                  ,[status]
                                  ,[fullname]
-                                 ,[avar]
+                                 ,[ava]
                                  ,[createdate])
                            VALUES
                                  (?,?,?,?,?,?,?,?,?,?)""";
