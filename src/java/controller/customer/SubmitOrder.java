@@ -9,13 +9,11 @@ import entity.Product;
 import entity.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import util.EmailUtils;
-
 import java.io.IOException;
 import java.util.Map;
+import util.EmailUtils;
 
 @WebServlet(name = "SubmitOrder", urlPatterns = {"/customer/SubmitOrder"})
 public class SubmitOrder extends BaseRequiredAuthenticationController {
@@ -46,7 +44,6 @@ public class SubmitOrder extends BaseRequiredAuthenticationController {
 
         // Get receiver information from the form
         String fullName = req.getParameter("fullname");
-        String gender = req.getParameter("gender");
         String email = req.getParameter("email");
         String mobile = req.getParameter("mobile");
         String address = req.getParameter("address");
@@ -97,9 +94,9 @@ public class SubmitOrder extends BaseRequiredAuthenticationController {
             req.getSession().removeAttribute("cartItems");
             db.placeOrder(account1.getId(), totalPrice, address);
             cartDao.deleteFromCart1(account1.getId());
-            resp.sendRedirect("order-confirmation.jsp");
+            req.setAttribute("orderSuccess", true);
+            req.getRequestDispatcher("/productHome?id="+account1.getId()).forward(req, resp);
         } else {
-            // Handle email sending failure (show error message, retry, etc.)
             req.setAttribute("errorMessage", "Failed to send order confirmation email. Please try again.");
             req.getRequestDispatcher("/view/customer/cartContact.jsp").forward(req, resp);
         }

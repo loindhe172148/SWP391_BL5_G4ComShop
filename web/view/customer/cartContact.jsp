@@ -81,6 +81,14 @@
                 height: 50px;
                 object-fit: cover;
             }
+            h1{
+                margin-top: 20px;
+                text-align: center;
+            }
+            .row{
+                display: flex;
+                justify-content: center;
+            }
         </style>
     </head>
     <body>
@@ -89,7 +97,7 @@
             <div style="background-color: #1a1818;" id="top-header">
                 <div class="container">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="/SWP391_BL5_G4ComShop/productHome" class="logo">
                             <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
                         </a>
                     </div>
@@ -97,17 +105,18 @@
                         <li><a style="font-size: 20px" href="/SWP391_BL5_G4ComShop/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i style="font-size: 20px" class="fa fa-user-o"></i> My Account <span class="caret"></span>
+                                <i style="font-size: 20px" class="fa fa-user-o"></i>
+                                <span style="font-size: 20px;">My Account</span> <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">View profile</a></li>
                                 <li><a href="CartController">My Cart</a></li>
-                                <li><a href="./user/changepass">Change Pass</a></li>
+                                <li><a href="#" onclick="openModal('changePassModal')">Change Pass</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> 
             <%
           User loggedInUser = (User) request.getAttribute("user");
             %>    
@@ -125,6 +134,9 @@
                 .dropdown-menu li a:hover {
                     background-color: #f8f9fa;
                     color: #343a40;
+                }
+                .form-label{
+                    margin-top: 5px;
                 }
             </style>
             <!-- /MAIN HEADER -->
@@ -188,9 +200,9 @@
                                     %>
                                     <tr>
                                         <td><%= product.getName() %></td>
-                                        <td>$ <%= String.format("%.2f", price) %></td>
+                                        <td>$ <%= String.format("%.1f", price) %></td>
                                         <td><%= quantityInCart %></td>
-                                        <td>$ <%= String.format("%.2f", productTotal) %></td>
+                                        <td>$ <%= String.format("%.1f", productTotal) %></td>
                                     </tr>
                                     <%
                                             }
@@ -198,7 +210,7 @@
                                     %>
                                     <tr>
                                         <td colspan="3" class="text-end"><strong>Total Price:</strong></td>
-                                        <td>$ <%= String.format("%.2f", totalPrice) %></td>
+                                        <td>$ <%= String.format("%.1f", totalPrice) %></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -209,13 +221,6 @@
                                 <div class="mb-3">
                                     <label for="fullname" class="form-label">Full Name</label>
                                     <input type="text" class="form-control" id="fullname" name="fullname" value="<%= loggedInUser != null ? loggedInUser.getName() : "" %>" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="gender" class="form-label">Gender</label>
-                                    <select class="form-select" id="gender" name="gender" required>
-                                        <option value="Male" <%= loggedInUser != null && loggedInUser.getGender() == 1 ? "selected" : "" %>>Male</option>
-                                        <option value="Female" <%= loggedInUser != null && loggedInUser.getGender() == 0 ? "selected" : "" %>>Female</option>
-                                    </select>
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
@@ -236,8 +241,8 @@
                             </div>
 
                             <!-- Action Buttons -->
-                            <div class="d-flex justify-content-between">
-                                <a href="ViewCart" class="btn btn-secondary">Change</a>
+                            <div style="margin-top: 20px" class="d-flex justify-content-between">
+                                <a style="margin-right: 20px" href="ViewCart" class="btn btn-primary">Change</a>
                                 <button type="submit" class="btn btn-primary">Submit Order</button>
                             </div>
                         </form>
