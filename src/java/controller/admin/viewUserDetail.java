@@ -5,7 +5,9 @@
 
 package controller.admin;
 
+import controller.user.BaseRequiredAuthenticationController;
 import dal.UserDBContext;
+import entity.Account;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,8 +21,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name="viewUserDetail", urlPatterns={"/viewUserDetail"})
-public class viewUserDetail extends HttpServlet {
+@WebServlet(name="viewUserDetail", urlPatterns={"/admin/viewUserDetail"})
+public class viewUserDetail extends BaseRequiredAuthenticationController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,44 +40,24 @@ public class viewUserDetail extends HttpServlet {
         request.getRequestDispatcher("view/admin/viewUserDetail.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        String userId = request.getParameter("userId");
-        UserDBContext dao = new UserDBContext();
-        User user = dao.getUserByID(Integer.parseInt(userId));
-        request.setAttribute("user", user);
-        request.getRequestDispatcher("view/admin/viewUserDetail.jsp").forward(request, response);
-    } 
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        String userId = req.getParameter("userId");
+        UserDBContext dao = new UserDBContext();
+        User user = dao.getUserByID(Integer.parseInt(userId));
+        req.setAttribute("user", user);
+        req.getRequestDispatcher("/view/admin/viewUserDetail.jsp").forward(req, resp);
+    }
 
 }

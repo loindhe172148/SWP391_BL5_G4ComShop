@@ -19,18 +19,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect.
   -->
-  <link rel="stylesheet" href="assets/dist/css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/skin-blue.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,7 +79,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <a href="#">
                       <div class="pull-left">
                         <!-- User Image -->
-                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                       </div>
                       <!-- Message title and timestamp -->
                       <h4>
@@ -163,14 +163,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs">Administrator</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
                   Admin
@@ -220,7 +220,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Administrator</p>
@@ -400,11 +400,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 2.2.3 -->
-<script src="assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="assets/dist/js/app.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/app.min.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the

@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -29,19 +29,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
                   page. However, you can choose any other skin. Make sure you
                   apply the skin class to the body tag so the changes take effect.
         -->
-        <link rel="stylesheet" href="assets/dist/css/skins/skin-blue.min.css">
-        <link rel="stylesheet" href="assets/dist/css/admin.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/skin-blue.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/admin.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
             <![endif]-->
+        
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -84,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <a href="#">
                                                     <div class="pull-left">
                                                         <!-- User Image -->
-                                                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle"
+                                                        <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle"
                                                              alt="User Image">
                                                     </div>
                                                     <!-- Message title and timestamp -->
@@ -173,14 +174,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                     <span class="hidden-xs">Administrator</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                         <p>
                                             Admin
@@ -230,7 +231,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>Administrator</p>
@@ -294,70 +295,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <h2 class="text-center text-primary mb-4">User List</h2>
                         <p class="text-center mb-4">Manage all users here. Below is the list of registered users.</p>
                         <div class="search-bar" style="margin-bottom: 10px"><i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search by email"></div>
+                            <input type="text" placeholder="Search by email" id="search-input"></div>
                         <div class="card mb-3 shadow-sm">
                             <div class="card-header">
                                 <i class="fas fa-users"></i> User List
                             </div>
-                            <div class="add-box">
-                                <div class="context-add-box">
-                                    <div class="input-box">
-                                        <label>Username</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Password</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Confirm password</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Full name</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Email</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Phone</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Address</label>
-                                        <input type="text" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Date Of Birth</label>
-                                        <input type="date" />
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Gender</label>
-                                        <select>
-                                            <option value="">Choose Gender</option>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-box">
-                                        <label>Role</label>
-                                        <select>
-                                            <option>Choose role for user</option>
-                                            <option>Marketing</option>
-                                            <option>Sale</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="button-box">
-                                        <button><i class="fa-solid fa-plus"></i> Create a new account</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="card-body">
-                                <table class="table table-hover table-bordered" style="display: none">
+                                <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -403,8 +348,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                         </div>
                     </div>
-                    <button style="background: #00c0ef;border-color:#00c0ef;border-radius: 3px;padding: 10px 5px;
-                            color: black; font-weight: 600">
+                                    <button id="button-add" style="background: #00c0ef;border-color:#00c0ef;border-radius: 3px;padding: 10px 5px;
+                                            color: black; font-weight: 600" onclick="addUser()">
                         <i class="fa-solid fa-plus"></i> Add new account</button>
                 </section>
 
@@ -506,16 +451,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- REQUIRED JS SCRIPTS -->
 
         <!-- jQuery 2.2.3 -->
-        <script src="assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="assets/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/dist/js/app.min.js"></script>
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
                  Both of these plugins are recommended to enhance the
                  user experience. Slimscroll is required when using the
                  fixed layout. -->
     </body>
-
+    <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+    <script>
+        function addUser(){
+            location.href = 'adduser';
+        }      
+    </script>
+    <script src="${pageContext.request.contextPath}/assets/dist/js/admin.js"></script>
 </html>

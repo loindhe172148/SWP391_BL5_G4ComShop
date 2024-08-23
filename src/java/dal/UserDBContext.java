@@ -8,6 +8,9 @@ import entity.Account;
 import entity.User;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDBContext extends DBContext<User> {
 
@@ -197,5 +200,36 @@ public class UserDBContext extends DBContext<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public List<User> findUserByEmailOrPhone(String key){
+        List<User> list = new ArrayList();
+        StringBuilder sql = new StringBuilder("select * from [User] where gmail like ");
+        sql.append(" '%").append(key).append("%' ");
+        sql.append("or phone like '%").append(key).append("%' ");
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setGmail(rs.getString("gmail"));
+                user.setDob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setGender(rs.getInt("gender"));  // Đổi từ setBoolean thành setInt để tương thích với kiểu int
+                user.setPhone(rs.getString("phone"));
+                user.setStatus(rs.getString("status")); // Đổi từ setBoolean thành setString để tương thích với kiểu String
+                user.setAva(rs.getString("ava")); // Đặt giá trị cho thuộc tính avatar
+                user.setName(rs.getString("fullname")); // Đặt giá trị cho thuộc tính name
+
+                // Thiết lập đối tượng Account
+                Account account = new Account();
+                account.setId(rs.getInt(2));
+                user.setAccount(account);
+                list.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;        
     }
 }

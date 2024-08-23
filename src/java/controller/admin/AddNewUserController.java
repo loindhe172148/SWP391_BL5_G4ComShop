@@ -6,25 +6,21 @@
 package controller.admin;
 
 import controller.user.BaseRequiredAuthenticationController;
-import dal.UserDBContext;
 import entity.Account;
-import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 /**
  *
- * @author Admin
+ * @author hbtth
  */
-@WebServlet(name="adminUserList", urlPatterns={"/admin/adminUserList"})
-public class adminUserList extends BaseRequiredAuthenticationController {
+public class AddNewUserController extends BaseRequiredAuthenticationController {
    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,14 +29,15 @@ public class adminUserList extends BaseRequiredAuthenticationController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adminUserList</title>");  
+            out.println("<title>Servlet AddNewUserController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adminUserList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet AddNewUserController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     } 
+
 
     @Override
     public String getServletInfo() {
@@ -49,16 +46,12 @@ public class adminUserList extends BaseRequiredAuthenticationController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-         UserDBContext dao = new UserDBContext();
-        ArrayList<User> userList = (ArrayList<User>) dao.listAll();
-        
-        req.setAttribute("userList", userList);
-        req.getRequestDispatcher("/view/admin/adminHome.jsp").forward(req, resp);
+        req.getRequestDispatcher("/view/admin/AddUserAdmin.jsp").forward(req, resp);
     }
 
 }
