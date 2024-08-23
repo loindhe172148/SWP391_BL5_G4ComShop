@@ -1,22 +1,39 @@
+<!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="entity.User"%>
+<%@page import="entity.Account"%>
 <%@page import="entity.Product"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.Set"%>
-<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Cart Contact</title>
+        <title>My Cart</title>
+        <!-- CSS Libraries -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+        <!-- Bootstrap -->
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+
+        <!-- Slick -->
+        <link type="text/css" rel="stylesheet" href="css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+
+        <!-- nouislider -->
+        <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+
+        <!-- Custom stlylesheet -->
+        <link type="text/css" rel="stylesheet" href="css/style.css"/>
         <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f8f9fa;
-            }
             .container {
                 margin-top: 50px;
             }
@@ -31,18 +48,22 @@
             .btn-primary:hover {
                 background-color: #45a049;
             }
-            .btn-secondary {
-                background-color: #6c757d;
+            .btn-danger {
+                background-color: #dc3545;
                 border: none;
                 color: white;
             }
-            .btn-secondary:hover {
-                background-color: #5a6268;
+            .btn-danger:hover {
+                background-color: #c82333;
             }
             .page-header {
                 background: #4CAF50;
-                color: white;
-                padding: 50px 0;
+            }
+            h1, th, td {
+                color: #333;
+            }
+            th {
+                background-color: #f2f2f2;
             }
             .breadcrumb a {
                 color: white;
@@ -58,254 +79,338 @@
             .quantity-buttons form {
                 display: inline-block;
             }
-            .sidebar {
-                padding: 20px;
-                background-color: #fff;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-                margin-top: 20px;
-            }
-            .sidebar .list-group-item {
-                border: none;
-            }
-            .sidebar h4 {
-                margin-bottom: 20px;
-            }
-            .sidebar .list-group-item:hover {
-                background-color: #f1f1f1;
-            }
-            .form-label {
-                font-weight: bold;
+            .product-img {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
             }
         </style>
     </head>
     <body>
-        <!-- Navbar Start -->
-        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-            <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-                <h2 class="m-0 text-primary"><i class="fa fa-laptop me-3"></i>CompStore</h2>
-            </a>
-            <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="home" class="nav-item nav-link">Home</a>
-                    <a href="about" class="nav-item nav-link">About Us</a>
-                    <a href="products" class="nav-item nav-link">Products</a>
-                    <a href="ViewCart" class="nav-item nav-link active">My Cart</a>
-                    <a href="MyOrders" class="nav-item nav-link">My Orders</a>
-                    <%
-                        User loggedInUser = (User) request.getAttribute("user");
-                        if (loggedInUser != null) {
-                    %>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Hello, <%= loggedInUser.getAccount().getUsername() %></a>
-                        <div class="dropdown-menu border-0 shadow">
-                            <a href="ChangePassword.jsp" class="dropdown-item">Change Password</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="Logout" class="dropdown-item">Logout</a>
-                        </div>
+        <!-- HEADER -->
+        <header>
+            <div style="background-color: #1a1818;" id="top-header">
+                <div class="container">
+                    <div class="header-logo">
+                        <a href="#" class="logo">
+                            <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
+                        </a>
                     </div>
-                    <%
-                        } else {
-                    %>
-                    <a href="login" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+                    <ul style="margin-top: 10px"  class="header-links pull-right">
+                        <li><a style="font-size: 20px" href="/SWP391_BL5_G4ComShop/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i style="font-size: 20px" class="fa fa-user-o"></i> My Account <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">View profile</a></li>
+                                <li><a href="CartController">My Cart</a></li>
+                                <li><a href="./user/changepass">Change Pass</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <%
+          User loggedInUser = (User) request.getAttribute("user");
+            %>    
+            <style>
+                .dropdown-menu {
+                    min-width: 120px;
+                    background: black;
+                }
+
+                .dropdown-menu li a {
+                    padding: 10px 20px;
+                    display: block;
+                }
+
+                .dropdown-menu li a:hover {
+                    background-color: #f8f9fa;
+                    color: #343a40;
+                }
+            </style>
+            <!-- /MAIN HEADER -->
+        </header>
+        <!-- /HEADER -->
+
+        <!-- NAVIGATION -->
+        <nav id="navigation">
+            <!-- container -->
+            <div class="container">
+                <!-- responsive-nav -->
+                <div id="responsive-nav">
+                    <h1>Your cart contact</h1>
+                </div>
+                <!-- /responsive-nav -->
+            </div>
+            <!-- /container -->
+        </nav>
+        <!-- /NAVIGATION -->
+
+        <!-- BREADCRUMB -->
+        <div id="breadcrumb" class="section">
+            <!-- container -->
+
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content -->
+                    <div class="col-lg-8">
+                        <%
+                            Map<Integer, Map<Product, Double>> cartItems = (Map<Integer, Map<Product, Double>>) request.getAttribute("cartItems");
+                            double totalPrice = 0.0;
+
+                            if (cartItems == null || cartItems.isEmpty()) {
+                        %>
+                        <div class="alert alert-warning text-center">
+                            Your cart is empty.
+                        </div>
+                        <%
+                            } else {
+                        %>
+                        <form action="SubmitOrder" method="post">
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        for (Map.Entry<Integer, Map<Product, Double>> entry : cartItems.entrySet()) {
+                                            Map<Product, Double> productWithPrice = entry.getValue();
+                                            for (Map.Entry<Product, Double> productEntry : productWithPrice.entrySet()) {
+                                                Product product = productEntry.getKey();
+                                                double price = productEntry.getValue();
+                                                int quantityInCart = product.getQuantity();
+                                                double productTotal = price * quantityInCart;
+                                                totalPrice += productTotal;
+                                    %>
+                                    <tr>
+                                        <td><%= product.getName() %></td>
+                                        <td>$ <%= String.format("%.2f", price) %></td>
+                                        <td><%= quantityInCart %></td>
+                                        <td>$ <%= String.format("%.2f", productTotal) %></td>
+                                    </tr>
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                    <tr>
+                                        <td colspan="3" class="text-end"><strong>Total Price:</strong></td>
+                                        <td>$ <%= String.format("%.2f", totalPrice) %></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Receiver Information -->
+                            <div class="mb-4">
+                                <h4>Receiver Information</h4>
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullname" name="fullname" value="<%= loggedInUser != null ? loggedInUser.getName() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="Male" <%= loggedInUser != null && loggedInUser.getGender() == 1 ? "selected" : "" %>>Male</option>
+                                        <option value="Female" <%= loggedInUser != null && loggedInUser.getGender() == 0 ? "selected" : "" %>>Female</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="<%= loggedInUser != null ? loggedInUser.getGmail() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mobile" class="form-label">Mobile</label>
+                                    <input type="text" class="form-control" id="mobile" name="mobile" value="<%= loggedInUser != null ? loggedInUser.getPhone() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" value="<%= loggedInUser != null ? loggedInUser.getAddress() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Notes</label>
+                                    <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-between">
+                                <a href="ViewCart" class="btn btn-secondary">Change</a>
+                                <button type="submit" class="btn btn-primary">Submit Order</button>
+                            </div>
+                        </form>
                         <%
                             }
                         %>
+                    </div>
+
+                    <!-- Sidebar Content -->
+
                 </div>
             </div>
-        </nav>
-        <!-- Navbar End -->
+            <!-- /container -->
+        </div>
+        <!-- /BREADCRUMB -->
 
-        <!-- Header Start -->
-        <div class="container-fluid page-header text-center">
+        <!-- SECTION -->
+        <div class="section">
+            <!-- container -->
             <div class="container">
-                <h1 class="display-3">Cart Contact</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center">
-                        <li class="breadcrumb-item"><a class="text-white" href="home.jsp">Home</a></li>
-                        <li class="breadcrumb-item"><a class="text-white" href="ViewCart">My Cart</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Cart Contact</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-        <!-- Header End -->
-
-        <div class="container">
-            <div class="row">
-                <!-- Main Content -->
-                <div class="col-lg-8">
-                    <%
-                        Map<Integer, Map<Product, Double>> cartItems = (Map<Integer, Map<Product, Double>>) request.getAttribute("cartItems");
-                        double totalPrice = 0.0;
-
-                        if (cartItems == null || cartItems.isEmpty()) {
-                    %>
-                    <div class="alert alert-warning text-center">
-                        Your cart is empty.
-                    </div>
-                    <%
-                        } else {
-                    %>
-                    <form action="SubmitOrder" method="post">
-                        <table class="table table-bordered text-center">
-                            <thead>
-                                <tr>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    for (Map.Entry<Integer, Map<Product, Double>> entry : cartItems.entrySet()) {
-                                        Map<Product, Double> productWithPrice = entry.getValue();
-                                        for (Map.Entry<Product, Double> productEntry : productWithPrice.entrySet()) {
-                                            Product product = productEntry.getKey();
-                                            double price = productEntry.getValue();
-                                            int quantityInCart = product.getQuantity();
-                                            double productTotal = price * quantityInCart;
-                                            totalPrice += productTotal;
-                                %>
-                                <tr>
-                                    <td><%= product.getName() %></td>
-                                    <td>$ <%= String.format("%.2f", price) %></td>
-                                    <td><%= quantityInCart %></td>
-                                    <td>$ <%= String.format("%.2f", productTotal) %></td>
-                                </tr>
-                                <%
-                                        }
-                                    }
-                                %>
-                                <tr>
-                                    <td colspan="3" class="text-end"><strong>Total Price:</strong></td>
-                                    <td>$ <%= String.format("%.2f", totalPrice) %></td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <!-- Receiver Information -->
-                        <div class="mb-4">
-                            <h4>Receiver Information</h4>
-                            <div class="mb-3">
-                                <label for="fullname" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="fullname" name="fullname" value="<%= loggedInUser != null ? loggedInUser.getName() : "" %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="gender" class="form-label">Gender</label>
-                                <select class="form-select" id="gender" name="gender" required>
-                                    <option value="Male" <%= loggedInUser != null && loggedInUser.getGender() == 1 ? "selected" : "" %>>Male</option>
-                                    <option value="Female" <%= loggedInUser != null && loggedInUser.getGender() == 0 ? "selected" : "" %>>Female</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<%= loggedInUser != null ? loggedInUser.getGmail() : "" %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="mobile" class="form-label">Mobile</label>
-                                <input type="text" class="form-control" id="mobile" name="mobile" value="<%= loggedInUser != null ? loggedInUser.getPhone() : "" %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="address" class="form-label">Address</label>
-                                <input type="text" class="form-control" id="address" name="address" value="<%= loggedInUser != null ? loggedInUser.getAddress() : "" %>" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="notes" class="form-label">Notes</label>
-                                <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-between">
-                            <a href="ViewCart" class="btn btn-secondary">Change</a>
-                            <button type="submit" class="btn btn-primary">Submit Order</button>
-                        </div>
-                    </form>
-                    <%
-                        }
-                    %>
+                <!-- row -->
+                <div class="row">
                 </div>
-
-                <!-- Sidebar Content -->
-
+                <!-- /row -->
             </div>
+            <!-- /container -->
         </div>
+        <!-- /SECTION -->
 
-        <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer pt-5 mt-5">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="text-white mb-3">Quick Links</h4>
-                        <a class="btn btn-link" href="about">About Us</a>
-                        <a class="btn btn-link" href="contact">Contact Us</a>
-                        <a class="btn btn-link" href="privacy-policy">Privacy Policy</a>
-                        <a class="btn btn-link" href="terms-conditions">Terms & Conditions</a>
-                        <a class="btn btn-link" href="faq">FAQs & Help</a>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="text-white mb-3">Contact</h4>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Tech Street, Silicon Valley, USA</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>support@compstore.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="text-white mb-3">Our Products</h4>
-                        <div class="row g-2 pt-2">
-                            <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/product-1.jpg" alt="Product 1">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/product-2.jpg" alt="Product 2">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/product-3.jpg" alt="Product 3">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/product-4.jpg" alt="Product 4">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/product-5.jpg" alt="Product 5">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/product-6.jpg" alt="Product 6">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="text-white mb-3">Newsletter</h4>
-                        <p>Stay updated with the latest products and offers.</p>
-                        <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+        <!-- NEWSLETTER -->
+        <div id="newsletter" class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="newsletter">
+                            <p>Sign Up for the <strong>NEWSLETTER</strong></p>
+                            <form>
+                                <input class="input" type="email" placeholder="Enter Your Email">
+                                <button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+                            </form>
+                            <ul class="newsletter-follow">
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+                <!-- /row -->
             </div>
+            <!-- /container -->
         </div>
-        <!-- Footer End -->
+        <!-- /NEWSLETTER -->
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        <!-- FOOTER -->
+        <footer id="footer">
+            <!-- top footer -->
+            <div class="section">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">About Us</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                                <ul class="footer-links">
+                                    <li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Categories</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">Hot deals</a></li>
+                                    <li><a href="#">Laptops</a></li>
+                                    <li><a href="#">Smartphones</a></li>
+                                    <li><a href="#">Cameras</a></li>
+                                    <li><a href="#">Accessories</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="clearfix visible-xs"></div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Information</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Orders and Returns</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Service</h3>
+                                <ul class="footer-links">
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">View Cart</a></li>
+                                    <li><a href="#">Wishlist</a></li>
+                                    <li><a href="#">Track My Order</a></li>
+                                    <li><a href="#">Help</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /top footer -->
+
+            <!-- bottom footer -->
+            <div id="bottom-footer" class="section">
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul class="footer-payments">
+                                <li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
+                                <li><a href="#"><i class="fa fa-credit-card"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
+                                <li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
+                            </ul>
+                            <span class="copyright">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </span>
+
+
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /bottom footer -->
+        </footer>
+        <!-- /FOOTER -->
+
+        <!-- jQuery Plugins -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script src="js/nouislider.min.js"></script>
+        <script src="js/jquery.zoom.min.js"></script>
+        <script src="js/main.js"></script>
+
     </body>
 </html>

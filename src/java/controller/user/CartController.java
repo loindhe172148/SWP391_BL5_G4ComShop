@@ -22,10 +22,8 @@ public class CartController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-     
         Account account = (Account) request.getSession().getAttribute("account");
 
-     
         if (account == null) {
             response.sendRedirect("login");
             return;
@@ -33,15 +31,12 @@ public class CartController extends HttpServlet {
 
         int userId = account.getId();
 
-       
         CartDao cartDao = new CartDao();
         Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(userId);
 
-    
         request.setAttribute("cartItems", cartItems);
         request.getSession().setAttribute("acc", account);
 
-    
         request.getRequestDispatcher("./view/user/cart.jsp").forward(request, response);
     }
 

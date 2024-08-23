@@ -47,7 +47,7 @@ public class SubmitOrder extends HttpServlet {
 
         // Retrieve cart items
         CartDao cartDao = new CartDao();
-        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(loggedInUser.getId());
+        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(account.getId());
 
         // Compose the order details into an email content
         StringBuilder emailContent = new StringBuilder();
@@ -86,13 +86,9 @@ public class SubmitOrder extends HttpServlet {
         // Send the email
         String subject = "Your Order Confirmation";
         boolean emailSent = EmailUtils.sendMail(email, subject, emailContent.toString());
-
-        if (emailSent) {
-           
-           
+        if (emailSent) {                      
             request.getSession().removeAttribute("cartItems");
-
-           
+            cartDao.deleteFromCart1(account.getId());
             response.sendRedirect("order-confirmation.jsp");
         } else {
             // Handle email sending failure (show error message, retry, etc.)
