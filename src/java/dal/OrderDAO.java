@@ -3,6 +3,10 @@ package dal;
 
 import entity.CartDetail;
 import entity.Order;
+import entity.OrderProduct;
+import entity.Product;
+import entity.ProductWithDetails;
+import entity.User;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -119,6 +123,52 @@ public class OrderDAO extends DBContext<Order> {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+    public List<Order> getListOrder(){
+        UserDBContext db = new UserDBContext();
+        List<Order> list = new ArrayList();
+        String sql = "select * from [Order]";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int customerid = rs.getInt(2);
+                java.util.Date date = rs.getDate(3);
+                float total = rs.getFloat(4);
+                String statusid = rs.getString(5);
+                String address = rs.getString(6);
+                Order order = new Order(id, customerid, date, total, statusid, address);
+                User user = db.getUserByID(customerid);
+                List<OrderProduct> listOrder = getListOrderProduct(id);
+                order.setUser(user);
+                order.setListOrderProduct(listOrder);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    public List<OrderProduct> getListOrderProduct(int order_id){
+        ProductWithDetailsDAO db = new ProductWithDetailsDAO();
+        List<OrderProduct> list = new ArrayList<>();
+        String sql = "select * from [OrderProduct] where orderid = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, order_id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int productid = rs.getInt(2);
+                float price = rs.getFloat(3);
+                int quantity = rs.getInt(4);
+                ProductWithDetails product = db.getProductDetailById(productid);
+                OrderProduct o = new OrderProduct(order_id, productid, price, quantity);
+                o.setProductdetails(product);
+                list.add(o);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 }
 

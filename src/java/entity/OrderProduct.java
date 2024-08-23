@@ -14,6 +14,7 @@ public class OrderProduct {
     private float price;
     private int quantity;
     private Product product;
+    private ProductWithDetails productdetails;
     public OrderProduct() {
     }
 
@@ -62,6 +63,14 @@ public class OrderProduct {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public ProductWithDetails getProductdetails() {
+        return productdetails;
+    }
+
+    public void setProductdetails(ProductWithDetails productdetails) {
+        this.productdetails = productdetails;
     }
     
     
