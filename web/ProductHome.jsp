@@ -391,6 +391,7 @@
             showResetModalSuccess();
             showVerifyModalSuccess();
             showChangeModalSuccess();
+            showOrderModalSuccess();
         };
         function showLoginModalWithError() {
             var errorLogin = '${errorLogin}';
@@ -441,6 +442,12 @@
                 showChangeSuccessAlert();
             }
         }
+        function showOrderModalSuccess() {
+            var errorReset = '${orderSuccess}';
+            if (errorReset) {
+                showOrderSuccessAlert();
+            }
+        }
         function showSignupSuccessAlert() {
             Swal.fire({
                 icon: 'success',
@@ -458,10 +465,27 @@
                 timerProgressBar: true
             });
         }
-        function showResetSuccessAlert() {
+        function showSignupSuccessAlert() {
             Swal.fire({
                 icon: 'success',
-                title: 'Reset Password Successfully!',
+                title: 'Verify Successfully!',
+                showConfirmButton: false,
+                timer: 2000,
+                customClass: {
+                    popup: 'custom-popup',
+                    title: 'custom-title',
+                    content: 'custom-content'
+                },
+                width: '300px',
+                padding: '1rem',
+                backdrop: true,
+                timerProgressBar: true
+            });
+        }
+        function showOrderSuccessAlert() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Successfully!',
                 showConfirmButton: false,
                 timer: 2000,
                 customClass: {
