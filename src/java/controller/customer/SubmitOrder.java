@@ -2,6 +2,7 @@ package controller.customer;
 
 import controller.user.BaseRequiredAuthenticationController;
 import dal.CartDao;
+import dal.OrderDAO;
 import dal.UserDBContext;
 import entity.Account;
 import entity.Product;
@@ -28,7 +29,7 @@ public class SubmitOrder extends BaseRequiredAuthenticationController {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         // Retrieve the logged-in account
         Account account1 = (Account) req.getSession().getAttribute("account");
-
+        OrderDAO db = new OrderDAO();
         if (account1 == null) {
             resp.sendRedirect("login");
             return;
@@ -94,6 +95,7 @@ public class SubmitOrder extends BaseRequiredAuthenticationController {
         boolean emailSent = EmailUtils.sendMail(email, subject, emailContent.toString());
         if (emailSent) {
             req.getSession().removeAttribute("cartItems");
+            db.placeOrder(account1.getId(), totalPrice, address);
             cartDao.deleteFromCart1(account1.getId());
             resp.sendRedirect("order-confirmation.jsp");
         } else {

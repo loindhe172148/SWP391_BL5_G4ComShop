@@ -1,6 +1,8 @@
 
 package entity;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
     private int id;
@@ -9,8 +11,10 @@ public class Order {
     private float totalamount;
     private String statusid;
     private String shippingaddress;
-
+    private List<OrderProduct> listOrderProduct;
+    private User user;
     public Order() {
+        listOrderProduct = new ArrayList<>();
     }
 
     public Order(int id, int customerid, Date orderdate, float totalamount, String statusid, String shippingaddress) {
@@ -68,6 +72,22 @@ public class Order {
 
     public void setShippingaddress(String shippingaddress) {
         this.shippingaddress = shippingaddress;
+    }
+
+    public List<OrderProduct> getListOrderProduct() {
+        return listOrderProduct;
+    }
+
+    public void setListOrderProduct(List<OrderProduct> listOrderProduct) {
+        this.listOrderProduct = listOrderProduct;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     

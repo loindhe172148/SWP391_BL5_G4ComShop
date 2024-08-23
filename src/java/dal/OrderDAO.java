@@ -1,10 +1,16 @@
 
 package dal;
 
+import entity.CartDetail;
 import entity.Order;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OrderDAO extends DBContext<Order> {
 
@@ -32,5 +38,87 @@ public class OrderDAO extends DBContext<Order> {
         }
         return 0;
     }
+    public void placeOrder(int customer_id, double total, String address){
+        int order_id = createOrder(customer_id, total, address);
+        createOrderDetail(customer_id, order_id);
+    }
+    private int createOrder(int customer_id, double total, String address){
+        String sql = "INSERT INTO [dbo].[Order]([customerid],[orderdate],[totalamount],[statusid],[shippingaddress]) VALUES (?,?,?,?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, customer_id);
+            ps.setDate(2, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+            ps.setDouble(3, total);
+            ps.setString(4, "processing");
+            ps.setString(5, address);
+            int x = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return getIDOrder();
+    }
+    private int getIDOrder(){
+        String sql = "select max(id) id from [Order]";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    private void createOrderDetail(int customer_id, int order_id){
+        List<CartDetail> list = getListCart(customer_id);
+        for (CartDetail i : list) {
+            createOrderDetail(i,order_id);
+        }
+    }
+    private void createOrderDetail(CartDetail cart, int order_id){
+        String sql = "INSERT INTO [dbo].[OrderProduct]([orderid],[productid],[price],[quantity])VALUES(?,?,?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, order_id);
+            ps.setInt(2, cart.getProductDetailId());
+            ps.setDouble(3, cart.getPrice());
+            ps.setInt(4, cart.getQuantity());
+            int x = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private List<CartDetail> getListCart(int customer_id){
+        List<CartDetail> list = new ArrayList();
+        String sql = "select * from CartDetail where customerid = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, customer_id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int product_id = rs.getInt(1);
+                int quantity = rs.getInt(2);
+                double price = rs.getDouble(3);
+                CartDetail c = new CartDetail(product_id, quantity, (float) price, customer_id);
+                list.add(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+    public void changeStatusOrder(int order_id, String status){
+        String sql = "update [Order] set statusid = ? where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(2, order_id);
+            ps.setString(1, status);
+            int x = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
 
