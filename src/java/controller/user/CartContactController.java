@@ -29,7 +29,7 @@ public class CartContactController extends HttpServlet {
         // Fetch the user details using the account ID
         UserDBContext userDao = new UserDBContext();
         User loggedInUser = userDao.getUserByAccountId(account.getId());
-
+        System.out.println(account.getId());
         // Redirect to login if no user is found
         if (loggedInUser == null) {
             response.sendRedirect("login");

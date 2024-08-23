@@ -292,12 +292,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Your Page Content Here -->
                     <div id="customerManage" class="mt-5">
                         <h2 class="text-center text-primary mb-4">User List</h2>
-                        <p class="text-center mb-4">Manage all users here. Below is the list of registered users.</p>
+                        <p class="text-center mb-4">Add new users here.</p>
                         <div class="search-bar" style="margin-bottom: 10px"><i class="fa-solid fa-magnifying-glass"></i>
                             <input type="text" placeholder="Search by email"></div>
                         <div class="card mb-3 shadow-sm">
                             <div class="card-header">
-                                <i class="fas fa-users"></i> User List
+                                <i class="fas fa-users"></i> User Registration
                             </div>
                             <div class="add-box">
                                 <div class="context-add-box">
@@ -356,51 +356,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <table class="table table-hover table-bordered" style="display: none">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
 
-                                            <th>Email</th>
-                                            <th>Address</th>
-                                            <th>Gender</th>
-                                            <th>Phone</th>
-                                            <th>Date of Birth</th>
-                                            <th>Status</th>
-
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%
-                                                ArrayList<User> userList = (ArrayList<User>) request.getAttribute("userList");
-                                                for (User user : userList) {
-                                        %>
-                                        <tr>
-                                            <td><%= user.getId() %></td>
-
-                                            <td><%= user.getGmail() %></td>
-                                            <td><%= user.getAddress() %></td>
-                                            <td><%= user.getGender() == 1 ? "Male" : "Female" %></td>
-                                            <td><%= user.getPhone() %></td>
-                                            <td><%= user.getDob() %></td>
-                                            <td><%= user.getStatus() %></td>
-
-                                            <td>
-                                                <a href="viewUserDetail?userId=<%= user.getId() %>"
-                                                   class="btn btn-info btn-sm">View Details</a>
-                                                <a href="viewUserDetail?userId=<%= user.getId() %>"
-                                                   class="btn btn-info btn-sm">Edit</a>
-                                            </td>
-                                        </tr>
-                                        <% 
-                                                }
-                                        %>
-                                    </tbody>
-                                </table>
-
-                            </div>
                         </div>
                     </div>
                     <button style="background: #00c0ef;border-color:#00c0ef;border-radius: 3px;padding: 10px 5px;
