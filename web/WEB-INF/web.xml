@@ -200,7 +200,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccessoryBrandname</servlet-name>
-        <url-pattern>/accessoryBrandname</url-pattern>
+        <url-pattern>/marketing/brandname</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingDashboard</servlet-name>
