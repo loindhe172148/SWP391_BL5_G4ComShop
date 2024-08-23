@@ -29,7 +29,7 @@ public class UserDBContext extends DBContext<User> {
                 m.setAddress(rs.getString("address"));
                 m.setGender(rs.getInt("gender"));
                 m.setPhone(rs.getString("phone"));
-                m.setStatus(rs.getString("status"));
+                m.setStatus(rs.getString("status").toLowerCase());
 
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
@@ -244,7 +244,7 @@ public class UserDBContext extends DBContext<User> {
                                  ,[dob]
                                  ,[status]
                                  ,[fullname]
-                                 ,[avar]
+                                 ,[ava]
                                  ,[createdate])
                            VALUES
                                  (?,?,?,?,?,?,?,?,?,?)""";
@@ -255,7 +255,7 @@ public class UserDBContext extends DBContext<User> {
             ps.setInt(4, u.getGender());
             ps.setString(5, u.getPhone());
             ps.setDate(6, new java.sql.Date(u.getDob().getTime()));
-            ps.setString(7, u.getStatus());
+            ps.setString(7, "active");
             ps.setString(9, "null");
             ps.setString(8, u.getName());
             ps.setDate(10, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
