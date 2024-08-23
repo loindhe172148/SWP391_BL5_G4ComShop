@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @MultipartConfig
-public class MarketingProductDetails extends HttpServlet {
+public class MarketingProductDetails extends BaseRequiredAuthenticationController {
 
     private static final String FOLDER_DIRECTORY = "web/assets/electro/img/";
 
@@ -327,26 +327,6 @@ public class MarketingProductDetails extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
     /**
      * Returns a short description of the servlet.
      *
@@ -357,13 +337,13 @@ public class MarketingProductDetails extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-//        processRequest(req, resp);
-//    }
-//
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-//        processRequest(req, resp);
-//    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
 }

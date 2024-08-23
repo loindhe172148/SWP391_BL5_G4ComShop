@@ -291,13 +291,13 @@
                                             <div class="input-group">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="status" value="Showing" ${status == null || status.equals("Showing") ? 'checked' : ''}>
+                                                        <input type="radio" name="product_status" value="Showing" ${product_status == null || product_status.equals("Showing") ? 'checked' : ''}>
                                                         Show
                                                     </label>
                                                 </div>
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="status" value="Hiding" ${status != null && status.equals("Hiding") ? 'checked' : ''}>
+                                                        <input type="radio" name="product_status" value="Hiding" ${product_status != null && product_status.equals("Hiding") ? 'checked' : ''}>
                                                         Hide
                                                     </label>
                                                 </div>

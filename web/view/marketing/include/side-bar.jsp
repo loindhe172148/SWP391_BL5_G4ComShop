@@ -9,7 +9,7 @@
                 <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Tên người dùng</p>
+                <p>${sessionScope.username}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -47,10 +47,10 @@
                         <span class="label label-primary pull-right">2</span>
                     </span>
                 </a>
-                <ul class="treeview-menu">
+<!--                <ul class="treeview-menu">
                     <li><a href="productlist"><i class="fa fa-circle-o"></i>All Product</a></li>
                     <li><a href="formadd"><i class="fa fa-circle-o"></i>Add Product</a></li>
-                </ul>
+                </ul>-->
             </li>
             <li class="treeview">
                 <a href="#">

@@ -67,6 +67,7 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
                 String originPriceStr = request.getParameter("origin_price").trim();
                 String salePriceStr = request.getParameter("sale_price").trim();
                 String status = request.getParameter("product_status");
+                System.out.println("status="+ status);
                 Part imagePart = request.getPart("product_image");
                 String imageName = imagePart != null && imagePart.getSize() > 0 ? imagePart.getSubmittedFileName() : "default_laptop.jpg";
 
