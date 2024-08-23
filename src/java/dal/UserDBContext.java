@@ -8,6 +8,7 @@ import entity.Account;
 import entity.User;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -231,5 +232,36 @@ public class UserDBContext extends DBContext<User> {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;        
+    }
+    public void createUser(User u){
+     String sql = """
+                 INSERT INTO [dbo].[User]
+                                 ([accid]
+                                 ,[gmail]
+                                 ,[address]
+                                 ,[gender]
+                                 ,[phone]
+                                 ,[dob]
+                                 ,[status]
+                                 ,[fullname]
+                                 ,[avar]
+                                 ,[createdate])
+                           VALUES
+                                 (?,?,?,?,?,?,?,?,?,?)""";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, u.getAccount().getId());
+            ps.setString(2, u.getGmail());
+            ps.setString(3, u.getAddress());
+            ps.setInt(4, u.getGender());
+            ps.setString(5, u.getPhone());
+            ps.setDate(6, new java.sql.Date(u.getDob().getTime()));
+            ps.setString(7, u.getStatus());
+            ps.setString(9, "null");
+            ps.setString(8, u.getName());
+            ps.setDate(10, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

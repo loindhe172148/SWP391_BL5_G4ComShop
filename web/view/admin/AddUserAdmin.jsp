@@ -295,61 +295,59 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <p class="text-center mb-4">Add new users here.</p>
                         <div class="card mb-3 shadow-sm">                           
                             <div class="add-box">
-                                <div class="context-add-box">
+                                <form class="context-add-box" method="post" action="adduser">
                                     <div class="input-box">
                                         <label>Username</label>
-                                        <input type="text" />
+                                        <input type="text" name="username"/>
                                     </div>
                                     <div class="input-box">
                                         <label>Password</label>
-                                        <input type="text" />
+                                        <input type="text" name="password"/>
                                     </div>
-                                    <div class="input-box">
-                                        <label>Confirm password</label>
-                                        <input type="text" />
-                                    </div>
+                                    
                                     <div class="input-box">
                                         <label>Full name</label>
-                                        <input type="text" />
+                                        <input type="text" name="fullname"/>
                                     </div>
                                     <div class="input-box">
                                         <label>Email</label>
-                                        <input type="text" />
+                                        <input type="text" name="email"/>
                                     </div>
                                     <div class="input-box">
                                         <label>Phone</label>
-                                        <input type="text" />
+                                        <input type="text" name="phone"/>
                                     </div>
                                     <div class="input-box">
                                         <label>Address</label>
-                                        <input type="text" />
+                                        <input type="text" name="address"/>
                                     </div>
                                     <div class="input-box">
                                         <label>Date Of Birth</label>
-                                        <input type="date" />
+                                        <input type="date" name="dob"/>
                                     </div>
                                     <div class="input-box">
                                         <label>Gender</label>
-                                        <select>
-                                            <option value="">Choose Gender</option>
-                                            <option>Male</option>
-                                            <option>Female</option>
-                                            <option>Other</option>
+                                        <select name="gender" required>                                            
+                                            <option value="1">Male</option>
+                                            <option value="0">Female</option>
+                                            <option value="2">Other</option>
                                         </select>
                                     </div>
                                     <div class="input-box">
                                         <label>Role</label>
-                                        <select>
-                                            <option>Choose role for user</option>
-                                            <option>Marketing</option>
-                                            <option>Sale</option>
+                                        <select name="role">
+                                            <option value="marketing">Marketing</option>
+                                            <option value="sale">Sale</option>
                                         </select>
                                     </div>
-
+                                    
                                     <div class="button-box">
                                         <button><i class="fa-solid fa-plus"></i> Create a new account</button>
                                     </div>
-                                </div>
+                                    <p style="font-size: 18px;color: red">${errorSignup}</p>
+                                    <p style="font-size: 18px;color: green">${successMessage}</p>
+                                </form>
+                                
                             </div>
 
                         </div>
