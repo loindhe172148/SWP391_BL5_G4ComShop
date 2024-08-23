@@ -314,5 +314,19 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return productWithDetailsList;
     }
-
+    public int getQuantity(int product_id){
+        String sql = "select quantity from [ProductDetail] where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, product_id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ProductWithDetailsDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+            
 }

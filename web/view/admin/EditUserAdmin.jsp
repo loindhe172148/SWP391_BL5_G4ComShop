@@ -26,6 +26,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+              integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
               page. However, you can choose any other skin. Make sure you
               apply the skin class to the body tag so the changes take effect.
@@ -193,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- /.row -->
                                     </li>
                                     <!-- Menu Footer-->
-                                   <li class="user-footer">
+                                    <li class="user-footer">
                                         <div class="pull-right">
                                             <a href="/SWP391_BL5_G4ComShop/logout" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
@@ -278,11 +281,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="container mt-5">
                         <h2 class="text-center text-primary">User Details</h2>
                         <div class="card mt-4">
-                            <div class="card-body">
+                            <form class="card-body" method="post" action="edituser">
                                 <div class="mb-3 row">
                                     <label for="id" class="col-sm-2 col-form-label">ID</label>
                                     <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="id" value="${requestScope.user1.id}">
+                                        <input type="text" readonly class="form-control" id="id" value="${requestScope.user1.id}" name="id">
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -324,7 +327,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <div class="mb-3 row">
                                     <label for="username" class="col-sm-2 col-form-label">Username</label>
                                     <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="username" value="${requestScope.user1.account.username}">
+                                        <input type="text" readonly class="form-control" id="username" value="${requestScope.user1.account.username}" name="username">
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -337,18 +340,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <div class="mb-3 row">
                                     <label for="role" class="col-sm-2 col-form-label">Role</label>
                                     <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="role" value="${requestScope.user1.account.role}">
+                                        <select class="form-control" name="role">
+                                            <option value="customer" ${requestScope.user1.account.role == 'customer'?'selected':''}>Customer</option>
+                                            <option value="sale" ${requestScope.user1.account.role == 'sale'?'selected':''}>Sale</option>
+                                            <option value="marketing" ${requestScope.user1.account.role == 'marketing'?'selected':''}>Marketing</option>
+                                        </select>
+                                       
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
                                     <label for="status" class="col-sm-2 col-form-label">Status</label>
                                     <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="status" value="${requestScope.user1.status}">
+                                        <select class="form-control" name="status">
+                                            <option value="active" ${requestScope.user1.status == 'active'?'selected':''}>Activate</option>
+                                            <option value="deactivate" ${requestScope.user1.status == 'deactivate'?'selected':''}>Deactivate</option>
+                                        </select>
                                     </div>
                                 </div>
-                                
-                                
-                            </div>
+                                        <button id="button-add" style="background: #00c0ef;border-color:#00c0ef;border-radius: 3px;padding: 10px 5px;
+                                            color: black; font-weight: 600" >
+                        <i class="fa-solid fa-floppy-disk"></i> Save change</button>
+                            </form>
                         </div>
                         <a href="adminUserList" class="btn btn-secondary mt-3">Back to User List</a>
                     </div>

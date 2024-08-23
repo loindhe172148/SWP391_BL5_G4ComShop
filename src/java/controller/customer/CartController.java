@@ -1,51 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
-package controller.admin;
+package controller.customer;
 
 import controller.user.BaseRequiredAuthenticationController;
-import dal.UserDBContext;
+import dal.CartDao;
 import entity.Account;
-import entity.User;
+import entity.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Map;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 /**
- *
- * @author Admin
+ * Servlet implementation class CartController
  */
-@WebServlet(name="adminUserList", urlPatterns={"/admin/adminUserList"})
-public class adminUserList extends BaseRequiredAuthenticationController {
-   
+@WebServlet(name = "CartController", urlPatterns = {"/customer/CartController"})
+public class CartController extends BaseRequiredAuthenticationController {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adminUserList</title>");  
+            out.println("<title>Servlet CartController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adminUserList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CartController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        return "Handles user cart operations";
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
@@ -54,11 +47,22 @@ public class adminUserList extends BaseRequiredAuthenticationController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-         UserDBContext dao = new UserDBContext();
-        ArrayList<User> userList = (ArrayList<User>) dao.listAll();
         
-        req.setAttribute("userList", userList);
-        req.getRequestDispatcher("/view/admin/adminHome.jsp").forward(req, resp);
-    }
+        Account account1 = (Account) req.getSession().getAttribute("account");
 
+        if (account1 == null) {
+            resp.sendRedirect("login");
+            return;
+        }
+
+        int userId = account1.getId();
+
+        CartDao cartDao = new CartDao();
+        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(userId);
+
+        req.setAttribute("cartItems", cartItems);
+        req.getSession().setAttribute("acc", account1);
+
+        req.getRequestDispatcher("/view/customer/cart.jsp").forward(req, resp);
+    }
 }

@@ -6,25 +6,30 @@
 package controller.admin;
 
 import controller.user.BaseRequiredAuthenticationController;
+import dal.AccountDBContext;
 import dal.UserDBContext;
 import entity.Account;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
 /**
  *
- * @author Admin
+ * @author hbtth
  */
-@WebServlet(name="adminUserList", urlPatterns={"/admin/adminUserList"})
-public class adminUserList extends BaseRequiredAuthenticationController {
+public class EditUser extends BaseRequiredAuthenticationController {
    
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,32 +38,41 @@ public class adminUserList extends BaseRequiredAuthenticationController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adminUserList</title>");  
+            out.println("<title>Servlet EditUser</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adminUserList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet EditUser at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     } 
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+  
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String id = req.getParameter("id");
+        String username = req.getParameter("username");
+        String status = req.getParameter("status");
+        String role = req.getParameter("role");
+        UserDBContext db = new UserDBContext();
+        AccountDBContext dba = new AccountDBContext();
+        System.out.println(username);
+        System.out.println(id);
+        System.out.println(role);
+        System.out.println(status);
+        db.updateStatusByID(Integer.parseInt(id), status);
+        dba.updateRoleByUsername(username, role);
+        System.out.println("");
+        resp.sendRedirect("edituser?userId="+id);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-         UserDBContext dao = new UserDBContext();
-        ArrayList<User> userList = (ArrayList<User>) dao.listAll();
-        
-        req.setAttribute("userList", userList);
-        req.getRequestDispatcher("/view/admin/adminHome.jsp").forward(req, resp);
+        String userId = req.getParameter("userId");
+        UserDBContext dao = new UserDBContext();
+        User user = dao.getUserByID(Integer.parseInt(userId));
+        req.setAttribute("user1", user);
+        req.getRequestDispatcher("/view/admin/EditUserAdmin.jsp").forward(req, resp);
     }
 
 }

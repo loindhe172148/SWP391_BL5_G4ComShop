@@ -12,6 +12,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,25 +20,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+              integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+              crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="assets/dist/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-              page. However, you can choose any other skin. Make sure you
-              apply the skin class to the body tag so the changes take effect.
+                  page. However, you can choose any other skin. Make sure you
+                  apply the skin class to the body tag so the changes take effect.
         -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/skin-blue.min.css">
-
+        <link rel="stylesheet" href="assets/dist/css/skins/skin-blue.min.css">
+        <link rel="stylesheet" href="assets/dist/css/admin.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
     </head>
 
     <body class="hold-transition skin-blue sidebar-mini">
@@ -51,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>A</b>LT</span>
                     <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b>LTE</span>
+                    <span class="logo-lg"><b>Sale</b>LTE</span>
                 </a>
 
                 <!-- Header Navbar -->
@@ -75,11 +79,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <li>
                                         <!-- inner menu: contains the messages -->
                                         <ul class="menu">
-                                            <li><!-- start message -->
+                                            <li>
+                                                <!-- start message -->
                                                 <a href="#">
                                                     <div class="pull-left">
                                                         <!-- User Image -->
-                                                        <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle"
+                                                             alt="User Image">
                                                     </div>
                                                     <!-- Message title and timestamp -->
                                                     <h4>
@@ -111,7 +117,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <li>
                                         <!-- Inner Menu: contains the notifications -->
                                         <ul class="menu">
-                                            <li><!-- start notification -->
+                                            <li>
+                                                <!-- start notification -->
                                                 <a href="#">
                                                     <i class="fa fa-users text-aqua"></i> 5 new members joined today
                                                 </a>
@@ -134,7 +141,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <li>
                                         <!-- Inner menu: contains the tasks -->
                                         <ul class="menu">
-                                            <li><!-- Task item -->
+                                            <li>
+                                                <!-- Task item -->
                                                 <a href="#">
                                                     <!-- Task title and progress text -->
                                                     <h3>
@@ -144,7 +152,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                     <!-- The progress bar -->
                                                     <div class="progress xs">
                                                         <!-- Change the css width attribute to simulate progress -->
-                                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar progress-bar-aqua" style="width: 20%"
+                                                             role="progressbar" aria-valuenow="20" aria-valuemin="0"
+                                                             aria-valuemax="100">
                                                             <span class="sr-only">20% Complete</span>
                                                         </div>
                                                     </div>
@@ -163,14 +173,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <!-- Menu Toggle Button -->
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <!-- The user image in the navbar-->
-                                    <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                    <img src="assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                     <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                     <span class="hidden-xs">Administrator</span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- The user image in the menu -->
                                     <li class="user-header">
-                                        <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                         <p>
                                             Admin
@@ -193,9 +203,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- /.row -->
                                     </li>
                                     <!-- Menu Footer-->
-                                   <li class="user-footer">
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
                                         <div class="pull-right">
-                                            <a href="/SWP391_BL5_G4ComShop/logout" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -217,7 +230,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="${pageContext.request.contextPath}/assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                            <img src="assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
                             <p>Administrator</p>
@@ -231,7 +244,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <div class="input-group">
                             <input type="text" name="q" class="form-control" placeholder="Search...">
                             <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                                        class="fa fa-search"></i>
                                 </button>
                             </span>
                         </div>
@@ -272,88 +286,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </section>
 
                 <!-- Main content -->
+
                 <section class="content">
 
                     <!-- Your Page Content Here -->
-                    <div class="container mt-5">
-                        <h2 class="text-center text-primary">User Details</h2>
-                        <div class="card mt-4">
-                            <div class="card-body">
-                                <div class="mb-3 row">
-                                    <label for="id" class="col-sm-2 col-form-label">ID</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="id" value="${requestScope.user1.id}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="fullname" class="col-sm-2 col-form-label">Full name</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="fullname" value="${requestScope.user1.name}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="Email" class="col-sm-2 col-form-label">Email</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="Email" value="${requestScope.user1.gmail}" >
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="address" class="col-sm-2 col-form-label">Address</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="address" value="${requestScope.user1.address}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="gender" value="${requestScope.user1.gender == 1? 'Male':'Female'}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="phone" class="col-sm-2 col-form-label">Phone</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="phone" value="${requestScope.user1.phone}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="dob" class="col-sm-2 col-form-label">Birthday</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="dob" value="${requestScope.user1.dob}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="username" class="col-sm-2 col-form-label">Username</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="username" value="${requestScope.user1.account.username}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="inputPassword" value="${requestScope.user1.account.password}">
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3 row">
-                                    <label for="role" class="col-sm-2 col-form-label">Role</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="role" value="${requestScope.user1.account.role}">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="status" class="col-sm-2 col-form-label">Status</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" readonly class="form-control" id="status" value="${requestScope.user1.status}">
-                                    </div>
-                                </div>
-                                
-                                
-                            </div>
-                        </div>
-                        <a href="adminUserList" class="btn btn-secondary mt-3">Back to User List</a>
-                    </div>
-
+                   
                 </section>
+
+
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
@@ -372,7 +312,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Create the tabs -->
                 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-                    <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                    <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a>
+                    </li>
                     <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
                 </ul>
                 <!-- Tab panes -->
@@ -442,7 +383,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </aside>
             <!-- /.control-sidebar -->
             <!-- Add the sidebar's background. This div must be placed
-                 immediately after the control sidebar -->
+                     immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
         <!-- ./wrapper -->
@@ -450,15 +391,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- REQUIRED JS SCRIPTS -->
 
         <!-- jQuery 2.2.3 -->
-        <script src="${pageContext.request.contextPath}/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
-        <script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="${pageContext.request.contextPath}/assets/dist/js/app.min.js"></script>
+        <script src="assets/dist/js/app.min.js"></script>
 
         <!-- Optionally, you can add Slimscroll and FastClick plugins.
-             Both of these plugins are recommended to enhance the
-             user experience. Slimscroll is required when using the
-             fixed layout. -->
+                 Both of these plugins are recommended to enhance the
+                 user experience. Slimscroll is required when using the
+                 fixed layout. -->
     </body>
+
 </html>

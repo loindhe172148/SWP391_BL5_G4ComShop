@@ -119,6 +119,18 @@
     </servlet>
     <!-- Các ánh xạ servlet -->
     <servlet>
+        <servlet-name>AddNewUserController</servlet-name>
+        <servlet-class>controller.admin.AddNewUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>searchUserController</servlet-name>
+        <servlet-class>controller.admin.searchUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>controller.admin.EditUser</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>MarketingProductDetails</servlet-name>
         <servlet-class>controller.marketing.MarketingProductDetails</servlet-class>
     </servlet>
@@ -236,6 +248,18 @@
         <servlet-name>MarketingProductList</servlet-name>
         <url-pattern>/marketing/changestatus</url-pattern>
         <url-pattern>/marketing/productlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewUserController</servlet-name>
+        <url-pattern>/admin/adduser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>searchUserController</servlet-name>
+        <url-pattern>/admin/searchUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/admin/edituser</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingProductDetails</servlet-name>

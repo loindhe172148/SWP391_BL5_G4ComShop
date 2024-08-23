@@ -12,19 +12,22 @@ import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
- * @author Admin
+ * @author hbtth
  */
-@WebServlet(name="adminUserList", urlPatterns={"/admin/adminUserList"})
-public class adminUserList extends BaseRequiredAuthenticationController {
+public class searchUserController extends BaseRequiredAuthenticationController {
    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,15 +36,18 @@ public class adminUserList extends BaseRequiredAuthenticationController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adminUserList</title>");  
+            out.println("<title>Servlet searchUserController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adminUserList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet searchUserController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     } 
 
+
+
+ 
     @Override
     public String getServletInfo() {
         return "Short description";
@@ -54,11 +60,28 @@ public class adminUserList extends BaseRequiredAuthenticationController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-         UserDBContext dao = new UserDBContext();
-        ArrayList<User> userList = (ArrayList<User>) dao.listAll();
+        String key = req.getParameter("searchkey");
+        UserDBContext db = new UserDBContext();
+        List<User> list = db.findUserByEmailOrPhone(key);
+        JSONObject json = new JSONObject();
         
-        req.setAttribute("userList", userList);
-        req.getRequestDispatcher("/view/admin/adminHome.jsp").forward(req, resp);
+        JSONArray j = new JSONArray();
+        
+        
+        for(User i : list){
+            Map<String,String> map = new HashMap<>();
+            map.put("ID", i.getId()+"");
+            map.put("email", i.getGmail());
+            map.put("address",i.getAddress());
+            map.put("gender", (i.getGender() == 1 ?"Male":"Female"));
+            map.put("phone", i.getPhone());
+            map.put("dob", i.getDob().toString());
+            map.put("status", i.getStatus());
+            j.put(map);
+        }
+        json.putOnce("users", j);
+        
+        resp.getWriter().print(json);
     }
 
 }
