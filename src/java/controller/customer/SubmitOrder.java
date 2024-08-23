@@ -1,5 +1,6 @@
-package controller.user;
+package controller.customer;
 
+import controller.user.BaseRequiredAuthenticationController;
 import dal.CartDao;
 import dal.UserDBContext;
 import entity.Account;
@@ -15,39 +16,44 @@ import util.EmailUtils;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(name = "SubmitOrder", urlPatterns = {"/SubmitOrder"})
-public class SubmitOrder extends HttpServlet {
+@WebServlet(name = "SubmitOrder", urlPatterns = {"/customer/SubmitOrder"})
+public class SubmitOrder extends BaseRequiredAuthenticationController {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve the logged-in account
-        Account account = (Account) request.getSession().getAttribute("account");
+    public String getServletInfo() {
+        return "Handles the submission of orders and sending confirmation emails.";
+    }
 
-        if (account == null) {
-            response.sendRedirect("login");
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        // Retrieve the logged-in account
+        Account account1 = (Account) req.getSession().getAttribute("account");
+
+        if (account1 == null) {
+            resp.sendRedirect("login");
             return;
         }
 
         // Retrieve the user details using the account ID
         UserDBContext userDao = new UserDBContext();
-        User loggedInUser = userDao.getUserByAccountId(account.getId());
+        User loggedInUser = userDao.getUserByAccountId(account1.getId());
 
         if (loggedInUser == null) {
-            response.sendRedirect("login");
+            resp.sendRedirect("login");
             return;
         }
 
         // Get receiver information from the form
-        String fullName = request.getParameter("fullname");
-        String gender = request.getParameter("gender");
-        String email = request.getParameter("email");
-        String mobile = request.getParameter("mobile");
-        String address = request.getParameter("address");
-        String notes = request.getParameter("notes");
+        String fullName = req.getParameter("fullname");
+        String gender = req.getParameter("gender");
+        String email = req.getParameter("email");
+        String mobile = req.getParameter("mobile");
+        String address = req.getParameter("address");
+        String notes = req.getParameter("notes");
 
         // Retrieve cart items
         CartDao cartDao = new CartDao();
-        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(account.getId());
+        Map<Integer, Map<Product, Double>> cartItems = cartDao.getCartItemsByUserId(account1.getId());
 
         // Compose the order details into an email content
         StringBuilder emailContent = new StringBuilder();
@@ -69,10 +75,10 @@ public class SubmitOrder extends HttpServlet {
 
                     // Append product details to the email content
                     emailContent.append("- ").append(product.getName())
-                                .append(" (Original Price: $").append(String.format("%.2f", price))
-                                .append(", Quantity: ").append(quantityInCart)
-                                .append(", Total: $").append(String.format("%.2f", productTotal))
-                                .append(")\n");
+                            .append(" (Original Price: $").append(String.format("%.2f", price))
+                            .append(", Quantity: ").append(quantityInCart)
+                            .append(", Total: $").append(String.format("%.2f", productTotal))
+                            .append(")\n");
                 }
             }
         }
@@ -86,19 +92,19 @@ public class SubmitOrder extends HttpServlet {
         // Send the email
         String subject = "Your Order Confirmation";
         boolean emailSent = EmailUtils.sendMail(email, subject, emailContent.toString());
-        if (emailSent) {                      
-            request.getSession().removeAttribute("cartItems");
-            cartDao.deleteFromCart1(account.getId());
-            response.sendRedirect("order-confirmation.jsp");
+        if (emailSent) {
+            req.getSession().removeAttribute("cartItems");
+            cartDao.deleteFromCart1(account1.getId());
+            resp.sendRedirect("order-confirmation.jsp");
         } else {
             // Handle email sending failure (show error message, retry, etc.)
-            request.setAttribute("errorMessage", "Failed to send order confirmation email. Please try again.");
-            request.getRequestDispatcher("./view/user/cartContact.jsp").forward(request, response);
+            req.setAttribute("errorMessage", "Failed to send order confirmation email. Please try again.");
+            req.getRequestDispatcher("/view/customer/cartContact.jsp").forward(req, resp);
         }
     }
 
     @Override
-    public String getServletInfo() {
-        return "Handles the submission of orders and sending confirmation emails.";
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

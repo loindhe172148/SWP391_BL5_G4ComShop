@@ -84,7 +84,7 @@ public class VerifyAccount extends HttpServlet {
 
                 int accId = accDB.getAccountIDByUsername(username);
                 UserDBContext userDB = new UserDBContext();
-                userDB.insert(accId, email, address, gender, phone, dob, "Active", "", fullname, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+                userDB.insert(accId, email, address, gender, phone, dob, "active", "", fullname, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
                 request.setAttribute("verificationSuccess", true);
                 request.getRequestDispatcher("/productHome").forward(request, response);
             } else {

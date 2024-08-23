@@ -52,29 +52,33 @@ public class CartDao extends DBContext<CartDetail> {
 
     // Method to increase the quantity of a product in the cart
     public void increaseItemQuantity(int userId, int productDetailId) {
-        String query = "UPDATE CartDetail SET quantity = quantity + 1 "
-                + "WHERE customerid = ? AND productdetailid = ?";
+        if (checkAvailableQuantityInStock(userId, productDetailId, 1)) {
+            String query = "UPDATE CartDetail SET quantity = quantity + 1 "
+                    + "WHERE customerid = ? AND productdetailid = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, userId);
-            ps.setInt(2, productDetailId);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, userId);
+                ps.setInt(2, productDetailId);
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     // Method to decrease the quantity of a product in the cart
     public void decreaseItemQuantity(int userId, int productDetailId) {
-        String query = "UPDATE CartDetail SET quantity = CASE WHEN quantity > 1 THEN quantity - 1 ELSE quantity END "
-                + "WHERE customerid = ? AND productdetailid = ?";
+        if (checkAvailableQuantityInStock(userId, productDetailId, -1)) {
+            String query = "UPDATE CartDetail SET quantity = CASE WHEN quantity > 1 THEN quantity - 1 ELSE quantity END "
+                    + "WHERE customerid = ? AND productdetailid = ?";
 
-        try (PreparedStatement ps = connection.prepareStatement(query)) {
-            ps.setInt(1, userId);
-            ps.setInt(2, productDetailId);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+            try (PreparedStatement ps = connection.prepareStatement(query)) {
+                ps.setInt(1, userId);
+                ps.setInt(2, productDetailId);
+                ps.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -101,8 +105,28 @@ public class CartDao extends DBContext<CartDetail> {
             Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public static void main(String[] args) {
-        CartDao db = new CartDao();
-        
+
+    private boolean checkAvailableQuantityInStock(int userId, int productDetailId, int val) {
+        ProductWithDetailsDAO db = new ProductWithDetailsDAO();
+        int available = db.getQuantity(productDetailId);
+        int quantity = getQuantityInCart(userId, productDetailId);
+        int newquantity = quantity + val;
+        return newquantity >= 1 && newquantity <= available;
+    }
+
+    private int getQuantityInCart(int userd, int productDetailId) {
+        String sql = "select quantity from [CartDetail] where productdetailid = ? and customerid = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, productDetailId);
+            ps.setInt(2, userd);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 }

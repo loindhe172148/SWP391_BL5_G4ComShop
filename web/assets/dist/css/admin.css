@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+}
+
+.add-box {
+    height: 100vh;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    z-index: 10;
+}
+
+.add-box .context-add-box {
+    border-radius: 5px;
+    width: 45%;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    -webkit-box-shadow: -1px 0px 8px -3px rgba(0,0,0,1);
+    -moz-box-shadow: -1px 0px 8px -3px rgba(0,0,0,1);
+    box-shadow: -1px 0px 8px -3px rgba(0,0,0,1);
+}
+
+.add-box .context-add-box .input-box {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: center;
+}
+
+.add-box .context-add-box .input-box input {
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.add-box .context-add-box .input-box label {
+    font-weight: 600;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.add-box .context-add-box .input-box select {
+    height: 30px;
+    border-radius: 3px;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.add-box .context-add-box .button-box button {
+    background: #00c0ef;
+    border-color: #00c0ef;
+    border-radius: 3px;
+    padding: 10px 5px;
+    color: black;
+    font-weight: 600;
+}

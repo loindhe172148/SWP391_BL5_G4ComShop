@@ -219,7 +219,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">View profile</a></li>
-                                <li><a href="CartController">My Cart</a></li>
+                                <li><a href="customer/CartController">My Cart</a></li>
                                 <li><a href="#" onclick="openModal('changePassModal')">Change Pass</a></li>
                             </ul>
                         </li>
@@ -529,8 +529,8 @@
                                                 </div>
                                             </div>
                                             <div class="product-body">
-                                                <p class="product-category">${o.title}</p>
-                                                <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
+                                                <p style="height: 55px" class="product-category">${o.title}</p>
+                                                <h3 style="height: 33px" class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                 <h4 class="product-price">${o.salePrice}<del class="product-old-price">${o.originPrice}</del></h4>
                                                 <div class="product-rating">
                                                     <i class="fa fa-star"></i>
@@ -586,8 +586,8 @@
                                             <img src="${pageContext.request.contextPath}/assets/electro/img/${product.image}" alt="${product.name}" width="300" height="200">
                                         </div>
                                         <div class="product-body">
-                                            <p class="product-category">${product.title}</p>
-                                            <h3 class="product-name"><a href="${pageContext.request.contextPath}/productdetails?id=${product.productdetailID}">${product.name}</a></h3>
+                                            <p style="height: 55px" class="product-category">${product.title}</p>
+                                            <h3 style="height: 33px" class="product-name"><a href="${pageContext.request.contextPath}/productdetails?id=${product.productdetailID}">${product.name}</a></h3>
                                             <h4 class="product-price">${product.salePrice} <del class="product-old-price">${product.originPrice}</del></h4>
                                             <div class="product-rating">
                                                 <!-- Rating stars can go here -->
@@ -656,8 +656,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="product-body">
-                                                    <p class="product-category">${o.title}</p>
-                                                    <h3 class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
+                                                    <p style="height: 55px" class="product-category">${o.title}</p>
+                                                    <h3 style="height: 33px" class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                     <h4 class="product-price">
                                                         ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
                                                     </h4>

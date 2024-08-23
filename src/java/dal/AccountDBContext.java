@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -163,5 +165,39 @@ public class AccountDBContext extends DBContext<Account> {
 
         }
         return pass;
+    }
+
+    public Account getAccountByID(int id) {
+        try {
+            String sql = "SELECT * FROM Account WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Account a = new Account();
+                a.setId(rs.getInt("id"));
+                a.setUsername(rs.getString("username"));
+                a.setPassword(rs.getString("pass"));
+                a.setRole(rs.getString("role"));
+                return a;
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+
+    public void updateRoleByUsername(String username, String role) {
+        String sql =  " update Account \n"
+                + " set role = ?\n"
+                + " where username = ?\n"
+                + "";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, role);
+            ps.setString(2, username);
+            int x = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

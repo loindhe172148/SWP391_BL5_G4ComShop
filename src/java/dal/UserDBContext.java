@@ -8,13 +8,18 @@ import entity.Account;
 import entity.User;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserDBContext extends DBContext<User> {
 
     public ArrayList<User> listAll() {
         ArrayList<User> users = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [User]";
+            String sql = "select * from [User]\n"
+                    + "where accid != (select id as[bb] from [Account] where role ='admin')";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -25,7 +30,7 @@ public class UserDBContext extends DBContext<User> {
                 m.setAddress(rs.getString("address"));
                 m.setGender(rs.getInt("gender"));
                 m.setPhone(rs.getString("phone"));
-                m.setStatus(rs.getString("status"));
+                m.setStatus(rs.getString("status").toLowerCase());
 
                 Account account = new Account();
                 account.setId(rs.getInt("accid"));
@@ -49,7 +54,7 @@ public class UserDBContext extends DBContext<User> {
                                  ,[dob]
                                  ,[status]
                                  ,[fullname]
-                                 ,[avar]
+                                 ,[ava]
                                  ,[createdate])
                            VALUES
                                  (?,?,?,?,?,?,?,?,?,?)""";
@@ -120,6 +125,7 @@ public class UserDBContext extends DBContext<User> {
     }
 
     public User getUserByID(int id) {
+        AccountDBContext db = new AccountDBContext();
         User user = null;
         try {
             String sql = "SELECT * FROM [User] WHERE id = ?";
@@ -135,6 +141,10 @@ public class UserDBContext extends DBContext<User> {
                 user.setGender(rs.getInt("gender"));
                 user.setPhone(rs.getString("phone"));
                 user.setStatus(rs.getString("status"));
+                user.setName(rs.getString(9));
+                Account a = db.getAccountByID(rs.getInt(2));
+                user.setAccount(a);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -197,5 +207,90 @@ public class UserDBContext extends DBContext<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<User> findUserByEmailOrPhone(String key) {
+        List<User> list = new ArrayList();
+        StringBuilder sql = new StringBuilder("select * from [User] where accid != (select id as[bb] from [Account] where role ='admin') and gmail like ");
+        sql.append(" '%").append(key).append("%' ");
+        sql.append("or phone like '%").append(key).append("%' ");
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setGmail(rs.getString("gmail"));
+                user.setDob(rs.getDate("dob"));
+                user.setAddress(rs.getString("address"));
+                user.setGender(rs.getInt("gender"));  // Đổi từ setBoolean thành setInt để tương thích với kiểu int
+                user.setPhone(rs.getString("phone"));
+                user.setStatus(rs.getString("status")); // Đổi từ setBoolean thành setString để tương thích với kiểu String
+                user.setAva(rs.getString("ava")); // Đặt giá trị cho thuộc tính avatar
+                user.setName(rs.getString("fullname")); // Đặt giá trị cho thuộc tính name
+
+                // Thiết lập đối tượng Account
+                Account account = new Account();
+                account.setId(rs.getInt(2));
+                user.setAccount(account);
+                list.add(user);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public void createUser(User u) {
+        String sql = """
+                 INSERT INTO [dbo].[User]
+                                 ([accid]
+                                 ,[gmail]
+                                 ,[address]
+                                 ,[gender]
+                                 ,[phone]
+                                 ,[dob]
+                                 ,[status]
+                                 ,[fullname]
+                                 ,[ava]
+                                 ,[createdate])
+                           VALUES
+                                 (?,?,?,?,?,?,?,?,?,?)""";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, u.getAccount().getId());
+            ps.setString(2, u.getGmail());
+            ps.setString(3, u.getAddress());
+            ps.setInt(4, u.getGender());
+            ps.setString(5, u.getPhone());
+            ps.setDate(6, new java.sql.Date(u.getDob().getTime()));
+            ps.setString(7, "active");
+            ps.setString(9, "null");
+            ps.setString(8, u.getName());
+            ps.setDate(10, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updateStatusByID(int id, String status) {
+        String sql = "update [User]\n"
+                + "set status = ?\n"
+                + "where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(2, id);
+            ps.setString(1, status);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void main(String[] args) {
+        UserDBContext db = new UserDBContext();
+        User u = db.getUserByID(10);
+        System.out.println(u.getName());
     }
 }
