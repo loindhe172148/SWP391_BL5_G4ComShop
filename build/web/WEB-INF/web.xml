@@ -126,6 +126,10 @@
         <servlet-name>searchUserController</servlet-name>
         <servlet-class>controller.admin.searchUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EditUser</servlet-name>
+        <servlet-class>controller.admin.EditUser</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
         <url-pattern>/marketing/bandname</url-pattern>
@@ -252,6 +256,10 @@
     <servlet-mapping>
         <servlet-name>searchUserController</servlet-name>
         <url-pattern>/admin/searchUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditUser</servlet-name>
+        <url-pattern>/admin/edituser</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>/productHome</welcome-file>

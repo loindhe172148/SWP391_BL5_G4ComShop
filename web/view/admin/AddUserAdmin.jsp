@@ -302,7 +302,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </div>
                                     <div class="input-box">
                                         <label>Password</label>
-                                        <input type="text" name="password"/>
+                                        <input type="password" name="password"/>
                                     </div>
                                     
                                     <div class="input-box">

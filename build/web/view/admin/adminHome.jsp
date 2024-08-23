@@ -335,7 +335,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <td>
                                                 <a href="viewUserDetail?userId=<%= user.getId() %>"
                                                    class="btn btn-info btn-sm">View Details</a>
-                                                <a href="viewUserDetail?userId=<%= user.getId() %>"
+                                                <a href="edituser?userId=<%= user.getId() %>"
                                                    class="btn btn-info btn-sm">Edit</a>
                                             </td>
                                         </tr>

@@ -18,7 +18,8 @@ public class UserDBContext extends DBContext<User> {
     public ArrayList<User> listAll() {
         ArrayList<User> users = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM [User]";
+            String sql = "select * from [User]\n"
+                    + "where accid != (select id as[bb] from [Account] where role ='admin')";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -124,6 +125,7 @@ public class UserDBContext extends DBContext<User> {
     }
 
     public User getUserByID(int id) {
+        AccountDBContext db = new AccountDBContext();
         User user = null;
         try {
             String sql = "SELECT * FROM [User] WHERE id = ?";
@@ -139,6 +141,10 @@ public class UserDBContext extends DBContext<User> {
                 user.setGender(rs.getInt("gender"));
                 user.setPhone(rs.getString("phone"));
                 user.setStatus(rs.getString("status"));
+                user.setName(rs.getString(9));
+                Account a = db.getAccountByID(rs.getInt(2));
+                user.setAccount(a);
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -202,15 +208,16 @@ public class UserDBContext extends DBContext<User> {
             e.printStackTrace();
         }
     }
-    public List<User> findUserByEmailOrPhone(String key){
+
+    public List<User> findUserByEmailOrPhone(String key) {
         List<User> list = new ArrayList();
-        StringBuilder sql = new StringBuilder("select * from [User] where gmail like ");
+        StringBuilder sql = new StringBuilder("select * from [User] where accid != (select id as[bb] from [Account] where role ='admin') and gmail like ");
         sql.append(" '%").append(key).append("%' ");
         sql.append("or phone like '%").append(key).append("%' ");
         try {
             PreparedStatement ps = connection.prepareStatement(sql.toString());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 user.setGmail(rs.getString("gmail"));
@@ -231,10 +238,11 @@ public class UserDBContext extends DBContext<User> {
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;        
+        return list;
     }
-    public void createUser(User u){
-     String sql = """
+
+    public void createUser(User u) {
+        String sql = """
                  INSERT INTO [dbo].[User]
                                  ([accid]
                                  ,[gmail]
@@ -263,5 +271,26 @@ public class UserDBContext extends DBContext<User> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public void updateStatusByID(int id, String status) {
+        String sql = "update [User]\n"
+                + "set status = ?\n"
+                + "where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(2, id);
+            ps.setString(1, status);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void main(String[] args) {
+        UserDBContext db = new UserDBContext();
+        User u = db.getUserByID(10);
+        System.out.println(u.getName());
     }
 }

@@ -67,7 +67,7 @@ public class AddNewUserController extends BaseRequiredAuthenticationController {
         a.setUsername(username);
         a.setPassword(password);
         a.setRole(role);
-        user.setAccount(account);
+        user.setAccount(a);
         user.setName(fullname);
         user.setGmail(email);
         user.setPhone(phone);
@@ -134,6 +134,15 @@ public class AddNewUserController extends BaseRequiredAuthenticationController {
         a.setId(adc.getAccountIDByUsername(username));
         UserDBContext userDB = new UserDBContext();
         userDB.createUser(user);
+        System.out.println(user.getAccount().getId());
+        System.out.println(user.getAccount().getUsername());
+        System.out.println(user.getAccount().getPassword());
+        System.out.println(user.getName());
+        System.out.println(user.getGender());
+        System.out.println(user.getAddress()+"");
+        System.out.println(user.getDob().toString());
+        System.out.println(user.getPhone()+"");
+        
         req.setAttribute("successMessage", "Add successful.");
         sendMail(user);
         forwardToSignup(req, resp);
