@@ -38,7 +38,8 @@ public class ProductHome extends HttpServlet {
 
     ProductDAO productDAO = new ProductDAO();
     
-    // Default values
+    String mss = (String) request.getAttribute("errorChange");
+    request.setAttribute("mss", mss);
     int page = 1;
     int pageSize = 6; // Number of products per page
     

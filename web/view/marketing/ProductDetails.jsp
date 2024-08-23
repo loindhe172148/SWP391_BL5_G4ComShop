@@ -1,30 +1,46 @@
 <%-- 
-    Document   : ProductDetails
-    Created on : Aug 15, 2024, 10:01:58 PM
+    Document   : form-page
+    Created on : Aug 15, 2024, 11:23:03 PM
     Author     : xuant
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Product List</title>
+        <title>Product Details</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/daterangepicker/daterangepicker.css">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/datepicker/datepicker3.css">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/iCheck/all.css">
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/colorpicker/bootstrap-colorpicker.min.css">
+        <!-- Bootstrap time Picker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/timepicker/bootstrap-timepicker.min.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/select2/select2.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../../assets/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="../../assets/dist/css/skins/_all-skins.min.css">
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/_all-skins.min.css">
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -33,427 +49,294 @@
         <![endif]-->
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
-        <!-- Site wrapper -->
         <div class="wrapper">
 
-            <header class="main-header">
-                <!-- Logo -->
-                <a href="../../assets/index2.html" class="logo">
-                    <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>A</b>LT</span>
-                    <!-- logo for regular state and mobile devices -->
-                    <span class="logo-lg"><b>Admin</b>LTE</span>
-                </a>
-                <!-- Header Navbar: style can be found in header.less -->
-                <nav class="navbar navbar-static-top">
-                    <!-- Sidebar toggle button-->
-                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-
-                    <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
-                            <!-- Messages: style can be found in dropdown.less-->
-                            <li class="dropdown messages-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="label label-success">4</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">You have 4 messages</li>
-                                    <li>
-                                        <!-- inner menu: contains the actual data -->
-                                        <ul class="menu">
-                                            <li><!-- start message -->
-                                                <a href="#">
-                                                    <div class="pull-left">
-                                                        <img src="../../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                                                    </div>
-                                                    <h4>
-                                                        Support Team
-                                                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                    </h4>
-                                                    <p>Why not buy a new awesome theme?</p>
-                                                </a>
-                                            </li>
-                                            <!-- end message -->
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">See All Messages</a></li>
-                                </ul>
-                            </li>
-                            <!-- Notifications: style can be found in dropdown.less -->
-                            <li class="dropdown notifications-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-bell-o"></i>
-                                    <span class="label label-warning">10</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">You have 10 notifications</li>
-                                    <li>
-                                        <!-- inner menu: contains the actual data -->
-                                        <ul class="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="footer"><a href="#">View all</a></li>
-                                </ul>
-                            </li>
-                            <!-- Tasks: style can be found in dropdown.less -->
-                            <li class="dropdown tasks-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-flag-o"></i>
-                                    <span class="label label-danger">9</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="header">You have 9 tasks</li>
-                                    <li>
-                                        <!-- inner menu: contains the actual data -->
-                                        <ul class="menu">
-                                            <li><!-- Task item -->
-                                                <a href="#">
-                                                    <h3>
-                                                        Design some buttons
-                                                        <small class="pull-right">20%</small>
-                                                    </h3>
-                                                    <div class="progress xs">
-                                                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                            <span class="sr-only">20% Complete</span>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <!-- end task item -->
-                                        </ul>
-                                    </li>
-                                    <li class="footer">
-                                        <a href="#">View all tasks</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- User Account: style can be found in dropdown.less -->
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="../../assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Alexander Pierce</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <img src="../../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                                        <p>
-                                            Alexander Pierce - Web Developer
-                                            <small>Member since Nov. 2012</small>
-                                        </p>
-                                    </li>
-                                    <!-- Menu Body -->
-                                    <li class="user-body">
-                                        <div class="row">
-                                            <div class="col-xs-4 text-center">
-                                                <a href="#">Followers</a>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                                <a href="#">Sales</a>
-                                            </div>
-                                            <div class="col-xs-4 text-center">
-                                                <a href="#">Friends</a>
-                                            </div>
-                                        </div>
-                                        <!-- /.row -->
-                                    </li>
-                                    <!-- Menu Footer-->
-                                    <li class="user-footer">
-                                        <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                        </div>
-                                        <div class="pull-right">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- Control Sidebar Toggle Button -->
-                            <li>
-                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </header>
-
-            <!-- =============================================== -->
-
-            <!-- Left side column. contains the sidebar -->
-            <aside class="main-sidebar">
-                <!-- sidebar: style can be found in sidebar.less -->
-                <section class="sidebar">
-                    <!-- Sidebar user panel -->
-                    <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="../../assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                        </div>
-                        <div class="pull-left info">
-                            <p>Alexander Pierce</p>
-                            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                        </div>
-                    </div>
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search...">
-                            <span class="input-group-btn">
-                                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
-                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                    <ul class="sidebar-menu">
-                        <li class="header">MAIN NAVIGATION</li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../../assets/index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                                <li><a href="../../assets/index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-files-o"></i>
-                                <span>Layout Options</span>
-                                <span class="pull-right-container">
-                                    <span class="label label-primary pull-right">4</span>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                                <li><a href="../layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                                <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                                <li><a href="../layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="../widgets.html">
-                                <i class="fa fa-th"></i> <span>Widgets</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-green">Hot</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-pie-chart"></i>
-                                <span>Charts</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                                <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                                <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                                <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-laptop"></i>
-                                <span>UI Elements</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../UI/general.html"><i class="fa fa-circle-o"></i> General</a></li>
-                                <li><a href="../UI/icons.html"><i class="fa fa-circle-o"></i> Icons</a></li>
-                                <li><a href="../UI/buttons.html"><i class="fa fa-circle-o"></i> Buttons</a></li>
-                                <li><a href="../UI/sliders.html"><i class="fa fa-circle-o"></i> Sliders</a></li>
-                                <li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
-                                <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-edit"></i> <span>Forms</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../forms/general.html"><i class="fa fa-circle-o"></i> General Elements</a></li>
-                                <li><a href="../forms/advanced.html"><i class="fa fa-circle-o"></i> Advanced Elements</a></li>
-                                <li><a href="../forms/editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-table"></i> <span>Tables</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="../tables/simple.html"><i class="fa fa-circle-o"></i> Simple tables</a></li>
-                                <li><a href="../tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="../calendar.html">
-                                <i class="fa fa-calendar"></i> <span>Calendar</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-red">3</small>
-                                    <small class="label pull-right bg-blue">17</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../mailbox/mailbox.html">
-                                <i class="fa fa-envelope"></i> <span>Mailbox</span>
-                                <span class="pull-right-container">
-                                    <small class="label pull-right bg-yellow">12</small>
-                                    <small class="label pull-right bg-green">16</small>
-                                    <small class="label pull-right bg-red">5</small>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="treeview active">
-                            <a href="#">
-                                <i class="fa fa-folder"></i> <span>Examples</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                                <li><a href="profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                                <li><a href="login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                                <li><a href="register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                                <li><a href="lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                                <li><a href="404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                                <li><a href="500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                                <li class="active"><a href="blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                                <li><a href="pace.html"><i class="fa fa-circle-o"></i> Pace Page</a></li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-share"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                                <li>
-                                    <a href="#"><i class="fa fa-circle-o"></i> Level One
-                                        <span class="pull-right-container">
-                                            <i class="fa fa-angle-left pull-right"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="treeview-menu">
-                                        <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-                                        <li>
-                                            <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                                <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="../../assets/documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-                        <li class="header">LABELS</li>
-                        <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-                    </ul>
-                </section>
-                <!-- /.sidebar -->
-            </aside>
-
-            <!-- =============================================== -->
+            <!--header-->
+            <jsp:include page="include/header-bar.jsp" />
+            <!-- Left side column. contains the logo and sidebar -->
+            <jsp:include page="include/side-bar.jsp" />
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        Blank page
-                        <small>it all starts here</small>
+                        Product Details
+                        <small>View / Edit a product</small>
                     </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Examples</a></li>
-                        <li class="active">Blank page</li>
+                        <li><a href="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="productlist">Product List</a></li>
+                        <li class="active">Product Details</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-
-                    <!-- Default box -->
-                    <div class="box">
+                    <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Title</h3>
-
+                            <h3 class="box-title">Product Details</h3>
                             <div class="box-tools pull-right">
-                                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                    <i class="fa fa-minus"></i></button>
-                                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                    <i class="fa fa-times"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                    <i class="fa fa-remove"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="box-body">
-                            Start creating your amazing application!
-                        </div>
-                        <!-- /.box-body -->
-                        <div class="box-footer">
-                            Footer
-                        </div>
-                        <!-- /.box-footer-->
+                        <!-- /.box-header -->
+                        <form action="updateproduct?id=${p_id}" method="post" enctype="multipart/form-data">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!-- Left padding (optional) -->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- ID (Disabled) -->
+                                        <div class="form-group">
+                                            <div style="color: green">${message}</div>
+                                            <div style="color: red">${err}</div>
+                                            <label>Product ID: </label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-key"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="p_id" value="${p_id}" placeholder="Auto-generated ID" disabled style="width: 10%;">
+                                                <input type="text" class="form-control" name="create_date" value="${createDate}"  disabled style="width: 35%;">
+                                                <input type="text" class="form-control" name="update_date" value="${updateDate}"  disabled style="width: 35%;">
+                                                <input type="text" class="form-control" name="quantity" value="${product_quantity}"  disabled style="width: 20%;">
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Name -->
+                                        <div class="form-group">
+                                            <label>Product Name: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-tag"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="product_name" placeholder="Enter product name" value="${product_name}">
+                                            </div>
+                                            <div class="text-danger">${errors.productNameError}</div>
+                                        </div>
+
+                                        <!-- Title -->
+                                        <div class="form-group">
+                                            <label>Title: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-paper-plane"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="title" placeholder="Enter a title" value="${product_title}">
+                                            </div>
+                                            <div class="text-danger">${errors.titleError}</div>
+                                        </div>
+
+                                        <!-- Description -->
+                                        <div class="form-group">
+                                            <label>Product Description: <span style="color: red;">*</span></label>
+                                            <textarea class="textarea form-control" placeholder="Enter product description" name="description" 
+                                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${product_description}</textarea>
+                                            <div class="text-danger">${errors.descriptionError}</div>
+                                        </div>
+
+                                        <!-- Category -->
+                                        <div class="form-group">
+                                            <label>Category: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-list-alt"></i>
+                                                </div>
+                                                <select class="form-control select2" name="product_category" style="width: 100%;">
+                                                    <option selected disabled>Select Category</option>
+                                                    <c:forEach var="cate" items="${categoryList}">
+                                                        <option value="${cate.id}" ${cate.id == product_cate ? 'selected' : ''}>${cate.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.categoryError}</div>
+                                        </div>
+
+                                        <!-- Brand -->
+                                        <div class="form-group">
+                                            <label>Brand: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-list-alt"></i>
+                                                </div>
+                                                <select class="form-control select2" name="product_brand" style="width: 100%;">
+                                                    <option selected disabled>Select brand</option>
+                                                    <c:forEach var="brand" items="${brandList}">
+                                                        <option value="${brand.id}" ${brand.id == product_brandid ? 'selected' : ''}>${brand.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.brandError}</div>
+                                        </div>
+
+                                        <!-- Screen Size -->
+                                        <div class="form-group">
+                                            <label>Screen Size: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-television"></i>
+                                                </div>
+                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" value="${screen_size}" step="0.1">
+                                            </div>
+                                            <div class="text-danger">${errors.screenSizeError}</div>
+                                        </div>
+
+                                        <!-- RAM -->
+                                        <div class="form-group">
+                                            <label>RAM: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-building-o"></i>
+                                                </div>
+                                                <select class="form-control select2" name="ram" style="width: 100%;">
+                                                    <option value="" selected disabled>Select RAM</option>
+                                                    <c:forEach var="ram" items="${ramList}">
+                                                        <option value="${ram.id}" ${ram.id == pd_ramid ? 'selected' : ''}>${ram.memory}GB - ${ram.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.ramError}</div>
+                                        </div>
+
+                                        <!-- CPU -->
+                                        <div class="form-group">
+                                            <label>CPU: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-building"></i>
+                                                </div>
+                                                <select class="form-control select2" name="cpu" style="width: 100%;">
+                                                    <option selected disabled>Select CPU</option>
+                                                    <c:forEach var="cpu" items="${cpuList}">
+                                                        <option value="${cpu.id}" ${cpu.id == pd_cpuid ? 'selected' : ''}>${cpu.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.cpuError}</div>
+                                        </div>
+
+                                        <!-- Card -->
+                                        <div class="form-group">
+                                            <label>Graphics Card: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </div>
+                                                <select class="form-control select2" name="card" style="width: 100%;">
+                                                    <option selected disabled>Select Graphics Card</option>
+                                                    <c:forEach var="card" items="${cardList}">
+                                                        <option value="${card.id}" ${card.id == pd_cardid ? 'selected' : ''}>${card.memory}GB - ${card.name}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
+                                            <div class="text-danger">${errors.cardError}</div>
+                                        </div>
+
+                                        <!-- Color -->
+                                        <div class="form-group">
+                                            <label>Color: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-paint-brush"></i>
+                                                </div>
+                                                <input type="text" class="form-control" name="color" placeholder="Enter product color" value="${color}">
+                                            </div>
+                                            <div class="text-danger">${errors.colorError}</div>
+                                        </div>
+
+                                        <!-- Origin Price -->
+                                        <div class="form-group">
+                                            <label>Origin Price: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-money"></i>
+                                                </div>
+                                                <input type="number" class="form-control" name="origin_price" placeholder="Enter origin price" value="${origin_price}">
+                                            </div>
+                                            <div class="text-danger">${errors.originPriceError}</div>
+                                        </div>
+
+                                        <!-- Sale Price -->
+                                        <div class="form-group">
+                                            <label>Sale Price: <span style="color: red;">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-tag"></i>
+                                                </div>
+                                                <input type="number" class="form-control" name="sale_price" placeholder="Enter sale price" value="${sale_price}">
+                                            </div>
+                                            <div class="text-danger">${errors.salePriceError}</div>
+                                        </div>
+
+                                        <!-- Product Image -->
+                                        <div class="form-group">
+                                            <label>Product Image: </label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-picture-o"></i>
+                                                </div>
+                                                <input type="file" class="form-control" name="product_image" id="productImage" accept="image/*" onchange="previewImage(event)">
+                                            </div>
+                                            <img id="imagePreview" src="${pageContext.request.contextPath}/assets/electro/img/${product_image}" alt="Image Preview" style="margin-top: 10px; max-width: 100%; height: auto;">
+                                            <div class="text-danger">${errors.imageError}</div>
+                                        </div>
+
+
+                                        <!-- Status -->
+                                        <div class="form-group">
+                                            <label>Status:</label>
+                                            <div class="input-group">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="status" value="Showing" ${product_status == null || product_status.equals("Showing") ? 'checked' : ''}>
+                                                        Show
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="status" value="Hiding" ${product_status != null && product_status.equals("Hiding") ? 'checked' : ''}>
+                                                        Hide
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="text-danger">${errors.statusError}</div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- Right padding (optional) -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Buttons -->
+                            <div class="box-footer" style="text-align: center;">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a href="productdetails?id=${p_id}" class="btn btn-secondary">Cancel</a>
+
+                            </div>
+                        </form>
+
                     </div>
                     <!-- /.box -->
-
                 </section>
+
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->
-
-            <footer class="main-footer">
-                <div class="pull-right hidden-xs">
-                    <b>Version</b> 2.3.12
-                </div>
-                <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-                reserved.
-            </footer>
+            <jsp:include page="include/footer-bar.jsp" />
 
             <!-- Control Sidebar -->
             <aside class="control-sidebar control-sidebar-dark">
                 <!-- Create the tabs -->
                 <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
                     <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-
                     <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
                 </ul>
                 <!-- Tab panes -->
@@ -646,17 +529,124 @@
         <!-- ./wrapper -->
 
         <!-- jQuery 2.2.3 -->
-        <script src="../../assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
-        <script src="../../assets/bootstrap/js/bootstrap.min.js"></script>
-        <!-- SlimScroll -->
-        <script src="../../assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Select2 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/select2/select2.full.min.js"></script>
+        <!-- InputMask -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <!-- date-range-picker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <!-- bootstrap color picker -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <!-- bootstrap time picker -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <!-- SlimScroll 1.3.0 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- iCheck 1.0.1 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/iCheck/icheck.min.js"></script>
         <!-- FastClick -->
-        <script src="../../assets/plugins/fastclick/fastclick.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
-        <script src="../../assets/dist/js/app.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/dist/js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
-        <script src="../../assets/dist/js/demo.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/dist/js/demo.js"></script>
+        <!-- CK Editor -->
+        <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <!-- Bootstrap WYSIHTML5 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <script>
+                                                    function previewImage(event) {
+                                                        const fileInput = event.target;
+                                                        const imagePreview = document.getElementById('imagePreview');
+
+                                                        // Kiểm tra xem người dùng đã chọn file nào chưa
+                                                        if (fileInput.files && fileInput.files[0]) {
+                                                            const reader = new FileReader();
+
+                                                            // Khi file được tải lên, cập nhật src của ảnh preview
+                                                            reader.onload = function (e) {
+                                                                imagePreview.src = e.target.result;
+                                                                imagePreview.style.display = 'block';
+                                                            };
+
+                                                            reader.readAsDataURL(fileInput.files[0]);
+                                                        }
+                                                    }
+        </script>
+
+        <script>
+            $(function () {
+                //Initialize Select2 Elements
+                $(".select2").select2();
+
+                //Datemask dd/mm/yyyy
+                $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+                //Datemask2 mm/dd/yyyy
+                $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+                //Money Euro
+                $("[data-mask]").inputmask();
+
+                //Date range picker
+                $('#reservation').daterangepicker();
+                //Date range picker with time picker
+                $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+                //Date range as a button
+                $('#daterange-btn').daterangepicker(
+                        {
+                            ranges: {
+                                'Today': [moment(), moment()],
+                                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                            },
+                            startDate: moment().subtract(29, 'days'),
+                            endDate: moment()
+                        },
+                        function (start, end) {
+                            $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                        }
+                );
+
+                //Date picker
+                $('#datepicker').datepicker({
+                    autoclose: true
+                });
+
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                    checkboxClass: 'icheckbox_minimal-blue',
+                    radioClass: 'iradio_minimal-blue'
+                });
+                //Red color scheme for iCheck
+                $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                    checkboxClass: 'icheckbox_minimal-red',
+                    radioClass: 'iradio_minimal-red'
+                });
+                //Flat red color scheme for iCheck
+                $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                    checkboxClass: 'icheckbox_flat-green',
+                    radioClass: 'iradio_flat-green'
+                });
+
+                //Colorpicker
+                $(".my-colorpicker1").colorpicker();
+                //color picker with addon
+                $(".my-colorpicker2").colorpicker();
+
+                //Timepicker
+                $(".timepicker").timepicker({
+                    showInputs: false
+                });
+            });
+        </script>
     </body>
 </html>
-

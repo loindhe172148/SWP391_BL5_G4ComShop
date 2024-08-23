@@ -5,7 +5,9 @@
 
 package controller.marketing;
 
+import controller.user.BaseRequiredAuthenticationController;
 import dal.CardDAO;
+import entity.Account;
 import entity.Card;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +21,7 @@ import java.util.List;
  *
  * @author LENOVO
  */
-public class AccessoryCard extends HttpServlet {
+public class AccessoryCard extends BaseRequiredAuthenticationController {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -46,24 +48,7 @@ public class AccessoryCard extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
+  
 
     /** 
      * Returns a short description of the servlet.
@@ -73,5 +58,15 @@ public class AccessoryCard extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
 
 }

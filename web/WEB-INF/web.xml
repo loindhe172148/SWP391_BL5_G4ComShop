@@ -119,8 +119,13 @@
     </servlet>
     <!-- Các ánh xạ servlet -->
     <servlet>
+<<<<<<< HEAD
         <servlet-name>Supplier</servlet-name>
         <servlet-class>controller.marketing.Supplier</servlet-class>
+=======
+        <servlet-name>MarketingProductDetails</servlet-name>
+        <servlet-class>controller.marketing.MarketingProductDetails</servlet-class>
+>>>>>>> main
     </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
@@ -141,10 +146,6 @@
     <servlet-mapping>
         <servlet-name>ProductListController</servlet-name>
         <url-pattern>/ProductListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangePassword</servlet-name>
-        <url-pattern>/user/changepass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDetailsController</servlet-name>
@@ -242,10 +243,20 @@
         <url-pattern>/marketing/productlist</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>Supplier</servlet-name>
         <url-pattern>/maketing/supplier</url-pattern>
+=======
+        <servlet-name>MarketingProductDetails</servlet-name>
+        <url-pattern>/marketing/updateproduct</url-pattern>
+        <url-pattern>/marketing/productdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/customer/changepass</url-pattern>
+>>>>>>> main
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>/productHome</welcome-file>
+        <welcome-file>productHome</welcome-file>
     </welcome-file-list>
 </web-app>

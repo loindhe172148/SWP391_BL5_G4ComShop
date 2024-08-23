@@ -99,7 +99,7 @@
                                                     <td><c:out value="${product.product.name}"/></td>
                                                     <td>
                                                         <img src="${pageContext.request.contextPath}\assets\electro\img/${product.product.image}" 
-                                                             alt="assets\electro\img/${product.product.image}" 
+                                                             alt="lost image" 
                                                              style="width: 70px; height: 70px; object-fit: cover; overflow: hidden;" />
                                                     </td>
                                                     <td style="max-width: 1000px; max-height: 4.5em; overflow: hidden; text-overflow: ellipsis; white-space: normal;">
@@ -122,7 +122,7 @@
                                                     </td>
 
                                                     <td>
-                                                        <a href="viewProduct?id=${product.product.id}">View/Edit</a>
+                                                        <a href="productdetails?id=${product.product.id}">View/Edit</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>

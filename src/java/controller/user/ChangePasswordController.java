@@ -3,104 +3,68 @@ package controller.user;
 import dal.AccountDBContext;
 import entity.Account;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ChangePasswordController extends HttpServlet {
+public class ChangePasswordController extends BaseRequiredAuthenticationController {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/changepassword.jsp").forward(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         AccountDBContext adc = new AccountDBContext();
-        Account currentAccount = (Account) request.getSession().getAttribute("account");
+        Account currentAccount = (Account) req.getSession().getAttribute("account");
 
-        if (currentAccount == null) {
-            request.setAttribute("err", "You must be logged in to change your password.");
-            forwardToChangePassword(request, response);
-            return;
-        }
+        String oldPassword = req.getParameter("oldpass");
+        String newPassword = req.getParameter("newpass");
+        String confirmPassword = req.getParameter("confirmpass");
 
-        String oldPassword = request.getParameter("oldpass");
-        String newPassword = request.getParameter("newpass");
-        String confirmPassword = request.getParameter("confirmpass");
-
-        String username = "";
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("username".equals(cookie.getName())) {
-                    username = cookie.getValue();
-                    break;
-                }
-            }
-        }
+        String username = currentAccount.getUsername();
         String storedPassword = adc.getPassbyUsername(username);
 
-        // Validate old password
         if (storedPassword == null || !storedPassword.equals(oldPassword)) {
-            request.setAttribute("err", "Invalid old password.");
-            forwardToChangePassword(request, response);
+            req.setAttribute("errorChange", "Invalid old password.");
+            resp.sendRedirect("/productHome?id=" + currentAccount.getId());
             return;
         }
 
-        // Check if the old and new passwords are the same
         if (oldPassword.equals(newPassword)) {
-            request.setAttribute("err", "New password cannot be the same as the old password.");
-            forwardToChangePassword(request, response);
+            req.setAttribute("errorChange", "New password cannot be the same as the old password.");
+            req.getRequestDispatcher("/productHome?id=" + currentAccount.getId()).forward(req, resp);
             return;
         }
 
-        // Validate input fields
         if (oldPassword == null || newPassword == null || confirmPassword == null
                 || oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-            request.setAttribute("err", "All fields are required.");
-            forwardToChangePassword(request, response);
+            req.setAttribute("errorChange", "All fields are required.");
+            req.getRequestDispatcher("/productHome?id=" + currentAccount.getId()).forward(req, resp);
             return;
         }
 
-        // Validate password length
         if (newPassword.length() < 8) {
-            request.setAttribute("err", "Password must not be less than 8 characters.");
-            forwardToChangePassword(request, response);
+            req.setAttribute("errorChange", "Password must not be less than 8 characters.");
+            req.getRequestDispatcher("/productHome?id=" + currentAccount.getId()).forward(req, resp);
             return;
         }
 
-        // Validate new password and confirm password match
         if (!newPassword.equals(confirmPassword)) {
-            request.setAttribute("err", "New password and confirm password do not match.");
-            forwardToChangePassword(request, response);
+            req.setAttribute("errorChange", "New password and confirm password do not match.");
+            req.getRequestDispatcher("/productHome?id=" + currentAccount.getId()).forward(req, resp);
             return;
         }
 
-        // Process password change
         try {
-            // Update password in the database
             adc.updatePasswordByUsername(newPassword, currentAccount.getUsername());
-            request.getRequestDispatcher("/view/user/login.jsp").forward(request, response);
+            req.setAttribute("successChange", true);
+            req.getRequestDispatcher("/productHome?id=" + currentAccount.getId()).forward(req, resp);
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("err", "An error occurred while changing the password.");
-            forwardToChangePassword(request, response);
+            req.setAttribute("errorChange", "An error occurred while changing the password.");
+            req.getRequestDispatcher("/productHome?id=" + currentAccount.getId()).forward(req, resp);
         }
     }
 
-    private void forwardToChangePassword(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.getRequestDispatcher("/view/user/changepassword.jsp").forward(request, response);
-    }
-
     @Override
-    public String getServletInfo() {
-        return "Change Password Servlet";
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
     }
 }

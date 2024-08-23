@@ -86,6 +86,52 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return products;
     }
+    public boolean updateProductWithDetails(ProductWithDetails productWithDetails) {
+    boolean isUpdated = false;
+    String updateProductQuery = "UPDATE Product SET name = ?, title = ?, description = ?, image = ?, categoryId = ?, brandId = ?, screenSize = ?, updateDate = ?, status = ? WHERE id = ?";
+    String updateProductDetailQuery = "UPDATE ProductDetail SET ramId = ?, cpuId = ?, cardId = ?, color = ?, originPrice = ?, salePrice = ? WHERE productid = ?";
+
+    try (PreparedStatement productStmt = connection.prepareStatement(updateProductQuery);
+         PreparedStatement productDetailStmt = connection.prepareStatement(updateProductDetailQuery)) {
+
+        // Update Product
+        productStmt.setString(1, productWithDetails.getProduct().getName());
+        productStmt.setString(2, productWithDetails.getProduct().getTitle());
+        productStmt.setString(3, productWithDetails.getProduct().getDescription());
+        productStmt.setString(4, productWithDetails.getProduct().getImage());
+        productStmt.setInt(5, productWithDetails.getProduct().getCategoryId());
+        productStmt.setInt(6, productWithDetails.getProduct().getBrandId());
+        productStmt.setFloat(7, productWithDetails.getProduct().getScreenSize());
+        productStmt.setDate(8, new java.sql.Date(productWithDetails.getProduct().getUpdateDate().getTime()));
+        productStmt.setString(9, productWithDetails.getProduct().getStatus());
+        productStmt.setInt(10, productWithDetails.getProduct().getId());
+        
+        // Update ProductDetail
+        productDetailStmt.setInt(1, productWithDetails.getProductDetails().getRamId());
+        productDetailStmt.setInt(2, productWithDetails.getProductDetails().getCpuId());
+        productDetailStmt.setInt(3, productWithDetails.getProductDetails().getCardId());
+        productDetailStmt.setString(4, productWithDetails.getProductDetails().getColor());
+        productDetailStmt.setDouble(5, productWithDetails.getProductDetails().getOriginPrice());
+        productDetailStmt.setDouble(6, productWithDetails.getProductDetails().getSalePrice());
+        productDetailStmt.setInt(7, productWithDetails.getProduct().getId());
+
+        // Execute update
+        int productRows = productStmt.executeUpdate();
+        int productDetailRows = productDetailStmt.executeUpdate();
+        if(productRows <=0 ){
+            System.out.println("loi o product");
+        }
+        isUpdated = (productRows > 0) && (productDetailRows > 0);
+        if(productDetailRows <=0 ){
+            System.out.println("loi o productdetail");
+        }
+        System.out.println(isUpdated);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return isUpdated;
+}
+
 
     public ProductWithDetails getProductDetailById(int detailId) {
         ProductWithDetails productWithDetails = null;
