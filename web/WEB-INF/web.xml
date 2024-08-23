@@ -130,6 +130,10 @@
         <servlet-name>EditUser</servlet-name>
         <servlet-class>controller.admin.EditUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MarketingProductDetails</servlet-name>
+        <servlet-class>controller.marketing.MarketingProductDetails</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
         <url-pattern>/marketing/bandname</url-pattern>
@@ -149,10 +153,6 @@
     <servlet-mapping>
         <servlet-name>ProductListController</servlet-name>
         <url-pattern>/ProductListController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ChangePassword</servlet-name>
-        <url-pattern>/user/changepass</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ProductDetailsController</servlet-name>
@@ -212,7 +212,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccessoryBrandname</servlet-name>
-        <url-pattern>/accessoryBrandname</url-pattern>
+        <url-pattern>/marketing/brandname</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MarketingDashboard</servlet-name>
@@ -261,7 +261,16 @@
         <servlet-name>EditUser</servlet-name>
         <url-pattern>/admin/edituser</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MarketingProductDetails</servlet-name>
+        <url-pattern>/marketing/updateproduct</url-pattern>
+        <url-pattern>/marketing/productdetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/customer/changepass</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>/productHome</welcome-file>
+        <welcome-file>productHome</welcome-file>
     </welcome-file-list>
 </web-app>

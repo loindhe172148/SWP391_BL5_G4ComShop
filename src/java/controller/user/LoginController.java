@@ -86,7 +86,7 @@ public class LoginController extends HttpServlet {
             default:
                 session.invalidate();
                 request.setAttribute("errorLogin", "Unknown user role.");
-                request.getRequestDispatcher("./view/ProductHome.jsp").forward(request, response);
+                request.getRequestDispatcher("/productHome").forward(request, response);
                 break;
         }
     }

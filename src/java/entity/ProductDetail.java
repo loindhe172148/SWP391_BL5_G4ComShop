@@ -98,4 +98,10 @@ public class ProductDetail {
         this.quantity = quantity;
     }
 
+    @Override
+    public String toString() {
+        return "ProductDetail{" + "id=" + id + ", productId=" + productId + ", ramId=" + ramId + ", cpuId=" + cpuId + ", cardId=" + cardId + ", color=" + color + ", originPrice=" + originPrice + ", salePrice=" + salePrice + ", quantity=" + quantity + '}';
+    }
+    
+
 }

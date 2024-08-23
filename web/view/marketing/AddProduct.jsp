@@ -95,12 +95,14 @@
                                     <div class="col-md-6">
                                         <!-- ID (Disabled) -->
                                         <div class="form-group">
-                                            <label>Product ID:</label>
+                                            <div style="color: green">${message}</div>
+                                            <div style="color: red">${err}</div>
+                                            <label>Product ID: </label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
-                                                    <i class="fa fa-id-badge"></i>
+                                                    <i class="fa fa-key"></i>
                                                 </div>
-                                                <input type="text" class="form-control" name="product_id" placeholder="Auto-generated ID" disabled>
+                                                <input type="text" class="form-control" name="product_id" value="${pid}" placeholder="Auto-generated ID" disabled>
                                             </div>
                                         </div>
 
@@ -130,7 +132,7 @@
 
                                         <!-- Description -->
                                         <div class="form-group">
-                                            <label>Product Description:</label>
+                                            <label>Product Description: <span style="color: red;">*</span></label>
                                             <textarea class="textarea form-control" placeholder="Enter product description" name="description" 
                                                       style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">${description}</textarea>
                                             <div class="text-danger">${errors.descriptionError}</div>
@@ -146,7 +148,7 @@
                                                 <select class="form-control select2" name="product_category" style="width: 100%;">
                                                     <option selected disabled>Select category</option>
                                                     <c:forEach var="cate" items="${categoryList}">
-                                                        <option value="${cate.id}" ${cate.id == selectedCategory ? 'selected' : ''}>${cate.name}</option>
+                                                        <option value="${cate.id}" ${cate.id == product_category ? 'selected' : ''}>${cate.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -163,7 +165,7 @@
                                                 <select class="form-control select2" name="product_brand" style="width: 100%;">
                                                     <option selected disabled>Select brand</option>
                                                     <c:forEach var="brand" items="${brandList}">
-                                                        <option value="${brand.id}" ${brand.id == selectedBrand ? 'selected' : ''}>${brand.name}</option>
+                                                        <option value="${brand.id}" ${brand.id == product_brand ? 'selected' : ''}>${brand.name}</option>
                                                     </c:forEach>
                                                 </select>
                                             </div>
@@ -177,14 +179,14 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-television"></i>
                                                 </div>
-                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" value="${screen_size}">
+                                                <input type="number" class="form-control" name="screen_size" placeholder="Enter screen size" value="${screen_size}" step="0.1">
                                             </div>
                                             <div class="text-danger">${errors.screenSizeError}</div>
                                         </div>
 
                                         <!-- RAM -->
                                         <div class="form-group">
-                                            <label>RAM:</label>
+                                            <label>RAM: <span style="color: red;">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-building-o"></i>
@@ -271,7 +273,7 @@
 
                                         <!-- Product Image -->
                                         <div class="form-group">
-                                            <label>Product Image: <span style="color: red;">*</span></label>
+                                            <label>Product Image: </label>
                                             <div class="input-group">
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-picture-o"></i>
@@ -309,12 +311,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- Buttons -->
-                            <div class="box-footer">
+                            <div class="box-footer" style="text-align: center;">
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="reset" class="btn btn-secondary">Clear</button>
                             </div>
+
                         </form>
                     </div>
                     <!-- /.box -->

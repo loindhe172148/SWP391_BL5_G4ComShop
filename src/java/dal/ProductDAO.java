@@ -1,10 +1,7 @@
 package dal;
 
 import entity.Product;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,11 +45,12 @@ public class ProductDAO extends DBContext<Product> {
         return 0;
     }
 
-    public void addProduct(Product product) throws SQLException {
+    public int addProduct(Product product) throws SQLException {
         String sql = "INSERT INTO Product (name, title, description, image, categoryId, brandId, screenSize, createDate, updateDate, status) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        int productId = -1; // Default value if insertion fails
 
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getTitle());
             stmt.setString(3, product.getDescription());
@@ -64,11 +62,20 @@ public class ProductDAO extends DBContext<Product> {
             stmt.setDate(9, new Date(product.getUpdateDate().getTime()));
             stmt.setString(10, product.getStatus());
 
-            stmt.executeUpdate();
+            int rowsInserted = stmt.executeUpdate();
+            if (rowsInserted > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        productId = generatedKeys.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw ex;
         }
+
+        return productId;
     }
 
     public void updateProductStatus(int productId, String newStatus) throws SQLException {
@@ -97,53 +104,51 @@ public class ProductDAO extends DBContext<Product> {
     }
 
     public List<Product> getProductsByPage(int page, int pageSize) {
-    List<Product> products = new ArrayList<>();
-    String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id " +
-                 "FROM Product p " +
-                 "JOIN ProductDetail pd ON p.id = pd.productId " +
-                 "ORDER BY p.id " +
-                 "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setInt(1, (page - 1) * pageSize); // Offset calculation
-        ps.setInt(2, pageSize); // Limit calculation
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Product product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setTitle(rs.getString("title"));
-            product.setDescription(rs.getString("description"));
-            product.setImage(rs.getString("image"));
-            product.setCategoryId(rs.getInt("categoryid"));
-            product.setBrandId(rs.getInt("brandid"));
-            product.setScreenSize(rs.getFloat("screensize"));
-            product.setCreateDate(rs.getDate("createdate"));
-            product.setUpdateDate(rs.getDate("updatedate"));
-            product.setStatus(rs.getString("status"));
-            product.setOriginPrice(rs.getFloat("originprice"));
-            product.setSalePrice(rs.getFloat("saleprice"));
-            product.setproductdetailID(rs.getInt("id"));
-            products.add(product);
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id "
+                + "FROM Product p "
+                + "JOIN ProductDetail pd ON p.id = pd.productId "
+                + "ORDER BY p.id "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, (page - 1) * pageSize); // Offset calculation
+            ps.setInt(2, pageSize); // Limit calculation
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setTitle(rs.getString("title"));
+                product.setDescription(rs.getString("description"));
+                product.setImage(rs.getString("image"));
+                product.setCategoryId(rs.getInt("categoryid"));
+                product.setBrandId(rs.getInt("brandid"));
+                product.setScreenSize(rs.getFloat("screensize"));
+                product.setCreateDate(rs.getDate("createdate"));
+                product.setUpdateDate(rs.getDate("updatedate"));
+                product.setStatus(rs.getString("status"));
+                product.setOriginPrice(rs.getFloat("originprice"));
+                product.setSalePrice(rs.getFloat("saleprice"));
+                product.setproductdetailID(rs.getInt("id"));
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return products;
     }
-    return products;
-}
 
-
-public int getTotalProducts() {
-    String sql = "SELECT COUNT(*) FROM Product";
-    try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-        if (rs.next()) {
-            return rs.getInt(1);
+    public int getTotalProducts() {
+        String sql = "SELECT COUNT(*) FROM Product";
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return 0;
     }
-    return 0;
-}
-
 
     public List<Product> getNewestProducts(int limit) {
         List<Product> products = new ArrayList<>();
@@ -224,110 +229,109 @@ public int getTotalProducts() {
     }
 
     public List<Product> getFilterProducts(String idBrandName, int page, int pageSize) {
-    List<Product> products = new ArrayList<>();
-    String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id " +
-                 "FROM Product p " +
-                 "JOIN ProductDetail pd ON p.id = pd.productId " +
-                 "WHERE p.brandId = ? " +
-                 "ORDER BY p.id " +
-                 "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-    int offset = (page - 1) * pageSize;
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, idBrandName);
-        ps.setInt(2, offset);
-        ps.setInt(3, pageSize);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Product product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setTitle(rs.getString("title"));
-            product.setDescription(rs.getString("description"));
-            product.setImage(rs.getString("image"));
-            product.setCategoryId(rs.getInt("categoryId"));
-            product.setBrandId(rs.getInt("brandId"));
-            product.setScreenSize(rs.getFloat("screenSize"));
-            product.setCreateDate(rs.getDate("createDate"));
-            product.setUpdateDate(rs.getDate("updateDate"));
-            product.setStatus(rs.getString("status"));
-            product.setOriginPrice(rs.getFloat("originPrice"));
-            product.setSalePrice(rs.getFloat("salePrice"));
-            product.setproductdetailID(rs.getInt("id"));
-            products.add(product);
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id "
+                + "FROM Product p "
+                + "JOIN ProductDetail pd ON p.id = pd.productId "
+                + "WHERE p.brandId = ? "
+                + "ORDER BY p.id "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        int offset = (page - 1) * pageSize;
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, idBrandName);
+            ps.setInt(2, offset);
+            ps.setInt(3, pageSize);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setTitle(rs.getString("title"));
+                product.setDescription(rs.getString("description"));
+                product.setImage(rs.getString("image"));
+                product.setCategoryId(rs.getInt("categoryId"));
+                product.setBrandId(rs.getInt("brandId"));
+                product.setScreenSize(rs.getFloat("screenSize"));
+                product.setCreateDate(rs.getDate("createDate"));
+                product.setUpdateDate(rs.getDate("updateDate"));
+                product.setStatus(rs.getString("status"));
+                product.setOriginPrice(rs.getFloat("originPrice"));
+                product.setSalePrice(rs.getFloat("salePrice"));
+                product.setproductdetailID(rs.getInt("id"));
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return products;
     }
-    return products;
-}
 
-public int getTotalFilteredProducts(String idBrandName) {
-    int total = 0;
-    String sql = "SELECT COUNT(*) FROM Product WHERE brandId = ?";
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, idBrandName);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            total = rs.getInt(1);
+    public int getTotalFilteredProducts(String idBrandName) {
+        int total = 0;
+        String sql = "SELECT COUNT(*) FROM Product WHERE brandId = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, idBrandName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return total;
     }
-    return total;
-}
-public List<Product> getSearchProducts(String query, int page, int pageSize) {
-    List<Product> products = new ArrayList<>();
-    String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id " +
-                 "FROM Product p " +
-                 "JOIN ProductDetail pd ON p.id = pd.productId " +
-                 "WHERE p.name LIKE ? " +
-                 "ORDER BY p.id " +
-                 "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
-    int offset = (page - 1) * pageSize;
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, "%" + query + "%");
-        ps.setInt(2, offset);
-        ps.setInt(3, pageSize);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            Product product = new Product();
-            product.setId(rs.getInt("id"));
-            product.setName(rs.getString("name"));
-            product.setTitle(rs.getString("title"));
-            product.setDescription(rs.getString("description"));
-            product.setImage(rs.getString("image"));
-            product.setCategoryId(rs.getInt("categoryId"));
-            product.setBrandId(rs.getInt("brandId"));
-            product.setScreenSize(rs.getFloat("screenSize"));
-            product.setCreateDate(rs.getDate("createDate"));
-            product.setUpdateDate(rs.getDate("updateDate"));
-            product.setStatus(rs.getString("status"));
-            product.setOriginPrice(rs.getFloat("originPrice"));
-            product.setSalePrice(rs.getFloat("salePrice"));
-            product.setproductdetailID(rs.getInt("id"));
-            products.add(product);
+
+    public List<Product> getSearchProducts(String query, int page, int pageSize) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id "
+                + "FROM Product p "
+                + "JOIN ProductDetail pd ON p.id = pd.productId "
+                + "WHERE p.name LIKE ? "
+                + "ORDER BY p.id "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        int offset = (page - 1) * pageSize;
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "%" + query + "%");
+            ps.setInt(2, offset);
+            ps.setInt(3, pageSize);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setTitle(rs.getString("title"));
+                product.setDescription(rs.getString("description"));
+                product.setImage(rs.getString("image"));
+                product.setCategoryId(rs.getInt("categoryId"));
+                product.setBrandId(rs.getInt("brandId"));
+                product.setScreenSize(rs.getFloat("screenSize"));
+                product.setCreateDate(rs.getDate("createDate"));
+                product.setUpdateDate(rs.getDate("updateDate"));
+                product.setStatus(rs.getString("status"));
+                product.setOriginPrice(rs.getFloat("originPrice"));
+                product.setSalePrice(rs.getFloat("salePrice"));
+                product.setproductdetailID(rs.getInt("id"));
+                products.add(product);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return products;
     }
-    return products;
-}
 
-public int getTotalSearchProducts(String query) {
-    int total = 0;
-    String sql = "SELECT COUNT(*) FROM Product WHERE name LIKE ?";
-    try (PreparedStatement ps = connection.prepareStatement(sql)) {
-        ps.setString(1, "%" + query + "%");
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            total = rs.getInt(1);
+    public int getTotalSearchProducts(String query) {
+        int total = 0;
+        String sql = "SELECT COUNT(*) FROM Product WHERE name LIKE ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "%" + query + "%");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        return total;
     }
-    return total;
-}
-
-
 
 }

@@ -15,10 +15,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class MarketingProductList extends HttpServlet {
-
+public class MarketingProductList extends BaseRequiredAuthenticationController {
+    
     private static final int PAGE_SIZE = 5;
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -38,7 +38,7 @@ public class MarketingProductList extends HttpServlet {
                 searchValue = search.replace("%", "[%]").trim();
             }
         }
-
+        
         if (sortOrder == null || sortOrder.isEmpty()) {
             sortOrder = "asc"; // Default sorting order
         }
@@ -48,17 +48,17 @@ public class MarketingProductList extends HttpServlet {
         } catch (NumberFormatException e) {
             page = 1;
         }
-
+        
         int start = (page - 1) * PAGE_SIZE;
         switch (servletPath) {
             case "/marketing/productlist":
-
+                
                 ProductWithDetailsDAO productDAO = new ProductWithDetailsDAO();
                 try {
                     List<ProductWithDetails> products = productDAO.getProductWithDetails(start, PAGE_SIZE, searchValue, sortColumn, sortOrder);
                     int totalProducts = productDAO.getProductCount(searchValue);
                     int totalPages = (int) Math.ceil((double) totalProducts / PAGE_SIZE);
-
+                    
                     request.setAttribute("products", products);
                     request.setAttribute("totalPages", totalPages);
                     request.setAttribute("currentPage", page);
@@ -79,7 +79,7 @@ public class MarketingProductList extends HttpServlet {
                     ProductDAO product = new ProductDAO();
                     try {
                         product.updateProductStatus(Integer.parseInt(id), newStatus);
-                        response.sendRedirect("productlist?page="+page+"&sortColumn=" + sortColumn + "&sortOrder=" + sortOrder + "&search=" + search);
+                        response.sendRedirect("productlist?page=" + page + "&sortColumn=" + sortColumn + "&sortOrder=" + sortOrder + "&search=" + search);
                     } catch (Exception e) {
                         e.printStackTrace();
                         response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred while updating product status.");
@@ -88,10 +88,10 @@ public class MarketingProductList extends HttpServlet {
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid product ID.");
                 }
                 break;
-
+            
             default:
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, servletPath + " khong ton tai");
-
+            
         }
     }
 
@@ -134,4 +134,14 @@ public class MarketingProductList extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        processRequest(req, resp);
+    }
+    
 }

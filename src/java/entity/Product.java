@@ -160,6 +160,11 @@ public class Product {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", title=" + title + ", description=" + description + ", image=" + image + ", quantity=" + quantity + ", categoryId=" + categoryId + ", brandId=" + brandId + ", screenSize=" + screenSize + ", createDate=" + createDate + ", updateDate=" + updateDate + ", status=" + status + ", originPrice=" + originPrice + ", salePrice=" + salePrice + ", productdetailID=" + productdetailID + '}';
+    }
+
 
     
 
