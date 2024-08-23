@@ -12,27 +12,27 @@
         <!-- CSS Libraries -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-        <link href="lib/animate/animate.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
 
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
 
         <!-- Slick -->
-        <link type="text/css" rel="stylesheet" href="css/slick.css"/>
-        <link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/slick-theme.css"/>
 
         <!-- nouislider -->
-        <link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/nouislider.min.css"/>
 
         <!-- Font Awesome Icon -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 
         <!-- Custom stlylesheet -->
-        <link type="text/css" rel="stylesheet" href="css/style.css"/>
+        <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
         <style>
             .container {
                 margin-top: 50px;
@@ -111,6 +111,9 @@
                     </ul>
                 </div>
             </div>
+            <%
+          User loggedInUser = (User) request.getAttribute("user");
+            %>    
             <style>
                 .dropdown-menu {
                     min-width: 120px;
@@ -137,7 +140,7 @@
             <div class="container">
                 <!-- responsive-nav -->
                 <div id="responsive-nav">
-                    <h1>Your Shopping Cart</h1>
+                    <h1>Your cart contact</h1>
                 </div>
                 <!-- /responsive-nav -->
             </div>
@@ -148,89 +151,107 @@
         <!-- BREADCRUMB -->
         <div id="breadcrumb" class="section">
             <!-- container -->
-            <div class="container">
-                <%
-                    Map<Integer, Map<Product, Double>> cartItems = (Map<Integer, Map<Product, Double>>) request.getAttribute("cartItems");
-                    double totalPrice = 0.0;
 
-                    if (cartItems == null || cartItems.isEmpty()) {
-                %>
-                <div class="alert alert-warning text-center">
-                    Your cart is empty.
-                </div>
-                <%
-                    } else {
-                %>
-                <table class="table table-bordered text-center">
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Item</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content -->
+                    <div class="col-lg-8">
                         <%
-                            for (Map.Entry<Integer, Map<Product, Double>> entry : cartItems.entrySet()) {
-                                int productDetailId = entry.getKey();
-                                for (Map.Entry<Product, Double> productEntry : entry.getValue().entrySet()) {
-                                    Product product = productEntry.getKey();
-                                    double salePrice = productEntry.getValue();
-                                    int quantityInCart = product.getQuantity();
-                                    double productTotal = salePrice * quantityInCart;
-                                    totalPrice += productTotal;
+                            Map<Integer, Map<Product, Double>> cartItems = (Map<Integer, Map<Product, Double>>) request.getAttribute("cartItems");
+                            double totalPrice = 0.0;
+
+                            if (cartItems == null || cartItems.isEmpty()) {
                         %>
-                        <tr>
-                            <td><img src="${pageContext.request.contextPath}/assets/electro/img/<%= product.getImage() %>" class="product-img" alt="Product Image"></td>
-                            <td><%= product.getName() %></td>
-                            <td>$ <%= String.format("%.2f", salePrice) %></td>
-                            <td>
-                                <div class="quantity-buttons">
-                                    <form action="CartQuantityController" method="post">
-                                        <input type="hidden" name="itemId" value="<%= productDetailId %>">
-                                        <input type="hidden" name="itemType" value="productDetail">
-                                        <input type="hidden" name="action" value="decrease">
-                                        <button type="submit" class="btn btn-sm btn-danger">-</button>
-                                    </form>
-                                    <span><%= quantityInCart %></span>
-                                    <form action="CartQuantityController" method="post">
-                                        <input type="hidden" name="itemId" value="<%= productDetailId %>">
-                                        <input type="hidden" name="itemType" value="productDetail">
-                                        <input type="hidden" name="action" value="increase">
-                                        <button type="submit" class="btn btn-sm btn-success">+</button>
-                                    </form>
-                                </div>
-                            </td>
-                            <td>$ <%= String.format("%.2f", productTotal) %></td>
-                            <td>
-                                <form action="DeleteFromCart" method="post" style="display:inline;">
-                                    <input type="hidden" name="itemId" value="<%= productDetailId %>">
-                                    <input type="hidden" name="itemType" value="productDetail">
-                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
+                        <div class="alert alert-warning text-center">
+                            Your cart is empty.
+                        </div>
                         <%
-                                }
+                            } else {
+                        %>
+                        <form action="SubmitOrder" method="post">
+                            <table class="table table-bordered text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        for (Map.Entry<Integer, Map<Product, Double>> entry : cartItems.entrySet()) {
+                                            Map<Product, Double> productWithPrice = entry.getValue();
+                                            for (Map.Entry<Product, Double> productEntry : productWithPrice.entrySet()) {
+                                                Product product = productEntry.getKey();
+                                                double price = productEntry.getValue();
+                                                int quantityInCart = product.getQuantity();
+                                                double productTotal = price * quantityInCart;
+                                                totalPrice += productTotal;
+                                    %>
+                                    <tr>
+                                        <td><%= product.getName() %></td>
+                                        <td>$ <%= String.format("%.2f", price) %></td>
+                                        <td><%= quantityInCart %></td>
+                                        <td>$ <%= String.format("%.2f", productTotal) %></td>
+                                    </tr>
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                    <tr>
+                                        <td colspan="3" class="text-end"><strong>Total Price:</strong></td>
+                                        <td>$ <%= String.format("%.2f", totalPrice) %></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <!-- Receiver Information -->
+                            <div class="mb-4">
+                                <h4>Receiver Information</h4>
+                                <div class="mb-3">
+                                    <label for="fullname" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullname" name="fullname" value="<%= loggedInUser != null ? loggedInUser.getName() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="Male" <%= loggedInUser != null && loggedInUser.getGender() == 1 ? "selected" : "" %>>Male</option>
+                                        <option value="Female" <%= loggedInUser != null && loggedInUser.getGender() == 0 ? "selected" : "" %>>Female</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="<%= loggedInUser != null ? loggedInUser.getGmail() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mobile" class="form-label">Mobile</label>
+                                    <input type="text" class="form-control" id="mobile" name="mobile" value="<%= loggedInUser != null ? loggedInUser.getPhone() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address" value="<%= loggedInUser != null ? loggedInUser.getAddress() : "" %>" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="notes" class="form-label">Notes</label>
+                                    <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="d-flex justify-content-between">
+                                <a href="ViewCart" class="btn btn-secondary">Change</a>
+                                <button type="submit" class="btn btn-primary">Submit Order</button>
+                            </div>
+                        </form>
+                        <%
                             }
                         %>
-                        <tr>
-                            <td colspan="4" class="text-end"><strong>Total Price:</strong></td>
-                            <td colspan="2">$ <%= String.format("%.2f", totalPrice) %></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="text-end">
-                    <form action="CartContactController" method="get">
-                        <button type="submit" class="btn btn-primary">Proceed to Cart Contact</button>
-                    </form>
+                    </div>
+
+                    <!-- Sidebar Content -->
+
                 </div>
-                <%
-                    }
-                %>
             </div>
             <!-- /container -->
         </div>
@@ -384,12 +405,12 @@
         <!-- /FOOTER -->
 
         <!-- jQuery Plugins -->
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/slick.min.js"></script>
-        <script src="js/nouislider.min.js"></script>
-        <script src="js/jquery.zoom.min.js"></script>
-        <script src="js/main.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/slick.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/nouislider.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.zoom.min.js"></script>
+        <script src="${pageContext.request.contextPath}/js/main.js"></script>
 
     </body>
 </html>

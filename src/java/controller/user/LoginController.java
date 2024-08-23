@@ -73,7 +73,7 @@ public class LoginController extends HttpServlet {
 
         String role = account.getRole();
         switch (role) {
-            case "user":
+            case "customer":
                 response.sendRedirect(request.getContextPath() + "/productHome?id=" + account.getId());
                 break;
             case "marketing":

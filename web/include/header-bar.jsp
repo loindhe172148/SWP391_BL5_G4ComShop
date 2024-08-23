@@ -187,7 +187,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">View profile</a></li>
-                            <li><a href="CartController">My Cart</a></li>
+                            <li><a href="customer/CartController">My Cart</a></li>
                             <li><a href="./user/changepass">Change Pass</a></li>
                         </ul>
                     </li>
