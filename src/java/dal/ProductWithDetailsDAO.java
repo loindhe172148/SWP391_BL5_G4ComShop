@@ -103,9 +103,9 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         productStmt.setInt(6, productWithDetails.getProduct().getBrandId());
         productStmt.setFloat(7, productWithDetails.getProduct().getScreenSize());
         productStmt.setDate(8, new java.sql.Date(productWithDetails.getProduct().getUpdateDate().getTime()));
-        productStmt.setString(10, productWithDetails.getProduct().getStatus());
-        productStmt.setInt(11, productWithDetails.getProduct().getId());
-
+        productStmt.setString(9, productWithDetails.getProduct().getStatus());
+        productStmt.setInt(10, productWithDetails.getProduct().getId());
+        
         // Update ProductDetail
         productDetailStmt.setInt(1, productWithDetails.getProductDetails().getRamId());
         productDetailStmt.setInt(2, productWithDetails.getProductDetails().getCpuId());
@@ -113,14 +113,19 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         productDetailStmt.setString(4, productWithDetails.getProductDetails().getColor());
         productDetailStmt.setDouble(5, productWithDetails.getProductDetails().getOriginPrice());
         productDetailStmt.setDouble(6, productWithDetails.getProductDetails().getSalePrice());
-        productDetailStmt.setInt(8, productWithDetails.getProduct().getId());
+        productDetailStmt.setInt(7, productWithDetails.getProduct().getId());
 
         // Execute update
         int productRows = productStmt.executeUpdate();
         int productDetailRows = productDetailStmt.executeUpdate();
-
+        if(productRows <=0 ){
+            System.out.println("loi o product");
+        }
         isUpdated = (productRows > 0) && (productDetailRows > 0);
-
+        if(productDetailRows <=0 ){
+            System.out.println("loi o productdetail");
+        }
+        System.out.println(isUpdated);
     } catch (SQLException e) {
         e.printStackTrace();
     }

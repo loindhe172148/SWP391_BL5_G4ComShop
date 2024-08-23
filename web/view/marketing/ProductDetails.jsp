@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <form action="updateproduct" method="post" enctype="multipart/form-data">
+                        <form action="updateproduct?id=${p_id}" method="post" enctype="multipart/form-data">
                             <div class="box-body">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -103,9 +103,9 @@
                                                     <i class="fa fa-key"></i>
                                                 </div>
                                                 <input type="text" class="form-control" name="p_id" value="${p_id}" placeholder="Auto-generated ID" disabled style="width: 10%;">
-                                                Create Date: <input type="text" class="form-control" name="create_date" value="${createDate}"  disabled style="width: 35%;">
-                                                Last Update: <input type="text" class="form-control" name="update_date" value="${updateDate}"  disabled style="width: 35%;">
-                                                Qty: <input type="text" class="form-control" name="quantity" value="${product_quantity}"  disabled style="width: 20%;">
+                                                <input type="text" class="form-control" name="create_date" value="${createDate}"  disabled style="width: 35%;">
+                                                <input type="text" class="form-control" name="update_date" value="${updateDate}"  disabled style="width: 35%;">
+                                                <input type="text" class="form-control" name="quantity" value="${product_quantity}"  disabled style="width: 20%;">
                                             </div>
 
                                         </div>
@@ -318,7 +318,7 @@
                             <!-- Buttons -->
                             <div class="box-footer" style="text-align: center;">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
-                                <a href="productdetails?id=${productWithDetails.product.id}" class="btn btn-secondary">Cancel</a>
+                                <a href="productdetails?id=${p_id}" class="btn btn-secondary">Cancel</a>
 
                             </div>
                         </form>
