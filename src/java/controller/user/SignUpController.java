@@ -1,14 +1,17 @@
 package controller.user;
 
 import dal.AccountDBContext;
+import dal.UserDBContext;
 import entity.Account;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.System.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.sql.*;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +21,7 @@ public class SignUpController extends HttpServlet {
 
     private final EmailService emailService = new EmailService();
     private Map<String, String> verificationCodes = new HashMap<>();
+    
 
     @Override
     public void init() throws ServletException {
@@ -33,7 +37,8 @@ public class SignUpController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         AccountDBContext adc = new AccountDBContext();
-
+        UserDBContext udc = new UserDBContext();
+        String a = "";
         String fullname = request.getParameter("name");
         String email = request.getParameter("email");
         String username = request.getParameter("username");
@@ -98,13 +103,23 @@ public class SignUpController extends HttpServlet {
             forwardToSignup(request, response);
             return;
         }
-
+        
+        try {
+            a = udc.checkEmail(email);
+            if (a != null) {
+                request.setAttribute("errorSignup", "Email already exists.");
+                forwardToSignup(request, response);
+                return;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
         if (phone == null || phone.length() != 10 || !phone.matches("\\d+")) {
             request.setAttribute("errorSignup", "Phone number must be 10 digits long and contain only numbers.");
             forwardToSignup(request, response);
             return;
         }
-
+        
         if (address != null && address.length() > 50) {
             request.setAttribute("errorSignup", "Address cannot exceed 50 characters.");
             forwardToSignup(request, response);

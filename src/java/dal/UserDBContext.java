@@ -287,7 +287,18 @@ public class UserDBContext extends DBContext<User> {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    public String checkEmail(String email) throws SQLException{
+        String a = "";
+        String sql = "SELECT [gmail] FROM [dbo].[User] WHERE gmail = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                a = rs.getString("gmail");
+            }
+        }
+        return a;
+    }
     public static void main(String[] args) {
         UserDBContext db = new UserDBContext();
         User u = db.getUserByID(10);

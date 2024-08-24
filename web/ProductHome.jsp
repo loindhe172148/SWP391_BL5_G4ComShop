@@ -220,7 +220,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">View profile</a></li>
                                 <li><a href="customer/CartController">My Cart</a></li>
-                                <li><a href="customer/myorder">My Order</a></li>
+                                <li><a href="${pageContext.request.contextPath}/customer/myorder">My Order</a></li>
                                 <li><a href="#" onclick="openModal('changePassModal')">Change Pass</a></li>
                             </ul>
                         </li>
