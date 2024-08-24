@@ -263,7 +263,7 @@ public class OrderDAO extends DBContext<Order> {
     }
 
     public boolean changeStatusOrder(int order_id, String status) {
-        if (status.equals("delivering")) {
+        if (status.equals("accepted")) {
             if (checkAvailableInStock(order_id)) {
                 String sql = "update [Order] set statusid = ? where id = ?";
                 try {
@@ -300,7 +300,7 @@ public class OrderDAO extends DBContext<Order> {
         }else{
             sql.append("statusid = '").append(status).append("' ");
         }
-        sql.append("ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
+        sql.append("ORDER BY id DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
         try {
             PreparedStatement ps = connection.prepareStatement(sql.toString());
             ps.setInt(1, (pageNumber - 1) * pageSize);
