@@ -135,8 +135,25 @@
         <servlet-class>controller.marketing.MarketingProductDetails</servlet-class>
     </servlet>
     <servlet>
+
         <servlet-name>MyOrderController</servlet-name>
         <servlet-class>controller.customer.MyOrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleOrderController</servlet-name>
+        <servlet-class>controller.sale.SaleOrderController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchOrderSaleController</servlet-name>
+        <servlet-class>controller.sale.SearchOrderSaleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleDashboard</servlet-name>
+        <servlet-class>controller.sale.SaleDashboard</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SaleOrderDetail</servlet-name>
+        <servlet-class>controller.sale.SaleOrderDetail</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
@@ -277,6 +294,22 @@
     <servlet-mapping>
         <servlet-name>MyOrderController</servlet-name>
         <url-pattern>/customer/myorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleOrderController</servlet-name>
+        <url-pattern>/sale/order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchOrderSaleController</servlet-name>
+        <url-pattern>/sale/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleDashboard</servlet-name>
+        <url-pattern>/sale/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SaleOrderDetail</servlet-name>
+        <url-pattern>/sale/orderdetail</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>productHome</welcome-file>

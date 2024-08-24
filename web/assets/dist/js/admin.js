@@ -2,7 +2,7 @@ const search_input = document.getElementById('search-input');
 search_input.addEventListener('keyup', () => {
     const input = search_input.value;
     $.ajax({
-        url: "/SWP391_BL5_G4ComShop//admin/searchUserController",
+        url: "/SWP391_BL5_G4ComShop/admin/searchUserController",
         type: 'GET',
         dataType: 'json',
         data: {

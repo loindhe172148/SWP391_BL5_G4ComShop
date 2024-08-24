@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-
-<%@page import="entity.User"%>
+<%@page import="entity.*"%>
 <%@page import="entity.Account"%>
 <%@page import="entity.Product"%>
 <%@page import="java.util.Map"%>
@@ -292,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <h2 class="text-center text-primary mb-4">User List</h2>
                         <p class="text-center mb-4">Manage all users here. Below is the list of registered users.</p>
                         <div class="search-bar" style="margin-bottom: 10px"><i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" placeholder="Search by email" id="search-input"></div>
+                            <input type="text" placeholder="Search by email or phone" id="search-input"></div>
                         <div class="card mb-3 shadow-sm">
                             <div class="card-header">
                                 <i class="fas fa-users"></i> User List

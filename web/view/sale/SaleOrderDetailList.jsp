@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-
-<%@page import="entity.User"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entity.*"%>
 <%@page import="entity.Account"%>
 <%@page import="entity.Product"%>
 <%@page import="java.util.Map"%>
@@ -258,7 +258,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- Optionally, you can add icons to the links -->
                         <li class="active"><a href="dashboard"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
                         <li><a href="order"><i class="fa-solid fa-file-invoice"></i> <span>Manage order</span></a></li>
-
+                        
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -269,67 +269,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-
-                    </h1>
-
+                    
                 </section>
 
                 <!-- Main content -->
-
                 <section class="content">
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-aqua">
-                            <div class="inner">
-                                <p>Total Products</p>
-                                <h3>${db.getProductCount()}</h3>
-                                <p>Top products with the most successful orders: ${db.getTopSuccessProduct()}</p>
-                                <p>Top products with the most cancel orders: ${db.getTopCancelProduct()}</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <!-- small box -->
-                        <div class="small-box bg-green">
-                            <div class="inner">
-                                <p>Total Customer</p>
-                                <h3>${db.getTotalCustomer()}</h3>
-                                <p>Top the most purchase Customers : ${db.getTopUser()}</p>
-              
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-yellow">
-                                <div class="inner">
-                                    <p>Total Order</p>
-                                    <h3>${db.getTotalOrder()}</h3>
-                                    <p>Processing: ${db.getTotalOrderProcessing()}</p>
-                                    <p>Delivering: ${db.getTotalOrderDelivering()}</p>
-                                    <p>Declined: ${db.getTotalOrderDeclined()}</p>
-                                    <p>Cancel: ${db.getTotalOrderCancel()}</p>
-                                    <p>Success: ${db.getTotalOrderSuccess ()}</p>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Order Detail</h3>
                                 </div>
-                                <div class="icon">
-                                    <i class="ion ion-ios-cart-outline"></i>
+                                <!-- /.box-header -->
+                                <div class="box-body">                                    
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Customer name</th>
+                                                <th>Product name</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Address</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                       
+                                            <c:forEach items="${order.listOrderProduct}" var="o">
+                                                <tr>
+                                                    <td>${order.id}</td>
+                                                    <td>${order.user.name}</td>
+                                                    <td>${o.productdetails.product.name}</td>
+                                                    <td><img src="${pageContext.request.contextPath}\assets\electro\img/${o.productdetails.product.image}" alt="alt" 
+                                                             style="width: 100px; height: 70px; "/></td>
+                                                    <td>${o.price}</td>
+                                                    <td>${o.quantity}</td>
+                                                    <td>${order.shippingaddress}</td>
+                                                    <td style="color: ${order.statusid == 'declined' ?'red':'green'};font-weight: 700;">                                   
+                                                        ${order.statusid}
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                    <a href="order" class="btn btn-secondary mt-3">Back to Order</a>
                                 </div>
-                                
+                                <!-- /.box-body -->
                             </div>
+                            <!-- /.box -->
                         </div>
-                    <!-- Your Page Content Here -->
-
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </section>
-
-
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->

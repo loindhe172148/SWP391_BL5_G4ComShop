@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 public class OrderDAO extends DBContext<Order> {
 
+
     public boolean updateOrderStatus(int orderId, String newStatus) {
         String sql = "UPDATE [Order] SET statusid = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -67,6 +68,30 @@ public class OrderDAO extends DBContext<Order> {
         String sql = "SELECT COUNT(*) FROM [Order] WHERE customerid = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, customerId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return 0;
+    }
+    public int getOrderCount(String status, LocalDate startDate, LocalDate endDate) {
+        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM [Order] WHERE orderdate BETWEEN ? AND ?");
+
+        if (status != null && !status.isEmpty()) {
+            sql.append(" AND statusid = ?");
+        }
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
+            stmt.setDate(1, Date.valueOf(startDate));
+            stmt.setDate(2, Date.valueOf(endDate));
+
+            if (status != null && !status.isEmpty()) {
+                stmt.setString(3, status);
+            }
+
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
@@ -160,32 +185,7 @@ public class OrderDAO extends DBContext<Order> {
         }
         return orders;
     }
-
-    public int getOrderCount(String status, LocalDate startDate, LocalDate endDate) {
-        StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM [Order] WHERE orderdate BETWEEN ? AND ?");
-
-        if (status != null && !status.isEmpty()) {
-            sql.append(" AND statusid = ?");
-        }
-
-        try (PreparedStatement stmt = connection.prepareStatement(sql.toString())) {
-            stmt.setDate(1, Date.valueOf(startDate));
-            stmt.setDate(2, Date.valueOf(endDate));
-
-            if (status != null && !status.isEmpty()) {
-                stmt.setString(3, status);
-            }
-
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return 0;
-    }
-
+    
     public void placeOrder(int customer_id, double total, String address) {
         int order_id = createOrder(customer_id, total, address);
         createOrderDetail(customer_id, order_id);
@@ -262,7 +262,7 @@ public class OrderDAO extends DBContext<Order> {
         return list;
     }
 
-    public void changeStatusOrder(int order_id, String status) {
+    public boolean changeStatusOrder(int order_id, String status) {
         String sql = "update [Order] set statusid = ? where id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -272,6 +272,10 @@ public class OrderDAO extends DBContext<Order> {
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (status.equals("delivering")) {
+            return checkAvailableInStock(order_id);
+        }
+        return true;
     }
 
     public List<Order> getListOrder() {
@@ -293,6 +297,7 @@ public class OrderDAO extends DBContext<Order> {
                 List<OrderProduct> listOrder = getListOrderProduct(id);
                 order.setUser(user);
                 order.setListOrderProduct(listOrder);
+                list.add(order);
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -316,6 +321,84 @@ public class OrderDAO extends DBContext<Order> {
                 OrderProduct o = new OrderProduct(order_id, productid, price, quantity);
                 o.setProductdetails(product);
                 list.add(o);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    private boolean checkAvailableInStock(int order_id) {
+        ProductWithDetailsDAO db = new ProductWithDetailsDAO();
+        List<OrderProduct> list = getListOrderProduct(order_id);
+        for (OrderProduct i : list) {
+            if (checkAvailable(i.getProductid(), i.getQuantity()) == false) {
+                return false;
+            }
+        }
+        for (OrderProduct i : list) {
+            int available = db.getQuantity(i.getProductid());
+            int value = available - i.getQuantity();
+            db.changeQuantity(i.getProductid(), value);
+        }
+        return true;
+    }
+
+    private boolean checkAvailable(int productid, int quantity) {
+        ProductWithDetailsDAO db = new ProductWithDetailsDAO();
+        int available = db.getQuantity(productid);
+        int value = available - quantity;
+        return value >= 0;
+    }
+    public Order getOrderByID(int order_id){
+        UserDBContext db = new UserDBContext();
+        String sql = "select * from [Order] where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, order_id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                int customerid = rs.getInt(2);
+                java.util.Date date = rs.getDate(3);
+                float total = rs.getFloat(4);
+                String statusid = rs.getString(5);
+                String address = rs.getString(6);
+                Order order = new Order(id, customerid, date, total, statusid, address);
+                User user = db.getUserByID(customerid);
+                List<OrderProduct> listOrder = getListOrderProduct(id);
+                order.setUser(user);
+                order.setListOrderProduct(listOrder);
+                return order;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public List<Order> findOrderByCustomerNameOrStatusOrOrderdate(String keySearch){
+        UserDBContext db = new UserDBContext();
+        List<Order> list = new ArrayList();
+        StringBuilder sb = 
+                new StringBuilder("select * from [Order] join [User] on [Order].customerid = [User].id where fullname ");
+        sb.append("like '%").append(keySearch).append("%' ").append("or orderdate ").append("like '%").append(keySearch).append("%' ");
+        sb.append("or statusid ").append("like '%").append(keySearch).append("%' ");
+        try {
+            PreparedStatement ps = connection.prepareStatement(sb.toString());
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt(1);
+                int customerid = rs.getInt(2);
+                java.util.Date date = rs.getDate(3);
+                float total = rs.getFloat(4);
+                String statusid = rs.getString(5);
+                String address = rs.getString(6);
+                Order order = new Order(id, customerid, date, total, statusid, address);
+                User user = db.getUserByID(customerid);
+                List<OrderProduct> listOrder = getListOrderProduct(id);
+                order.setUser(user);
+                order.setListOrderProduct(listOrder);
+                list.add(order);
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
