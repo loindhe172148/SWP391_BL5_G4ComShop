@@ -173,7 +173,7 @@
 
                             <!-- Action Buttons -->
                             <div style="margin-top: 20px" class="d-flex justify-content-between">
-                                <a style="margin-right: 20px" href="CartController" class="btn btn-primary">Change</a>
+                                <a style="margin-right: 20px" href="${pageContext.request.contextPath}/productHome" class="btn btn-danger">Cancel</a>
                                 <button type="submit" class="btn btn-primary">Submit Order</button>
                             </div>
                             <input type="hidden" value="${order.id}" name="id"/>
