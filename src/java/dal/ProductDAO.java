@@ -333,5 +333,101 @@ public class ProductDAO extends DBContext<Product> {
         }
         return total;
     }
+   public List<Product> getAll() {
+    List<Product> products = new ArrayList<>();
+    String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id as productdetailID, pd.color, pd.cpuid, pd.cardid, pd.ramid,pd.quantity \n" +
+"               FROM Product p \n" +
+"               JOIN ProductDetail pd ON p.id = pd.productId";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Product product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setTitle(rs.getString("title"));
+            product.setDescription(rs.getString("description"));
+            product.setImage(rs.getString("image"));
+            product.setCategoryId(rs.getInt("categoryId"));
+            product.setBrandId(rs.getInt("brandId"));
+            product.setScreenSize(rs.getFloat("screenSize"));
+            product.setCreateDate(rs.getDate("createDate"));
+            product.setUpdateDate(rs.getDate("updateDate"));
+            product.setStatus(rs.getString("status"));
+            product.setOriginPrice(rs.getFloat("originPrice"));
+            product.setSalePrice(rs.getFloat("salePrice"));
+            product.setProductdetailID(rs.getInt("productdetailID"));
+            product.setColor(rs.getString("color"));
+            product.setCpuid(rs.getInt("cpuid"));
+            product.setCardid(rs.getInt("cardid"));
+            product.setRamid(rs.getInt("ramid"));
+            product.setQuantity(rs.getInt("quantity"));
+            products.add(product);
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return products;
+}
+   public Product getProductDetail(String name, String color, int cpuId, int cardId, int ramId) {
+    Product product = null;
+    String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id as productdetailID, pd.color, pd.cpuid, pd.cardid, pd.ramid, pd.quantity " +
+                 "FROM Product p " +
+                 "JOIN ProductDetail pd ON p.id = pd.productId " +
+                 "WHERE p.name = ? AND pd.color = ? AND pd.cpuid = ? AND pd.cardid = ? AND pd.ramid = ?";
+
+    try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        ps.setString(1, name);
+        ps.setString(2, color);
+        ps.setInt(3, cpuId);
+        ps.setInt(4, cardId);
+        ps.setInt(5, ramId);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            product = new Product();
+            product.setId(rs.getInt("id"));
+            product.setName(rs.getString("name"));
+            product.setTitle(rs.getString("title"));
+            product.setDescription(rs.getString("description"));
+            product.setImage(rs.getString("image"));
+            product.setCategoryId(rs.getInt("categoryId"));
+            product.setBrandId(rs.getInt("brandId"));
+            product.setScreenSize(rs.getFloat("screenSize"));
+            product.setCreateDate(rs.getDate("createDate"));
+            product.setUpdateDate(rs.getDate("updateDate"));
+            product.setStatus(rs.getString("status"));
+            product.setOriginPrice(rs.getFloat("originPrice"));
+            product.setSalePrice(rs.getFloat("salePrice"));
+            product.setProductdetailID(rs.getInt("productdetailID"));
+            product.setColor(rs.getString("color"));
+            product.setCpuid(rs.getInt("cpuid"));
+            product.setCardid(rs.getInt("cardid"));
+            product.setRamid(rs.getInt("ramid"));
+            product.setQuantity(rs.getInt("quantity"));
+        }
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return product;
+}
+
+
+public static void main(String[] args) {
+    // Initialize ProductDAO
+    ProductDAO productDAO = new ProductDAO();
+
+    // Call getProductDetail() method to fetch the product details
+    Product product = productDAO.getProductDetail("Dell Latitude 7390 2-in-1", "Black", 14, 35, 7);
+
+    // Check if the product is found and print details
+    if (product != null) {
+        System.out.println(product);
+    } else {
+        System.out.println("Product not found.");
+    }
+}
+
+
 
 }

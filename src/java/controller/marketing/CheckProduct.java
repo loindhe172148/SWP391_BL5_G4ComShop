@@ -5,31 +5,20 @@
 
 package controller.marketing;
 
-import dal.BrandDao;
-import dal.CPUDAO;
-import dal.CardDAO;
 import dal.ProductDAO;
-import dal.RAMDAO;
-import dal.SupplierDao;
-import entity.Brandname;
-import entity.CPU;
-import entity.Card;
 import entity.Product;
-import entity.RAM;
-import entity.Suppliere;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  *
  * @author LENOVO
  */
-public class Supplier extends HttpServlet {
+public class CheckProduct extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,38 +27,42 @@ public class Supplier extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
- protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+    
+    // Set response content type
     response.setContentType("text/html;charset=UTF-8");
     
-    // Assuming you have already established a connection to the database.
+    // Retrieve form parameters
+    String productName = request.getParameter("name");
+    String productColor = request.getParameter("color");
+    String productCPU = request.getParameter("cpuid");
+    String productCard = request.getParameter("cardid");
+    String productRam = request.getParameter("ramid");
+
+    // Parse IDs for CPU, Card, and RAM
+    int cpuId = Integer.parseInt(productCPU);
+    int cardId = Integer.parseInt(productCard);
+    int ramId = Integer.parseInt(productRam);
+
+    // Initialize the DAO
     ProductDAO productDAO = new ProductDAO();
-    List<Product> productALL = productDAO.getAll();
-    request.setAttribute("productALL", productALL);
 
-    // Assuming you have DAOs for other entities
-    SupplierDao supplierDao = new SupplierDao();
-    List<Suppliere> suppliers = supplierDao.getAllSuppliers();
-    request.setAttribute("suppliers", suppliers);
+    // Get the product details
+    Product product = productDAO.getProductDetail(productName, productColor, cpuId, cardId, ramId);
 
-    BrandDao brandDao = new BrandDao();
-    List<Brandname> listB = brandDao.getBrandnameAccessory();
-    request.setAttribute("listB", listB);
-
-    CardDAO cardDAO = new CardDAO();
-    List<Card> listCa = cardDAO.getCardAccessory();
-    request.setAttribute("listCa", listCa);
-
-    CPUDAO cpuDAO = new CPUDAO();
-    List<CPU> listC = cpuDAO.getCpuAccessory();
-    request.setAttribute("listC", listC);
-
-    RAMDAO ramDAO = new RAMDAO();
-    List<RAM> listR = ramDAO.getRamAccessory();
-    request.setAttribute("listR", listR);
+   
+    if (product != null) {
     
-    // Forward to the JSP page
+    request.setAttribute("message", "Product accepted");
+    request.setAttribute("product", product);
     request.getRequestDispatcher("/view/marketing/Supplier.jsp").forward(request, response);
+} else {
+ 
+    request.setAttribute("errorMessage", "Product not found. Please try again.");
+    request.getRequestDispatcher("/view/marketing/Supplier.jsp").forward(request, response);
+}
+
 }
 
 

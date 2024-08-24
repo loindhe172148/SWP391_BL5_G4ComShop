@@ -26,6 +26,62 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/_all-skins.min.css">
+        
+        <!-- jQuery 2.2.3 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Select2 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/select2/select2.full.min.js"></script>
+        <!-- InputMask -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <!-- date-range-picker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+        <!-- bootstrap color picker -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <!-- bootstrap time picker -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <!-- SlimScroll 1.3.0 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- iCheck 1.0.1 -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/iCheck/icheck.min.js"></script>
+        <!-- FastClick -->
+        <script src="${pageContext.request.contextPath}/assets/plugins/fastclick/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="${pageContext.request.contextPath}/assets/dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="${pageContext.request.contextPath}/assets/dist/js/demo.js"></script>
+         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/daterangepicker/daterangepicker.css">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/datepicker/datepicker3.css">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/iCheck/all.css">
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/colorpicker/bootstrap-colorpicker.min.css">
+        <!-- Bootstrap time Picker -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/timepicker/bootstrap-timepicker.min.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/select2/select2.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/dist/css/skins/_all-skins.min.css">
+        <!-- bootstrap wysihtml5 - text editor -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+        <!-- CK Editor -->
+        <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -50,65 +106,242 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        CPU
-                       
+                          Supplier                     
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">RAM</a></li>
-                        <li class="active">Add</li>
+                        <li><a href="#"></a>Supplier</li>
+                       
                     </ol>
                 </section>
 
 
 <section class="content">
-    <div class="box">
-        <div class="box-header with-border">
-            <div class="box box-info">
-                <div class="box-body">
-                    <form action="addRam" method="post"> <!-- Ensure this matches your servlet's URL pattern -->
 
-                        <!-- Display Success or Failure Message -->
-                        <c:if test="${not empty message}">
-                            <div class="alert alert-info">${message}</div>
-                        </c:if>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-default">
+            <div class="box-header with-border">
+              
+    
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
 
+            <div class="box-body">
+                <h3 class="box-title">Supplier</h3>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label>Name:</label>
-                            <input type="text" name="name" class="form-control my-colorpicker1" required>
+                            <label>Name Supplier</label>
+                            <select class="form-control select2" style="width: 100%;">
+                                <c:forEach items="${suppliers}" var="supplier">
+                                    <option value="${supplier.id}">${supplier.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
-                        
-                        <div class="form-group">
-                            <label>Brand:</label>
-                            <input type="text" name="brand" class="form-control my-colorpicker1" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Memory:</label>
-                            <input type="number" name="memory" class="form-control my-colorpicker1" required>
-                        </div>
+                        <!-- /.form-group -->
+                    </div>
 
-                        <div class="form-group">
-                            <label>Speed:</label>
-                            <input type="number" name="speed" class="form-control my-colorpicker1" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Description:</label>
-                            <textarea name="description" class="form-control my-colorpicker1" required></textarea>
-                        </div>
+                    <!-- /.col -->
 
-                        <!-- Buttons -->
-                        <div class="box-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="button" class="btn w-sm btn-light waves-effect" onclick="window.location.href='accessoryRam';">Cancel</button>
-                        </div>  
-                    </form>
+
+                    <!-- /.form-group -->
+
+                    <!-- /.col -->
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Supplydate</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" id="datepicker">
+                            </div>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Supplyprice</label>
+                            <select class="form-control select2" style="width: 100%;">
+                                <option selected="selected">Alabama</option>
+                                <option>Alaska</option>
+                                <option>California</option>
+                            </select>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+
+
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+               <h3 class="box-title">Product</h3>
+<form action="checkProduct" method="POST">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Name</label>
+                <select name="productName" class="form-control select2" style="width: 100%;">
+                    <c:forEach items="${productALL}" var="o">
+                        <option value="${o.id}">${o.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Color</label>
+                <select name="productColor" class="form-control select2" style="width: 100%;">
+                    <c:forEach items="${productALL}" var="o">
+                        <option value="${o.color}">${o.color}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
     </div>
-</section>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>CPU</label>
+                <select name="productCPU" class="form-control select2" style="width: 100%;">
+                    <c:forEach items="${listC}" var="o">
+                        <option value="${o.id}">${o.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Card</label>
+                <select name="productCard" class="form-control select2" style="width: 100%;">
+                    <c:forEach items="${listCa}" var="o">
+                        <option value="${o.id}">${o.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Ram</label>
+                <select name="productRam" class="form-control select2" style="width: 100%;">
+                    <c:forEach items="${listR}" var="o">
+                        <option value="${o.id}">${o.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+    </div>
+    <c:if test="${not empty message}">
+    <div class="alert alert-success">
+        ${message}
+    </div>
+</c:if>
+
+<%-- Error Message --%>
+<c:if test="${not empty errorMessage}">
+    <div class="alert alert-danger">
+        ${errorMessage}
+    </div>
+</c:if>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Check Product</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+                
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Quantity</label>
+                    <select class="form-control select2" style="width: 100%;">
+                      <option selected="selected">Alabama</option>
+                      <option>Alaska</option>
+                      <option>California</option>
+                    </select>
+                  </div>
+                  <!-- /.form-group -->
+                </div>
+                <div class="row">
+    <div class="col-md-12">
+        <button type="button" class="btn btn-info" onclick="checkProductId()">Check Product ID</button>
+    </div>
+</div>
+
+  
+              </div>
+              <div class="box-footer">
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+             
+              
+              
+              
+              <!-- /.row -->
+            </div>
+            <!-- /.box-body -->
+            
+            
+          </div>
+          <!-- /.box -->
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="box-header">
+                <h3 class="box-title">List of Product</h3>
+  
+                
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                  <tr>
+                    <th>Name Supplier</th>
+                    <th>Name Product</th>
+                    <th>Quantity</th>
+                    <th>Supplydate</th>
+                    <th>Total Supplyprice</th>
+                    
+                  </tr>
+                  <tr>
+                    <td>Thai Tinh</td>
+                    <td>Mac PRO 2020</td>
+                    <td>5</td>
+                    <td>23/8/2024</td>
+                    <td>5000</td>
+                  </tr>
+                  
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    
+    </section>
+    <!-- /.content -->
 
                 <!-- /.content -->
             </div>
@@ -317,6 +550,76 @@
                  immediately after the control sidebar -->
             <div class="control-sidebar-bg"></div>
         </div>
+            <script>
+            $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+
+    //Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+    //Datemask2 mm/dd/yyyy
+    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    //Money Euro
+    $("[data-mask]").inputmask();
+
+    //Date range picker
+    $('#reservation').daterangepicker();
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
+    );
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass: 'iradio_minimal-red'
+    });
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass: 'iradio_flat-green'
+    });
+
+    //Colorpicker
+    $(".my-colorpicker1").colorpicker();
+    //color picker with addon
+    $(".my-colorpicker2").colorpicker();
+
+    //Timepicker
+    $(".timepicker").timepicker({
+      showInputs: false
+    });
+  });
+  </script>
+  
+            
+            
         <!-- ./wrapper -->
 
         <!-- jQuery 2.2.3 -->

@@ -19,6 +19,54 @@ public class Product {
     private float originPrice;
    private float salePrice;
    private int productdetailID ; 
+   private String color ; 
+   private int cpuid ; 
+   private int cardid;
+   private int  ramid ;
+
+    public int getProductdetailID() {
+        return productdetailID;
+    }
+
+    public void setProductdetailID(int productdetailID) {
+        this.productdetailID = productdetailID;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getCpuid() {
+        return cpuid;
+    }
+
+    public void setCpuid(int cpuid) {
+        this.cpuid = cpuid;
+    }
+
+    public int getCardid() {
+        return cardid;
+    }
+
+    public void setCardid(int cardid) {
+        this.cardid = cardid;
+    }
+
+    public int getRamid() {
+        return ramid;
+    }
+
+    public void setRamid(int ramid) {
+        this.ramid = ramid;
+    }
+
+    
+ 
+   
 // Getters and setters for these fields
 
     public float getOriginPrice() {
