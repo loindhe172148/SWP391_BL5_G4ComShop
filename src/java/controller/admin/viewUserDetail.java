@@ -60,4 +60,5 @@ public class viewUserDetail extends BaseRequiredAuthenticationController {
         req.getRequestDispatcher("/view/admin/viewUserDetail.jsp").forward(req, resp);
     }
 
+    
 }

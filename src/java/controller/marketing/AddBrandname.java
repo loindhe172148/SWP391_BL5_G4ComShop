@@ -69,3 +69,4 @@ public class AddBrandname extends BaseRequiredAuthenticationController {
     }
 
 }
+

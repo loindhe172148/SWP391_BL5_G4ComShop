@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 public class OrderDAO extends DBContext<Order> {
 
-
     public boolean updateOrderStatus(int orderId, String newStatus) {
         String sql = "UPDATE [Order] SET statusid = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -77,6 +76,7 @@ public class OrderDAO extends DBContext<Order> {
         }
         return 0;
     }
+
     public int getOrderCount(String status, LocalDate startDate, LocalDate endDate) {
         StringBuilder sql = new StringBuilder("SELECT COUNT(*) FROM [Order] WHERE orderdate BETWEEN ? AND ?");
 
@@ -185,7 +185,7 @@ public class OrderDAO extends DBContext<Order> {
         }
         return orders;
     }
-    
+
     public void placeOrder(int customer_id, double total, String address) {
         int order_id = createOrder(customer_id, total, address);
         createOrderDetail(customer_id, order_id);
@@ -263,18 +263,31 @@ public class OrderDAO extends DBContext<Order> {
     }
 
     public boolean changeStatusOrder(int order_id, String status) {
-        String sql = "update [Order] set statusid = ? where id = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(2, order_id);
-            ps.setString(1, status);
-            int x = ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
         if (status.equals("delivering")) {
-            return checkAvailableInStock(order_id);
-        }
+            if (checkAvailableInStock(order_id)) {
+                String sql = "update [Order] set statusid = ? where id = ?";
+                try {
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setInt(2, order_id);
+                    ps.setString(1, status);
+                    int x = ps.executeUpdate();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                return false;
+            }
+        } else {
+            String sql = "update [Order] set statusid = ? where id = ?";
+            try {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(2, order_id);
+                ps.setString(1, status);
+                int x = ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }      
         return true;
     }
 
@@ -350,7 +363,8 @@ public class OrderDAO extends DBContext<Order> {
         int value = available - quantity;
         return value >= 0;
     }
-    public Order getOrderByID(int order_id){
+
+    public Order getOrderByID(int order_id) {
         UserDBContext db = new UserDBContext();
         String sql = "select * from [Order] where id = ?";
         try {
@@ -376,17 +390,18 @@ public class OrderDAO extends DBContext<Order> {
         }
         return null;
     }
-    public List<Order> findOrderByCustomerNameOrStatusOrOrderdate(String keySearch){
+
+    public List<Order> findOrderByCustomerNameOrStatusOrOrderdate(String keySearch) {
         UserDBContext db = new UserDBContext();
         List<Order> list = new ArrayList();
-        StringBuilder sb = 
-                new StringBuilder("select * from [Order] join [User] on [Order].customerid = [User].id where fullname ");
+        StringBuilder sb
+                = new StringBuilder("select * from [Order] join [User] on [Order].customerid = [User].id where fullname ");
         sb.append("like '%").append(keySearch).append("%' ").append("or orderdate ").append("like '%").append(keySearch).append("%' ");
         sb.append("or statusid ").append("like '%").append(keySearch).append("%' ");
         try {
             PreparedStatement ps = connection.prepareStatement(sb.toString());
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt(1);
                 int customerid = rs.getInt(2);
                 java.util.Date date = rs.getDate(3);

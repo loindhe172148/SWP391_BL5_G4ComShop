@@ -61,4 +61,5 @@ public class adminUserList extends BaseRequiredAuthenticationController {
         req.getRequestDispatcher("/view/admin/adminHome.jsp").forward(req, resp);
     }
 
+    
 }

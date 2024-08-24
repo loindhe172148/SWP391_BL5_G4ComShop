@@ -321,3 +321,4 @@ public class MarketingAddProduct extends BaseRequiredAuthenticationController {
     }
     
 }
+

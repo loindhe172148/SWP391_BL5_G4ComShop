@@ -253,19 +253,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Customer Manage</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Monthly Revenue</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Top 5 Customers</a></li>
-                                <li><a href="#">Top 5 product</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="adminUserList"><i class="fa-solid fa-user"></i> <span>User list</span></a></li>                        
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -301,7 +289,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <label>Password</label>
                                         <input type="password" name="password"/>
                                     </div>
-                                    
+
                                     <div class="input-box">
                                         <label>Full name</label>
                                         <input type="text" name="fullname"/>
@@ -337,14 +325,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <option value="sale">Sale</option>
                                         </select>
                                     </div>
-                                    
+
                                     <div class="button-box">
                                         <button><i class="fa-solid fa-plus"></i> Create a new account</button>
                                     </div>
                                     <p style="font-size: 18px;color: red">${errorSignup}</p>
                                     <p style="font-size: 18px;color: green">${successMessage}</p>
                                 </form>
-                                
+
                             </div>
 
                         </div>
@@ -464,8 +452,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  fixed layout. -->
     </body>
     <script>
-        function back(){
-            location.href = "adminUserList";
-        }
+                                function back() {
+                                    location.href = "adminUserList";
+                                }
     </script>
 </html>

@@ -94,48 +94,7 @@
     </head>
     <body>
         <!-- HEADER -->
-        <header>
-            <div style="background-color: #1a1818;" id="top-header">
-                <div class="container">
-                    <div class="header-logo">
-                        <a href="/SWP391_BL5_G4ComShop/productHome" class="logo">
-                            <img src="${pageContext.request.contextPath}/assets/electro/img/Screenshot 2024-08-18 035922.png" alt="">
-                        </a>
-                    </div>
-                    <ul style="margin-top: 10px"  class="header-links pull-right">
-                        <li><a style="font-size: 20px" href="/SWP391_BL5_G4ComShop/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i style="font-size: 20px" class="fa fa-user-o"></i>
-                                <span style="font-size: 20px;">My Account</span> <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">View profile</a></li>
-                                <li><a href="CartController">My Cart</a></li>
-                                <li><a href="#" onclick="openModal('changePassModal')">Change Pass</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div> 
-            <style>
-                .dropdown-menu {
-                    min-width: 120px;
-                    background: black;
-                }
-
-                .dropdown-menu li a {
-                    padding: 10px 20px;
-                    display: block;
-                }
-
-                .dropdown-menu li a:hover {
-                    background-color: #f8f9fa;
-                    color: #343a40;
-                }
-            </style>
-            <!-- /MAIN HEADER -->
-        </header>
+        <jsp:include page="../../include/header-bar.jsp" />
         <!-- /HEADER -->
 
         <!-- NAVIGATION -->
@@ -144,7 +103,7 @@
             <div class="container">
                 <!-- responsive-nav -->
                 <div id="responsive-nav">
-                    <h1>Your Shopping Cart</h1>
+                    <h1 style="margin-top: 10px; text-align: center;">Your Shopping Cart</h1>
                 </div>
                 <!-- /responsive-nav -->
             </div>

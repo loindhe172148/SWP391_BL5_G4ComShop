@@ -68,3 +68,4 @@ public class ChangePasswordController extends BaseRequiredAuthenticationControll
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
     }
 }
+

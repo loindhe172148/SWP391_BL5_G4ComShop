@@ -28,3 +28,4 @@ public class AccessoryBrandname extends BaseRequiredAuthenticationController {
             req.getRequestDispatcher("/view/marketing/Bandnameview.jsp").forward(req, resp);
     }
 }
+

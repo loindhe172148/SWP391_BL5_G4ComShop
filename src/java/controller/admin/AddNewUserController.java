@@ -175,4 +175,5 @@ public class AddNewUserController extends BaseRequiredAuthenticationController {
         req.getRequestDispatcher("/view/admin/AddUserAdmin.jsp").forward(req, resp);
     }
 
+    
 }

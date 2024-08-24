@@ -19,7 +19,7 @@ public class UserDBContext extends DBContext<User> {
         ArrayList<User> users = new ArrayList<>();
         try {
             String sql = "select * from [User]\n"
-                    + "where accid != (select id as[bb] from [Account] where role ='admin')";
+                    + "where accid not in (select id as[bb] from [Account] where role ='admin')";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -211,7 +211,7 @@ public class UserDBContext extends DBContext<User> {
 
     public List<User> findUserByEmailOrPhone(String key) {
         List<User> list = new ArrayList();
-        StringBuilder sql = new StringBuilder("select * from [User] where accid != (select id as[bb] from [Account] where role ='admin') and gmail like ");
+        StringBuilder sql = new StringBuilder("select * from [User] where accid not in (select id as[bb] from [Account] where role ='admin') and gmail like ");
         sql.append(" '%").append(key).append("%' ");
         sql.append("or phone like '%").append(key).append("%' ");
         try {
@@ -294,3 +294,4 @@ public class UserDBContext extends DBContext<User> {
         System.out.println(u.getName());
     }
 }
+

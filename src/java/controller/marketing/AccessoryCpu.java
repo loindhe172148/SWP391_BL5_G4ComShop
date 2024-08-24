@@ -57,3 +57,4 @@ public class AccessoryCpu extends BaseRequiredAuthenticationController {
     }
 
 }
+

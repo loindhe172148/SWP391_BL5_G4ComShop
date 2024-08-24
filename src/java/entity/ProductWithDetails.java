@@ -30,3 +30,4 @@ public class ProductWithDetails {
         this.productDetails = productDetails;
     }
 }
+

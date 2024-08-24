@@ -28,3 +28,4 @@ public class ProductDetailDAO extends DBContext<ProductDetail> {
     }
 
 }
+

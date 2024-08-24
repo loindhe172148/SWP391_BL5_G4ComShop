@@ -312,7 +312,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <td>${o.orderdate}</td>
                                                 <td>${o.totalamount}</td>
                                                 <td>${o.shippingaddress}</td>
-                                                <td style="color: ${o.statusid == 'declined' ?'red':'green'};font-weight: 700;">
+                                                <td style="color: ${o.statusid == 'delivered' ?'green':'red'};font-weight: 700;">
                                                     <c:if test="${o.statusid =='processing'}">
                                                         <a href="#" class="btn btn-danger" onclick="changeStatus(${o.id},'declined')">Decline</a>
                                                         <a href="#" class="btn btn-success" onclick="changeStatus(${o.id},'delivering')">Approved</a>

@@ -245,19 +245,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Customer Manage</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Monthly Revenue</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Top 5 Customers</a></li>
-                                <li><a href="#">Top 5 product</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="adminUserList"><i class="fa-solid fa-user"></i> <span>User list</span></a></li>                        
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -336,7 +324,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <input type="text" readonly class="form-control" id="inputPassword" value="${requestScope.user1.account.password}">
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-3 row">
                                     <label for="role" class="col-sm-2 col-form-label">Role</label>
                                     <div class="col-sm-10">
@@ -345,7 +333,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <option value="sale" ${requestScope.user1.account.role == 'sale'?'selected':''}>Sale</option>
                                             <option value="marketing" ${requestScope.user1.account.role == 'marketing'?'selected':''}>Marketing</option>
                                         </select>
-                                       
+
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -357,9 +345,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         </select>
                                     </div>
                                 </div>
-                                        <button id="button-add" style="background: #00c0ef;border-color:#00c0ef;border-radius: 3px;padding: 10px 5px;
-                                            color: black; font-weight: 600" >
-                        <i class="fa-solid fa-floppy-disk"></i> Save change</button>
+                                <button id="button-add" style="background: #00c0ef;border-color:#00c0ef;border-radius: 3px;padding: 10px 5px;
+                                        color: black; font-weight: 600" >
+                                    <i class="fa-solid fa-floppy-disk"></i> Save change</button>
                             </form>
                         </div>
                         <a href="adminUserList" class="btn btn-secondary mt-3">Back to User List</a>

@@ -59,3 +59,4 @@ public class SaleDashboard extends BaseRequiredAuthenticationController {
     }
 
 }
+

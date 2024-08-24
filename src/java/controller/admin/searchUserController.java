@@ -84,4 +84,5 @@ public class searchUserController extends BaseRequiredAuthenticationController {
         resp.getWriter().print(json);
     }
 
+    
 }

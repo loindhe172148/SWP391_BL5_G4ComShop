@@ -75,3 +75,4 @@ public class SaleOrderController extends BaseRequiredAuthenticationController {
     }
 
 }
+

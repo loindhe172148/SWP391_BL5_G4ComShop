@@ -347,3 +347,4 @@ public class MarketingProductDetails extends BaseRequiredAuthenticationControlle
         processRequest(req, resp);
     }
 }
+

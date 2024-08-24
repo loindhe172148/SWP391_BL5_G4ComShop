@@ -60,3 +60,4 @@ public class DeleteCPU extends BaseRequiredAuthenticationController {
     }
 
 }
+

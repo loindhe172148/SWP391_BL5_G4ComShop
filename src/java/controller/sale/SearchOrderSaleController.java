@@ -77,3 +77,4 @@ public class SearchOrderSaleController extends BaseRequiredAuthenticationControl
     }
 
 }
+

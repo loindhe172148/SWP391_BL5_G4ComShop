@@ -47,4 +47,5 @@ public class CartController extends BaseRequiredAuthenticationController {
 
         req.getRequestDispatcher("/view/customer/cart.jsp").forward(req, resp);
     }
+    
 }

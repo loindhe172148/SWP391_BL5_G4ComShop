@@ -75,6 +75,7 @@ public class MyOrderController extends HttpServlet {
 
         request.getRequestDispatcher("/view/customer/MyOrder.jsp").forward(request, response);
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -116,3 +117,4 @@ public class MyOrderController extends HttpServlet {
     }// </editor-fold>
 
 }
+

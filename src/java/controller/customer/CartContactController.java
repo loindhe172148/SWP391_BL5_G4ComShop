@@ -57,4 +57,5 @@ public class CartContactController extends BaseRequiredAuthenticationController 
         // Forward the request to the JSP page to display the cart details
         req.getRequestDispatcher("/view/customer/cartContact.jsp").forward(req, resp);
     }
+    
 }

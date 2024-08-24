@@ -70,3 +70,4 @@ public class AccessoryCard extends BaseRequiredAuthenticationController {
     }
 
 }
+

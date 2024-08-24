@@ -28,3 +28,4 @@ public class ProductTypeDAO extends DBContext<ProductType> {
     }
     
 }
+

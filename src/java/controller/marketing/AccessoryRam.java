@@ -66,3 +66,4 @@ public class AccessoryRam extends BaseRequiredAuthenticationController {
     }
 
 }
+

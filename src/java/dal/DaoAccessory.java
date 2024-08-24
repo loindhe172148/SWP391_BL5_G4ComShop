@@ -319,3 +319,4 @@ public class DaoAccessory extends DBContext<Accessory> {
         return accessory;
     }
 }
+

@@ -45,6 +45,7 @@ function changeStatus(id, status){
            'status':status
         }),
         success: function (response){
+            console.log(response.code);
             if(response.code === '00'){
                 location.reload();
             }else{

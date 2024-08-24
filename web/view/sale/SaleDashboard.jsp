@@ -284,8 +284,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <div class="inner">
                                 <p>Total Products</p>
                                 <h3>${db.getProductCount()}</h3>
-                                <p>Top products with the most successful orders: ${db.getTopSuccessProduct()}</p>
-                                <p>Top products with the most cancel orders: ${db.getTopCancelProduct()}</p>
+                                <p>Top products with the most successful orders: 
+                                    <span style="color: black">${db.getTopSuccessProduct()}</span></p>
+                                <p>Top products with the most cancel orders:
+                                    <span style="color: black"> ${db.getTopCancelProduct()}</span></p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-bag"></i>
@@ -317,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <p>Delivering: ${db.getTotalOrderDelivering()}</p>
                                     <p>Declined: ${db.getTotalOrderDeclined()}</p>
                                     <p>Cancel: ${db.getTotalOrderCancel()}</p>
-                                    <p>Success: ${db.getTotalOrderSuccess ()}</p>
+                                    <p>Delivered: ${db.getTotalOrderSuccess ()}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-ios-cart-outline"></i>

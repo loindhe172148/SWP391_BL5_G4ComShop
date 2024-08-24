@@ -81,3 +81,4 @@ public class AddCPU extends BaseRequiredAuthenticationController {
     }
 
 }
+

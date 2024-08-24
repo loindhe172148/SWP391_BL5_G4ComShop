@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <!-- /.row -->
                                     </li>
                                     <!-- Menu Footer-->
-                                   <li class="user-footer">
+                                    <li class="user-footer">
                                         <div class="pull-right">
                                             <a href="/SWP391_BL5_G4ComShop/logout" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
@@ -242,19 +242,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Customer Manage</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Monthly Revenue</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Top 5 Customers</a></li>
-                                <li><a href="#">Top 5 product</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="adminUserList"><i class="fa-solid fa-user"></i> <span>User list</span></a></li>                        
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -333,7 +321,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <input type="text" readonly class="form-control" id="inputPassword" value="${requestScope.user1.account.password}">
                                     </div>
                                 </div>
-                                
+
                                 <div class="mb-3 row">
                                     <label for="role" class="col-sm-2 col-form-label">Role</label>
                                     <div class="col-sm-10">
@@ -346,8 +334,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <input type="text" readonly class="form-control" id="status" value="${requestScope.user1.status}">
                                     </div>
                                 </div>
-                                
-                                
+
+
                             </div>
                         </div>
                         <a href="adminUserList" class="btn btn-secondary mt-3">Back to User List</a>

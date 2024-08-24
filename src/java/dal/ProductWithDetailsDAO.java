@@ -3,8 +3,6 @@ package dal;
 import entity.Product;
 import entity.ProductDetail;
 import entity.ProductWithDetails;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

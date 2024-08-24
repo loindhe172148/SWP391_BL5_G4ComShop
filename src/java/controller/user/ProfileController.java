@@ -102,3 +102,4 @@ public class ProfileController extends HttpServlet {
         return "Handles profile update requests.";
     }
 }
+

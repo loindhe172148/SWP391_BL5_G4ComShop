@@ -114,4 +114,5 @@ public class AddToCartController extends BaseRequiredAuthenticationController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         processRequest(req, resp);
     }
+    
 }

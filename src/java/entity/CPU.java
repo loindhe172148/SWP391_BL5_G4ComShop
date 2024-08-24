@@ -59,3 +59,4 @@ public class CPU {
         this.description = description;
     }
 }
+
