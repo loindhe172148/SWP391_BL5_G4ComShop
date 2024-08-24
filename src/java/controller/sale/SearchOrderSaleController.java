@@ -7,23 +7,27 @@ package controller.sale;
 
 import controller.user.BaseRequiredAuthenticationController;
 import dal.OrderDAO;
+import dal.UserDBContext;
 import entity.Account;
 import entity.Order;
+import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
  *
  * @author hbtth
  */
-public class SaleOrderController extends BaseRequiredAuthenticationController {
+public class SearchOrderSaleController extends BaseRequiredAuthenticationController {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -33,10 +37,10 @@ public class SaleOrderController extends BaseRequiredAuthenticationController {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SaleOrderController</title>");  
+            out.println("<title>Servlet SearchOrderSaleController</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SaleOrderController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SearchOrderSaleController at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -44,34 +48,32 @@ public class SaleOrderController extends BaseRequiredAuthenticationController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
-        StringBuilder sb = new StringBuilder();
-        BufferedReader reader = req.getReader();
-        String line;
-        while((line = reader.readLine()) != null){
-            sb.append(line);
-        }
-        JSONObject json = new JSONObject(sb.toString());
-        int orderId = json.getInt("id");
-        String status = json.getString("status");
-        OrderDAO db = new OrderDAO();
-        json.clear();
-        boolean check = db.changeStatusOrder(orderId, status);
-        if(check){
-            json.put("code", "00");
-            json.put("message", status);
-        }else{
-            json.put("code", "01");
-            json.put("message", "Can't approved this order because have a product which is't enough quantity in stock");
-        }
-        resp.getWriter().print(json);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
+        String key = req.getParameter("searchkey");
         OrderDAO db = new OrderDAO();
-        List<Order> list = db.getListOrder();
-        req.setAttribute("listOrder", list);
-        req.getRequestDispatcher("/view/sale/SaleOrderList.jsp").forward(req, resp);
+        List<Order> list = db.findOrderByCustomerNameOrStatusOrOrderdate(key);
+        JSONObject json = new JSONObject();
+        
+        JSONArray j = new JSONArray();
+        
+        
+        for(Order i : list){
+            Map<String,String> map = new HashMap<>();
+            map.put("ID", i.getId()+"");
+            map.put("customername", i.getUser().getName());
+            map.put("orderdate", i.getOrderdate().toString());
+            map.put("total", i.getTotalamount()+"");
+            map.put("address", i.getShippingaddress());
+            map.put("status", i.getStatusid());
+            j.put(map);
+        }
+        json.putOnce("orders", j);
+        
+        resp.getWriter().print(json);
     }
 
 }

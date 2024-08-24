@@ -256,19 +256,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Customer Manage</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Monthly Revenue</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Top 5 Customers</a></li>
-                                <li><a href="#">Top 5 product</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="dashboard"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
+                        <li><a href="order"><i class="fa-solid fa-file-invoice"></i> <span>Manage order</span></a></li>
+
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -288,9 +278,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Main content -->
 
                 <section class="content">
-
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <p>Total Products</p>
+                                <h3>${db.getProductCount()}</h3>
+                                <p>Top products with the most successful orders: ${db.getTopSuccessProduct()}</p>
+                                <p>Top products with the most cancel orders: ${db.getTopCancelProduct()}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                        <!-- small box -->
+                        <div class="small-box bg-green">
+                            <div class="inner">
+                                <p>Total Customer</p>
+                                <h3>${db.getTotalCustomer()}</h3>
+                                <p>Top the most purchase Customers : ${db.getTopUser()}</p>
+              
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-bag"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xs-6">
+                            <!-- small box -->
+                            <div class="small-box bg-yellow">
+                                <div class="inner">
+                                    <p>Total Order</p>
+                                    <h3>${db.getTotalOrder()}</h3>
+                                    <p>Processing: ${db.getTotalOrderProcessing()}</p>
+                                    <p>Delivering: ${db.getTotalOrderDelivering()}</p>
+                                    <p>Declined: ${db.getTotalOrderDeclined()}</p>
+                                    <p>Cancel: ${db.getTotalOrderCancel()}</p>
+                                    <p>Success: ${db.getTotalOrderSuccess ()}</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="ion ion-ios-cart-outline"></i>
+                                </div>
+                                
+                            </div>
+                        </div>
                     <!-- Your Page Content Here -->
-                   
+
                 </section>
 
 

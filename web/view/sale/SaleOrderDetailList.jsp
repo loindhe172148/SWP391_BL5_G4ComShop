@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
-
-<%@page import="entity.User"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="entity.*"%>
 <%@page import="entity.Account"%>
 <%@page import="entity.Product"%>
 <%@page import="java.util.Map"%>
@@ -256,19 +256,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Customer Manage</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Monthly Revenue</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Top 5 Customers</a></li>
-                                <li><a href="#">Top 5 product</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="dashboard"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
+                        <li><a href="order"><i class="fa-solid fa-file-invoice"></i> <span>Manage order</span></a></li>
+                        
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -279,21 +269,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-
-                    </h1>
-
+                    
                 </section>
 
                 <!-- Main content -->
-
                 <section class="content">
-
-                    <!-- Your Page Content Here -->
-                   
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Order Detail</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">                                    
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Customer name</th>
+                                                <th>Product name</th>
+                                                <th>Image</th>
+                                                <th>Price</th>
+                                                <th>Quantity</th>
+                                                <th>Address</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                       
+                                            <c:forEach items="${order.listOrderProduct}" var="o">
+                                                <tr>
+                                                    <td>${order.id}</td>
+                                                    <td>${order.user.name}</td>
+                                                    <td>${o.productdetails.product.name}</td>
+                                                    <td><img src="${pageContext.request.contextPath}\assets\electro\img/${o.productdetails.product.image}" alt="alt" 
+                                                             style="width: 100px; height: 70px; "/></td>
+                                                    <td>${o.price}</td>
+                                                    <td>${o.quantity}</td>
+                                                    <td>${order.shippingaddress}</td>
+                                                    <td style="color: ${order.statusid == 'declined' ?'red':'green'};font-weight: 700;">                                   
+                                                        ${order.statusid}
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                    <a href="order" class="btn btn-secondary mt-3">Back to Order</a>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
                 </section>
-
-
                 <!-- /.content -->
             </div>
             <!-- /.content-wrapper -->

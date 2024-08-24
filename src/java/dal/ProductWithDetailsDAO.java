@@ -328,5 +328,16 @@ public class ProductWithDetailsDAO extends DBContext<ProductWithDetails> {
         }
         return 0;
     }
-            
+    public void changeQuantity(int id, int quantity){
+        String sql = "UPDATE ProductDetail set quantity = ? where id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, quantity);
+            ps.setInt(2, id);
+            int x = ps.executeUpdate();
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(ProductWithDetailsDAO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }        
+    
 }

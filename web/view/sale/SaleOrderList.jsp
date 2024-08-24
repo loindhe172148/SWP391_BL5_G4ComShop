@@ -1,8 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 
-<%@page import="entity.User"%>
+<%@page import="entity.*"%>
 <%@page import="entity.Account"%>
 <%@page import="entity.Product"%>
 <%@page import="java.util.Map"%>
@@ -256,19 +257,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="sidebar-menu">
                         <li class="header">Menu</li>
                         <!-- Optionally, you can add icons to the links -->
-                        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Customer Manage</span></a></li>
-                        <li><a href="#"><i class="fa fa-link"></i> <span>Monthly Revenue</span></a></li>
-                        <li class="treeview">
-                            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
-                                <span class="pull-right-container">
-                                    <i class="fa fa-angle-left pull-right"></i>
-                                </span>
-                            </a>
-                            <ul class="treeview-menu">
-                                <li><a href="#">Top 5 Customers</a></li>
-                                <li><a href="#">Top 5 product</a></li>
-                            </ul>
-                        </li>
+                        <li class="active"><a href="dashboard"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
+                        <li><a href="order"><i class="fa-solid fa-file-invoice"></i> <span>Manage order</span></a></li>
+                        
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -290,7 +281,57 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <section class="content">
 
                     <!-- Your Page Content Here -->
-                   
+                    <div id="customerManage" class="mt-5">
+                        <h2 class="text-center text-primary mb-4">Order List</h2>
+                        <p class="text-center mb-4">Manage all orders here. Below is the list orders of users.</p>
+                        <div class="search-bar" style="margin-bottom: 10px"><i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search..." id="search-input"></div>
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-header">
+                                <i class="fa-solid fa-file-invoice"></i> Order List
+                            </div>
+
+                            <div class="card-body">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Customer name</th>
+                                            <th>Order Date</th>
+                                            <th>Total Amount</th>
+                                            <th>Shipping Address</th>
+                                            <th>Status</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>                                       
+                                        <c:forEach items="${listOrder}" var="o">
+                                            <tr>
+                                                <td>${o.id}</td>
+                                                <td>${o.user.name}</td>
+                                                <td>${o.orderdate}</td>
+                                                <td>${o.totalamount}</td>
+                                                <td>${o.shippingaddress}</td>
+                                                <td style="color: ${o.statusid == 'declined' ?'red':'green'};font-weight: 700;">
+                                                    <c:if test="${o.statusid =='processing'}">
+                                                        <a href="#" class="btn btn-danger" onclick="changeStatus(${o.id},'declined')">Decline</a>
+                                                        <a href="#" class="btn btn-success" onclick="changeStatus(${o.id},'delivering')">Approved</a>
+                                                    </c:if>
+                                                    <c:if test="${o.statusid !='processing'}">
+                                                        ${o.statusid}
+                                                    </c:if>
+                                                </td>
+                                                <td><a href="orderdetail?id=${o.id}"
+                                                   class="btn btn-info btn-sm">View Details</a></td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <a href="dashboard" class="btn btn-secondary mt-3">Back to dashboard</a>
                 </section>
 
 
@@ -401,6 +442,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  Both of these plugins are recommended to enhance the
                  user experience. Slimscroll is required when using the
                  fixed layout. -->
+        <script src="${pageContext.request.contextPath}/assets/dist/js/sale.js"></script>
     </body>
 
 </html>
