@@ -303,7 +303,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               
                             </div>
                             <div class="icon">
-                                <i class="ion ion-bag"></i>
+                                <i class="ion ion-person-add"></i>
                             </div>
                         </div>
                     </div>
