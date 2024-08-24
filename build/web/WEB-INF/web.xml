@@ -135,7 +135,6 @@
         <servlet-class>controller.marketing.MarketingProductDetails</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>MyOrderController</servlet-name>
         <servlet-class>controller.customer.MyOrderController</servlet-class>
     </servlet>
@@ -154,6 +153,10 @@
     <servlet>
         <servlet-name>SaleOrderDetail</servlet-name>
         <servlet-class>controller.sale.SaleOrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReOrderController</servlet-name>
+        <servlet-class>controller.customer.ReOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FillterAccessory</servlet-name>
@@ -310,6 +313,10 @@
     <servlet-mapping>
         <servlet-name>SaleOrderDetail</servlet-name>
         <url-pattern>/sale/orderdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReOrderController</servlet-name>
+        <url-pattern>/customer/reorder</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>productHome</welcome-file>

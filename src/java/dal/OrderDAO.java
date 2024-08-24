@@ -291,12 +291,20 @@ public class OrderDAO extends DBContext<Order> {
         return true;
     }
 
-    public List<Order> getListOrder() {
+    public List<Order> getListOrder(int pageNumber, int pageSize, String status) {
         UserDBContext db = new UserDBContext();
         List<Order> list = new ArrayList();
-        String sql = "select * from [Order]";
+        StringBuilder sql = new StringBuilder("select * from [Order] where ");
+        if(status.equals("")){
+            sql.append("1 = 1 ");
+        }else{
+            sql.append("statusid = '").append(status).append("' ");
+        }
+        sql.append("ORDER BY id OFFSET ? ROWS FETCH NEXT ? ROWS ONLY");
         try {
-            PreparedStatement ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql.toString());
+            ps.setInt(1, (pageNumber - 1) * pageSize);
+            ps.setInt(2, pageSize);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -419,5 +427,42 @@ public class OrderDAO extends DBContext<Order> {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return list;
+    }
+    public int getTotalOrder(){
+        String sql = "SELECT COUNT(*) FROM [Order]";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public static void main(String[] args) {
+        OrderDAO db = new OrderDAO();
+        db.getListOrder(1, 5, "declined");
+    }
+    public void reOrder(Order order, int customerId){
+        int neworderid = createOrder(customerId, order.getTotalamount(), order.getShippingaddress());
+        for(OrderProduct i : order.getListOrderProduct()){
+            createOrderDetail(i, neworderid);
+        }
+    }
+    private void createOrderDetail(OrderProduct o, int order_id) {
+        String sql = "INSERT INTO [dbo].[OrderProduct]([orderid],[productid],[price],[quantity])VALUES(?,?,?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, order_id);
+            ps.setInt(2, o.getProductid());
+            ps.setDouble(3, o.getPrice());
+            ps.setInt(4, o.getQuantity());
+            int x = ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

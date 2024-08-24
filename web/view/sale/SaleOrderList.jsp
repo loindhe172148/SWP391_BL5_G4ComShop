@@ -259,7 +259,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- Optionally, you can add icons to the links -->
                         <li class="active"><a href="dashboard"><i class="fa-solid fa-gauge"></i> <span>Dashboard</span></a></li>
                         <li><a href="order"><i class="fa-solid fa-file-invoice"></i> <span>Manage order</span></a></li>
-                        
+
                     </ul>
                     <!-- /.sidebar-menu -->
                 </section>
@@ -279,7 +279,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Main content -->
 
                 <section class="content">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link ${status==''?'active':''}" aria-current="page" href="order">All</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${status=='canceled'?'active':''}" href="order?status=canceled">Cancel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${status=='rejected'?'active':''}" href="order?status=declined">Rejected</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${status=='processing'?'active':''}" href="order?status=processing">Processing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${status=='accepted'?'active':''}" href="order?status=accepted">Accepted</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${status=='delivering'?'active':''}" href="order?status=delivering">On shipping</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ${status=='delivered'?'active':''}" href="order?status=delivered">Delivered</a>
+                        </li>
 
+                    </ul>
                     <!-- Your Page Content Here -->
                     <div id="customerManage" class="mt-5">
                         <h2 class="text-center text-primary mb-4">Order List</h2>
@@ -312,17 +335,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <td>${o.orderdate}</td>
                                                 <td>${o.totalamount}</td>
                                                 <td>${o.shippingaddress}</td>
-                                                <td style="color: ${o.statusid == 'delivered' ?'green':'red'};font-weight: 700;">
-                                                    <c:if test="${o.statusid =='processing'}">
-                                                        <a href="#" class="btn btn-danger" onclick="changeStatus(${o.id},'declined')">Decline</a>
-                                                        <a href="#" class="btn btn-success" onclick="changeStatus(${o.id},'delivering')">Approved</a>
-                                                    </c:if>
-                                                    <c:if test="${o.statusid !='processing'}">
-                                                        ${o.statusid}
-                                                    </c:if>
+                                                <td style="color: ${o.statusid == 'delivered' ?'green':'red'};font-weight: 700;">       
+                                                    <c:choose>
+                                                        <c:when test="${o.statusid =='processing'}">
+                                                            <a href="#" class="btn btn-danger" onclick="changeStatus(${o.id}, 'rejected')">Rejected</a>
+                                                            <a href="#" class="btn btn-success" onclick="changeStatus(${o.id}, 'accepted')">Accepted</a>
+                                                        </c:when>
+                                                        <c:when test="${o.statusid =='accepted'}">
+                                                            <a href="#" class="btn btn-success" onclick="changeStatus(${o.id}, 'delivering')">Confirm prepared product</a>
+                                                        </c:when>
+                                                        <c:when test="${o.statusid =='delivering'}">
+                                                            <span style="color:green">Delivering</span>                               
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            ${o.statusid}
+                                                        </c:otherwise>
+                                                    </c:choose> 
                                                 </td>
                                                 <td><a href="orderdetail?id=${o.id}"
-                                                   class="btn btn-info btn-sm">View Details</a></td>
+                                                       class="btn btn-info btn-sm">View Details</a></td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>
@@ -330,6 +361,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                             </div>
                         </div>
+                    </div>
+                    <div class="pagination">
+                        <c:if test="${pageNumber > 1}">
+                            <a href="order?page=${pageNumber - 1}&status=${status}" class="page-link"><button>&laquo; </button></a>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="order?page=${i}&status=${status}" class="page-link ${i == pageNumber ? 'active' : ''}"><button >${i}</button></a>
+                            </c:forEach>
+                            <c:if test="${pageNumber < totalPages}">
+                            <a href="order?page=${pageNumber + 1}&status=${status}" class="page-link"><button> &raquo;</button></a>
+                        </c:if>
                     </div>
                     <a href="dashboard" class="btn btn-secondary mt-3">Back to dashboard</a>
                 </section>

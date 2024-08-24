@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.sale;
 
 import controller.user.BaseRequiredAuthenticationController;
@@ -24,30 +23,30 @@ import org.json.JSONObject;
  * @author hbtth
  */
 public class SaleOrderController extends BaseRequiredAuthenticationController {
-   
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SaleOrderController</title>");  
+            out.println("<title>Servlet SaleOrderController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SaleOrderController at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet SaleOrderController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = req.getReader();
         String line;
-        while((line = reader.readLine()) != null){
+        while ((line = reader.readLine()) != null) {
             sb.append(line);
         }
         JSONObject json = new JSONObject(sb.toString());
@@ -56,10 +55,10 @@ public class SaleOrderController extends BaseRequiredAuthenticationController {
         OrderDAO db = new OrderDAO();
         json.clear();
         boolean check = db.changeStatusOrder(orderId, status);
-        if(check){
+        if (check) {
             json.put("code", "00");
             json.put("message", status);
-        }else{
+        } else {
             json.put("code", "01");
             json.put("message", "Can't approved this order because have a product which is't enough quantity in stock");
         }
@@ -69,10 +68,18 @@ public class SaleOrderController extends BaseRequiredAuthenticationController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp, Account account) throws ServletException, IOException {
         OrderDAO db = new OrderDAO();
-        List<Order> list = db.getListOrder();
+        
+        String status = (req.getParameter("status")!= null ? req.getParameter("status") : "");
+        int pageNumber = Integer.parseInt(req.getParameter("page") != null ? req.getParameter("page") : "1");
+        int pageSize = 5; // Số lượng đơn hàng trên mỗi trang
+        int totalOrders = db.getTotalOrder();
+        int totalPages = (int) Math.ceil((double) totalOrders / pageSize);
+        List<Order> list = db.getListOrder(pageNumber, pageSize,status);
+        req.setAttribute("status", status);
+        req.setAttribute("pageNumber", pageNumber);
+        req.setAttribute("totalPages", totalPages);
         req.setAttribute("listOrder", list);
         req.getRequestDispatcher("/view/sale/SaleOrderList.jsp").forward(req, resp);
     }
 
 }
-

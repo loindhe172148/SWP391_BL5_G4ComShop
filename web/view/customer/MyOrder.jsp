@@ -366,18 +366,10 @@
                                                         <input type="hidden" name="action" value="feedback">
                                                         <button type="submit" class="btn btn-primary btn-sm">Feedback</button>
                                                     </form>
-                                                    <form action="myorder?page=${pageNumber}&sortBy=${sortBy}&order=${order}" method="post" style="display:inline;">
-                                                        <input type="hidden" name="orderId" value="${order.id}">
-                                                        <input type="hidden" name="action" value="reorder">
-                                                        <button type="submit" class="btn btn-secondary btn-sm">Reorder</button>
-                                                    </form>
+                                                    <a href="reorder?id=${order.id}" class="btn btn-info btn-sm">Reorder</a>
                                                 </c:when>
-                                                <c:when test="${order.statusid == 'canceled' || order.statusid == 'rejected' }">
-                                                    <form action="myorder?page=${pageNumber}&sortBy=${sortBy}&order=${order}" method="post" style="display:inline;">
-                                                        <input type="hidden" name="orderId" value="${order.id}">
-                                                        <input type="hidden" name="action" value="reorder">
-                                                        <button type="submit" class="btn btn-secondary btn-sm">Reorder</button>
-                                                    </form>
+                                                <c:when test="${order.statusid == 'canceled' || order.statusid == 'rejected' }">                                                    
+                                                    <a href="reorder?id=${order.id}" class="btn btn-info btn-sm">Reorder</a>
                                                 </c:when>
                                             </c:choose>
                                         </td>

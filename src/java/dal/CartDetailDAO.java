@@ -1,4 +1,5 @@
 package dal;
+
 import entity.CartDetail;
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,17 +11,20 @@ public class CartDetailDAO extends DBContext<CartDetail> {
 
     // Thêm mục vào giỏ hàng
     public boolean addToCart(int productDetailId, int quantity, float price, int customerId) {
-        String sql = "INSERT INTO CartDetail (productDetailId, quantity, price, customerId) VALUES (?, ?, ?, ?)";
-        
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, productDetailId);
-            ps.setInt(2, quantity);
-            ps.setFloat(3, price);
-            ps.setInt(4, customerId);
-            ps.executeUpdate();
-        } catch (SQLException ex) {
-            Logger.getLogger(CartDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+        if (checkAvailbleQuantity(productDetailId, customerId, quantity)) {
+            updateQuantityItemCart(productDetailId, customerId, quantity);
+        } else {
+            String sql = "INSERT INTO CartDetail (productDetailId, quantity, price, customerId) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement ps = connection.prepareStatement(sql)) {
+                ps.setInt(1, productDetailId);
+                ps.setInt(2, quantity);
+                ps.setFloat(3, price);
+                ps.setInt(4, customerId);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(CartDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }            
         }
         return true;
     }
@@ -46,6 +50,47 @@ public class CartDetailDAO extends DBContext<CartDetail> {
         }
         return carts;
     }
+
+    private void updateQuantityItemCart(int productId, int customerid, int val) {
+        String sql = "update CartDetail\n"
+                + "set quantity = quantity + ?\n"
+                + "where productdetailid = ? and customerid = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, val);
+            ps.setInt(2, productId);
+            ps.setInt(3, customerid);
+            int x = ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private int checkExistItemCart(int productId, int customerid) {
+        String sql = "select quantity from [CartDetail] where productdetailid = ? and customerid = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, productId);
+            ps.setInt(2, customerid);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CartDetailDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    private boolean checkAvailbleQuantity(int productId, int customerid, int val){
+        int quantity = checkExistItemCart(productId, customerid);        
+        ProductWithDetailsDAO db = new ProductWithDetailsDAO();
+        if(quantity != 0){
+            int available = db.getQuantity(productId);
+            int result = quantity + val;
+            return result <= available;
+        }
+        return false;
+    }
+    
 }
-
-
