@@ -556,14 +556,7 @@
                                             <div class="product-body">
                                                 <p style="height: 55px" class="product-category">${o.title}</p>
                                                 <h3 style="height: 33px" class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
-                                                <h4 class="product-price">${o.salePrice}<del class="product-old-price">${o.originPrice}</del></h4>
-                                                <div class="product-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
+                                                <h4 class="product-price">${o.salePrice}$<del style="margin-left: 10px" class="product-old-price">${o.originPrice}$</del></h4>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -613,13 +606,9 @@
                                         <div class="product-body">
                                             <p style="height: 55px" class="product-category">${product.title}</p>
                                             <h3 style="height: 33px" class="product-name"><a href="${pageContext.request.contextPath}/productdetails?id=${product.productdetailID}">${product.name}</a></h3>
-                                            <h4 class="product-price">${product.salePrice} <del class="product-old-price">${product.originPrice}</del></h4>
+                                            <h4 class="product-price">${product.salePrice}$<del style="margin-left: 10px" class="product-old-price">${product.originPrice}$</del></h4>
                                             <div class="product-rating">
-                                                <!-- Rating stars can go here -->
                                             </div>
-                                        </div>
-                                        <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -684,7 +673,7 @@
                                                     <p style="height: 55px" class="product-category">${o.title}</p>
                                                     <h3 style="height: 33px" class="product-name"><a href="productdetails?id=${o.productdetailID}">${o.name}</a></h3>
                                                     <h4 class="product-price">
-                                                        ${o.salePrice} <del class="product-old-price">${o.originPrice}</del>
+                                                        ${o.salePrice}$<del style="margin-left: 10px" class="product-old-price">${o.originPrice}$</del>
                                                     </h4>
                                                 </div>
                                             </div>

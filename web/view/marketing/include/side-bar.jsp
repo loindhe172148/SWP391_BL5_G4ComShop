@@ -44,17 +44,13 @@
                     <i class="fa fa-laptop"></i>
                     <span>Product List</span>
                     <span class="pull-right-container">
-                        <span class="label label-primary pull-right">2</span>
+                        <span class="label label-primary pull-right"></span>
                     </span>
                 </a>
-<!--                <ul class="treeview-menu">
-                    <li><a href="productlist"><i class="fa fa-circle-o"></i>All Product</a></li>
-                    <li><a href="formadd"><i class="fa fa-circle-o"></i>Add Product</a></li>
-                </ul>-->
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-"></i>
+                    <i class="fa fa-building"></i>
                     <span>Accessory List</span>
                     <span class="pull-right-container">
                         <span class="label label-primary pull-right">4</span>
@@ -67,55 +63,6 @@
                     <li><a href="accessoryCard"><i class="fa fa-circle-o"></i>CARD List</a></li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="">
-                    <i class="fa fa-user"></i>
-                    <span>Customer List</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">2</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href=""><i class="fa fa-circle-o"></i>All Customers</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i>Add Customer</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="">
-                    <i class="fa fa-files-o"></i>
-                    <span>Order List</span>
-                    <span class="pull-right-container">
-                        <span class="label label-primary pull-right">2</span>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href=""><i class="fa fa-circle-o"></i>All Orders</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i>Add ... </a></li>
-                </ul>
-            </li>
-            
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-pie-chart"></i>
-                    <span>Charts</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> ChartJS</a></li>
-                    <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Morris</a></li>
-                    <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
-                    <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li>
-                </ul>
-            </li>
-
-
-            <li><a href="#"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-            <li class="header">LABELS</li>
-            <!--            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                        <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>-->
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -107,7 +107,7 @@ public class ProductDAO extends DBContext<Product> {
         List<Product> products = new ArrayList<>();
         String sql = "SELECT p.*, pd.originprice, pd.saleprice, pd.id "
                 + "FROM Product p "
-                + "JOIN ProductDetail pd ON p.id = pd.productId "
+                + "JOIN ProductDetail pd ON p.id = pd.productId WHERE p.status = 'Showing'"
                 + "ORDER BY p.id "
                 + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
